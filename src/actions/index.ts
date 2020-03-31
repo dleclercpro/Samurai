@@ -1,6 +1,6 @@
-import { LOGIN_ACTION } from "../types/ActionTypes";
+import { OpenDialog, CloseDialog, ToggleDialog } from "../types/ActionTypes";
 
-export const LoginAction = (user: string) => ({
-    type: LOGIN_ACTION,
-    user
-})
+export type DialogAction = OpenDialog | CloseDialog | ToggleDialog;
+
+// Root action
+export type AppAction = DialogAction;

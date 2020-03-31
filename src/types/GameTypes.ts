@@ -1,11 +1,11 @@
-export interface Size2D {
-    width: number,
-    height: number,
-}
-
 export interface Position2D {
     x: number,
     y: number,
+}
+
+export interface Size2D {
+    width: number,
+    height: number,
 }
 
 export enum Color {
@@ -26,6 +26,15 @@ export enum SpecialTile {
     Boat,
     Switch,
     Move,
+}
+
+export interface BoardTile {
+    coordinates: Position2D,
+    isWater: boolean,
+}
+
+export interface BoardMap {
+    [BoardSection: string]: BoardTile[],
 }
 
 export interface Tile {

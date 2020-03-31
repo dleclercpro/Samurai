@@ -1,0 +1,37 @@
+@import 'config';
+
+$padding-vertical: 16px;
+$padding-horizontal: 24px;
+
+.dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    padding: 0 $padding-horizontal;
+    background: $color-white;
+    border-radius: 4px;
+    @extend %google-box-shadow;
+
+    > .headline {
+        font-size: 32px;
+        font-weight: bold;
+        padding: $padding-vertical 0;
+    }
+
+    > .content {
+        
+        > p {
+            font-size: 22px
+        }
+    }
+
+    > .icon-close {
+        position: absolute;
+        top: $padding-vertical;
+        right: $padding-horizontal;
+        cursor: pointer;
+    }
+}

@@ -1,11 +1,14 @@
-export const LOGIN_ACTION = 'LOGIN_ACTION';
+export const OPEN_DIALOG = 'OPEN_DIALOG';
+export interface OpenDialog {
+    type: typeof OPEN_DIALOG,
+}
 
-export interface LoginAction {
-    type: typeof LOGIN_ACTION,
-    user: string,
-};
+export const CLOSE_DIALOG = 'CLOSE_DIALOG';
+export interface CloseDialog {
+    type: typeof CLOSE_DIALOG,
+}
 
-export type UserAction = LoginAction;
-
-// Root action
-export type AppAction = UserAction;
+export const TOGGLE_DIALOG = 'TOGGLE_DIALOG';
+export interface ToggleDialog {
+    type: typeof TOGGLE_DIALOG,
+}

@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Home from '../pages/Home';
 import Board from './Board';
+import Overlay from './Overlay';
+import Dialog from './Dialog';
 
 interface AppProps {
 
@@ -20,6 +22,11 @@ const App = (props: AppProps) => (
                 </Route>
             </Switch>
         </main>
+        <Overlay>
+            <Dialog headline='Dialog'>
+                <p>This is a test.</p>
+            </Dialog>
+        </Overlay>
     </div>
 );
 

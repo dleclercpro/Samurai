@@ -1,9 +1,8 @@
-export interface UserState {
-    id: number,
-    name: string,
+export interface DialogState {
+    isOpen: boolean,
 }
 
 // Root state
 export interface AppState {
-    user: UserState,
+    dialog: DialogState,
 };

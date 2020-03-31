@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import userReducer from './user';
+import DialogReducer from './DialogReducer';
 import { AppState } from '../types/StateTypes';
 
 const rootReducer = combineReducers<AppState>({
-    user: userReducer,
+    dialog: DialogReducer,
 });
 
 export default rootReducer;

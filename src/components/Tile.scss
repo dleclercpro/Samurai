@@ -1,21 +1,20 @@
-$tile-color-ground: #fbebd4;
-$tile-color-water: #bfefff;
+@import 'config';
 
 .tile {
-    fill: $tile-color-ground;
-    stroke: #000000;
+    fill: $color-ground;
+    stroke: $color-black;
     stroke-width: 12;
+    cursor: pointer;
 
     &:hover {
-        cursor: pointer;
-        fill: darken($color: $tile-color-ground, $amount: 15);
+        fill: darken($color: $color-ground, $amount: 15);
     }
 
     &.tile--water {
-        fill: #bfefff;
+        fill: $color-water;
 
         &:hover {
-            fill: darken($color: $tile-color-water, $amount: 15);
+            fill: darken($color: $color-water, $amount: 15);
         }
     }
 }
