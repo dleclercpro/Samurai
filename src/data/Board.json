@@ -1,6 +1,6 @@
 {
     "North": [
-        { "coordinates": { "x": 0, "y": 3 }, "spaces": ["Samurai"], "isWater": true },
+        { "coordinates": { "x": 0, "y": 3 }, "spaces": ["Military"], "isWater": true },
         { "coordinates": { "x": 0, "y": 4 }, "spaces": [], "isWater": true },
         { "coordinates": { "x": 0, "y": 5 }, "spaces": [], "isWater": true },
         { "coordinates": { "x": 0, "y": 6 }, "spaces": [], "isWater": true },

@@ -1,22 +1,22 @@
 import React, { Dispatch, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import Tile from './Tile';
+import TileComponent from './TileComponent';
 import './Board.scss';
-import { Coordinates2D, Size2D } from '../types/GameTypes';
+import { Coordinates2D, Size2D, Tile, TileMap, Caste } from '../types/GameTypes';
 import { AppAction } from '../actions';
 import { TileJSON, BoardJSON } from '../types/JSONTypes';
 
 interface BoardProps {
     gridSize: Size2D,
     tileSize: Size2D,
-    root: BoardJSON,
     origin: Coordinates2D,
+    data: BoardJSON,
 }
 
 interface BoardState {
     size: Size2D,
-    tiles: TileJSON[],
+    tiles: TileMap,
     tilePath: string,
 }
 
@@ -27,7 +27,7 @@ class Board extends React.Component<BoardProps, BoardState> {
 
         this.state = {
             size: { width: 0, height: 0 },
-            tiles: [],
+            tiles: new Map(),
             tilePath: '',
         };
     }
@@ -40,6 +40,9 @@ class Board extends React.Component<BoardProps, BoardState> {
         });
     }
 
+    /**
+     * Compute board size in pixels, based grid coordinates range and tile size.
+     */
     getSize = (): Size2D => {
         const { gridSize, tileSize } = this.props;
 
@@ -49,23 +52,53 @@ class Board extends React.Component<BoardProps, BoardState> {
         };
     }
 
-    getTiles = (): TileJSON[] => {
-        const { root } = this.props;
-        const tiles = Object.values(root).flat();
+    getTileByCoordinates = (coordinates: Coordinates2D): Tile | undefined => {
+        const { tiles } = this.state;
 
-        // Define neighborhoods
-        tiles.forEach((tile: TileJSON) => {
-            tile.neighbors = this.getTileNeighbors(tile, tiles);
-        })
+        return tiles.get(coordinates);
+    }
+
+    /**
+     * Build a tile map using its corresponding JSON data. Tiles' keys are their
+     * coordinates.
+     */
+    getTiles = (): TileMap => {
+        const { data } = this.props;
+        const rawTiles = Object.values(data).flat();
+        const tiles: TileMap = new Map();
+
+        // Build tile map
+        rawTiles.forEach((rawTile: TileJSON) => {
+            const { coordinates, spaces, isWater } = rawTile;
+            
+            if (tiles.has(coordinates)) {
+                console.error('Trying to add same tile twice.');
+                return;
+            }
+
+            tiles.set(coordinates, {
+                coordinates,
+                neighborhood: [],
+                spaces: this.getTileSpaces(spaces),
+                isWater,
+            });
+        });
+
+        // Build each tile's neighborhood
+        for (let tile of tiles.values()) {
+            tile.neighborhood = this.getTileNeighborhood(tile, tiles);
+        }
 
         return tiles;
     }
 
-    getTileNeighbors = (tile: TileJSON, tiles: TileJSON[]): TileJSON[] => {
-        let neighbors = [];
+    /**
+     * Compute each tile's neighborhood as a list of other tiles' coordinates.
+     */
+    getTileNeighborhood = (tile: Tile, tiles: TileMap): Coordinates2D[] => {
+        let neighborhood = [];
 
-        // Establish tile neighborhood
-        for (const otherTile of tiles) {
+        for (let otherTile of tiles.values()) {
             const x0 = tile.coordinates.x;
             const y0 = tile.coordinates.y;
             const x1 = otherTile.coordinates.x;
@@ -75,22 +108,38 @@ class Board extends React.Component<BoardProps, BoardState> {
             const delta = Math.abs(x0 - x1) + Math.abs(y0 - y1);
 
             if (delta > 0 && delta <= 2) {
-                neighbors.push(otherTile);
+                neighborhood.push(otherTile.coordinates);
             }
         }
 
-        return neighbors;
+        return neighborhood;
+    }
+
+    getTileSpaces = (spaces: String[]): Caste[] => {
+        return spaces.map((space: String) => {
+            switch(space) {
+                case 'Military':
+                    return Caste.Military;
+                case 'Religion':
+                    return Caste.Religion;
+                case 'Commerce':
+                    return Caste.Commerce;
+                default:
+                    console.error('Unknown tile space type.');
+                    return Caste.Unknown;
+            }
+        });
     }
 
     getTileNodes = (): ReactNode[] => {
-        const { tiles, tilePath } = this.state;
+        let { tiles, tilePath } = this.state;
 
-        return tiles.map((tile: TileJSON, index: number) => {
+        return Array.from(tiles.values()).map((tile: Tile, index: number) => {
             const { coordinates, spaces, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
             return (
-                <Tile
+                <TileComponent
                     key={index}
                     position={position}
                     path={tilePath}

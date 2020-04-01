@@ -1,25 +1,25 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Coordinates2D } from '../types/GameTypes';
-import './Tile.scss';
+import { Coordinates2D, Caste } from '../types/GameTypes';
+import './TileComponent.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
 
-interface TileProps {
+interface TileComponentProps {
     position: Coordinates2D, // Position of tile in board (in pixels)
     path: string,            // SVG path of tile
-    spaces: string[],        // Free spaces for caste pieces
+    spaces: Caste[],         // Free spaces for caste pieces
     isWater: boolean,
     
     openDialog: () => void,
 }
 
-interface TileState {
+interface TileComponentState {
     
 }
 
-class Tile extends React.Component<TileProps, TileState> {
+class TileComponent extends React.Component<TileComponentProps, TileComponentState> {
 
     render() {
         const { path, position, spaces, isWater, openDialog } = this.props;
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     openDialog: () => dispatch(openDialog),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tile);
+export default connect(mapStateToProps, mapDispatchToProps)(TileComponent);

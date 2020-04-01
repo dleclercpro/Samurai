@@ -19,8 +19,8 @@ const App = (props: AppProps) => (
                     <Board
                         gridSize={{ width: 14, height: 14 }}
                         tileSize={{ width: 300, height: 260 }}
-                        root={BoardJSON}
                         origin={{ x: 9, y: -16 }}
+                        data={BoardJSON}
                     />
                 </Route>
                 <Route exact path='/home/'>
