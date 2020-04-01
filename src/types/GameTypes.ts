@@ -30,6 +30,7 @@ export enum SpecialTile {
 
 export interface BoardTile {
     coordinates: Position2D,
+    isCity: boolean,
     isWater: boolean,
 }
 

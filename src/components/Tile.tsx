@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Position2D, TileAssignment } from '../types/GameTypes';
+import { Position2D } from '../types/GameTypes';
 import './Tile.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
@@ -17,7 +17,7 @@ interface TileProps {
 }
 
 interface TileState {
-    assignment: TileAssignment | null,    
+    
 }
 
 class Tile extends React.Component<TileProps, TileState> {
@@ -42,11 +42,9 @@ class Tile extends React.Component<TileProps, TileState> {
         const { path, position, isWater, openDialog } = this.props;
 
         return (
-            <polygon
-                className={`tile ${isWater ? 'tile--water' : ''}`}
-                points={path}
-                transform={`translate(${position.x},${position.y})`}
-                onClick={openDialog} />
+            <polygon className={`tile ${isWater ? 'tile--water' : ''}`} points={path} transform={`translate(${position.x},${position.y})`} onClick={openDialog}>
+                
+            </polygon>
         );
     }
 }

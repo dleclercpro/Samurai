@@ -1,25 +1,21 @@
 import React, { Dispatch, Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import { AppState } from '../types/StateTypes';
 import Tile from './Tile';
 import './Board.scss';
 import { Position2D, Size2D, BoardMap, BoardTile } from '../types/GameTypes';
-import BoardJSON from '../data/Board.json';
 import { AppAction } from '../actions';
 
-const BOARD_SIZE: Size2D = { width: 14, height: 14 };
-const TILE_SIZE: Size2D = { width: 300, height: 260 };
-const INIT_POS: Position2D = { x: 9, y: -16 };
-
 interface BoardProps {
-
+    gridSize: Size2D,
+    tileSize: Size2D,
+    map: BoardMap,
+    origin: Position2D,
 }
 
 interface BoardState {
-    map: BoardMap,
-    tilePath: string,
     size: Size2D,
+    tilePath: string,
 }
 
 class Board extends Component<BoardProps, BoardState> {
@@ -28,29 +24,29 @@ class Board extends Component<BoardProps, BoardState> {
         super(props);
 
         this.state = {
-            map: BoardJSON,
-            tilePath: this.getTilePath(TILE_SIZE),
-            size: {
-                width: BOARD_SIZE.width * TILE_SIZE.width,
-                height: BOARD_SIZE.height * TILE_SIZE.height
-            },
+            size: { width: 0, height: 0 },
+            tilePath: '',
         }
     }
 
     componentDidMount() {
-
+        this.setState({
+            size: this.getSize(),
+            tilePath: this.getTilePath(),
+        })
     }
 
-    componentDidUpdate() {
+    getSize = (): Size2D => {
+        const { gridSize, tileSize } = this.props;
 
+        return {
+            width: gridSize.width * tileSize.width,
+            height: gridSize.height * tileSize.height
+        };
     }
 
-    getMap = () => {
-
-    }
-
-    getTilePath = (size: Size2D): string => {
-        const { width, height } = size;
+    getTilePath = (): string => {
+        const { width, height } = this.props.tileSize;
 
         const points = [
             [0, height / 2],
@@ -68,10 +64,14 @@ class Board extends Component<BoardProps, BoardState> {
         }, '');
     }
 
-    getTilePosition = (coordinates: Position2D, size: Size2D): Position2D => {
-        const { width, height } = size;
-        let x = width * (INIT_POS.x + coordinates.x * 0.75);
-        let y = height * (INIT_POS.y + coordinates.y);
+    getTilePosition = (coordinates: Position2D): Position2D => {
+        const { origin, tileSize } = this.props;
+        const { width, height } = tileSize;
+        const x0 = origin.x;
+        const y0 = origin.y;
+
+        let x = width * (x0 + coordinates.x * 0.75);
+        let y = height * (y0 + coordinates.y);
 
         if (coordinates.x % 2 !== 0) {
             y += height / 2;
@@ -81,18 +81,28 @@ class Board extends Component<BoardProps, BoardState> {
     }
 
     render() {
-        const { map, size, tilePath } = this.state;
-        const sections = Object.values(map);
+        const { map } = this.props;
+        const { size, tilePath } = this.state;
+        const { width, height } = size;
 
         return (
-            <svg id='board' viewBox={`0 0 ${size.width} ${size.height}`}>
+            <svg id='board' viewBox={`0 0 ${width} ${height}`}>
                 <g>
-                    {sections.map((section: BoardTile[]) => (
+                    {Object.values(map).map((section: BoardTile[]) => (
                         section.map((tile: BoardTile, index: number) => {
-                            const { coordinates, isWater } = tile;
+                            const { coordinates, isCity, isWater } = tile;
+                            const position = this.getTilePosition(coordinates);
 
                             return (
-                                <Tile key={index} position={this.getTilePosition(coordinates, TILE_SIZE)} path={tilePath} neighbors={[]} size={0} isCity={false} isWater={isWater} />
+                                <Tile
+                                    key={index}
+                                    position={position}
+                                    path={tilePath}
+                                    neighbors={[]}
+                                    size={0}
+                                    isCity={isCity}
+                                    isWater={isWater}
+                                />
                             );
                         })
                     ))}
@@ -110,4 +120,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
 
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Board));
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
