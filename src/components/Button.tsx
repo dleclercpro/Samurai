@@ -2,17 +2,27 @@ import React from 'react';
 import './Button.scss';
 
 interface DialogProps {
-    text: string,
-
+    children: string,
     action: () => void,
 }
 
-const Button: React.FC<DialogProps> = (props) => {
-    const { text, action } = props;
+class Button extends React.Component<DialogProps, {}> {
 
-    return (
-        <button></button>
-    );
+    handleClick = (e: React.MouseEvent): void => {
+        e.stopPropagation();
+
+        this.props.action();
+    }
+
+    render() {
+        const { children } = this.props;
+
+        return (
+            <button className='button' onClick={this.handleClick}>
+                {children}
+            </button>
+        );   
+    }
 }
 
 export default Button;

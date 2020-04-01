@@ -5,6 +5,7 @@ import { closeDialog } from '../actions/DialogActions';
 import { connect } from 'react-redux';
 import { AppAction } from '../actions';
 import { AppState } from '../types/StateTypes';
+import Button from './Button';
 
 interface DialogProps {
     children: ReactNode,
@@ -25,7 +26,7 @@ class Dialog extends React.Component<DialogProps, {}> {
                     {children}
                 </div>
                 <div className='buttons'>
-                    
+                    <Button action={() => {}}>Click me!</Button>
                 </div>
                 <CloseIcon className='icon-close' onClick={closeDialog} />
             </div>

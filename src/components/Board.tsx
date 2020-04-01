@@ -11,6 +11,7 @@ interface BoardProps {
     gridSize: Size2D,
     tileSize: Size2D,
     origin: Coordinates2D,
+    rotation: number,
     data: BoardJSON,
 }
 
@@ -132,6 +133,7 @@ class Board extends React.Component<BoardProps, BoardState> {
     }
 
     getTileNodes = (): ReactNode[] => {
+        const { rotation, tileSize } = this.props;
         let { tiles, tilePath } = this.state;
 
         return Array.from(tiles.values()).map((tile: Tile, index: number) => {
@@ -141,7 +143,9 @@ class Board extends React.Component<BoardProps, BoardState> {
             return (
                 <TileComponent
                     key={index}
+                    size={tileSize}
                     position={position}
+                    rotation={-rotation}
                     path={tilePath}
                     spaces={spaces}
                     isWater={isWater}
@@ -186,11 +190,13 @@ class Board extends React.Component<BoardProps, BoardState> {
     }
 
     render() {
+        const { rotation } = this.props;
         const { width, height } = this.state.size;
+        const transform = `rotate(${rotation})`;
 
         return (
             <svg id='board' viewBox={`0 0 ${width} ${height}`}>
-                <g id='board-tiles'>
+                <g id='board-tiles' transform={transform}>
                     {this.getTileNodes()}
                 </g>
             </svg>

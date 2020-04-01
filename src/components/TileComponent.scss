@@ -18,3 +18,12 @@
         }
     }
 }
+
+.tile-text {
+    font-size: 80px;
+    font-weight: bold;
+    fill: $color-black;
+    dominant-baseline: central;
+    text-anchor: middle;
+    pointer-events: none;
+}

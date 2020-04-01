@@ -1,6 +1,6 @@
 @import 'config';
 
-$padding-vertical: 16px;
+$padding-vertical: 20px;
 $padding-horizontal: 24px;
 
 .dialog {
@@ -32,6 +32,8 @@ $padding-horizontal: 24px;
     }
 
     > .buttons {
+        display: flex;
+        justify-content: flex-end;
         padding: $padding-vertical 0;
     }
 

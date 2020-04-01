@@ -20,6 +20,7 @@ const App = (props: AppProps) => (
                         gridSize={{ width: 14, height: 14 }}
                         tileSize={{ width: 300, height: 260 }}
                         origin={{ x: 9, y: -16 }}
+                        rotation={60}
                         data={BoardJSON}
                     />
                 </Route>

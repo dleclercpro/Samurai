@@ -1,3 +1,18 @@
+@import 'config';
+
 .button {
-    
+    border: none;
+    border-radius: 4px;
+    background: $color-purple;
+    color: $color-white;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+        background: darken($color: $color-purple, $amount: 5);
+    }
 }
