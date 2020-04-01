@@ -1,39 +1,43 @@
-import React, { Dispatch, Component } from 'react';
+import React, { Dispatch, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import Tile from './Tile';
 import './Board.scss';
-import { Position2D, Size2D, BoardMap, BoardTile } from '../types/GameTypes';
+import { Coordinates2D, Size2D } from '../types/GameTypes';
 import { AppAction } from '../actions';
+import { TileJSON, BoardJSON } from '../types/JSONTypes';
 
 interface BoardProps {
     gridSize: Size2D,
     tileSize: Size2D,
-    map: BoardMap,
-    origin: Position2D,
+    root: BoardJSON,
+    origin: Coordinates2D,
 }
 
 interface BoardState {
     size: Size2D,
+    tiles: TileJSON[],
     tilePath: string,
 }
 
-class Board extends Component<BoardProps, BoardState> {
+class Board extends React.Component<BoardProps, BoardState> {
 
     constructor(props: BoardProps) {
         super(props);
 
         this.state = {
             size: { width: 0, height: 0 },
+            tiles: [],
             tilePath: '',
-        }
+        };
     }
 
     componentDidMount() {
         this.setState({
             size: this.getSize(),
+            tiles: this.getTiles(),
             tilePath: this.getTilePath(),
-        })
+        });
     }
 
     getSize = (): Size2D => {
@@ -43,6 +47,58 @@ class Board extends Component<BoardProps, BoardState> {
             width: gridSize.width * tileSize.width,
             height: gridSize.height * tileSize.height
         };
+    }
+
+    getTiles = (): TileJSON[] => {
+        const { root } = this.props;
+        const tiles = Object.values(root).flat();
+
+        // Define neighborhoods
+        tiles.forEach((tile: TileJSON) => {
+            tile.neighbors = this.getTileNeighbors(tile, tiles);
+        })
+
+        return tiles;
+    }
+
+    getTileNeighbors = (tile: TileJSON, tiles: TileJSON[]): TileJSON[] => {
+        let neighbors = [];
+
+        // Establish tile neighborhood
+        for (const otherTile of tiles) {
+            const x0 = tile.coordinates.x;
+            const y0 = tile.coordinates.y;
+            const x1 = otherTile.coordinates.x;
+            const y1 = otherTile.coordinates.y;
+
+            // Neighbor criteria based on sum of coordinates difference
+            const delta = Math.abs(x0 - x1) + Math.abs(y0 - y1);
+
+            if (delta > 0 && delta <= 2) {
+                neighbors.push(otherTile);
+            }
+        }
+
+        return neighbors;
+    }
+
+    getTileNodes = (): ReactNode[] => {
+        const { tiles, tilePath } = this.state;
+
+        return tiles.map((tile: TileJSON, index: number) => {
+            const { coordinates, spaces, isWater } = tile;
+            const position = this.getTilePosition(coordinates);
+
+            return (
+                <Tile
+                    key={index}
+                    position={position}
+                    path={tilePath}
+                    spaces={spaces}
+                    isWater={isWater}
+                />
+            );
+        });
     }
 
     getTilePath = (): string => {
@@ -64,7 +120,7 @@ class Board extends Component<BoardProps, BoardState> {
         }, '');
     }
 
-    getTilePosition = (coordinates: Position2D): Position2D => {
+    getTilePosition = (coordinates: Coordinates2D): Coordinates2D => {
         const { origin, tileSize } = this.props;
         const { width, height } = tileSize;
         const x0 = origin.x;
@@ -81,31 +137,12 @@ class Board extends Component<BoardProps, BoardState> {
     }
 
     render() {
-        const { map } = this.props;
-        const { size, tilePath } = this.state;
-        const { width, height } = size;
+        const { width, height } = this.state.size;
 
         return (
             <svg id='board' viewBox={`0 0 ${width} ${height}`}>
-                <g>
-                    {Object.values(map).map((section: BoardTile[]) => (
-                        section.map((tile: BoardTile, index: number) => {
-                            const { coordinates, isCity, isWater } = tile;
-                            const position = this.getTilePosition(coordinates);
-
-                            return (
-                                <Tile
-                                    key={index}
-                                    position={position}
-                                    path={tilePath}
-                                    neighbors={[]}
-                                    size={0}
-                                    isCity={isCity}
-                                    isWater={isWater}
-                                />
-                            );
-                        })
-                    ))}
+                <g id='board-tiles'>
+                    {this.getTileNodes()}
                 </g>
             </svg>
         );

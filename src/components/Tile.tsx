@@ -1,18 +1,17 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Position2D } from '../types/GameTypes';
+import { Coordinates2D } from '../types/GameTypes';
 import './Tile.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
 
 interface TileProps {
-    position: Position2D, // Position of tile in board SVG
-    path: string,         // SVG point path of tile
-    size: number,         // Number of free spaces for caste pieces
-    neighbors: Tile[],    // List of neighbouring tiles
-    isCity: boolean,
+    position: Coordinates2D, // Position of tile in board (in pixels)
+    path: string,            // SVG path of tile
+    spaces: string[],        // Free spaces for caste pieces
     isWater: boolean,
+    
     openDialog: () => void,
 }
 
@@ -22,28 +21,19 @@ interface TileState {
 
 class Tile extends React.Component<TileProps, TileState> {
 
-    constructor(props: TileProps) {
-        super(props);
-
-        this.state = {
-            assignment: null,
-        }
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate() {
-
-    }
-
     render() {
-        const { path, position, isWater, openDialog } = this.props;
-
+        const { path, position, spaces, isWater, openDialog } = this.props;
+        const className = `tile ${isWater ? 'tile--water' : ''}`;
+        const transform = `translate(${position.x},${position.y})`;
+    
         return (
-            <polygon className={`tile ${isWater ? 'tile--water' : ''}`} points={path} transform={`translate(${position.x},${position.y})`} onClick={openDialog}>
-                
+            <polygon
+                className={className}
+                points={path}
+                transform={transform}
+                onClick={openDialog}
+            >
+                {spaces.length}
             </polygon>
         );
     }

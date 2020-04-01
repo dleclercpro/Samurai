@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactNode, Component } from 'react';
+import React, { Dispatch, ReactNode } from 'react';
 import './Overlay.scss';
 import { AppState } from '../types/StateTypes';
 import { AppAction } from '../actions';
@@ -12,7 +12,7 @@ interface OverlayProps {
     closeDialog: () => void,
 }
 
-class Overlay extends Component<OverlayProps> {
+class Overlay extends React.Component<OverlayProps> {
     
     render() {
         const { children, isOpen, closeDialog } = this.props;

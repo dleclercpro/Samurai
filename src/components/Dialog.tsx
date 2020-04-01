@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactNode, Component } from 'react';
+import React, { Dispatch, ReactNode } from 'react';
 import './Dialog.scss';
 import { ReactComponent as CloseIcon } from '../icons/close.svg';
 import { closeDialog } from '../actions/DialogActions';
@@ -13,7 +13,7 @@ interface DialogProps {
     closeDialog: () => void,
 }
 
-class Dialog extends Component<DialogProps, {}> {
+class Dialog extends React.Component<DialogProps, {}> {
 
     render() {
         const { children, headline, closeDialog } = this.props;
@@ -23,6 +23,9 @@ class Dialog extends Component<DialogProps, {}> {
                 <h2 className='headline'>{headline}</h2>
                 <div className='content'>
                     {children}
+                </div>
+                <div className='buttons'>
+                    
                 </div>
                 <CloseIcon className='icon-close' onClick={closeDialog} />
             </div>

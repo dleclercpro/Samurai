@@ -4,6 +4,8 @@ $padding-vertical: 16px;
 $padding-horizontal: 24px;
 
 .dialog {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -22,10 +24,15 @@ $padding-horizontal: 24px;
     }
 
     > .content {
+        flex: 1;
         
         > p {
             font-size: 22px
         }
+    }
+
+    > .buttons {
+        padding: $padding-vertical 0;
     }
 
     > .icon-close {
