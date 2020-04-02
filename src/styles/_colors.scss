@@ -6,3 +6,5 @@ $color-black-transparent: rgba(0, 0, 0, 0.5);
 
 $color-ground: #fbebd4;
 $color-water: #bfefff;
+$color-ground-dark: darken($color: $color-ground, $amount: 15);
+$color-water-dark: darken($color: $color-water, $amount: 15);

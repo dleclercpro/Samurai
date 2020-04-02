@@ -1,25 +1,26 @@
 @import 'config';
 
-.tile {
+.board-tile {
     fill: $color-ground;
-    stroke: $color-black;
+    stroke: $color-ground-dark;
     stroke-width: 12;
     cursor: pointer;
 
     &:hover {
-        fill: darken($color: $color-ground, $amount: 15);
+        fill: $color-ground-dark;
     }
 
-    &.tile--water {
+    &.board-tile--water {
         fill: $color-water;
+        stroke: $color-water-dark;
 
         &:hover {
-            fill: darken($color: $color-water, $amount: 15);
+            fill: $color-water-dark;
         }
     }
 }
 
-.tile-text {
+.board-tile-text {
     font-size: 80px;
     font-weight: bold;
     fill: $color-black;

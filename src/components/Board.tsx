@@ -1,7 +1,7 @@
 import React, { Dispatch, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import TileComponent from './TileComponent';
+import BoardTile from './BoardTile';
 import './Board.scss';
 import { Coordinates2D, Size2D, Tile, TileMap, Caste } from '../types/GameTypes';
 import { AppAction } from '../actions';
@@ -134,14 +134,27 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     getTileNodes = (): ReactNode[] => {
         const { rotation, tileSize } = this.props;
-        let { tiles, tilePath } = this.state;
+        const { tiles, tilePath } = this.state;
+        let waterTiles: Tile[] = [];
+        let groundTiles: Tile[] = [];
 
-        return Array.from(tiles.values()).map((tile: Tile, index: number) => {
+        // Differenciation between ground and water tiles
+        Array.from(tiles.values()).forEach((tile: Tile) => {
+            if (tile.isWater) {
+                waterTiles.push(tile);
+            } else {
+                groundTiles.push(tile);
+            }
+        });
+
+        // Ground tiles are added after water tiles in SVG, so that the ground tiles'
+        // contour is on top (visible)
+        return waterTiles.concat(groundTiles).map((tile: Tile, index: number) => {
             const { coordinates, spaces, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
             return (
-                <TileComponent
+                <BoardTile
                     key={index}
                     size={tileSize}
                     position={position}
