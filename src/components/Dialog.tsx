@@ -9,6 +9,7 @@ import Button from './Button';
 
 interface DialogProps {
     children: ReactNode,
+    type: string,
     headline: string,
     
     closeDialog: () => void,
@@ -21,10 +22,10 @@ class Dialog extends React.Component<DialogProps, {}> {
     }
 
     render() {
-        const { children, headline, closeDialog } = this.props;
+        const { children, type, headline, closeDialog } = this.props;
 
         return (
-            <div className='dialog' onClick={this.handleClick}>
+            <div className={`dialog ${type ? `dialog--${type}` : ''}`} onClick={this.handleClick}>
                 <h2 className='headline'>{headline}</h2>
                 <div className='content'>
                     {children}

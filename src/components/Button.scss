@@ -7,12 +7,12 @@
     color: $color-white;
     padding: 10px 20px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15px;
     text-transform: uppercase;
     cursor: pointer;
     outline: none;
 
     &:hover {
-        background: darken($color: $color-purple, $amount: 5);
+        background: lighten($color: $color-purple, $amount: 5);
     }
 }

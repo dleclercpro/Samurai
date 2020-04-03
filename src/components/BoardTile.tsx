@@ -8,11 +8,12 @@ import { openDialog } from '../actions/DialogActions';
 
 interface BoardTileProps {
     size: Size2D,            // Size of tile (in pixels)
+    path: string,
+    stroke: number,
     position: Coordinates2D, // Position of tile in board (in pixels)
     rotation: number,        // Board rotation
-    path: string,            // SVG path of tile
     spaces: Caste[],         // Free spaces for caste pieces
-    isWater: boolean,
+    isWater?: boolean,
     
     openDialog: () => void,
 }
@@ -24,19 +25,19 @@ interface BoardTileState {
 class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
 
     render() {
-        const { position, size, rotation, path, spaces, isWater, openDialog } = this.props;
+        const { position, size, path, stroke, rotation, spaces, isWater, openDialog } = this.props;
         const { width, height } = size;
         const textX = width / 2;
         const textY = height / 2;
-        const className = `board-tile ${isWater ? 'board-tile--water' : ''}`;
         const transform = `translate(${position.x},${position.y})`;
         const textTransform = `rotate(${rotation} ${textX} ${textY})`;
     
         return (
-            <g transform={transform}>
+            <g className='board-tile' transform={transform}>
                 <polygon
-                    className={className}
+                    className={`board-tile-background ${isWater ? 'is-water' : ''}`}
                     points={path}
+                    strokeWidth={stroke}
                     onClick={openDialog}
                 />
                 <text

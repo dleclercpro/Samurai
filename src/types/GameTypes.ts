@@ -19,7 +19,6 @@ export enum Caste {
     Military,
     Commerce,
     Religion,
-    Unknown,
 }
 
 export enum SpecialTile {
@@ -27,7 +26,6 @@ export enum SpecialTile {
     Boat,
     Switch,
     Move,
-    Unknown,
 }
 
 export interface Tile {

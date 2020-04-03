@@ -1,0 +1,23 @@
+.dialog--player-tile-choice {
+
+    > .content {
+        
+        > .text {
+            margin-bottom: 12px;
+
+            > p {
+                font-size: 20px;
+            }
+        }
+
+        > .tiles {
+            display: flex;
+            align-items: center;
+            flex: 1;
+
+            > *:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+    }
+}

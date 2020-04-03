@@ -4,12 +4,18 @@ import './App.scss';
 import Home from '../pages/Home';
 import Board from './Board';
 import Overlay from './Overlay';
-import Dialog from './Dialog';
 import BoardJSON from '../data/Board.json';
+import DialogPlayerTileChoice from './DialogPlayerTileChoice';
 
 interface AppProps {
 
 }
+
+const GRID_SIZE = { width: 14, height: 14 };
+const TILE_SIZE = { width: 300, height: 260 };
+const TILE_STROKE = 12;
+const ORIGIN = { x: 12, y: -16 };
+const ROTATION = 60;
 
 const App = (props: AppProps) => (
     <div id='app'>
@@ -17,10 +23,11 @@ const App = (props: AppProps) => (
             <Switch>
                 <Route exact path='/'>
                     <Board
-                        gridSize={{ width: 14, height: 14 }}
-                        tileSize={{ width: 300, height: 260 }}
-                        origin={{ x: 9, y: -16 }}
-                        rotation={60}
+                        gridSize={GRID_SIZE}
+                        tileSize={TILE_SIZE}
+                        tileStroke={TILE_STROKE}
+                        origin={ORIGIN}
+                        rotation={ROTATION}
                         data={BoardJSON}
                     />
                 </Route>
@@ -30,9 +37,7 @@ const App = (props: AppProps) => (
             </Switch>
         </main>
         <Overlay>
-            <Dialog headline='Dialog'>
-                <p>This is a test.</p>
-            </Dialog>
+            <DialogPlayerTileChoice tileSize={TILE_SIZE} tileStroke={TILE_STROKE} />
         </Overlay>
     </div>
 );

@@ -6,10 +6,12 @@ import './Board.scss';
 import { Coordinates2D, Size2D, Tile, TileMap, Caste } from '../types/GameTypes';
 import { AppAction } from '../actions';
 import { TileJSON, BoardJSON } from '../types/JSONTypes';
+import { getTilePath } from '../lib';
 
 interface BoardProps {
     gridSize: Size2D,
     tileSize: Size2D,
+    tileStroke: number,
     origin: Coordinates2D,
     rotation: number,
     data: BoardJSON,
@@ -34,10 +36,15 @@ class Board extends React.Component<BoardProps, BoardState> {
     }
 
     componentDidMount() {
+        const {tileSize } = this.props;
+
+        // We superimpose tiles on their borders
+        const tileStroke = 0;
+
         this.setState({
             size: this.getSize(),
             tiles: this.getTiles(),
-            tilePath: this.getTilePath(),
+            tilePath: getTilePath(tileSize, tileStroke),
         });
     }
 
@@ -126,14 +133,13 @@ class Board extends React.Component<BoardProps, BoardState> {
                 case 'Commerce':
                     return Caste.Commerce;
                 default:
-                    console.error('Unknown tile space type.');
-                    return Caste.Unknown;
+                    throw new Error('getIcon: wrong caste.');
             }
         });
     }
 
     getTileNodes = (): ReactNode[] => {
-        const { rotation, tileSize } = this.props;
+        const { rotation, tileSize, tileStroke } = this.props;
         const { tiles, tilePath } = this.state;
         let waterTiles: Tile[] = [];
         let groundTiles: Tile[] = [];
@@ -156,34 +162,16 @@ class Board extends React.Component<BoardProps, BoardState> {
             return (
                 <BoardTile
                     key={index}
+                    path={tilePath}
                     size={tileSize}
                     position={position}
                     rotation={-rotation}
-                    path={tilePath}
+                    stroke={tileStroke}
                     spaces={spaces}
                     isWater={isWater}
                 />
             );
         });
-    }
-
-    getTilePath = (): string => {
-        const { width, height } = this.props.tileSize;
-
-        const points = [
-            [0, height / 2],
-            [0.25 * width, height],
-            [0.75 * width, height],
-            [width, height / 2],
-            [0.75 * width, 0],
-            [0.25 * width, 0]
-        ];
-
-        return points.reduce((str, point, i) => {
-            const [ x, y ] = point;
-
-            return str + x + ',' + y + (i + 1 < points.length ? ' ' : '');
-        }, '');
     }
 
     getTilePosition = (coordinates: Coordinates2D): Coordinates2D => {
@@ -192,8 +180,8 @@ class Board extends React.Component<BoardProps, BoardState> {
         const x0 = origin.x;
         const y0 = origin.y;
 
-        let x = width * (x0 + coordinates.x * 0.75);
-        let y = height * (y0 + coordinates.y);
+        let x = (x0 + coordinates.x) * width * 0.75;
+        let y = (y0 + coordinates.y) * height;
 
         if (coordinates.x % 2 !== 0) {
             y += height / 2;

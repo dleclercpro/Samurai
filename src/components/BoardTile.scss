@@ -1,30 +1,32 @@
 @import 'config';
 
 .board-tile {
-    fill: $color-ground;
-    stroke: $color-ground-dark;
-    stroke-width: 12;
-    cursor: pointer;
-
-    &:hover {
-        fill: $color-ground-dark;
-    }
-
-    &.board-tile--water {
-        fill: $color-water;
-        stroke: $color-water-dark;
-
+    
+    > .board-tile-background {
+        fill: $color-ground;
+        stroke: $color-ground-dark;
+        cursor: pointer;
+    
         &:hover {
-            fill: $color-water-dark;
+            fill: $color-ground-dark;
+        }
+    
+        &.is-water {
+            fill: $color-water;
+            stroke: $color-water-dark;
+    
+            &:hover {
+                fill: $color-water-dark;
+            }
         }
     }
-}
-
-.board-tile-text {
-    font-size: 80px;
-    font-weight: bold;
-    fill: $color-black;
-    dominant-baseline: central;
-    text-anchor: middle;
-    pointer-events: none;
+    
+    > .board-tile-text {
+        font-size: 80px;
+        font-weight: bold;
+        fill: $color-black;
+        dominant-baseline: central;
+        text-anchor: middle;
+        pointer-events: none;
+    }
 }
