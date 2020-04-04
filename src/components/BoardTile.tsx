@@ -21,17 +21,42 @@ interface BoardTileProps {
     openDialog: () => void,
 }
 
-class BoardTile extends React.Component<BoardTileProps, {}> {
+interface BoardTileState {
+    isTaken: boolean,
+}
+
+class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
+
+    constructor(props: BoardTileProps) {
+        super(props);
+
+        this.state = {
+            isTaken: false,
+        }
+    }
+
+    componentDidMount() {
+        const { spaces } = this.props;
+
+        this.setState({
+            isTaken: spaces.length > 0,
+        });
+    }
 
     handleClick = (e: React.MouseEvent) => {
         const { openDialog } = this.props;
+        const { isTaken } = this.state;
 
         e.stopPropagation();
-        openDialog();
+
+        if (!isTaken) {
+            openDialog();
+        }
     }
 
     render() {
         const { position, size, path, stroke, rotation, spaces, isWater } = this.props;
+        const { isTaken } = this.state;
         const { width, height } = size;
 
         const center = { x: width / 2, y: height / 2 };
@@ -46,6 +71,7 @@ class BoardTile extends React.Component<BoardTileProps, {}> {
                     path={path}
                     stroke={stroke}
                     isWater={isWater}
+                    isTaken={isTaken}
                 />
 
                 <g className='board-tile-content' transform={rotationTransform}>

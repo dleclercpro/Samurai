@@ -8,7 +8,7 @@ export interface Coordinates2D {
     y: number,
 }
 
-export enum Color {
+export enum PlayerColor {
     Red,
     Purple,
     Gold,

@@ -2,19 +2,58 @@
 
 .tile-background {
     fill: $color-ground;
-    stroke: $color-ground-dark;
-    cursor: pointer;
+    stroke: $color-dark-ground;
+    
+    &:not(.is-taken) {
+        cursor: pointer;
+    }
 
-    &:hover {
-        fill: $color-ground-dark;
+    &:hover:not(.is-taken) {
+        fill: $color-dark-ground;
     }
 
     &.is-water {
         fill: $color-water;
-        stroke: $color-water-dark;
+        stroke: $color-dark-water;
 
-        &:hover {
-            fill: $color-water-dark;
+        &:hover:not(.is-taken) {
+            fill: $color-dark-water;
+        }
+    }
+
+    &.is-red {
+        fill: $color-red;
+        stroke: $color-dark-red;
+
+        &:hover:not(.is-taken) {
+            fill: $color-dark-red;
+        }
+    }
+
+    &.is-purple {
+        fill: $color-purple;
+        stroke: $color-dark-purple;
+
+        &:hover:not(.is-taken) {
+            fill: $color-dark-purple;
+        }
+    }
+
+    &.is-gold {
+        fill: $color-gold;
+        stroke: $color-dark-gold;
+
+        &:hover:not(.is-taken) {
+            fill: $color-dark-gold;
+        }
+    }
+
+    &.is-green {
+        fill: $color-green;
+        stroke: $color-dark-green;
+
+        &:hover:not(.is-taken) {
+            fill: $color-dark-green;
         }
     }
 }

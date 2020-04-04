@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Size2D, Caste } from '../types/GameTypes';
+import { Size2D, Caste, PlayerColor } from '../types/GameTypes';
 import './DialogPlayerTileChoice.scss';
 import { AppAction } from '../actions';
 import { getHexagonalPath } from '../lib';
@@ -11,6 +11,7 @@ import PlayerTile from './PlayerTile';
 interface DialogPlayerTileChoiceProps {
     tileSize: Size2D,
     tileStroke: number,
+    tileColor: PlayerColor,
 }
 
 interface DialogPlayerTileChoiceState {
@@ -36,7 +37,7 @@ class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps
     }
 
     render() {
-        const { tileSize, tileStroke } = this.props;
+        const { tileSize, tileStroke, tileColor } = this.props;
         const { tilePath } = this.state;
     
         return (
@@ -45,11 +46,11 @@ class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps
                     <p>This is a test.</p>
                 </section>
                 <section className='tiles'>
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Military} strength={4} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Religion} strength={3} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Commerce} strength={2} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Religion} strength={1} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Religion} strength={0} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Military} strength={4} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Religion} strength={3} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Commerce} strength={2} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Religion} strength={1} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Religion} strength={0} />
                 </section>
             </Dialog>
         );

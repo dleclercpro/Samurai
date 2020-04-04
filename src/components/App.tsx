@@ -6,6 +6,7 @@ import Board from './Board';
 import Overlay from './Overlay';
 import BoardJSON from '../data/Board.json';
 import DialogPlayerTileChoice from './DialogPlayerTileChoice';
+import { PlayerColor } from '../types/GameTypes';
 
 const GRID_SIZE = { width: 14, height: 14 };
 const TILE_SIZE = { width: 300, height: 260 };
@@ -31,7 +32,7 @@ const App = () => (
             </Switch>
         </main>
         <Overlay>
-            <DialogPlayerTileChoice tileSize={TILE_SIZE} tileStroke={TILE_STROKE} />
+            <DialogPlayerTileChoice tileSize={TILE_SIZE} tileStroke={TILE_STROKE} tileColor={PlayerColor.Red} />
         </Overlay>
     </div>
 );
