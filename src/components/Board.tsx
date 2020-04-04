@@ -12,7 +12,7 @@ interface BoardProps {
     gridSize: Size2D,
     tileSize: Size2D,
     tileStroke: number,
-    origin: Coordinates2D,
+    origin?: Coordinates2D,
     rotation: number,
     data: BoardJSON,
 }
@@ -177,8 +177,8 @@ class Board extends React.Component<BoardProps, BoardState> {
     getTilePosition = (coordinates: Coordinates2D): Coordinates2D => {
         const { origin, tileSize } = this.props;
         const { width, height } = tileSize;
-        const x0 = origin.x;
-        const y0 = origin.y;
+        const x0 = origin ? origin.x : 0;
+        const y0 = origin ? origin.y : 0;
 
         let x = (x0 + coordinates.x) * width * 0.75;
         let y = (y0 + coordinates.y) * height;
