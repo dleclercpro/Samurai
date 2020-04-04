@@ -46,10 +46,10 @@ class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps
                 </section>
                 <section className='tiles'>
                     <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Military} strength={4} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Military} strength={3} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Military} strength={2} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Military} strength={1} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Military} strength={0} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Religion} strength={3} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Commerce} strength={2} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Religion} strength={1} />
+                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} caste={Caste.Religion} strength={0} />
                 </section>
             </Dialog>
         );

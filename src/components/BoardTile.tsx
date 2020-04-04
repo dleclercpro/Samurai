@@ -5,8 +5,9 @@ import { Coordinates2D, Caste, Size2D } from '../types/GameTypes';
 import './BoardTile.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
-import BoardTileCastePiece from './BoardTileCastePiece';
-import BoardTileBackground from './BoardTileBackground';
+import CastePiece from './CastePiece';
+import TileBackground from './TileBackground';
+import { getPositionInHexagon } from '../lib';
 
 interface BoardTileProps {
     size: Size2D,            // Size of tile (in pixels)
@@ -20,62 +21,13 @@ interface BoardTileProps {
     openDialog: () => void,
 }
 
-interface BoardTileState {
-    
-}
-
-class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
+class BoardTile extends React.Component<BoardTileProps, {}> {
 
     handleClick = (e: React.MouseEvent) => {
         const { openDialog } = this.props;
 
         e.stopPropagation();
         openDialog();
-    }
-
-    getCastePiecePosition = (index: number, nPieces: number) => {
-        const { width, height } = this.props.size;
-        let x = width / 2;
-        let y = height / 2;
-
-        switch (nPieces) {
-            case 1:
-                break;
-            case 2:
-                switch (index) {
-                    case 0:
-                        x = width / 3;
-                        break;
-                    case 1:
-                        x = 2 / 3 * width;
-                        break;
-                    default:
-                        throw new Error('Wrong index.');
-                }
-                break;
-            case 3:
-                switch (index) {
-                    case 0:
-                        x = width / 3;
-                        y = height / 3;
-                        break;
-                    case 1:
-                        x = 2 / 3 * width;
-                        y = height / 3;
-                        break;
-                    case 2:
-                        x = width / 2;
-                        y = 2 / 3 * height;
-                        break;
-                    default:
-                        throw new Error('Wrong index.');
-                }
-                break;
-            default:
-                throw new Error('Wrong number of pieces.');
-        }
-
-        return { x, y };
     }
 
     render() {
@@ -90,7 +42,7 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
     
         return (
             <g className='board-tile' transform={positionTransform} onClick={this.handleClick}>
-                <BoardTileBackground
+                <TileBackground
                     path={path}
                     stroke={stroke}
                     isWater={isWater}
@@ -98,10 +50,10 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
 
                 <g className='board-tile-content' transform={rotationTransform}>
                     {spaces.map((space: Caste, index: number) => {
-                        const position = this.getCastePiecePosition(index, spaces.length);
+                        const position = getPositionInHexagon(index, spaces.length, size);
 
                         return (
-                            <BoardTileCastePiece
+                            <CastePiece
                                 key={index}
                                 position={position}
                                 size={pieceSize}

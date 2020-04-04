@@ -2,23 +2,4 @@
 
 .player-tile {
     width: 150px;
-    
-    > .player-tile-background {
-        fill: $color-ground;
-        stroke: $color-ground-dark;
-    
-        &.is-water {
-            fill: $color-water;
-            stroke: $color-water-dark;
-        }
-    }
-    
-    > .player-tile-text {
-        font-size: 80px;
-        font-weight: bold;
-        fill: $color-black;
-        dominant-baseline: central;
-        text-anchor: middle;
-        pointer-events: none;
-    }
 }
