@@ -5,6 +5,8 @@ import { Coordinates2D, Caste, Size2D } from '../types/GameTypes';
 import './BoardTile.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
+import BoardTileCastePiece from './BoardTileCastePiece';
+import BoardTileBackground from './BoardTileBackground';
 
 interface BoardTileProps {
     size: Size2D,            // Size of tile (in pixels)
@@ -24,30 +26,30 @@ interface BoardTileState {
 
 class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
 
+    handleClick = (e: React.MouseEvent) => {
+        const { openDialog } = this.props;
+
+        e.stopPropagation();
+        openDialog();
+    }
+
     render() {
-        const { position, size, path, stroke, rotation, spaces, isWater, openDialog } = this.props;
+        const { position, size, path, stroke, rotation, spaces, isWater } = this.props;
         const { width, height } = size;
-        const textX = width / 2;
-        const textY = height / 2;
-        const transform = `translate(${position.x},${position.y})`;
-        const textTransform = `rotate(${rotation} ${textX} ${textY})`;
+        const center = { x: width / 2, y: height / 2 };
+        const positionTransform = `translate(${position.x},${position.y})`;
+        const rotationTransform = `rotate(${rotation} ${center.x} ${center.y})`;
     
         return (
-            <g className='board-tile' transform={transform}>
-                <polygon
-                    className={`board-tile-background ${isWater ? 'is-water' : ''}`}
-                    points={path}
-                    strokeWidth={stroke}
-                    onClick={openDialog}
-                />
-                <text
-                    className='board-tile-text'
-                    transform={textTransform}
-                    x={textX}
-                    y={textY}
-                >
-                        {spaces.length}
-                </text>
+            <g className='board-tile' transform={positionTransform} onClick={this.handleClick}>
+                <BoardTileBackground path={path} stroke={stroke} isWater={isWater} />
+                <g className='board-tile-content' transform={rotationTransform}>
+                    {spaces.map((space: Caste) => {
+                        return (
+                            <BoardTileCastePiece tileSize={size} caste={space} />
+                        );
+                    })}
+                </g>
             </g>
         );
     }

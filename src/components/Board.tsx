@@ -133,7 +133,7 @@ class Board extends React.Component<BoardProps, BoardState> {
                 case 'Commerce':
                     return Caste.Commerce;
                 default:
-                    throw new Error('getIcon: wrong caste.');
+                    throw new Error('Wrong caste.');
             }
         });
     }
