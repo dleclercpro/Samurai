@@ -156,7 +156,7 @@
         { "coordinates": { "x": -11, "y": 18 }, "spaces": [], "isWater": true },
         { "coordinates": { "x": -10, "y": 18 }, "spaces": [], "isWater": true },
         { "coordinates": { "x": -9, "y": 17 }, "spaces": [], "isWater": true },
-        { "coordinates": { "x": -3, "y": 18 }, "spaces": ["Military"], "isWater": false },
+        { "coordinates": { "x": -3, "y": 18 }, "spaces": ["Military", "Religion", "Commerce"], "isWater": false },
         { "coordinates": { "x": -3, "y": 19 }, "spaces": ["Religion"], "isWater": false },
         { "coordinates": { "x": -4, "y": 18 }, "spaces": ["Commerce"], "isWater": false },
         { "coordinates": { "x": -4, "y": 19 }, "spaces": ["Religion"], "isWater": false },

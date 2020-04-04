@@ -6,7 +6,7 @@ import './Board.scss';
 import { Coordinates2D, Size2D, Tile, TileMap, Caste } from '../types/GameTypes';
 import { AppAction } from '../actions';
 import { TileJSON, BoardJSON } from '../types/JSONTypes';
-import { getTilePath } from '../lib';
+import { getHexagonalPath } from '../lib';
 
 interface BoardProps {
     gridSize: Size2D,
@@ -44,7 +44,7 @@ class Board extends React.Component<BoardProps, BoardState> {
         this.setState({
             size: this.getSize(),
             tiles: this.getTiles(),
-            tilePath: getTilePath(tileSize, tileStroke),
+            tilePath: getHexagonalPath(tileSize, tileStroke),
         });
     }
 

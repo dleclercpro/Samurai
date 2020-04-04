@@ -1,6 +1,6 @@
 import { Size2D } from './types/GameTypes';
 
-export const getTilePath = (size: Size2D, stroke: number): string => {
+export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
     const innerWidth = width - stroke;
 

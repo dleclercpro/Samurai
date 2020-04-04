@@ -4,7 +4,7 @@ import { AppState } from '../types/StateTypes';
 import { Size2D, Caste } from '../types/GameTypes';
 import './DialogPlayerTileChoice.scss';
 import { AppAction } from '../actions';
-import { getTilePath } from '../lib';
+import { getHexagonalPath } from '../lib';
 import Dialog from './Dialog';
 import PlayerTile from './PlayerTile';
 
@@ -31,7 +31,7 @@ class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps
         const { tileSize, tileStroke } = this.props;
 
         this.setState({
-            tilePath: getTilePath(tileSize, tileStroke),
+            tilePath: getHexagonalPath(tileSize, tileStroke),
         });
     }
 

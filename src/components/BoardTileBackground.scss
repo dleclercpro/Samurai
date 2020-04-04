@@ -1,0 +1,20 @@
+@import 'config';
+
+.board-tile-background {
+    fill: $color-ground;
+    stroke: $color-ground-dark;
+    cursor: pointer;
+
+    &:hover {
+        fill: $color-ground-dark;
+    }
+
+    &.is-water {
+        fill: $color-water;
+        stroke: $color-water-dark;
+
+        &:hover {
+            fill: $color-water-dark;
+        }
+    }
+}

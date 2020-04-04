@@ -1,7 +1,7 @@
 import React, { Dispatch, ReactNode, SVGProps } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Caste, Size2D } from '../types/GameTypes';
+import { Caste, Size2D, Coordinates2D } from '../types/GameTypes';
 import './BoardTileCastePiece.scss';
 import { AppAction } from '../actions';
 import { ReactComponent as KatanaIcon } from '../icons/katana.svg';
@@ -9,7 +9,8 @@ import { ReactComponent as BuddhaIcon } from '../icons/buddha.svg';
 import { ReactComponent as RiceIcon } from '../icons/rice.svg';
 
 interface BoardTileCastePieceProps {
-    tileSize: Size2D,
+    position: Coordinates2D,
+    size: Size2D,
     caste: Caste,
 }
 
@@ -33,13 +34,14 @@ class BoardTileCastePiece extends React.Component<BoardTileCastePieceProps, Boar
     }
 
     render() {
-        const { tileSize, caste } = this.props;
-        const width = tileSize.width / 3;
-        const height = tileSize.height / 3;
+        const { position, size, caste } = this.props;
+        const { x, y } = position;
+        const { width, height } = size;
 
         const svgProps = {
-            x: tileSize.width / 2 - width / 2,
-            y: tileSize.height / 2 - height / 2,
+            className: 'board-tile-caste-piece',
+            x: x - width / 2,
+            y: y - height / 2,
             width: width,
             height: height,
         }
