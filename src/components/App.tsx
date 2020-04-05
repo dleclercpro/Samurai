@@ -57,12 +57,26 @@ class App extends React.Component<Props, {}> {
                 <main id='main'>
                     <Switch>
                         <Route exact path='/'>
-                            <Board
-                                gridSize={GRID_SIZE}
-                                tileSize={TILE_SIZE}
-                                tileStroke={TILE_STROKE}
-                                rotation={ROTATION}
-                            />
+                            <section id='top'>
+
+                            </section>
+                            <section id='left'>
+
+                            </section>
+                            <section id='center'>
+                                <Board
+                                    gridSize={GRID_SIZE}
+                                    tileSize={TILE_SIZE}
+                                    tileStroke={TILE_STROKE}
+                                    rotation={ROTATION}
+                                />
+                            </section>
+                            <section id='right'>
+
+                            </section>
+                            <section id='bottom'>
+
+                            </section>
                         </Route>
                         <Route exact path='/home/'>
                             <Home />

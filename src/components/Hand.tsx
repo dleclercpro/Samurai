@@ -44,11 +44,11 @@ class Hand extends React.Component<Props, State> {
         const { hand, color, tileSize, tileStroke } = this.props;
         const { tilePath } = this.state;
     
-        return hand.map((tile: PlayerTile) => {
+        return hand.map((tile: PlayerTile, index: number) => {
             const { id, type, strength, canReplay } = tile;
             
             return (
-                <PlayerTileComponent id={id} size={tileSize} path={tilePath} stroke={tileStroke} color={color} type={type} strength={strength} canReplay={canReplay} />
+                <PlayerTileComponent key={index} id={id} size={tileSize} path={tilePath} stroke={tileStroke} color={color} type={type} strength={strength} canReplay={canReplay} />
             );
         });
     }

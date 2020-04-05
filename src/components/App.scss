@@ -1,14 +1,31 @@
+$vertical-padding: 100px;
+$horizontal-padding: 100px;
+
 #app {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
 
     > #main {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-wrap: wrap;
         width: 100%;
         height: 100%;
+
+        > #top,
+        > #bottom {
+            width: 100%;
+            height: $vertical-padding;
+        }
+
+        > #left,
+        > #right {
+            width: $horizontal-padding;
+            height: calc(100% - 2 * #{$vertical-padding});   
+        }
+
+        > #center {
+            width: calc(100% - 2 * #{$horizontal-padding});
+            height: calc(100% - 2 * #{$vertical-padding});
+        }
     }
 }
