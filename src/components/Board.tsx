@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import BoardTileComponent from './BoardTileComponent';
 import './Board.scss';
-import { Coordinates2D, Size2D, BoardTile, BoardTileMap } from '../types/GameTypes';
+import { Coordinates2D, Size2D, BoardTile, BoardTileMap, TileType } from '../types/GameTypes';
 import { getHexagonalPath } from '../lib';
 
 interface OwnProps {
@@ -16,6 +16,7 @@ interface OwnProps {
 
 interface StateProps {
     tiles: BoardTileMap,
+    hasBoatInHand: boolean,
 }
 
 type Props = OwnProps & StateProps;
@@ -77,7 +78,7 @@ class Board extends React.Component<Props, State> {
     }
 
     getTileNodes = (): ReactNode[] => {
-        const { tiles, tileSize, tileStroke,  rotation } = this.props;
+        const { tiles, tileSize, tileStroke, rotation, hasBoatInHand } = this.props;
         const { tilePath } = this.state;
         let waterTiles: BoardTile[] = [];
         let groundTiles: BoardTile[] = [];
@@ -97,6 +98,11 @@ class Board extends React.Component<Props, State> {
             const { coordinates, types, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
+            // Tile is playable if it has not been played before, and:
+            // ... it is a ground tile,  and not a city
+            // ... it is a water tile, and the player has a boat tile in their hand
+            const isPlayable = isWater ? hasBoatInHand : types.length === 0;
+
             return (
                 <BoardTileComponent
                     key={index}
@@ -107,6 +113,7 @@ class Board extends React.Component<Props, State> {
                     stroke={tileStroke}
                     types={types}
                     isWater={isWater}
+                    isPlayable={isPlayable}
                 />
             );
         });
@@ -127,8 +134,23 @@ class Board extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    tiles: state.board.tiles,
-});
+const mapStateToProps = (state: AppState) => {
+    const { board, player } = state;
+    const { tiles } = board;
+    const { hand } = player;
+    let hasBoatInHand = false;
+
+    for (let tile of hand.values()) {
+        if (tile.type === TileType.Boat) {
+            hasBoatInHand = true;
+            break;
+        }
+    }
+
+    return {
+        tiles,
+        hasBoatInHand,
+    }
+};
 
 export default connect(mapStateToProps, () => ({}))(Board);

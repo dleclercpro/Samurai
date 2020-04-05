@@ -16,6 +16,7 @@ interface OwnProps {
     rotation: number,        // Board rotation
     types: TileType[],       // Free types for caste pieces
     isWater?: boolean,
+    isPlayable?: boolean,
 }
 
 interface DispatchProps {
@@ -24,42 +25,20 @@ interface DispatchProps {
 
 type Props = OwnProps & DispatchProps;
 
-interface State {
-    isTaken: boolean,
-}
-
-class BoardTileComponent extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            isTaken: false,
-        }
-    }
-
-    componentDidMount() {
-        const { types } = this.props;
-
-        this.setState({
-            isTaken: types.length > 0,
-        });
-    }
+class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { openDialog } = this.props;
-        const { isTaken } = this.state;
+        const { isPlayable, openDialog } = this.props;
 
         e.stopPropagation();
 
-        if (!isTaken) {
+        if (isPlayable) {
             openDialog();
         }
     }
 
     render() {
-        const { position, size, path, stroke, rotation, types, isWater } = this.props;
-        const { isTaken } = this.state;
+        const { position, size, path, stroke, rotation, types, isWater, isPlayable } = this.props;
         const { width, height } = size;
 
         const center = { x: width / 2, y: height / 2 };
@@ -74,7 +53,7 @@ class BoardTileComponent extends React.Component<Props, State> {
                     path={path}
                     stroke={stroke}
                     isWater={isWater}
-                    isTaken={isTaken}
+                    isPlayable={isPlayable}
                 />
 
                 <g className='board-tile-content' transform={rotationTransform}>

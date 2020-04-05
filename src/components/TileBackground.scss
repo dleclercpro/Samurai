@@ -4,11 +4,11 @@
     fill: $color-ground;
     stroke: $color-dark-ground;
     
-    &:not(.is-taken) {
+    &.is-playable {
         cursor: pointer;
     }
 
-    &:hover:not(.is-taken) {
+    &:hover.is-playable {
         fill: $color-dark-ground;
     }
 
@@ -16,7 +16,7 @@
         fill: $color-water;
         stroke: $color-dark-water;
 
-        &:hover:not(.is-taken) {
+        &:hover.is-playable {
             fill: $color-dark-water;
         }
     }
@@ -25,7 +25,7 @@
         fill: $color-red;
         stroke: $color-dark-red;
 
-        &:hover:not(.is-taken) {
+        &:hover.is-playable {
             fill: $color-dark-red;
         }
 
@@ -38,7 +38,7 @@
         fill: $color-purple;
         stroke: $color-dark-purple;
 
-        &:hover:not(.is-taken) {
+        &:hover.is-playable {
             fill: $color-dark-purple;
         }
 
@@ -51,7 +51,7 @@
         fill: $color-gold;
         stroke: $color-dark-gold;
 
-        &:hover:not(.is-taken) {
+        &:hover.is-playable {
             fill: $color-dark-gold;
         }
 
@@ -64,7 +64,7 @@
         fill: $color-green;
         stroke: $color-dark-green;
 
-        &:hover:not(.is-taken) {
+        &:hover.is-playable {
             fill: $color-dark-green;
         }
 

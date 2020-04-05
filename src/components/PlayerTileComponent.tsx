@@ -57,7 +57,7 @@ class PlayerTileComponent extends React.Component<Props, {}> {
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <TileBackground path={path} stroke={stroke} color={color} />
+                <TileBackground path={path} stroke={stroke} color={color} isPlayable />
                 <TileText position={textPosition}>{strength}</TileText>
                 <TileIcon position={piecePosition} size={pieceSize} type={type} />
             </svg>

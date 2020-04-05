@@ -42,7 +42,7 @@ const TileIcon: React.FC<Props> = (props) => {
         //case TileType.Move:
         //    return (<MoveIcon {...svgProps} />);
         default:
-            throw new Error('Wrong icon type.')
+            return null;
     }
 }
 

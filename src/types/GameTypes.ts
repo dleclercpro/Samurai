@@ -13,6 +13,7 @@ export enum PlayerColor {
     Purple,
     Gold,
     Green,
+    Unknown,
 }
 
 export enum TileType {
@@ -23,6 +24,7 @@ export enum TileType {
     Boat,
     Switch,
     Move,
+    Unknown,
 }
 
 export interface BoardTile {

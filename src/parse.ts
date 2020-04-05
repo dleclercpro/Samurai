@@ -45,7 +45,7 @@ export const parseTileType = (data: String): TileType => {
         case 'Switch':
             return TileType.Switch;
         default:
-            throw new Error('Wrong tile type.');
+            return TileType.Unknown;
     }
 }
 
@@ -60,7 +60,7 @@ export const parseColor = (color: String): PlayerColor => {
         case 'green':
             return PlayerColor.Green;
         default:
-            throw new Error('Wrong color type.');
+            return PlayerColor.Unknown;
     }
 }
 
