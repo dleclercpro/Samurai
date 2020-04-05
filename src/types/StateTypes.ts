@@ -1,4 +1,4 @@
-import { BoardTileMap, PlayerTile, PlayerColor } from "./GameTypes";
+import { BoardTileMap, PlayerTile, PlayerColor } from './GameTypes';
 
 export interface PlayerState {
     id: number,

@@ -1,8 +1,8 @@
-import { SELECT_TILE, SelectTile, SET_PLAYER, SetPlayer, LoadHand, LOAD_HAND, SET_PLAYER_COLOR, SetPlayerColor } from "../types/ActionTypes";
-import { PlayerTileJSON } from "../types/JSONTypes";
+import { SELECT_NEXT_TILE, SelectNextTile, SET_PLAYER, SetPlayer, LoadHand, LOAD_HAND, SET_PLAYER_COLOR, SetPlayerColor } from '../types/ActionTypes';
+import { PlayerTileJSON } from '../types/JSONTypes';
 
-export const selectTile = (id: number): SelectTile => ({
-    type: SELECT_TILE,
+export const selectTile = (id: number): SelectNextTile => ({
+    type: SELECT_NEXT_TILE,
     id,
 });
 

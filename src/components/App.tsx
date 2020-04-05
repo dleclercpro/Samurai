@@ -2,7 +2,6 @@ import React, { Dispatch } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Home from '../pages/Home';
-import Board from './Board';
 import Overlay from './Overlay';
 import DialogTileChoice from './DialogTileChoice';
 import { loadBoard } from '../actions/BoardActions';
@@ -12,13 +11,8 @@ import { connect } from 'react-redux';
 import BoardData from '../data/Board.json';
 import HandData from '../data/Hand.json';
 import { loadHand, setPlayerColor } from '../actions/PlayerActions';
-
-const GRID_SIZE = { width: 14, height: 14 };
-const TILE_SIZE = { width: 300, height: 260 };
-const TILE_STROKE = 12;
-const ROTATION = 60;
-const PLAYER_COLOR = 'red';
-const HAND_SIZE = 5;
+import { PLAYER_COLOR, HAND_SIZE } from '../config';
+import Grid from './Grid';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
@@ -34,10 +28,15 @@ class App extends React.Component<Props, {}> {
         const { loadBoard, loadHand, setPlayerColor } = this.props;
 
         loadBoard(BoardData);
+        loadHand(this.getHand());
+        setPlayerColor(PLAYER_COLOR);
+    }
+
+    getHand = () => {
 
         // Simulate random 5 tiles in hand
         const randomIndexes = new Set<number>();
-        
+
         while (randomIndexes.size < HAND_SIZE) {
             const i = Math.floor(Math.random() * HandData.length);
             
@@ -46,9 +45,7 @@ class App extends React.Component<Props, {}> {
             }
         }
 
-        loadHand([ ...randomIndexes ].map((i: number) => HandData[i]));
-
-        setPlayerColor(PLAYER_COLOR);
+        return [ ...randomIndexes ].map((i: number) => HandData[i]);
     }
 
     render() {
@@ -57,26 +54,7 @@ class App extends React.Component<Props, {}> {
                 <main id='main'>
                     <Switch>
                         <Route exact path='/'>
-                            <section id='top'>
-
-                            </section>
-                            <section id='left'>
-
-                            </section>
-                            <section id='center'>
-                                <Board
-                                    gridSize={GRID_SIZE}
-                                    tileSize={TILE_SIZE}
-                                    tileStroke={TILE_STROKE}
-                                    rotation={ROTATION}
-                                />
-                            </section>
-                            <section id='right'>
-
-                            </section>
-                            <section id='bottom'>
-
-                            </section>
+                            <Grid />
                         </Route>
                         <Route exact path='/home/'>
                             <Home />
@@ -84,7 +62,7 @@ class App extends React.Component<Props, {}> {
                     </Switch>
                 </main>
                 <Overlay>
-                    <DialogTileChoice tileSize={TILE_SIZE} tileStroke={TILE_STROKE} />
+                    <DialogTileChoice />
                 </Overlay>
             </div>
         );

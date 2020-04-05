@@ -1,6 +1,6 @@
-import { OpenDialog, CloseDialog, ToggleDialog, LoadBoard, LoadHand, SelectTile, SetPlayer, SetPlayerColor } from "../types/ActionTypes";
+import { OpenDialog, CloseDialog, ToggleDialog, LoadBoard, LoadHand, SelectNextTile, SetPlayer, SetPlayerColor } from '../types/ActionTypes';
 
-export type PlayerAction = SetPlayer | SetPlayerColor | LoadHand | SelectTile;
+export type PlayerAction = SetPlayer | SetPlayerColor | LoadHand | SelectNextTile;
 export type BoardAction = LoadBoard;
 export type DialogAction = OpenDialog | CloseDialog | ToggleDialog;
 

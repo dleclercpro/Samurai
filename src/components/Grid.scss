@@ -1,0 +1,26 @@
+$grid-y-padding: 100px;
+$grid-x-padding: 100px;
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+
+    > #top,
+    > #bottom {
+        width: 100%;
+        height: $grid-y-padding;
+    }
+
+    > #left,
+    > #right {
+        width: $grid-x-padding;
+        height: calc(100% - 2 * #{$grid-y-padding});   
+    }
+
+    > #center {
+        width: calc(100% - 2 * #{$grid-x-padding});
+        height: calc(100% - 2 * #{$grid-y-padding});
+    }
+}

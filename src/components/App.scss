@@ -1,31 +1,9 @@
-$vertical-padding: 100px;
-$horizontal-padding: 100px;
-
 #app {
     width: 100%;
     height: 100%;
 
     > #main {
-        display: flex;
-        flex-wrap: wrap;
         width: 100%;
         height: 100%;
-
-        > #top,
-        > #bottom {
-            width: 100%;
-            height: $vertical-padding;
-        }
-
-        > #left,
-        > #right {
-            width: $horizontal-padding;
-            height: calc(100% - 2 * #{$vertical-padding});   
-        }
-
-        > #center {
-            width: calc(100% - 2 * #{$horizontal-padding});
-            height: calc(100% - 2 * #{$vertical-padding});
-        }
     }
 }

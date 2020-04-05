@@ -1,6 +1,6 @@
-import { DialogState } from "../types/StateTypes";
-import { DialogAction } from "../actions";
-import { OPEN_DIALOG, CLOSE_DIALOG, TOGGLE_DIALOG } from "../types/ActionTypes";
+import { DialogState } from '../types/StateTypes';
+import { DialogAction } from '../actions';
+import { OPEN_DIALOG, CLOSE_DIALOG, TOGGLE_DIALOG } from '../types/ActionTypes';
 
 const initState = {
     isOpen: false,

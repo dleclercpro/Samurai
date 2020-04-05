@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { TileType, Size2D, PlayerColor } from '../types/GameTypes';
+import { TileType, PlayerColor } from '../types/GameTypes';
 import './PlayerTileComponent.scss';
 import { AppAction } from '../actions';
 import { getPositionInHexagon } from '../lib';
@@ -9,12 +9,10 @@ import TileBackground from './TileBackground';
 import TileText from './TileText';
 import TileIcon from './TileIcon';
 import { selectTile } from '../actions/PlayerActions';
+import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../config';
 
 interface OwnProps {
     id: number,
-    size: Size2D, // Size of tile (in pixels)
-    path: string,
-    stroke: number,
     color: PlayerColor,
     type: TileType,
     strength: number,
@@ -42,11 +40,10 @@ class PlayerTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { size, path, stroke, color, strength, type, isSelected } = this.props;
+        const { color, strength, type, isSelected } = this.props;
+        const { width, height } = TILE_SIZE;
 
-        const { width, height } = size;
-
-        const piecePosition = getPositionInHexagon(0, 2, size);
+        const piecePosition = getPositionInHexagon(0, 2, TILE_SIZE);
         const pieceSize = { width: 2 / 5 * width, height: 2 / 5 * height };
 
         const textPosition = { x: 2 / 3 * width, y: height / 2 };
@@ -57,7 +54,7 @@ class PlayerTileComponent extends React.Component<Props, {}> {
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <TileBackground path={path} stroke={stroke} color={color} isPlayable />
+                <TileBackground path={TILE_PATH} stroke={TILE_STROKE} color={color} isPlayable />
                 <TileText position={textPosition}>{strength}</TileText>
                 <TileIcon position={piecePosition} size={pieceSize} type={type} />
             </svg>

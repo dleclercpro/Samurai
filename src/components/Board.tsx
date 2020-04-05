@@ -4,26 +4,17 @@ import { AppState } from '../types/StateTypes';
 import BoardTileComponent from './BoardTileComponent';
 import './Board.scss';
 import { Coordinates2D, Size2D, BoardTile, BoardTileMap, TileType } from '../types/GameTypes';
-import { getHexagonalPath } from '../lib';
-
-interface OwnProps {
-    gridSize: Size2D,
-    tileSize: Size2D,
-    tileStroke: number,
-    origin?: Coordinates2D,
-    rotation: number,
-}
+import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 
 interface StateProps {
     tiles: BoardTileMap,
     hasBoatInHand: boolean,
 }
 
-type Props = OwnProps & StateProps;
+type Props = StateProps;
 
 interface State {
     size: Size2D,
-    tilePath: string,
 }
 
 class Board extends React.Component<Props, State> {
@@ -33,19 +24,12 @@ class Board extends React.Component<Props, State> {
 
         this.state = {
             size: { width: 0, height: 0 },
-            tilePath: '',
         };
     }
 
     componentDidMount() {
-        const { tileSize } = this.props;
-
-        // We superimpose tiles on their borders
-        const tileStroke = 0;
-
         this.setState({
             size: this.getSize(),
-            tilePath: getHexagonalPath(tileSize, tileStroke),
         });
     }
 
@@ -53,22 +37,18 @@ class Board extends React.Component<Props, State> {
      * Compute board size in pixels, based grid coordinates range and tile size.
      */
     getSize = (): Size2D => {
-        const { gridSize, tileSize } = this.props;
-
         return {
-            width: gridSize.width * tileSize.width,
-            height: gridSize.height * tileSize.height
+            width: BOARD_SIZE.width * TILE_SIZE.width,
+            height: BOARD_SIZE.height * TILE_SIZE.height
         };
     }
 
     getTilePosition = (coordinates: Coordinates2D): Coordinates2D => {
-        const { origin, tileSize } = this.props;
-        const { width, height } = tileSize;
-        const x0 = origin ? origin.x : 0;
-        const y0 = origin ? origin.y : 0;
+        const { width, height } = TILE_SIZE;
+        let { x, y } = BOARD_ORIGIN;
 
-        let x = (x0 + coordinates.x) * width * 0.75;
-        let y = (y0 + coordinates.y) * height;
+        x = (x + coordinates.x) * width * 0.75;
+        y = (y + coordinates.y) * height;
 
         if (coordinates.x % 2 !== 0) {
             y += height / 2;
@@ -78,8 +58,7 @@ class Board extends React.Component<Props, State> {
     }
 
     getTileNodes = (): ReactNode[] => {
-        const { tiles, tileSize, tileStroke, rotation, hasBoatInHand } = this.props;
-        const { tilePath } = this.state;
+        const { tiles, hasBoatInHand } = this.props;
         let waterTiles: BoardTile[] = [];
         let groundTiles: BoardTile[] = [];
 
@@ -106,11 +85,7 @@ class Board extends React.Component<Props, State> {
             return (
                 <BoardTileComponent
                     key={index}
-                    path={tilePath}
-                    size={tileSize}
                     position={position}
-                    rotation={-rotation}
-                    stroke={tileStroke}
                     types={types}
                     isWater={isWater}
                     isPlayable={isPlayable}
@@ -120,13 +95,11 @@ class Board extends React.Component<Props, State> {
     }
 
     render() {
-        const { rotation } = this.props;
         const { width, height } = this.state.size;
-        const transform = `rotate(${rotation})`;
 
         return (
             <svg id='board' viewBox={`0 0 ${width} ${height}`}>
-                <g id='board-tiles' transform={transform}>
+                <g id='board-tiles' transform={`rotate(${BOARD_ROTATION})`}>
                     {this.getTileNodes()}
                 </g>
             </svg>

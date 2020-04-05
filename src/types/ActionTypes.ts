@@ -1,4 +1,4 @@
-import { BoardJSON, PlayerTileJSON } from "./JSONTypes";
+import { BoardJSON, PlayerTileJSON } from './JSONTypes';
 
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export interface OpenDialog {
@@ -39,8 +39,8 @@ export interface SetPlayerColor {
     color: string,
 }
 
-export const SELECT_TILE = 'SELECT_TILE';
-export interface SelectTile {
-    type: typeof SELECT_TILE,
+export const SELECT_NEXT_TILE = 'SELECT_NEXT_TILE';
+export interface SelectNextTile {
+    type: typeof SELECT_NEXT_TILE,
     id: number,
 }

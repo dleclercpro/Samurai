@@ -1,5 +1,5 @@
-import { BoardJSON, BoardTileJSON, PlayerTileJSON } from "./types/JSONTypes";
-import { BoardTileMap, TileType, PlayerTile, PlayerColor } from "./types/GameTypes";
+import { BoardJSON, BoardTileJSON, PlayerTileJSON } from './types/JSONTypes';
+import { BoardTileMap, TileType, PlayerTile, PlayerColor } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();

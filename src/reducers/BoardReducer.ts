@@ -1,8 +1,8 @@
-import { BoardState } from "../types/StateTypes";
-import { BoardAction } from "../actions";
-import { LOAD_BOARD } from "../types/ActionTypes";
-import { parseBoard } from "../parse";
-import { getTileNeighborhood } from "../lib";
+import { BoardState } from '../types/StateTypes';
+import { BoardAction } from '../actions';
+import { LOAD_BOARD } from '../types/ActionTypes';
+import { parseBoard } from '../parse';
+import { getTileNeighborhood } from '../lib';
 
 const initState = {
     tiles: new Map(),

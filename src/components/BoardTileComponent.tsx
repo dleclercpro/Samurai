@@ -1,20 +1,17 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, TileType, Size2D } from '../types/GameTypes';
+import { Coordinates2D, TileType } from '../types/GameTypes';
 import './BoardTileComponent.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
 import TileBackground from './TileBackground';
 import { getPositionInHexagon } from '../lib';
 import TileIcon from './TileIcon';
+import { TILE_PATH_BOARD, TILE_STROKE, TILE_SIZE, BOARD_ROTATION } from '../config';
 
 interface OwnProps {
-    size: Size2D,            // Size of tile (in pixels)
-    path: string,            // SVG path of tile
-    stroke: number,          // Stroke width of tile in SVG
-    position: Coordinates2D, // Position of tile in board (in pixels)
-    rotation: number,        // Board rotation
-    types: TileType[],       // Free types for caste pieces
+    position: Coordinates2D,
+    types: TileType[],
     isWater?: boolean,
     isPlayable?: boolean,
 }
@@ -38,27 +35,28 @@ class BoardTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { position, size, path, stroke, rotation, types, isWater, isPlayable } = this.props;
-        const { width, height } = size;
-
+        const { position, types, isWater, isPlayable } = this.props;
+        const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
-        const positionTransform = `translate(${position.x},${position.y})`;
-        const rotationTransform = `rotate(${rotation} ${center.x} ${center.y})`;
-
+        const rotation = -BOARD_ROTATION;
         const pieceSize = { width: width / 3, height: height / 3};
     
         return (
-            <g className='board-tile' transform={positionTransform} onClick={this.handleClick}>
+            <g
+                className='board-tile'
+                transform={`translate(${position.x},${position.y})`}
+                onClick={this.handleClick}
+            >
                 <TileBackground
-                    path={path}
-                    stroke={stroke}
+                    path={TILE_PATH_BOARD}
+                    stroke={TILE_STROKE}
                     isWater={isWater}
                     isPlayable={isPlayable}
                 />
 
-                <g className='board-tile-content' transform={rotationTransform}>
+                <g className='board-tile-content' transform={`rotate(${rotation} ${center.x} ${center.y})`}>
                     {types.map((type: TileType, index: number) => {
-                        const position = getPositionInHexagon(index, types.length, size);
+                        const position = getPositionInHexagon(index, types.length, TILE_SIZE);
 
                         return (
                             <TileIcon
