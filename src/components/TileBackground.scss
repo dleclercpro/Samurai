@@ -28,6 +28,10 @@
         &:hover:not(.is-taken) {
             fill: $color-dark-red;
         }
+
+        .is-selected & {
+            fill: $color-dark-red;
+        }
     }
 
     &.is-purple {
@@ -35,6 +39,10 @@
         stroke: $color-dark-purple;
 
         &:hover:not(.is-taken) {
+            fill: $color-dark-purple;
+        }
+
+        .is-selected & {
             fill: $color-dark-purple;
         }
     }
@@ -46,6 +54,10 @@
         &:hover:not(.is-taken) {
             fill: $color-dark-gold;
         }
+
+        .is-selected & {
+            fill: $color-dark-gold;
+        }
     }
 
     &.is-green {
@@ -53,6 +65,10 @@
         stroke: $color-dark-green;
 
         &:hover:not(.is-taken) {
+            fill: $color-dark-green;
+        }
+
+        .is-selected & {
             fill: $color-dark-green;
         }
     }

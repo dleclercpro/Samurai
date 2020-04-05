@@ -17,9 +17,11 @@ const TILE_SIZE = { width: 300, height: 260 };
 const TILE_STROKE = 12;
 const ROTATION = 60;
 
-interface AppProps {
+interface AppDispatchProps {
     loadBoard: (data: BoardJSON) => void,
 }
+
+type AppProps = AppDispatchProps;
 
 class App extends React.Component<AppProps, {}> {
     
@@ -59,4 +61,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
 });
 
-export default connect(() => {}, mapDispatchToProps)(App);
+export default connect(() => ({}), mapDispatchToProps)(App);

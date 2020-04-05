@@ -6,14 +6,19 @@ import './Board.scss';
 import { Coordinates2D, Size2D, Tile, TileMap } from '../types/GameTypes';
 import { getHexagonalPath } from '../lib';
 
-interface BoardProps {
+interface BoardOwnProps {
     gridSize: Size2D,
     tileSize: Size2D,
     tileStroke: number,
     origin?: Coordinates2D,
     rotation: number,
+}
+
+interface BoardStateProps {
     tiles: TileMap,
 }
+
+type BoardProps = BoardOwnProps & BoardStateProps;
 
 interface BoardState {
     size: Size2D,
@@ -126,4 +131,4 @@ const mapStateToProps = (state: AppState) => ({
     tiles: state.board.tiles,
 });
 
-export default connect(mapStateToProps, () => {})(Board);
+export default connect(mapStateToProps, () => ({}))(Board);

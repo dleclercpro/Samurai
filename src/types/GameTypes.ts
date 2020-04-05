@@ -16,16 +16,16 @@ export enum PlayerColor {
 }
 
 export enum Caste {
-    Military,
-    Commerce,
-    Religion,
+    Military = 'Military',
+    Commerce = 'Commerce',
+    Religion = 'Religion',
 }
 
-export enum SpecialTile {
-    Samourai,
-    Boat,
-    Switch,
-    Move,
+export enum SpecialCaste {
+    Joker = 'Joker',
+    Water = 'Water',
+    Switch = 'Switch',
+    Move = 'Move',
 }
 
 export interface Tile {
@@ -37,7 +37,7 @@ export interface Tile {
 
 export type TileMap = Map<Coordinates2D, Tile>;
 
-export interface CastePiece {
+export interface TilePiece {
     type: Caste,
 }
 

@@ -3,17 +3,20 @@ import './Dialog.scss';
 import { closeDialog } from '../actions/DialogActions';
 import { connect } from 'react-redux';
 import { AppAction } from '../actions';
-import { AppState } from '../types/StateTypes';
 import Button from './Button';
 import { ReactComponent as CloseIcon } from '../icons/close.svg';
 
-interface DialogProps {
+interface DialogOwnProps {
     children: ReactNode,
     type: string,
     headline: string,
-    
+}
+
+interface DialogDispatchProps {
     closeDialog: () => void,
 }
+
+type DialogProps = DialogOwnProps & DialogDispatchProps;
 
 class Dialog extends React.Component<DialogProps, {}> {
 
@@ -40,12 +43,8 @@ class Dialog extends React.Component<DialogProps, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     closeDialog: () => dispatch(closeDialog),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dialog);
+export default connect(() => ({}), mapDispatchToProps)(Dialog);

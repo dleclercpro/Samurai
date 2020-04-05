@@ -1,15 +1,14 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { AppState } from '../types/StateTypes';
 import { Coordinates2D, Caste, Size2D } from '../types/GameTypes';
 import './BoardTile.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
-import CastePiece from './CastePiece';
 import TileBackground from './TileBackground';
 import { getPositionInHexagon } from '../lib';
+import TileIcon from './TileIcon';
 
-interface BoardTileProps {
+interface BoardTileOwnProps {
     size: Size2D,            // Size of tile (in pixels)
     path: string,            // SVG path of tile
     stroke: number,          // Stroke width of tile in SVG
@@ -17,9 +16,13 @@ interface BoardTileProps {
     rotation: number,        // Board rotation
     spaces: Caste[],         // Free spaces for caste pieces
     isWater?: boolean,
-    
+}
+
+interface BoardTileDispatchProps {
     openDialog: () => void,
 }
+
+type BoardTileProps = BoardTileOwnProps & BoardTileDispatchProps;
 
 interface BoardTileState {
     isTaken: boolean,
@@ -79,11 +82,11 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
                         const position = getPositionInHexagon(index, spaces.length, size);
 
                         return (
-                            <CastePiece
+                            <TileIcon
                                 key={index}
                                 position={position}
                                 size={pieceSize}
-                                caste={space}
+                                type={space}
                             />
                         );
                     })}
@@ -93,12 +96,8 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     openDialog: () => dispatch(openDialog),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardTile);
+export default connect(() => ({}), mapDispatchToProps)(BoardTile);

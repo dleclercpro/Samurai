@@ -1,9 +1,6 @@
-import React, { Dispatch } from 'react';
-import { connect } from 'react-redux';
-import { AppState } from '../types/StateTypes';
-import { Size2D, Caste, PlayerColor } from '../types/GameTypes';
+import React from 'react';
+import { Size2D, Caste, PlayerColor, SpecialCaste } from '../types/GameTypes';
 import './DialogPlayerTileChoice.scss';
-import { AppAction } from '../actions';
 import { getHexagonalPath } from '../lib';
 import Dialog from './Dialog';
 import PlayerTile from './PlayerTile';
@@ -46,23 +43,15 @@ class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps
                     <p>This is a test.</p>
                 </section>
                 <section className='tiles'>
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Military} strength={4} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Religion} strength={3} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Commerce} strength={2} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Religion} strength={1} />
-                    <PlayerTile size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} caste={Caste.Religion} strength={0} />
+                    <PlayerTile id={0} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={Caste.Military} strength={4} />
+                    <PlayerTile id={1} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={Caste.Religion} strength={3} />
+                    <PlayerTile id={2} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={Caste.Commerce} strength={2} />
+                    <PlayerTile id={3} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={SpecialCaste.Water} strength={1} />
+                    <PlayerTile id={4} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={SpecialCaste.Joker} strength={0} />
                 </section>
             </Dialog>
         );
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DialogPlayerTileChoice);
+export default DialogPlayerTileChoice;

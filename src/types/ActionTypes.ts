@@ -1,4 +1,3 @@
-import { Tile } from "./GameTypes";
 import { BoardJSON } from "./JSONTypes";
 
 export const OPEN_DIALOG = 'OPEN_DIALOG';
@@ -19,11 +18,17 @@ export interface ToggleDialog {
 export const SELECT_TILE = 'SELECT_TILE';
 export interface SelectTile {
     type: typeof SELECT_TILE,
-    tile: Tile,
+    id: number,
 }
 
 export const LOAD_BOARD = 'LOAD_BOARD';
 export interface LoadBoard {
     type: typeof LOAD_BOARD,
     json: BoardJSON,
+}
+
+export const SET_PLAYER = 'SET_PLAYER';
+export interface SetPlayer {
+    type: typeof SET_PLAYER,
+    id: number,
 }

@@ -1,7 +1,8 @@
 import { Tile, TileMap } from "./GameTypes";
 
 export interface PlayerState {
-    selectedTile: Tile,
+    id: number,
+    selectedTileId: number,
 }
 
 export interface BoardState {

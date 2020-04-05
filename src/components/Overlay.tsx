@@ -5,12 +5,19 @@ import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import { closeDialog } from '../actions/DialogActions';
 
-interface OverlayProps {
-    children: ReactNode,
+interface OverlayOwnProps {
+    children: ReactNode,    
+}
+
+interface OverlayStateProps {
     isOpen: boolean,
-    
+}
+
+interface OverlayDispatchProps {
     closeDialog: () => void,
 }
+
+type OverlayProps = OverlayOwnProps & OverlayStateProps & OverlayDispatchProps;
 
 class Overlay extends React.Component<OverlayProps> {
     

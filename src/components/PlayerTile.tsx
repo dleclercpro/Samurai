@@ -1,55 +1,47 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Caste, Size2D, PlayerColor } from '../types/GameTypes';
+import { Caste, Size2D, PlayerColor, SpecialCaste } from '../types/GameTypes';
 import './PlayerTile.scss';
 import { AppAction } from '../actions';
-import CastePiece from './CastePiece';
 import { getPositionInHexagon } from '../lib';
 import TileBackground from './TileBackground';
 import TileText from './TileText';
+import TileIcon from './TileIcon';
+import { selectTile } from '../actions/PlayerActions';
 
-interface PlayerTileProps {
+interface PlayerTileOwnProps {
+    id: number,
     size: Size2D, // Size of tile (in pixels)
     path: string,
     stroke: number,
     color: PlayerColor,
-    caste: Caste,
+    type: Caste | SpecialCaste,
     strength: number,
 }
 
-interface PlayerTileState {
+interface PlayerTileStateProps {
     isSelected: boolean,
 }
 
-class PlayerTile extends React.Component<PlayerTileProps, PlayerTileState> {
+interface PlayerTileDispatchProps {
+    selectTile: (id: number) => void,
+}
 
-    constructor(props: PlayerTileProps) {
-        super(props);
+type PlayerTileProps = PlayerTileOwnProps & PlayerTileStateProps & PlayerTileDispatchProps;
 
-        this.state = {
-            isSelected: false,
-        }
-    }
+class PlayerTile extends React.Component<PlayerTileProps, {}> {
 
     handleClick = (e: React.MouseEvent) => {
+        const { selectTile, id } = this.props;
+        
         e.stopPropagation();
-    }
 
-    select = () => {
-        this.setState({
-            isSelected: true,
-        });
-    }
-
-    unselect = () => {
-        this.setState({
-            isSelected: false,
-        });
+        selectTile(id);
     }
 
     render() {
-        const { size, path, stroke, color, strength, caste } = this.props;
+        const { size, path, stroke, color, strength, type, isSelected } = this.props;
 
         const { width, height } = size;
 
@@ -59,21 +51,25 @@ class PlayerTile extends React.Component<PlayerTileProps, PlayerTileState> {
         const textPosition = { x: 2 / 3 * width, y: height / 2 };
     
         return (
-            <svg className='player-tile' viewBox={`0 0 ${width} ${height}`} onClick={this.handleClick}>
+            <svg
+                className={`player-tile ${isSelected ? 'is-selected' : ''}`}
+                viewBox={`0 0 ${width} ${height}`}
+                onClick={this.handleClick}
+            >
                 <TileBackground path={path} stroke={stroke} color={color} />
                 <TileText position={textPosition}>{strength}</TileText>
-                <CastePiece position={piecePosition} size={pieceSize} caste={caste} />
+                <TileIcon position={piecePosition} size={pieceSize} type={type} />
             </svg>
         );
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    
+const mapStateToProps = (state: AppState, ownProps: PlayerTileOwnProps) => ({
+    isSelected: ownProps.id === state.player.selectedTileId,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-
+    selectTile: (id: number) => dispatch(selectTile(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerTile);

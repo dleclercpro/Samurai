@@ -1,7 +1,11 @@
-import { SELECT_TILE, SelectTile } from "../types/ActionTypes";
-import { Tile } from "../types/GameTypes";
+import { SELECT_TILE, SelectTile, SET_PLAYER, SetPlayer } from "../types/ActionTypes";
 
-export const selectTile = (tile: Tile): SelectTile => ({
+export const selectTile = (id: number): SelectTile => ({
     type: SELECT_TILE,
-    tile,
+    id,
+});
+
+export const setPlayer = (id: number): SetPlayer => ({
+    type: SET_PLAYER,
+    id,
 });
