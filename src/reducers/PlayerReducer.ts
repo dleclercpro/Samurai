@@ -1,12 +1,14 @@
 import { PlayerState } from "../types/StateTypes";
 import { PlayerAction } from "../actions";
-import { SELECT_TILE, SET_PLAYER, SET_HAND } from "../types/ActionTypes";
-import { parsePlayerTile } from "../parse";
+import { SELECT_TILE, SET_PLAYER, SET_PLAYER_COLOR, LOAD_HAND } from "../types/ActionTypes";
+import { parsePlayerTile, parseColor } from "../parse";
+import { PlayerColor } from "../types/GameTypes";
 
 const initState = {
     id: -1,
-    selectedTileId: -1,
+    color: PlayerColor.Red,
     hand: [],
+    selectedTileId: -1,
 };
 
 const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => {
@@ -16,10 +18,15 @@ const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => 
                 ...state,
                 id: action.id,
             };
-        case SET_HAND:
+        case SET_PLAYER_COLOR:
             return {
                 ...state,
-                hand: action.hand.map(tile => parsePlayerTile(tile)),
+                color: parseColor(action.color),
+            };
+        case LOAD_HAND:
+            return {
+                ...state,
+                hand: action.json.map(tile => parsePlayerTile(tile)),
             };
         case SELECT_TILE:
             return {

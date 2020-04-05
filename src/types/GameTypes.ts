@@ -37,5 +37,6 @@ export type BoardTileMap = Map<Coordinates2D, BoardTile>;
 export interface PlayerTile {
     id: number,
     type: TileType,
-    strength?: number,
+    strength: number,
+    canReplay: boolean,
 }

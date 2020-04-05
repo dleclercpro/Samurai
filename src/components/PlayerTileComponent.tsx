@@ -18,6 +18,7 @@ interface OwnProps {
     color: PlayerColor,
     type: TileType,
     strength: number,
+    canReplay: boolean,
 }
 
 interface StateProps {

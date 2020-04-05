@@ -1,5 +1,5 @@
 import { BoardJSON, BoardTileJSON, PlayerTileJSON } from "./types/JSONTypes";
-import { BoardTileMap, TileType, PlayerTile } from "./types/GameTypes";
+import { BoardTileMap, TileType, PlayerTile, PlayerColor } from "./types/GameTypes";
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
@@ -38,7 +38,7 @@ export const parseTileType = (data: String): TileType => {
             return TileType.Commerce;
         case 'Joker':
             return TileType.Joker;
-        case 'Water':
+        case 'Boat':
             return TileType.Boat;
         case 'Move':
             return TileType.Move;
@@ -49,12 +49,28 @@ export const parseTileType = (data: String): TileType => {
     }
 }
 
+export const parseColor = (color: String): PlayerColor => {
+    switch(color) {
+        case 'red':
+            return PlayerColor.Red;
+        case 'purple':
+            return PlayerColor.Purple;
+        case 'gold':
+            return PlayerColor.Gold;
+        case 'green':
+            return PlayerColor.Green;
+        default:
+            throw new Error('Wrong color type.');
+    }
+}
+
 export const parsePlayerTile = (data: PlayerTileJSON): PlayerTile => {
-    const { id, type, strength } = data;
+    const { id, type, strength, canReplay } = data;
     
     return {
         id,
         type: parseTileType(type),
-        strength
+        strength,
+        canReplay,
     };
 }

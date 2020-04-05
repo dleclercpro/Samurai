@@ -14,7 +14,6 @@ export interface BoardJSON {
 export interface PlayerTileJSON {
     id: number,
     type: string,
-    strength?: number,
+    strength: number,
+    canReplay: boolean,
 }
-
-export type HandJSON = PlayerTileJSON[];

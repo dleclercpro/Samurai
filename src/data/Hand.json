@@ -1,0 +1,122 @@
+[
+    {
+        "id": 0,
+        "type": "Military",
+        "strength": 4,
+        "canReplay": false
+    },
+    {
+        "id": 1,
+        "type": "Religion",
+        "strength": 4,
+        "canReplay": false
+    },
+    {
+        "id": 2,
+        "type": "Commerce",
+        "strength": 4,
+        "canReplay": false
+    },
+    {
+        "id": 3,
+        "type": "Military",
+        "strength": 3,
+        "canReplay": false
+    },
+    {
+        "id": 4,
+        "type": "Religion",
+        "strength": 3,
+        "canReplay": false
+    },
+    {
+        "id": 5,
+        "type": "Commerce",
+        "strength": 3,
+        "canReplay": false
+    },
+    {
+        "id": 6,
+        "type": "Military",
+        "strength": 2,
+        "canReplay": false
+    },
+    {
+        "id": 7,
+        "type": "Religion",
+        "strength": 2,
+        "canReplay": false
+    },
+    {
+        "id": 8,
+        "type": "Commerce",
+        "strength": 2,
+        "canReplay": false
+    },
+    {
+        "id": 9,
+        "type": "Joker",
+        "strength": 3,
+        "canReplay": false
+    },
+    {
+        "id": 10,
+        "type": "Joker",
+        "strength": 2,
+        "canReplay": false
+    },
+    {
+        "id": 11,
+        "type": "Joker",
+        "strength": 2,
+        "canReplay": false
+    },
+    {
+        "id": 12,
+        "type": "Joker",
+        "strength": 1,
+        "canReplay": false
+    },
+    {
+        "id": 13,
+        "type": "Joker",
+        "strength": 1,
+        "canReplay": false
+    },
+    {
+        "id": 14,
+        "type": "Joker",
+        "strength": 1,
+        "canReplay": true
+    },
+    {
+        "id": 15,
+        "type": "Boat",
+        "strength": 2,
+        "canReplay": true
+    },
+    {
+        "id": 16,
+        "type": "Boat",
+        "strength": 1,
+        "canReplay": true
+    },
+    {
+        "id": 17,
+        "type": "Boat",
+        "strength": 1,
+        "canReplay": true
+    },
+    {
+        "id": 18,
+        "type": "Switch",
+        "strength": 0,
+        "canReplay": true
+    },
+    {
+        "id": 19,
+        "type": "Move",
+        "strength": 0,
+        "canReplay": false
+    }
+]
