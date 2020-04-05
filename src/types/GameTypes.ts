@@ -15,32 +15,27 @@ export enum PlayerColor {
     Green,
 }
 
-export enum Caste {
-    Military = 'Military',
-    Commerce = 'Commerce',
-    Religion = 'Religion',
+export enum TileType {
+    Military,
+    Commerce,
+    Religion,
+    Joker,
+    Boat,
+    Switch,
+    Move,
 }
 
-export enum SpecialCaste {
-    Joker = 'Joker',
-    Water = 'Water',
-    Switch = 'Switch',
-    Move = 'Move',
-}
-
-export interface Tile {
+export interface BoardTile {
     coordinates: Coordinates2D,
     neighborhood: Coordinates2D[],
-    spaces: Caste[],
+    types: TileType[],
     isWater: boolean,
 }
 
-export type TileMap = Map<Coordinates2D, Tile>;
+export type BoardTileMap = Map<Coordinates2D, BoardTile>;
 
-export interface TilePiece {
-    type: Caste,
-}
-
-export interface LeaderToken {
-    type: Caste,
+export interface PlayerTile {
+    id: number,
+    type: TileType,
+    strength?: number,
 }

@@ -1,8 +1,8 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { Caste, Size2D, PlayerColor, SpecialCaste } from '../types/GameTypes';
-import './PlayerTile.scss';
+import { TileType, Size2D, PlayerColor } from '../types/GameTypes';
+import './PlayerTileComponent.scss';
 import { AppAction } from '../actions';
 import { getPositionInHexagon } from '../lib';
 import TileBackground from './TileBackground';
@@ -10,27 +10,27 @@ import TileText from './TileText';
 import TileIcon from './TileIcon';
 import { selectTile } from '../actions/PlayerActions';
 
-interface PlayerTileOwnProps {
+interface OwnProps {
     id: number,
     size: Size2D, // Size of tile (in pixels)
     path: string,
     stroke: number,
     color: PlayerColor,
-    type: Caste | SpecialCaste,
+    type: TileType,
     strength: number,
 }
 
-interface PlayerTileStateProps {
+interface StateProps {
     isSelected: boolean,
 }
 
-interface PlayerTileDispatchProps {
+interface DispatchProps {
     selectTile: (id: number) => void,
 }
 
-type PlayerTileProps = PlayerTileOwnProps & PlayerTileStateProps & PlayerTileDispatchProps;
+type Props = OwnProps & StateProps & DispatchProps;
 
-class PlayerTile extends React.Component<PlayerTileProps, {}> {
+class PlayerTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
         const { selectTile, id } = this.props;
@@ -64,7 +64,7 @@ class PlayerTile extends React.Component<PlayerTileProps, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState, ownProps: PlayerTileOwnProps) => ({
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
     isSelected: ownProps.id === state.player.selectedTileId,
 });
 
@@ -72,4 +72,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     selectTile: (id: number) => dispatch(selectTile(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerTile);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerTileComponent);

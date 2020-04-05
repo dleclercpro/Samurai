@@ -17,13 +17,13 @@ const TILE_SIZE = { width: 300, height: 260 };
 const TILE_STROKE = 12;
 const ROTATION = 60;
 
-interface AppDispatchProps {
+interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
 }
 
-type AppProps = AppDispatchProps;
+type Props = DispatchProps;
 
-class App extends React.Component<AppProps, {}> {
+class App extends React.Component<Props, {}> {
     
     componentDidMount() {
         const { loadBoard } = this.props;

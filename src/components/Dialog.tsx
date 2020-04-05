@@ -6,19 +6,19 @@ import { AppAction } from '../actions';
 import Button from './Button';
 import { ReactComponent as CloseIcon } from '../icons/close.svg';
 
-interface DialogOwnProps {
+interface OwnProps {
     children: ReactNode,
     type: string,
     headline: string,
 }
 
-interface DialogDispatchProps {
+interface DispatchProps {
     closeDialog: () => void,
 }
 
-type DialogProps = DialogOwnProps & DialogDispatchProps;
+type Props = OwnProps & DispatchProps;
 
-class Dialog extends React.Component<DialogProps, {}> {
+class Dialog extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
         e.stopPropagation();

@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import BoardTile from './BoardTile';
+import BoardTileComponent from './BoardTileComponent';
 import './Board.scss';
-import { Coordinates2D, Size2D, Tile, TileMap } from '../types/GameTypes';
+import { Coordinates2D, Size2D, BoardTile, BoardTileMap } from '../types/GameTypes';
 import { getHexagonalPath } from '../lib';
 
-interface BoardOwnProps {
+interface OwnProps {
     gridSize: Size2D,
     tileSize: Size2D,
     tileStroke: number,
@@ -14,20 +14,20 @@ interface BoardOwnProps {
     rotation: number,
 }
 
-interface BoardStateProps {
-    tiles: TileMap,
+interface StateProps {
+    tiles: BoardTileMap,
 }
 
-type BoardProps = BoardOwnProps & BoardStateProps;
+type Props = OwnProps & StateProps;
 
-interface BoardState {
+interface State {
     size: Size2D,
     tilePath: string,
 }
 
-class Board extends React.Component<BoardProps, BoardState> {
+class Board extends React.Component<Props, State> {
 
-    constructor(props: BoardProps) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -79,11 +79,11 @@ class Board extends React.Component<BoardProps, BoardState> {
     getTileNodes = (): ReactNode[] => {
         const { tiles, tileSize, tileStroke,  rotation } = this.props;
         const { tilePath } = this.state;
-        let waterTiles: Tile[] = [];
-        let groundTiles: Tile[] = [];
+        let waterTiles: BoardTile[] = [];
+        let groundTiles: BoardTile[] = [];
 
         // Differenciation between ground and water tiles
-        Array.from(tiles.values()).forEach((tile: Tile) => {
+        Array.from(tiles.values()).forEach((tile: BoardTile) => {
             if (tile.isWater) {
                 waterTiles.push(tile);
             } else {
@@ -93,19 +93,19 @@ class Board extends React.Component<BoardProps, BoardState> {
 
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
-        return waterTiles.concat(groundTiles).map((tile: Tile, index: number) => {
-            const { coordinates, spaces, isWater } = tile;
+        return waterTiles.concat(groundTiles).map((tile: BoardTile, index: number) => {
+            const { coordinates, types, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
             return (
-                <BoardTile
+                <BoardTileComponent
                     key={index}
                     path={tilePath}
                     size={tileSize}
                     position={position}
                     rotation={-rotation}
                     stroke={tileStroke}
-                    spaces={spaces}
+                    types={types}
                     isWater={isWater}
                 />
             );

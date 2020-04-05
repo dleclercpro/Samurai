@@ -1,17 +1,13 @@
-import { BoardJSON, TileJSON } from "./types/JSONTypes";
-import { TileMap, Caste } from "./types/GameTypes";
+import { BoardJSON, BoardTileJSON, PlayerTileJSON } from "./types/JSONTypes";
+import { BoardTileMap, TileType, PlayerTile } from "./types/GameTypes";
 
-/**
- * Build a tile map using corresponding JSON data. Tiles' keys are their
- * coordinates.
- */
-export const parseBoard = (data: BoardJSON): TileMap => {
+export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
-    const tiles: TileMap = new Map();
+    const tiles: BoardTileMap = new Map();
 
     // Build tile map
-    rawTiles.forEach((rawTile: TileJSON) => {
-        const { coordinates, spaces, isWater } = rawTile;
+    rawTiles.forEach((rawTile: BoardTileJSON) => {
+        const { coordinates, types, isWater } = rawTile;
         
         if (tiles.has(coordinates)) {
             console.warn('Trying to add same tile twice.');
@@ -21,28 +17,44 @@ export const parseBoard = (data: BoardJSON): TileMap => {
         const tile = {
             coordinates,
             neighborhood: [],
-            spaces: spaces.map(space => parseCaste(space)),
+            types: types.map(type => parseTileType(type)),
             isWater,
         };
 
+        // Use tile coordinates as key
         tiles.set(coordinates, tile);
     });
 
     return tiles;
 }
 
-/**
- * Get caste type based on string.
- */
-export const parseCaste = (data: String): Caste => {
+export const parseTileType = (data: String): TileType => {
     switch(data) {
         case 'Military':
-            return Caste.Military;
+            return TileType.Military;
         case 'Religion':
-            return Caste.Religion;
+            return TileType.Religion;
         case 'Commerce':
-            return Caste.Commerce;
+            return TileType.Commerce;
+        case 'Joker':
+            return TileType.Joker;
+        case 'Water':
+            return TileType.Boat;
+        case 'Move':
+            return TileType.Move;
+        case 'Switch':
+            return TileType.Switch;
         default:
-            throw new Error('Wrong caste.');
+            throw new Error('Wrong tile type.');
     }
+}
+
+export const parsePlayerTile = (data: PlayerTileJSON): PlayerTile => {
+    const { id, type, strength } = data;
+    
+    return {
+        id,
+        type: parseTileType(type),
+        strength
+    };
 }

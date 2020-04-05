@@ -6,7 +6,7 @@
         "y": -10
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -14,7 +14,7 @@
         "y": -9
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -22,7 +22,7 @@
         "y": -8
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -30,7 +30,7 @@
         "y": -7
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -38,7 +38,7 @@
         "y": -10
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -46,7 +46,7 @@
         "y": -10
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -54,7 +54,7 @@
         "y": -9
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -62,7 +62,7 @@
         "y": -9
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -70,7 +70,7 @@
         "y": -8
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -78,7 +78,7 @@
         "y": -7
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -86,7 +86,7 @@
         "y": -6
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -94,7 +94,7 @@
         "y": -5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -102,7 +102,7 @@
         "y": -5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -110,7 +110,7 @@
         "y": -9
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -120,7 +120,7 @@
         "y": -8
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -128,7 +128,7 @@
         "y": -7
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion", 
         "Commerce"
       ]
@@ -139,7 +139,7 @@
         "y": -6
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -147,7 +147,7 @@
         "y": -5
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -157,7 +157,7 @@
         "y": -9
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -165,7 +165,7 @@
         "y": -8
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -173,7 +173,7 @@
         "y": -7
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -181,7 +181,7 @@
         "y": -6
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -189,7 +189,7 @@
         "y": -8
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -199,7 +199,7 @@
         "y": -7
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -207,7 +207,7 @@
         "y": -6
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -217,7 +217,7 @@
         "y": -6
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -225,7 +225,7 @@
         "y": -5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -233,7 +233,7 @@
         "y": -5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -241,7 +241,7 @@
         "y": -4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -249,7 +249,7 @@
         "y": -4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -257,7 +257,7 @@
         "y": -3
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -265,7 +265,7 @@
         "y": -2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -273,7 +273,7 @@
         "y": -1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -281,7 +281,7 @@
         "y": -2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -289,7 +289,7 @@
         "y": -1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -297,7 +297,7 @@
         "y": -1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -305,7 +305,7 @@
         "y": -5
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -313,7 +313,7 @@
         "y": -4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -321,7 +321,7 @@
         "y": -3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -329,7 +329,7 @@
         "y": -2
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -339,7 +339,7 @@
         "y": -4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -347,7 +347,7 @@
         "y": -3
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military", 
         "Religion", 
         "Commerce"
@@ -359,7 +359,7 @@
         "y": -2
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -367,7 +367,7 @@
         "y": -5
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -375,7 +375,7 @@
         "y": -4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -383,7 +383,7 @@
         "y": -3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -391,7 +391,7 @@
         "y": -4
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -401,7 +401,7 @@
         "y": -3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -409,7 +409,7 @@
         "y": -2
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -419,7 +419,7 @@
         "y": -4
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -429,7 +429,7 @@
         "y": -3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -437,7 +437,7 @@
         "y": -2
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -445,7 +445,7 @@
         "y": -1
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -453,7 +453,7 @@
         "y": -4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -461,7 +461,7 @@
         "y": -3
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -471,7 +471,7 @@
         "y": -2
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -479,7 +479,7 @@
         "y": -3
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -487,7 +487,7 @@
         "y": -2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -495,7 +495,7 @@
         "y": -3
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -503,7 +503,7 @@
         "y": -2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -511,7 +511,7 @@
         "y": -2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -519,7 +519,7 @@
         "y": -1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -527,7 +527,7 @@
         "y": -1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -535,7 +535,7 @@
         "y": 0
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -543,7 +543,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -551,7 +551,7 @@
         "y": 2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -559,7 +559,7 @@
         "y": 2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -567,7 +567,7 @@
         "y": 2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -575,7 +575,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -583,7 +583,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -591,7 +591,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -599,7 +599,7 @@
         "y": 0
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -607,7 +607,7 @@
         "y": 2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -615,7 +615,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -623,7 +623,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -631,7 +631,7 @@
         "y": 0
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -639,7 +639,7 @@
         "y": -1
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion", 
         "Commerce"
       ]
@@ -650,7 +650,7 @@
         "y": 0
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -658,7 +658,7 @@
         "y": -1
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -666,7 +666,7 @@
         "y": 0
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -674,7 +674,7 @@
         "y": 1
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -684,7 +684,7 @@
         "y": -2
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -694,7 +694,7 @@
         "y": -1
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -702,7 +702,7 @@
         "y": -1
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -710,7 +710,7 @@
         "y": 0
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -720,7 +720,7 @@
         "y": -1
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -728,7 +728,7 @@
         "y": 0
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -736,7 +736,7 @@
         "y": 0
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -746,7 +746,7 @@
         "y": 1
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -754,7 +754,7 @@
         "y": 0
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -762,7 +762,7 @@
         "y": 1
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }
@@ -774,7 +774,7 @@
         "y": -13
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -782,7 +782,7 @@
         "y": -12
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -790,7 +790,7 @@
         "y": -11
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -798,7 +798,7 @@
         "y": -10
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -806,7 +806,7 @@
         "y": -16
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -814,7 +814,7 @@
         "y": -15
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -822,7 +822,7 @@
         "y": -14
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -830,7 +830,7 @@
         "y": -16
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -838,7 +838,7 @@
         "y": -16
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -846,7 +846,7 @@
         "y": -15
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -854,7 +854,7 @@
         "y": -14
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -862,7 +862,7 @@
         "y": -15
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -870,7 +870,7 @@
         "y": -15
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -878,7 +878,7 @@
         "y": -15
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -886,7 +886,7 @@
         "y": -14
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -894,7 +894,7 @@
         "y": -13
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -902,7 +902,7 @@
         "y": -12
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -910,7 +910,7 @@
         "y": -12
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -918,7 +918,7 @@
         "y": -11
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -926,7 +926,7 @@
         "y": -10
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -934,7 +934,7 @@
         "y": -13
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -944,7 +944,7 @@
         "y": -12
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -952,7 +952,7 @@
         "y": -11
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -962,7 +962,7 @@
         "y": -15
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -972,7 +972,7 @@
         "y": -14
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -980,7 +980,7 @@
         "y": -13
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -988,7 +988,7 @@
         "y": -12
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -996,7 +996,7 @@
         "y": -11
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1004,7 +1004,7 @@
         "y": -15
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1012,7 +1012,7 @@
         "y": -14
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -1022,7 +1022,7 @@
         "y": -13
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1030,7 +1030,7 @@
         "y": -12
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military", 
         "Commerce"
       ]
@@ -1041,7 +1041,7 @@
         "y": -11
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1049,7 +1049,7 @@
         "y": -13
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1057,7 +1057,7 @@
         "y": -12
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1065,7 +1065,7 @@
         "y": -11
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1073,7 +1073,7 @@
         "y": -10
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -1083,7 +1083,7 @@
         "y": -14
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1091,7 +1091,7 @@
         "y": -13
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -1101,7 +1101,7 @@
         "y": -14
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -1111,7 +1111,7 @@
         "y": -13
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }
   ], 
   "South": [
@@ -1121,7 +1121,7 @@
         "y": 3
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1129,7 +1129,7 @@
         "y": 4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1137,7 +1137,7 @@
         "y": 4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1145,7 +1145,7 @@
         "y": 5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1153,7 +1153,7 @@
         "y": 5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1161,7 +1161,7 @@
         "y": 5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1169,7 +1169,7 @@
         "y": 3
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1177,7 +1177,7 @@
         "y": 4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1185,7 +1185,7 @@
         "y": 5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1193,7 +1193,7 @@
         "y": 6
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1201,7 +1201,7 @@
         "y": 7
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1209,7 +1209,7 @@
         "y": 6
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1217,7 +1217,7 @@
         "y": 6
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1225,7 +1225,7 @@
         "y": 5
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1233,7 +1233,7 @@
         "y": 4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1241,7 +1241,7 @@
         "y": 4
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1249,7 +1249,7 @@
         "y": 3
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1257,7 +1257,7 @@
         "y": 2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1265,7 +1265,7 @@
         "y": 2
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1273,7 +1273,7 @@
         "y": 1
       }, 
       "isWater": true, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1281,7 +1281,7 @@
         "y": 2
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1289,7 +1289,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -1299,7 +1299,7 @@
         "y": 2
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -1309,7 +1309,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1317,7 +1317,7 @@
         "y": 4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1325,7 +1325,7 @@
         "y": 2
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1333,7 +1333,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1341,7 +1341,7 @@
         "y": 4
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -1351,7 +1351,7 @@
         "y": 4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1359,7 +1359,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -1369,7 +1369,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1377,7 +1377,7 @@
         "y": 4
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -1387,7 +1387,7 @@
         "y": 5
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1395,7 +1395,7 @@
         "y": 6
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }, 
@@ -1405,7 +1405,7 @@
         "y": 2
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Commerce"
       ]
     }, 
@@ -1415,7 +1415,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1423,7 +1423,7 @@
         "y": 4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1431,7 +1431,7 @@
         "y": 5
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1439,7 +1439,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1447,7 +1447,7 @@
         "y": 4
       }, 
       "isWater": false, 
-      "spaces": []
+      "types": []
     }, 
     {
       "coordinates": {
@@ -1455,7 +1455,7 @@
         "y": 5
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Military"
       ]
     }, 
@@ -1465,7 +1465,7 @@
         "y": 3
       }, 
       "isWater": false, 
-      "spaces": [
+      "types": [
         "Religion"
       ]
     }

@@ -2,11 +2,11 @@ import React from 'react';
 import './Nav.scss';
 import { Link } from 'react-router-dom';
 
-interface NavProps {
+interface Props {
 
 }
 
-const Nav: React.FC<NavProps> = (props) => {
+const Nav: React.FC<Props> = (props) => {
     return (
         <nav id='nav'>
             <ul className='menu menu--1'>

@@ -1,12 +1,12 @@
 import React from 'react';
 import './Button.scss';
 
-interface DialogProps {
+interface Props {
     children: string,
     action: () => void,
 }
 
-class Button extends React.Component<DialogProps, {}> {
+class Button extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent): void => {
         e.stopPropagation();

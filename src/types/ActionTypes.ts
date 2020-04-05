@@ -1,4 +1,4 @@
-import { BoardJSON } from "./JSONTypes";
+import { BoardJSON, HandJSON } from "./JSONTypes";
 
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export interface OpenDialog {
@@ -31,4 +31,10 @@ export const SET_PLAYER = 'SET_PLAYER';
 export interface SetPlayer {
     type: typeof SET_PLAYER,
     id: number,
+}
+
+export const SET_HAND = 'SET_HAND';
+export interface SetHand {
+    type: typeof SET_HAND,
+    hand: HandJSON,
 }

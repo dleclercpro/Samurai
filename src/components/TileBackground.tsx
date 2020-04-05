@@ -2,7 +2,7 @@ import React from 'react';
 import './TileBackground.scss';
 import { PlayerColor } from '../types/GameTypes';
 
-interface TileBackgroundProps {
+interface Props {
     path: string,
     stroke: number,
     color?: PlayerColor,
@@ -10,7 +10,7 @@ interface TileBackgroundProps {
     isTaken?: boolean,
 }
 
-class TileBackground extends React.Component<TileBackgroundProps, {}> {
+class TileBackground extends React.Component<Props, {}> {
 
     getColor = (color: PlayerColor): string => {
         switch (color) {

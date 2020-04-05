@@ -1,23 +1,23 @@
 import React from 'react';
-import { Size2D, Caste, PlayerColor, SpecialCaste } from '../types/GameTypes';
+import { Size2D, TileType, PlayerColor } from '../types/GameTypes';
 import './DialogPlayerTileChoice.scss';
 import { getHexagonalPath } from '../lib';
 import Dialog from './Dialog';
-import PlayerTile from './PlayerTile';
+import PlayerTileComponent from './PlayerTileComponent';
 
-interface DialogPlayerTileChoiceProps {
+interface Props {
     tileSize: Size2D,
     tileStroke: number,
     tileColor: PlayerColor,
 }
 
-interface DialogPlayerTileChoiceState {
+interface State {
     tilePath: string,
 }
 
-class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps, DialogPlayerTileChoiceState> {
+class DialogPlayerTileChoice extends React.Component<Props, State> {
 
-    constructor(props: DialogPlayerTileChoiceProps) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -43,11 +43,11 @@ class DialogPlayerTileChoice extends React.Component<DialogPlayerTileChoiceProps
                     <p>This is a test.</p>
                 </section>
                 <section className='tiles'>
-                    <PlayerTile id={0} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={Caste.Military} strength={4} />
-                    <PlayerTile id={1} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={Caste.Religion} strength={3} />
-                    <PlayerTile id={2} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={Caste.Commerce} strength={2} />
-                    <PlayerTile id={3} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={SpecialCaste.Water} strength={1} />
-                    <PlayerTile id={4} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={SpecialCaste.Joker} strength={0} />
+                    <PlayerTileComponent id={0} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={TileType.Military} strength={4} />
+                    <PlayerTileComponent id={1} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={TileType.Religion} strength={3} />
+                    <PlayerTileComponent id={2} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={TileType.Commerce} strength={2} />
+                    <PlayerTileComponent id={3} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={TileType.Boat} strength={1} />
+                    <PlayerTileComponent id={4} size={tileSize} path={tilePath} stroke={tileStroke} color={tileColor} type={TileType.Joker} strength={0} />
                 </section>
             </Dialog>
         );

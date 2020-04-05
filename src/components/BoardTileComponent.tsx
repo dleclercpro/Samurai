@@ -1,36 +1,36 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, Caste, Size2D } from '../types/GameTypes';
-import './BoardTile.scss';
+import { Coordinates2D, TileType, Size2D } from '../types/GameTypes';
+import './BoardTileComponent.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
 import TileBackground from './TileBackground';
 import { getPositionInHexagon } from '../lib';
 import TileIcon from './TileIcon';
 
-interface BoardTileOwnProps {
+interface OwnProps {
     size: Size2D,            // Size of tile (in pixels)
     path: string,            // SVG path of tile
     stroke: number,          // Stroke width of tile in SVG
     position: Coordinates2D, // Position of tile in board (in pixels)
     rotation: number,        // Board rotation
-    spaces: Caste[],         // Free spaces for caste pieces
+    types: TileType[],       // Free types for caste pieces
     isWater?: boolean,
 }
 
-interface BoardTileDispatchProps {
+interface DispatchProps {
     openDialog: () => void,
 }
 
-type BoardTileProps = BoardTileOwnProps & BoardTileDispatchProps;
+type Props = OwnProps & DispatchProps;
 
-interface BoardTileState {
+interface State {
     isTaken: boolean,
 }
 
-class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
+class BoardTileComponent extends React.Component<Props, State> {
 
-    constructor(props: BoardTileProps) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -39,10 +39,10 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
     }
 
     componentDidMount() {
-        const { spaces } = this.props;
+        const { types } = this.props;
 
         this.setState({
-            isTaken: spaces.length > 0,
+            isTaken: types.length > 0,
         });
     }
 
@@ -58,7 +58,7 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
     }
 
     render() {
-        const { position, size, path, stroke, rotation, spaces, isWater } = this.props;
+        const { position, size, path, stroke, rotation, types, isWater } = this.props;
         const { isTaken } = this.state;
         const { width, height } = size;
 
@@ -78,15 +78,15 @@ class BoardTile extends React.Component<BoardTileProps, BoardTileState> {
                 />
 
                 <g className='board-tile-content' transform={rotationTransform}>
-                    {spaces.map((space: Caste, index: number) => {
-                        const position = getPositionInHexagon(index, spaces.length, size);
+                    {types.map((type: TileType, index: number) => {
+                        const position = getPositionInHexagon(index, types.length, size);
 
                         return (
                             <TileIcon
                                 key={index}
                                 position={position}
                                 size={pieceSize}
-                                type={space}
+                                type={type}
                             />
                         );
                     })}
@@ -100,4 +100,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     openDialog: () => dispatch(openDialog),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(BoardTile);
+export default connect(() => ({}), mapDispatchToProps)(BoardTileComponent);
