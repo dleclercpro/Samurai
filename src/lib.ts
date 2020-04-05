@@ -1,4 +1,4 @@
-import { Size2D, Coordinates2D } from './types/GameTypes';
+import { Size2D, Coordinates2D, Tile, TileMap } from './types/GameTypes';
 
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
@@ -59,4 +59,28 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
     }
 
     return { x, y };
+}
+
+export const getTileNeighborhood = (tile: Tile, tiles: TileMap): Coordinates2D[] => {
+    let neighborhood = [];
+
+    if (tiles) {
+        for (let otherTile of tiles.values()) {
+            if (tile && otherTile) {
+                const x0 = tile.coordinates.x;
+                const y0 = tile.coordinates.y;
+                const x1 = otherTile.coordinates.x;
+                const y1 = otherTile.coordinates.y;
+        
+                // Neighbor criteria based on sum of coordinates difference
+                const delta = Math.abs(x0 - x1) + Math.abs(y0 - y1);
+        
+                if (delta > 0 && delta <= 2) {
+                    neighborhood.push(otherTile.coordinates);
+                }
+            }
+        }
+    }
+
+    return neighborhood;
 }

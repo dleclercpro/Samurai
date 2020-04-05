@@ -37,10 +37,10 @@ export interface Tile {
 
 export type TileMap = Map<Coordinates2D, Tile>;
 
-export interface Piece {
+export interface CastePiece {
     type: Caste,
 }
 
-export interface Token {
+export interface LeaderToken {
     type: Caste,
 }

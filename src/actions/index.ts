@@ -1,6 +1,11 @@
-import { OpenDialog, CloseDialog, ToggleDialog } from "../types/ActionTypes";
+import { OpenDialog, CloseDialog, ToggleDialog, LoadBoard, SelectTile } from "../types/ActionTypes";
 
+export type PlayerAction = SelectTile;
+export type BoardAction = LoadBoard;
 export type DialogAction = OpenDialog | CloseDialog | ToggleDialog;
 
 // Root action
-export type AppAction = DialogAction;
+export type AppAction =
+    PlayerAction |
+    BoardAction |
+    DialogAction;

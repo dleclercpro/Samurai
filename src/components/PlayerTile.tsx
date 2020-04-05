@@ -18,10 +18,39 @@ interface PlayerTileProps {
     strength: number,
 }
 
-class PlayerTile extends React.Component<PlayerTileProps, {}> {
+interface PlayerTileState {
+    isSelected: boolean,
+}
+
+class PlayerTile extends React.Component<PlayerTileProps, PlayerTileState> {
+
+    constructor(props: PlayerTileProps) {
+        super(props);
+
+        this.state = {
+            isSelected: false,
+        }
+    }
+
+    handleClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    }
+
+    select = () => {
+        this.setState({
+            isSelected: true,
+        });
+    }
+
+    unselect = () => {
+        this.setState({
+            isSelected: false,
+        });
+    }
 
     render() {
         const { size, path, stroke, color, strength, caste } = this.props;
+
         const { width, height } = size;
 
         const piecePosition = getPositionInHexagon(0, 2, size);
@@ -30,7 +59,7 @@ class PlayerTile extends React.Component<PlayerTileProps, {}> {
         const textPosition = { x: 2 / 3 * width, y: height / 2 };
     
         return (
-            <svg className='player-tile' viewBox={`0 0 ${width} ${height}`}>
+            <svg className='player-tile' viewBox={`0 0 ${width} ${height}`} onClick={this.handleClick}>
                 <TileBackground path={path} stroke={stroke} color={color} />
                 <TileText position={textPosition}>{strength}</TileText>
                 <CastePiece position={piecePosition} size={pieceSize} caste={caste} />
