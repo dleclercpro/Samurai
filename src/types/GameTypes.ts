@@ -47,6 +47,7 @@ export interface BoardTile {
     castes: Caste[],
     isWater: boolean,
 }
+
 export interface PlayerTile {
     id: number,
     type: TileType,
