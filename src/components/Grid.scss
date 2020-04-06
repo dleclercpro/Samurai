@@ -1,7 +1,8 @@
 @import 'config';
 
 $height-top: 0px;
-$height-bottom: 100px;
+$height-bottom: 80px;
+$margin-bottom: 15px;
 
 #grid {
     display: flex;
@@ -22,13 +23,14 @@ $height-bottom: 100px;
     > #bottom {
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap;
         height: $height-bottom;
-        padding: 15px 0;
+        margin-bottom: $margin-bottom;
     }
 
     > #center {
         @extend %center;
         width: 100%;
-        height: calc(100% - #{$height-top} - #{$height-bottom});
+        height: calc(100% - #{$height-top} - #{$height-bottom} - #{$margin-bottom});
     }
 }
