@@ -4,19 +4,20 @@ import './App.scss';
 import Home from '../pages/Home';
 import DialogTileChoice from './DialogTileChoice';
 import { loadBoard } from '../actions/BoardActions';
-import { BoardJSON, PlayerTileJSON } from '../types/JSONTypes';
+import { BoardJSON, PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import BoardData from '../data/Board.json';
 import HandData from '../data/Hand.json';
-import { loadHand, setPlayerColor } from '../actions/PlayerActions';
-import { PLAYER_COLOR, HAND_SIZE } from '../config';
+import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
+import { HAND_SIZE, PLAYER, OPPONENTS } from '../config';
 import Grid from './Grid';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
     loadHand: (data: PlayerTileJSON[]) => void,
-    setPlayerColor: (color: string) => void,
+    loadPlayer: (data: PlayerJSON) => void,
+    loadOpponents: (data: PlayerJSON[]) => void,
 }
 
 type Props = DispatchProps;
@@ -24,11 +25,12 @@ type Props = DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadBoard, loadHand, setPlayerColor } = this.props;
+        const { loadBoard, loadHand, loadPlayer, loadOpponents } = this.props;
 
         loadBoard(BoardData);
         loadHand(this.getHand());
-        setPlayerColor(PLAYER_COLOR);
+        loadPlayer(PLAYER);
+        loadOpponents(OPPONENTS);
     }
 
     getHand = () => {
@@ -69,7 +71,8 @@ class App extends React.Component<Props, {}> {
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
     loadHand: (data: PlayerTileJSON[]) => dispatch(loadHand(data)),
-    setPlayerColor: (color: string) => dispatch(setPlayerColor(color)),
+    loadPlayer: (data: PlayerJSON) => dispatch(loadPlayer(data)),
+    loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(App);

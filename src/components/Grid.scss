@@ -20,6 +20,8 @@ $height-bottom: 100px;
     }
 
     > #bottom {
+        display: flex;
+        justify-content: space-around;
         height: $height-bottom;
         padding: 15px 0;
     }

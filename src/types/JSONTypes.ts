@@ -17,3 +17,17 @@ export interface PlayerTileJSON {
     strength: number,
     canReplay: boolean,
 }
+
+export interface PlayerJSON {
+    id: number,
+    username: string,
+    color: string,
+    isPlaying: boolean,
+    score: PlayerScoreJSON,
+}
+
+export interface PlayerScoreJSON {
+    'Military': number,
+    'Religion': number,
+    'Commerce': number,
+}

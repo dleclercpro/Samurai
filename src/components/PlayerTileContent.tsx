@@ -21,8 +21,8 @@ const PlayerTileContent: React.FC<Props> = (props) => {
     const { width, height } = TILE_SIZE;
     
     const iconPosition = getPositionInHexagon(0, 2, TILE_SIZE);
-    const iconSize = { width: 2 / 5 * width, height: 2 / 5 * height };
-    const textPosition = { x: 2 / 3 * width, y: height / 2 };
+    const iconSize = { width: 2/5 * width, height: 2/5 * height };
+    const textPosition = { x: 2/3 * width, y: height / 2 };
 
     const isShip = type === Figure.Ship;
 

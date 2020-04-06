@@ -8,14 +8,6 @@ export interface Coordinates2D {
     y: number,
 }
 
-export enum PlayerColor {
-    Red,
-    Blue,
-    Orange,
-    Green,
-    Unknown,
-}
-
 export enum Caste {
     Military = 'Military',
     Religion = 'Religion',
@@ -55,10 +47,20 @@ export interface PlayerTile {
     canReplay: boolean,
 }
 
-export interface Opponent {
+export enum PlayerColor {
+    Red = 'Red',
+    Blue = 'Blue',
+    Orange = 'Orange',
+    Green = 'Green',
+    Unknown = 'Unknown',
+}
+
+export type PlayerScore = Map<Caste, number>;
+
+export interface Player {
     id: number,
     username: string,
-    color: PlayerColor,
-    score: Map<Caste, number>,
     isPlaying: boolean,
+    color: PlayerColor,
+    score: PlayerScore,
 }

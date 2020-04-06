@@ -1,4 +1,4 @@
-import { BoardJSON, PlayerTileJSON } from './JSONTypes';
+import { BoardJSON, PlayerTileJSON, PlayerJSON } from './JSONTypes';
 
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export interface OpenDialog {
@@ -27,16 +27,16 @@ export interface LoadHand {
     json: PlayerTileJSON[],
 }
 
-export const SET_PLAYER = 'SET_PLAYER';
-export interface SetPlayer {
-    type: typeof SET_PLAYER,
-    id: number,
+export const LOAD_PLAYER = 'LOAD_PLAYER';
+export interface LoadPlayer {
+    type: typeof LOAD_PLAYER,
+    player: PlayerJSON,
 }
 
-export const SET_PLAYER_COLOR = 'SET_PLAYER_COLOR';
-export interface SetPlayerColor {
-    type: typeof SET_PLAYER_COLOR,
-    color: string,
+export const LOAD_OPPONENTS = 'LOAD_OPPONENTS';
+export interface LoadOpponents {
+    type: typeof LOAD_OPPONENTS,
+    opponents: PlayerJSON[],
 }
 
 export const SELECT_BOARD_TILE = 'SELECT_BOARD_TILE';

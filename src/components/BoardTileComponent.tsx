@@ -83,7 +83,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.board.selectedTile,
+    isSelected: ownProps.id === state.board.selectedTileID,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({

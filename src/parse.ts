@@ -1,5 +1,5 @@
-import { BoardJSON, BoardTileJSON, PlayerTileJSON } from './types/JSONTypes';
-import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType } from './types/GameTypes';
+import { BoardJSON, BoardTileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON } from './types/JSONTypes';
+import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
@@ -27,7 +27,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 }
 
 export const parseTileType = (data: String): TileType => {
-    switch(data) {
+    switch (data) {
         case 'Military':
         case 'Religion':
         case 'Commerce':
@@ -42,7 +42,7 @@ export const parseTileType = (data: String): TileType => {
 }
 
 export const parseCaste = (data: String) : Caste => {
-    switch(data) {
+    switch (data) {
         case 'Military':
             return Caste.Military;
         case 'Religion':
@@ -55,7 +55,7 @@ export const parseCaste = (data: String) : Caste => {
 }
 
 export const parseFigure = (data: String) : Figure => {
-    switch(data) {
+    switch (data) {
         case 'Samurai':
             return Figure.Samurai;
         case 'Ship':
@@ -66,7 +66,7 @@ export const parseFigure = (data: String) : Figure => {
 }
 
 export const parseAction = (data: String) : Action => {
-    switch(data) {
+    switch (data) {
         case 'Move':
             return Action.Move;
         case 'Switch':
@@ -77,7 +77,7 @@ export const parseAction = (data: String) : Action => {
 }
 
 export const parseColor = (color: String): PlayerColor => {
-    switch(color) {
+    switch (color) {
         case 'red':
             return PlayerColor.Red;
         case 'blue':
@@ -88,6 +88,28 @@ export const parseColor = (color: String): PlayerColor => {
             return PlayerColor.Green;
         default:
             return PlayerColor.Unknown;
+    }
+}
+
+export const parseScore = (data: PlayerScoreJSON): PlayerScore => {
+    const score = new Map();
+
+    score.set(Caste.Military, data['Military']);
+    score.set(Caste.Religion, data['Religion']);
+    score.set(Caste.Commerce, data['Commerce']);
+
+    return score;
+}
+
+export const parsePlayer = (data: PlayerJSON): Player => {
+    const { id, color, username, score, isPlaying } = data;
+    
+    return {
+        id,
+        color: parseColor(color),
+        username,
+        score: parseScore(score),
+        isPlaying,
     }
 }
 

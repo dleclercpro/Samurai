@@ -2,6 +2,7 @@ import React from 'react';
 import './Grid.scss';
 import Board from './Board';
 import Hand from './Hand';
+import Dash from './Dash';
 
 const Grid: React.FC<{}> = () => (
     <div id='grid'>
@@ -11,6 +12,7 @@ const Grid: React.FC<{}> = () => (
             <Board />
         </section>
         <section id='bottom'>
+            <Dash />
             <Hand isPlayable={false} />
         </section>
     </div>

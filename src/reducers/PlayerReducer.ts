@@ -1,28 +1,33 @@
 import { PlayerState } from '../types/StateTypes';
 import { PlayerAction } from '../actions';
-import { SELECT_PLAYER_TILE, SET_PLAYER, SET_PLAYER_COLOR, LOAD_HAND, DESELECT_PLAYER_TILE } from '../types/ActionTypes';
-import { parsePlayerTile, parseColor } from '../parse';
+import { SELECT_PLAYER_TILE, LOAD_PLAYER, LOAD_HAND, DESELECT_PLAYER_TILE, LOAD_OPPONENTS } from '../types/ActionTypes';
+import { parsePlayerTile, parsePlayer } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
 const initState = {
-    id: -1,
-    color: PlayerColor.Unknown,
-    hand: [],
-    selectedTile: -1,
+    self: {
+        id: 0,
+        color: PlayerColor.Unknown,
+        username: '',
+        isPlaying: false,
+        score: new Map(),
+    },
     opponents: [],
+    hand: [],
+    selectedTileID: -1,
 };
 
 const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => {
     switch (action.type) {
-        case SET_PLAYER:
+        case LOAD_PLAYER:
             return {
                 ...state,
-                id: action.id,
+                self: parsePlayer(action.player),
             };
-        case SET_PLAYER_COLOR:
+        case LOAD_OPPONENTS:
             return {
                 ...state,
-                color: parseColor(action.color),
+                opponents: action.opponents.map(opponent => parsePlayer(opponent)),
             };
         case LOAD_HAND:
             return {
@@ -33,7 +38,7 @@ const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => 
         case DESELECT_PLAYER_TILE:
             return {
                 ...state,
-                selectedTile: action.id,
+                selectedTileID: action.id,
             };
         default:
             return state;

@@ -38,7 +38,7 @@ class TileBackground extends React.Component<Props, {}> {
                     ${isPlayable ? 'is-playable' : ''}
                     ${isWater ? 'is-water' : ''}
                     ${isShip ? 'is-ship' : ''}
-                    ${color !== undefined ? this.getColor(color) : ''}
+                    ${color ? this.getColor(color) : ''}
                 `}
                 points={path}
                 strokeWidth={stroke}

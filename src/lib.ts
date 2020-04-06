@@ -32,7 +32,7 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
                     x = width / 3;
                     break;
                 case 1:
-                    x = 2 / 3 * width;
+                    x = 2/3 * width;
                     break;
             }
             break;
@@ -43,12 +43,12 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
                     y = height / 3;
                     break;
                 case 1:
-                    x = 2 / 3 * width;
+                    x = 2/3 * width;
                     y = height / 3;
                     break;
                 case 2:
                     x = width / 2;
-                    y = 2 / 3 * height;
+                    y = 2/3 * height;
                     break;
             }
             break;
@@ -63,12 +63,12 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
                     y = height / 4;
                     break;
                 case 2:
-                    x = 3 / 4 * width;
+                    x = 3/4 * width;
                     y = height / 2;
                     break;
                 case 3:
                     x = width / 2;
-                    y = 3 / 4 * height;
+                    y = 3/4 * height;
                     break;
             }
     }

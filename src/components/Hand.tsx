@@ -62,8 +62,8 @@ class Hand extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => ({
     hand: state.player.hand,
-    color: state.player.color,
-    isWaterTileSelected: state.board.tiles.get(state.board.selectedTile)?.isWater,
+    color: state.player.self.color,
+    isWaterTileSelected: state.board.tiles.get(state.board.selectedTileID)?.isWater,
 });
 
 export default connect(mapStateToProps, () => ({}))(Hand);

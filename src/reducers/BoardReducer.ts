@@ -6,7 +6,7 @@ import { getTileNeighborhood } from '../lib';
 
 const initState = {
     tiles: new Map(),
-    selectedTile: -1,
+    selectedTileID: -1,
 };
 
 const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
@@ -29,7 +29,7 @@ const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
         case DESELECT_BOARD_TILE:
             return {
                 ...state,
-                selectedTile: action.id,
+                selectedTileID: action.id,
             };
         default:
             return state;

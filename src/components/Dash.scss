@@ -1,0 +1,11 @@
+#dash {
+    display: flex;
+    height: 100%;
+
+    > .player {
+        
+        &:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+}

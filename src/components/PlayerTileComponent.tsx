@@ -45,7 +45,7 @@ class PlayerTileComponent extends React.Component<Props, {}> {
         const { color, type, strength, isSelected, canReplay, isPlayable } = this.props;
         const { width, height } = TILE_SIZE;
 
-        const replayIconPosition = { x: width / 2, y: 5 / 6 * height};
+        const replayIconPosition = { x: width / 2, y: 5/6 * height};
         const replayIconSize = { width: width / 8, height: height / 8 };
 
         const isSwitch = type === Action.Switch;
@@ -65,7 +65,7 @@ class PlayerTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.player.selectedTile,
+    isSelected: ownProps.id === state.player.selectedTileID,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
