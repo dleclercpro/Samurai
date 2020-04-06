@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import BoardTileComponent from './BoardTileComponent';
 import './Board.scss';
-import { Coordinates2D, Size2D, BoardTile, BoardTileMap, TileType } from '../types/GameTypes';
+import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Figure } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 
 interface StateProps {
@@ -73,21 +73,21 @@ class Board extends React.Component<Props, State> {
 
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
-        return waterTiles.concat(groundTiles).map((tile: BoardTile, index: number) => {
-            const { id, coordinates, types, isWater } = tile;
+        return waterTiles.concat(groundTiles).map((tile: BoardTile) => {
+            const { id, coordinates, castes, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
             // Tile is playable if it has not been played before, and:
             // ... it is a ground tile,  and not a city
             // ... it is a water tile, and the player has a boat tile in their hand
-            const isPlayable = isWater ? hasShipInHand : types.length === 0;
+            const isPlayable = isWater ? hasShipInHand : castes.length === 0;
 
             return (
                 <BoardTileComponent
                     key={`board-tile-component-${id}`}
                     id={id}
                     position={position}
-                    types={types}
+                    castes={castes}
                     isWater={isWater}
                     isPlayable={isPlayable}
                 />
@@ -115,7 +115,7 @@ const mapStateToProps = (state: AppState) => {
     let hasShipInHand = false;
 
     for (let tile of hand.values()) {
-        if (tile.type === TileType.Ship) {
+        if (tile.type === Figure.Ship) {
             hasShipInHand = true;
             break;
         }

@@ -8,7 +8,8 @@ const initState = {
     id: -1,
     color: PlayerColor.Unknown,
     hand: [],
-    selectedPlayerTile: -1,
+    selectedTile: -1,
+    opponents: [],
 };
 
 const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => {
@@ -32,7 +33,7 @@ const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => 
         case DESELECT_PLAYER_TILE:
             return {
                 ...state,
-                selectedPlayerTile: action.id,
+                selectedTile: action.id,
             };
         default:
             return state;

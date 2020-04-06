@@ -1,5 +1,5 @@
 import React from 'react';
-import { TileType, SpecialTileType, Size2D, Coordinates2D } from '../types/GameTypes';
+import { Size2D, Coordinates2D, TileType, Caste, Figure, Action } from '../types/GameTypes';
 import './TileIcon.scss';
 import { ReactComponent as HouseIcon } from '../icons/house.svg';
 import { ReactComponent as MonkIcon } from '../icons/monk.svg';
@@ -12,7 +12,7 @@ import { ReactComponent as KanjiIcon } from '../icons/kanji.svg';
 interface Props {
     position: Coordinates2D,
     size: Size2D,
-    type: TileType | SpecialTileType,
+    type: TileType,
 }
 
 const TileIcon: React.FC<Props> = (props) => {
@@ -29,21 +29,21 @@ const TileIcon: React.FC<Props> = (props) => {
     }
 
     switch (type) {
-        case TileType.Military:
+        case Caste.Military:
             return (<HouseIcon {...svgProps} />);
-        case TileType.Religion:
+        case Caste.Religion:
             return (<MonkIcon {...svgProps} />);
-        case TileType.Commerce:
+        case Caste.Commerce:
             return (<RiceIcon {...svgProps} />);
-        case TileType.Joker:
+        case Figure.Samurai:
             return (<HorseIcon {...svgProps} />);
-        case TileType.Ship:
+        case Figure.Ship:
             return (<ShipIcon {...svgProps} />);
-        case TileType.Switch:
+        case Action.Switch:
             return (<ExchangeIcon {...svgProps} />);
-        case TileType.Move:
+        case Action.Move:
             return (<ExchangeIcon {...svgProps} />);
-        case SpecialTileType.Replay:
+        case Action.Replay:
             return (<KanjiIcon {...svgProps} />);
         default:
             return null;

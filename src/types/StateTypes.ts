@@ -1,15 +1,16 @@
-import { BoardTileMap, PlayerTile, PlayerColor } from './GameTypes';
+import { BoardTileMap, PlayerTile, PlayerColor, Opponent } from './GameTypes';
 
 export interface PlayerState {
     id: number,
     color: PlayerColor,
     hand: PlayerTile[],
-    selectedPlayerTile: number,
+    selectedTile: number,
+    opponents: Opponent[],
 }
 
 export interface BoardState {
     tiles: BoardTileMap,
-    selectedBoardTile: number,
+    selectedTile: number,
 }
 
 export interface DialogState {

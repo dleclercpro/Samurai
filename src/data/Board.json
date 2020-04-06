@@ -7,7 +7,7 @@
       }, 
       "id": 41, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -16,7 +16,7 @@
       }, 
       "id": 42, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -25,7 +25,7 @@
       }, 
       "id": 43, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -34,7 +34,7 @@
       }, 
       "id": 44, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -43,7 +43,7 @@
       }, 
       "id": 45, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -52,7 +52,7 @@
       }, 
       "id": 46, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -61,7 +61,7 @@
       }, 
       "id": 47, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -70,7 +70,7 @@
       }, 
       "id": 48, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -79,7 +79,7 @@
       }, 
       "id": 49, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -88,7 +88,7 @@
       }, 
       "id": 50, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -97,7 +97,7 @@
       }, 
       "id": 51, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -106,7 +106,7 @@
       }, 
       "id": 52, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -115,7 +115,7 @@
       }, 
       "id": 53, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -124,7 +124,7 @@
       }, 
       "id": 54, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -135,7 +135,7 @@
       }, 
       "id": 55, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -144,7 +144,7 @@
       }, 
       "id": 56, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion", 
         "Commerce"
       ]
@@ -156,7 +156,7 @@
       }, 
       "id": 57, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -165,7 +165,7 @@
       }, 
       "id": 58, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -176,7 +176,7 @@
       }, 
       "id": 59, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -185,7 +185,7 @@
       }, 
       "id": 60, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -194,7 +194,7 @@
       }, 
       "id": 61, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -203,7 +203,7 @@
       }, 
       "id": 62, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -212,7 +212,7 @@
       }, 
       "id": 63, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -223,7 +223,7 @@
       }, 
       "id": 64, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -232,7 +232,7 @@
       }, 
       "id": 65, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -243,7 +243,7 @@
       }, 
       "id": 66, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -252,7 +252,7 @@
       }, 
       "id": 67, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -261,7 +261,7 @@
       }, 
       "id": 68, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -270,7 +270,7 @@
       }, 
       "id": 69, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -279,7 +279,7 @@
       }, 
       "id": 70, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -288,7 +288,7 @@
       }, 
       "id": 71, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -297,7 +297,7 @@
       }, 
       "id": 72, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -306,7 +306,7 @@
       }, 
       "id": 73, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -315,7 +315,7 @@
       }, 
       "id": 74, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -324,7 +324,7 @@
       }, 
       "id": 75, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -333,7 +333,7 @@
       }, 
       "id": 76, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -342,7 +342,7 @@
       }, 
       "id": 77, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -351,7 +351,7 @@
       }, 
       "id": 78, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -360,7 +360,7 @@
       }, 
       "id": 79, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -369,7 +369,7 @@
       }, 
       "id": 80, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -380,7 +380,7 @@
       }, 
       "id": 81, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -389,7 +389,7 @@
       }, 
       "id": 82, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military", 
         "Religion", 
         "Commerce"
@@ -402,7 +402,7 @@
       }, 
       "id": 83, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -411,7 +411,7 @@
       }, 
       "id": 84, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -420,7 +420,7 @@
       }, 
       "id": 85, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -429,7 +429,7 @@
       }, 
       "id": 86, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -438,7 +438,7 @@
       }, 
       "id": 87, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -449,7 +449,7 @@
       }, 
       "id": 88, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -458,7 +458,7 @@
       }, 
       "id": 89, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -469,7 +469,7 @@
       }, 
       "id": 90, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -480,7 +480,7 @@
       }, 
       "id": 91, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -489,7 +489,7 @@
       }, 
       "id": 92, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -498,7 +498,7 @@
       }, 
       "id": 93, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -507,7 +507,7 @@
       }, 
       "id": 94, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -516,7 +516,7 @@
       }, 
       "id": 95, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -527,7 +527,7 @@
       }, 
       "id": 96, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -536,7 +536,7 @@
       }, 
       "id": 97, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -545,7 +545,7 @@
       }, 
       "id": 98, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -554,7 +554,7 @@
       }, 
       "id": 99, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -563,7 +563,7 @@
       }, 
       "id": 100, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -572,7 +572,7 @@
       }, 
       "id": 101, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -581,7 +581,7 @@
       }, 
       "id": 102, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -590,7 +590,7 @@
       }, 
       "id": 103, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -599,7 +599,7 @@
       }, 
       "id": 104, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -608,7 +608,7 @@
       }, 
       "id": 105, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -617,7 +617,7 @@
       }, 
       "id": 106, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -626,7 +626,7 @@
       }, 
       "id": 107, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -635,7 +635,7 @@
       }, 
       "id": 108, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -644,7 +644,7 @@
       }, 
       "id": 109, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -653,7 +653,7 @@
       }, 
       "id": 110, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -662,7 +662,7 @@
       }, 
       "id": 111, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -671,7 +671,7 @@
       }, 
       "id": 112, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -680,7 +680,7 @@
       }, 
       "id": 113, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -689,7 +689,7 @@
       }, 
       "id": 114, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -698,7 +698,7 @@
       }, 
       "id": 115, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -707,7 +707,7 @@
       }, 
       "id": 116, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -716,7 +716,7 @@
       }, 
       "id": 117, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion", 
         "Commerce"
       ]
@@ -728,7 +728,7 @@
       }, 
       "id": 118, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -737,7 +737,7 @@
       }, 
       "id": 119, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -746,7 +746,7 @@
       }, 
       "id": 120, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -755,7 +755,7 @@
       }, 
       "id": 121, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -766,7 +766,7 @@
       }, 
       "id": 122, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -777,7 +777,7 @@
       }, 
       "id": 123, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -786,7 +786,7 @@
       }, 
       "id": 124, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -795,7 +795,7 @@
       }, 
       "id": 125, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -806,7 +806,7 @@
       }, 
       "id": 126, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -815,7 +815,7 @@
       }, 
       "id": 127, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -824,7 +824,7 @@
       }, 
       "id": 128, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -835,7 +835,7 @@
       }, 
       "id": 129, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -844,7 +844,7 @@
       }, 
       "id": 130, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -853,7 +853,7 @@
       }, 
       "id": 131, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }
@@ -866,7 +866,7 @@
       }, 
       "id": 0, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -875,7 +875,7 @@
       }, 
       "id": 1, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -884,7 +884,7 @@
       }, 
       "id": 2, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -893,7 +893,7 @@
       }, 
       "id": 3, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -902,7 +902,7 @@
       }, 
       "id": 4, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -911,7 +911,7 @@
       }, 
       "id": 5, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -920,7 +920,7 @@
       }, 
       "id": 6, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -929,7 +929,7 @@
       }, 
       "id": 7, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -938,7 +938,7 @@
       }, 
       "id": 8, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -947,7 +947,7 @@
       }, 
       "id": 9, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -956,7 +956,7 @@
       }, 
       "id": 10, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -965,7 +965,7 @@
       }, 
       "id": 11, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -974,7 +974,7 @@
       }, 
       "id": 12, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -983,7 +983,7 @@
       }, 
       "id": 13, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -992,7 +992,7 @@
       }, 
       "id": 14, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1001,7 +1001,7 @@
       }, 
       "id": 15, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1010,7 +1010,7 @@
       }, 
       "id": 16, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1019,7 +1019,7 @@
       }, 
       "id": 17, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1028,7 +1028,7 @@
       }, 
       "id": 18, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1037,7 +1037,7 @@
       }, 
       "id": 19, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1046,7 +1046,7 @@
       }, 
       "id": 20, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1057,7 +1057,7 @@
       }, 
       "id": 21, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1066,7 +1066,7 @@
       }, 
       "id": 22, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -1077,7 +1077,7 @@
       }, 
       "id": 23, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -1088,7 +1088,7 @@
       }, 
       "id": 24, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1097,7 +1097,7 @@
       }, 
       "id": 25, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1106,7 +1106,7 @@
       }, 
       "id": 26, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1115,7 +1115,7 @@
       }, 
       "id": 27, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1124,7 +1124,7 @@
       }, 
       "id": 28, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1133,7 +1133,7 @@
       }, 
       "id": 29, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1144,7 +1144,7 @@
       }, 
       "id": 30, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1153,7 +1153,7 @@
       }, 
       "id": 31, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military", 
         "Commerce"
       ]
@@ -1165,7 +1165,7 @@
       }, 
       "id": 32, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1174,7 +1174,7 @@
       }, 
       "id": 33, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1183,7 +1183,7 @@
       }, 
       "id": 34, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1192,7 +1192,7 @@
       }, 
       "id": 35, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1201,7 +1201,7 @@
       }, 
       "id": 36, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1212,7 +1212,7 @@
       }, 
       "id": 37, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1221,7 +1221,7 @@
       }, 
       "id": 38, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -1232,7 +1232,7 @@
       }, 
       "id": 39, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1243,7 +1243,7 @@
       }, 
       "id": 40, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }
   ], 
   "South": [
@@ -1254,7 +1254,7 @@
       }, 
       "id": 132, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1263,7 +1263,7 @@
       }, 
       "id": 133, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1272,7 +1272,7 @@
       }, 
       "id": 134, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1281,7 +1281,7 @@
       }, 
       "id": 135, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1290,7 +1290,7 @@
       }, 
       "id": 136, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1299,7 +1299,7 @@
       }, 
       "id": 137, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1308,7 +1308,7 @@
       }, 
       "id": 138, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1317,7 +1317,7 @@
       }, 
       "id": 139, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1326,7 +1326,7 @@
       }, 
       "id": 140, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1335,7 +1335,7 @@
       }, 
       "id": 141, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1344,7 +1344,7 @@
       }, 
       "id": 142, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1353,7 +1353,7 @@
       }, 
       "id": 143, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1362,7 +1362,7 @@
       }, 
       "id": 144, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1371,7 +1371,7 @@
       }, 
       "id": 145, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1380,7 +1380,7 @@
       }, 
       "id": 146, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1389,7 +1389,7 @@
       }, 
       "id": 147, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1398,7 +1398,7 @@
       }, 
       "id": 148, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1407,7 +1407,7 @@
       }, 
       "id": 149, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1416,7 +1416,7 @@
       }, 
       "id": 150, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1425,7 +1425,7 @@
       }, 
       "id": 151, 
       "isWater": true, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1434,7 +1434,7 @@
       }, 
       "id": 152, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1443,7 +1443,7 @@
       }, 
       "id": 153, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1454,7 +1454,7 @@
       }, 
       "id": 154, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -1465,7 +1465,7 @@
       }, 
       "id": 155, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1474,7 +1474,7 @@
       }, 
       "id": 156, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1483,7 +1483,7 @@
       }, 
       "id": 157, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1492,7 +1492,7 @@
       }, 
       "id": 158, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1501,7 +1501,7 @@
       }, 
       "id": 159, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -1512,7 +1512,7 @@
       }, 
       "id": 160, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1521,7 +1521,7 @@
       }, 
       "id": 161, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1532,7 +1532,7 @@
       }, 
       "id": 162, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1541,7 +1541,7 @@
       }, 
       "id": 163, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -1552,7 +1552,7 @@
       }, 
       "id": 164, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1561,7 +1561,7 @@
       }, 
       "id": 165, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }, 
@@ -1572,7 +1572,7 @@
       }, 
       "id": 166, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Commerce"
       ]
     }, 
@@ -1583,7 +1583,7 @@
       }, 
       "id": 167, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1592,7 +1592,7 @@
       }, 
       "id": 168, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1601,7 +1601,7 @@
       }, 
       "id": 169, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1610,7 +1610,7 @@
       }, 
       "id": 170, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1619,7 +1619,7 @@
       }, 
       "id": 171, 
       "isWater": false, 
-      "types": []
+      "castes": []
     }, 
     {
       "coordinates": {
@@ -1628,7 +1628,7 @@
       }, 
       "id": 172, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Military"
       ]
     }, 
@@ -1639,7 +1639,7 @@
       }, 
       "id": 173, 
       "isWater": false, 
-      "types": [
+      "castes": [
         "Religion"
       ]
     }

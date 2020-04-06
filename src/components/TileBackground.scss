@@ -34,29 +34,29 @@
         }
     }
 
-    &.is-purple {
-        fill: $color-purple;
-        stroke: $color-dark-purple;
+    &.is-blue {
+        fill: $color-blue;
+        stroke: $color-dark-blue;
 
         &:hover.is-playable {
-            fill: $color-dark-purple;
+            fill: $color-dark-blue;
         }
 
         .is-selected & {
-            fill: $color-dark-purple;
+            fill: $color-dark-blue;
         }
     }
 
-    &.is-gold {
-        fill: $color-gold;
-        stroke: $color-dark-gold;
+    &.is-orange {
+        fill: $color-orange;
+        stroke: $color-dark-orange;
 
         &:hover.is-playable {
-            fill: $color-dark-gold;
+            fill: $color-dark-orange;
         }
 
         .is-selected & {
-            fill: $color-dark-gold;
+            fill: $color-dark-orange;
         }
     }
 

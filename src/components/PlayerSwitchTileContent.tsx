@@ -1,5 +1,5 @@
 import React from 'react';
-import { TileType, PlayerColor } from '../types/GameTypes';
+import { PlayerColor, Caste, Action } from '../types/GameTypes';
 import './PlayerSwitchTileContent.scss';
 import { getPositionInHexagon } from '../lib';
 import TileBackground from './TileBackground';
@@ -25,10 +25,10 @@ const PlayerSwitchTileContent: React.FC<Props> = (props) => {
     return (
         <React.Fragment>
             <TileBackground path={TILE_PATH} stroke={TILE_STROKE} color={color} isPlayable={isPlayable} />
-            <TileIcon position={getPositionInHexagon(0, 4, TILE_SIZE)} size={iconSize} type={TileType.Military} />
-            <TileIcon position={getPositionInHexagon(1, 4, TILE_SIZE)} size={iconSize} type={TileType.Religion} />
-            <TileIcon position={getPositionInHexagon(2, 4, TILE_SIZE)} size={iconSize} type={TileType.Commerce} />
-            <TileIcon position={switchIconPosition} size={iconSize} type={TileType.Move} />
+            <TileIcon position={getPositionInHexagon(0, 4, TILE_SIZE)} size={iconSize} type={Caste.Military} />
+            <TileIcon position={getPositionInHexagon(1, 4, TILE_SIZE)} size={iconSize} type={Caste.Religion} />
+            <TileIcon position={getPositionInHexagon(2, 4, TILE_SIZE)} size={iconSize} type={Caste.Commerce} />
+            <TileIcon position={switchIconPosition} size={iconSize} type={Action.Move} />
         </React.Fragment>
     );
 };

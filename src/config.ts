@@ -14,4 +14,4 @@ export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superi
 
 // Player
 export const HAND_SIZE: number = 5;
-export const PLAYER_COLOR: string = 'purple';
+export const PLAYER_COLOR: string = 'red';

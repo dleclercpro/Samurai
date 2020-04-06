@@ -10,41 +10,54 @@ export interface Coordinates2D {
 
 export enum PlayerColor {
     Red,
-    Purple,
-    Gold,
+    Blue,
+    Orange,
     Green,
     Unknown,
 }
 
-export enum TileType {
+export enum Caste {
     Military = 'Military',
     Religion = 'Religion',
-    Commerce = 'Commerce',
-    Joker = 'Joker',
-    Ship = 'Ship',
-    Switch = 'Switch',
-    Move = 'Move',
-    Unknown = 'UnknownTileType',
+    Commerce = 'Commerce', 
+    Unknown = 'Unknown',
 }
 
-export enum SpecialTileType {
-    Replay = 'Replay',
-    Unknown = 'UnknownSpecialTileType',
+export enum Figure {
+    Samurai = 'Samurai',
+    Ship = 'Ship',
+    Unknown = 'Unknown',
 }
+
+export enum Action {
+    Switch = 'Switch',
+    Move = 'Move',
+    Replay = 'Replay',
+    Unknown = 'Unknown',
+}
+
+export type TileType = Caste | Figure | Action | undefined;
+
+export type BoardTileMap = Map<number, BoardTile>;
 
 export interface BoardTile {
     id: number,
     coordinates: Coordinates2D,
-    neighborhood: Coordinates2D[],
-    types: TileType[],
+    neighborhood: number[],
+    castes: Caste[],
     isWater: boolean,
 }
-
-export type BoardTileMap = Map<number, BoardTile>;
-
 export interface PlayerTile {
     id: number,
     type: TileType,
     strength: number,
     canReplay: boolean,
+}
+
+export interface Opponent {
+    id: number,
+    username: string,
+    color: PlayerColor,
+    score: Map<Caste, number>,
+    isPlaying: boolean,
 }

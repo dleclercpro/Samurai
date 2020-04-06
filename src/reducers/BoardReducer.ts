@@ -6,7 +6,7 @@ import { getTileNeighborhood } from '../lib';
 
 const initState = {
     tiles: new Map(),
-    selectedBoardTile: -1,
+    selectedTile: -1,
 };
 
 const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
@@ -15,13 +15,11 @@ const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
             const tiles = parseBoard(action.json);
 
             // Build tile neighborhoods
-            if (tiles) {
-                for (let tile of tiles.values()) {
-                    if (tile) {
-                        tile.neighborhood = getTileNeighborhood(tile, tiles);
-                    }
-                };
-            }
+            for (let tile of tiles.values()) {
+                if (tile) {
+                    tile.neighborhood = getTileNeighborhood(tile, tiles);
+                }
+            };
 
             return {
                 ...state,
@@ -31,7 +29,7 @@ const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
         case DESELECT_BOARD_TILE:
             return {
                 ...state,
-                selectedBoardTile: action.id,
+                selectedTile: action.id,
             };
         default:
             return state;

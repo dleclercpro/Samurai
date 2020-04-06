@@ -1,6 +1,6 @@
 import React from 'react';
-import { TileType, PlayerColor } from '../types/GameTypes';
-import './PlayerStandardTileContent.scss';
+import { PlayerColor, Figure, TileType } from '../types/GameTypes';
+import './PlayerTileContent.scss';
 import { getPositionInHexagon } from '../lib';
 import TileBackground from './TileBackground';
 import TileText from './TileText';
@@ -16,7 +16,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const PlayerStandardTileContent: React.FC<Props> = (props) => {
+const PlayerTileContent: React.FC<Props> = (props) => {
     const { color, strength, type, isPlayable } = props;
     const { width, height } = TILE_SIZE;
     
@@ -24,7 +24,7 @@ const PlayerStandardTileContent: React.FC<Props> = (props) => {
     const iconSize = { width: 2 / 5 * width, height: 2 / 5 * height };
     const textPosition = { x: 2 / 3 * width, y: height / 2 };
 
-    const isShip = type === TileType.Ship;
+    const isShip = type === Figure.Ship;
 
     return (
         <React.Fragment>
@@ -35,4 +35,4 @@ const PlayerStandardTileContent: React.FC<Props> = (props) => {
     );
 };
 
-export default PlayerStandardTileContent;
+export default PlayerTileContent;

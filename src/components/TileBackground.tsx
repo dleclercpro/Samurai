@@ -17,10 +17,10 @@ class TileBackground extends React.Component<Props, {}> {
         switch (color) {
             case PlayerColor.Red:
                 return 'is-red';
-            case PlayerColor.Purple:
-                return 'is-purple';
-            case PlayerColor.Gold:
-                return 'is-gold';
+            case PlayerColor.Blue:
+                return 'is-blue';
+            case PlayerColor.Orange:
+                return 'is-orange';
             case PlayerColor.Green:
                 return 'is-green';
             default:

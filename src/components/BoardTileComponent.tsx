@@ -1,6 +1,6 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, TileType } from '../types/GameTypes';
+import { Coordinates2D, Caste } from '../types/GameTypes';
 import './BoardTileComponent.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
@@ -14,7 +14,7 @@ import { selectBoardTile } from '../actions/BoardActions';
 interface OwnProps {
     id: number,
     position: Coordinates2D,
-    types: TileType[],
+    castes: Caste[],
     isWater?: boolean,
     isPlayable?: boolean,
 }
@@ -44,7 +44,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { position, types, isWater, isPlayable } = this.props;
+        const { position, castes, isWater, isPlayable } = this.props;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
         const rotation = -BOARD_ROTATION;
@@ -64,8 +64,8 @@ class BoardTileComponent extends React.Component<Props, {}> {
                 />
 
                 <g className='board-tile-content' transform={`rotate(${rotation} ${center.x} ${center.y})`}>
-                    {types.map((type: TileType, index: number) => {
-                        const position = getPositionInHexagon(index, types.length, TILE_SIZE);
+                    {castes.map((type: Caste, index: number) => {
+                        const position = getPositionInHexagon(index, castes.length, TILE_SIZE);
 
                         return (
                             <TileIcon
@@ -83,7 +83,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.board.selectedBoardTile,
+    isSelected: ownProps.id === state.board.selectedTile,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({

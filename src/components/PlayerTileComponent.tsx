@@ -1,13 +1,13 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { TileType, PlayerColor, SpecialTileType } from '../types/GameTypes';
+import { PlayerColor, TileType, Action } from '../types/GameTypes';
 import './PlayerTileComponent.scss';
 import { AppAction } from '../actions';
 import TileIcon from './TileIcon';
 import { selectPlayerTile } from '../actions/PlayerActions';
 import { TILE_SIZE } from '../config';
-import PlayerStandardTileContent from './PlayerStandardTileContent';
+import PlayerTileContent from './PlayerTileContent';
 import PlayerSwitchTileContent from './PlayerSwitchTileContent';
 
 interface OwnProps {
@@ -48,7 +48,7 @@ class PlayerTileComponent extends React.Component<Props, {}> {
         const replayIconPosition = { x: width / 2, y: 5 / 6 * height};
         const replayIconSize = { width: width / 8, height: height / 8 };
 
-        const isSwitch = type === TileType.Switch;
+        const isSwitch = type === Action.Switch;
 
         return (
             <svg
@@ -57,15 +57,15 @@ class PlayerTileComponent extends React.Component<Props, {}> {
                 onClick={this.handleClick}
             >
                 {isSwitch && <PlayerSwitchTileContent color={color} isPlayable={isPlayable} />}
-                {!isSwitch && <PlayerStandardTileContent color={color} type={type} strength={strength} isPlayable={isPlayable} />}
-                {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={SpecialTileType.Replay} />}
+                {!isSwitch && <PlayerTileContent color={color} type={type} strength={strength} isPlayable={isPlayable} />}
+                {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
             </svg>
         );
     }
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.player.selectedPlayerTile,
+    isSelected: ownProps.id === state.player.selectedTile,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({

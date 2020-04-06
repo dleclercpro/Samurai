@@ -1,5 +1,5 @@
 import { BoardJSON, BoardTileJSON, PlayerTileJSON } from './types/JSONTypes';
-import { BoardTileMap, TileType, PlayerTile, PlayerColor } from './types/GameTypes';
+import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
@@ -7,22 +7,20 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 
     // Build tile map
     rawTiles.forEach((rawTile: BoardTileJSON) => {
-        const { id, coordinates, types, isWater } = rawTile;
+        const { id, coordinates, castes, isWater } = rawTile;
         
         if (tiles.has(id)) {
             console.warn('Trying to add same tile twice.');
             return;
         }
 
-        const tile = {
+        tiles.set(id, {
             id,
             coordinates,
             neighborhood: [],
-            types: types.map(type => parseTileType(type)),
+            castes: castes.map(caste => parseCaste(caste)),
             isWater,
-        };
-
-        tiles.set(id, tile);
+        });
     });
 
     return tiles;
@@ -31,21 +29,50 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 export const parseTileType = (data: String): TileType => {
     switch(data) {
         case 'Military':
-            return TileType.Military;
         case 'Religion':
-            return TileType.Religion;
         case 'Commerce':
-            return TileType.Commerce;
-        case 'Joker':
-            return TileType.Joker;
+            return parseCaste(data);
+        case 'Samurai':
         case 'Ship':
-            return TileType.Ship;
+            return parseFigure(data);
         case 'Move':
-            return TileType.Move;
         case 'Switch':
-            return TileType.Switch;
+            return parseAction(data);
+    }
+}
+
+export const parseCaste = (data: String) : Caste => {
+    switch(data) {
+        case 'Military':
+            return Caste.Military;
+        case 'Religion':
+            return Caste.Religion;
+        case 'Commerce':
+            return Caste.Commerce;
         default:
-            return TileType.Unknown;
+            return Caste.Unknown;
+    }
+}
+
+export const parseFigure = (data: String) : Figure => {
+    switch(data) {
+        case 'Samurai':
+            return Figure.Samurai;
+        case 'Ship':
+            return Figure.Ship;
+        default:
+            return Figure.Unknown;
+    }
+}
+
+export const parseAction = (data: String) : Action => {
+    switch(data) {
+        case 'Move':
+            return Action.Move;
+        case 'Switch':
+            return Action.Switch;
+        default:
+            return Action.Unknown;
     }
 }
 
@@ -53,10 +80,10 @@ export const parseColor = (color: String): PlayerColor => {
     switch(color) {
         case 'red':
             return PlayerColor.Red;
-        case 'purple':
-            return PlayerColor.Purple;
-        case 'gold':
-            return PlayerColor.Gold;
+        case 'blue':
+            return PlayerColor.Blue;
+        case 'orange':
+            return PlayerColor.Orange;
         case 'green':
             return PlayerColor.Green;
         default:

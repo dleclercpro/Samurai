@@ -80,7 +80,7 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
     return { x, y };
 }
 
-export const getTileNeighborhood = (tile: BoardTile, tiles: BoardTileMap): Coordinates2D[] => {
+export const getTileNeighborhood = (tile: BoardTile, tiles: BoardTileMap): number[] => {
     let neighborhood = [];
 
     if (tiles) {
@@ -95,7 +95,7 @@ export const getTileNeighborhood = (tile: BoardTile, tiles: BoardTileMap): Coord
                 const delta = Math.abs(x0 - x1) + Math.abs(y0 - y1);
         
                 if (delta > 0 && delta <= 2) {
-                    neighborhood.push(otherTile.coordinates);
+                    neighborhood.push(otherTile.id);
                 }
             }
         }

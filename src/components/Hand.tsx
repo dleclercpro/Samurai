@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerColor, PlayerTile, TileType } from '../types/GameTypes';
+import { PlayerColor, PlayerTile, Figure } from '../types/GameTypes';
 import './Hand.scss';
 import PlayerTileComponent from './PlayerTileComponent';
 import { AppState } from '../types/StateTypes';
@@ -25,7 +25,7 @@ class Hand extends React.Component<Props, {}> {
 
         if (isPlayable) {
             tiles = hand.filter((tile: PlayerTile) => {
-                const isShip = tile.type === TileType.Ship;
+                const isShip = tile.type === Figure.Ship;
     
                 return (isWaterTileSelected && isShip) || (!isWaterTileSelected && !isShip);
             });
@@ -63,7 +63,7 @@ class Hand extends React.Component<Props, {}> {
 const mapStateToProps = (state: AppState) => ({
     hand: state.player.hand,
     color: state.player.color,
-    isWaterTileSelected: state.board.tiles.get(state.board.selectedBoardTile)?.isWater,
+    isWaterTileSelected: state.board.tiles.get(state.board.selectedTile)?.isWater,
 });
 
 export default connect(mapStateToProps, () => ({}))(Hand);

@@ -3,7 +3,7 @@ import { Coordinates2D } from './GameTypes';
 export interface BoardTileJSON {
     id: number,
     coordinates: Coordinates2D,
-    types: string[],
+    castes: string[],
     isWater: boolean,
 }
 
