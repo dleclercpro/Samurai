@@ -1,5 +1,9 @@
 @import 'config';
 
 .player-tile {
-    width: 150px;
+    height: 100%;
+
+    .dialog--tile-choice & {
+        height: 150px;
+    }
 }

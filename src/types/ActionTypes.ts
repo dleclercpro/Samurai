@@ -39,8 +39,26 @@ export interface SetPlayerColor {
     color: string,
 }
 
-export const SELECT_NEXT_TILE = 'SELECT_NEXT_TILE';
-export interface SelectNextTile {
-    type: typeof SELECT_NEXT_TILE,
+export const SELECT_BOARD_TILE = 'SELECT_BOARD_TILE';
+export interface SelectBoardTile {
+    type: typeof SELECT_BOARD_TILE,
+    id: number,
+}
+
+export const DESELECT_BOARD_TILE = 'DESELECT_BOARD_TILE';
+export interface DeselectBoardTile {
+    type: typeof DESELECT_BOARD_TILE,
+    id: number,
+}
+
+export const SELECT_PLAYER_TILE = 'SELECT_PLAYER_TILE';
+export interface SelectPlayerTile {
+    type: typeof SELECT_PLAYER_TILE,
+    id: number,
+}
+
+export const DESELECT_PLAYER_TILE = 'DESELECT_PLAYER_TILE';
+export interface DeselectPlayerTile {
+    type: typeof DESELECT_PLAYER_TILE,
     id: number,
 }

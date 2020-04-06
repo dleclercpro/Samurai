@@ -1,14 +1,14 @@
 import { Coordinates2D } from './GameTypes';
 
 export interface BoardTileJSON {
-    isWater: boolean,
+    id: number,
     coordinates: Coordinates2D,
-    neighbors?: BoardTileJSON[],
     types: string[],
+    isWater: boolean,
 }
 
 export interface BoardJSON {
-    [tiles: string]: BoardTileJSON[],
+    [section: string]: BoardTileJSON[],
 }
 
 export interface PlayerTileJSON {

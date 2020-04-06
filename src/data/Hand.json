@@ -91,19 +91,19 @@
     },
     {
         "id": 15,
-        "type": "Boat",
+        "type": "Ship",
         "strength": 2,
         "canReplay": true
     },
     {
         "id": 16,
-        "type": "Boat",
+        "type": "Ship",
         "strength": 1,
         "canReplay": true
     },
     {
         "id": 17,
-        "type": "Boat",
+        "type": "Ship",
         "strength": 1,
         "canReplay": true
     },

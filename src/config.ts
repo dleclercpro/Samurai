@@ -1,7 +1,7 @@
 import { Size2D, Coordinates2D } from "./types/GameTypes";
 import { getHexagonalPath } from "./lib";
 
-// Grid
+// Board
 export const BOARD_SIZE: Size2D = { width: 14, height: 14 };
 export const BOARD_ORIGIN: Coordinates2D = { x: 0, y: 0 };
 export const BOARD_ROTATION: number = 60;
@@ -14,4 +14,4 @@ export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superi
 
 // Player
 export const HAND_SIZE: number = 5;
-export const PLAYER_COLOR: string = 'red';
+export const PLAYER_COLOR: string = 'purple';

@@ -8,7 +8,7 @@ import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 
 interface StateProps {
     tiles: BoardTileMap,
-    hasBoatInHand: boolean,
+    hasShipInHand: boolean,
 }
 
 type Props = StateProps;
@@ -58,7 +58,7 @@ class Board extends React.Component<Props, State> {
     }
 
     getTileNodes = (): ReactNode[] => {
-        const { tiles, hasBoatInHand } = this.props;
+        const { tiles, hasShipInHand } = this.props;
         let waterTiles: BoardTile[] = [];
         let groundTiles: BoardTile[] = [];
 
@@ -74,17 +74,18 @@ class Board extends React.Component<Props, State> {
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
         return waterTiles.concat(groundTiles).map((tile: BoardTile, index: number) => {
-            const { coordinates, types, isWater } = tile;
+            const { id, coordinates, types, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
             // Tile is playable if it has not been played before, and:
             // ... it is a ground tile,  and not a city
             // ... it is a water tile, and the player has a boat tile in their hand
-            const isPlayable = isWater ? hasBoatInHand : types.length === 0;
+            const isPlayable = isWater ? hasShipInHand : types.length === 0;
 
             return (
                 <BoardTileComponent
-                    key={index}
+                    key={`board-tile-component-${id}`}
+                    id={id}
                     position={position}
                     types={types}
                     isWater={isWater}
@@ -111,18 +112,18 @@ const mapStateToProps = (state: AppState) => {
     const { board, player } = state;
     const { tiles } = board;
     const { hand } = player;
-    let hasBoatInHand = false;
+    let hasShipInHand = false;
 
     for (let tile of hand.values()) {
-        if (tile.type === TileType.Boat) {
-            hasBoatInHand = true;
+        if (tile.type === TileType.Ship) {
+            hasShipInHand = true;
             break;
         }
     }
 
     return {
         tiles,
-        hasBoatInHand,
+        hasShipInHand,
     }
 };
 

@@ -1,15 +1,14 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { TileType, PlayerColor } from '../types/GameTypes';
+import { TileType, PlayerColor, SpecialTileType } from '../types/GameTypes';
 import './PlayerTileComponent.scss';
 import { AppAction } from '../actions';
-import { getPositionInHexagon } from '../lib';
-import TileBackground from './TileBackground';
-import TileText from './TileText';
 import TileIcon from './TileIcon';
-import { selectTile } from '../actions/PlayerActions';
-import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../config';
+import { selectPlayerTile } from '../actions/PlayerActions';
+import { TILE_SIZE } from '../config';
+import PlayerStandardTileContent from './PlayerStandardTileContent';
+import PlayerSwitchTileContent from './PlayerSwitchTileContent';
 
 interface OwnProps {
     id: number,
@@ -17,6 +16,7 @@ interface OwnProps {
     type: TileType,
     strength: number,
     canReplay: boolean,
+    isPlayable: boolean,
 }
 
 interface StateProps {
@@ -24,7 +24,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    selectTile: (id: number) => void,
+    selectPlayerTile: (id: number) => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -32,42 +32,44 @@ type Props = OwnProps & StateProps & DispatchProps;
 class PlayerTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { selectTile, id } = this.props;
+        const { isPlayable, selectPlayerTile, id } = this.props;
         
         e.stopPropagation();
 
-        selectTile(id);
+        if (isPlayable) {
+            selectPlayerTile(id);
+        }
     }
 
     render() {
-        const { color, strength, type, isSelected } = this.props;
+        const { color, type, strength, isSelected, canReplay, isPlayable } = this.props;
         const { width, height } = TILE_SIZE;
 
-        const piecePosition = getPositionInHexagon(0, 2, TILE_SIZE);
-        const pieceSize = { width: 2 / 5 * width, height: 2 / 5 * height };
+        const replayIconPosition = { x: width / 2, y: 5 / 6 * height};
+        const replayIconSize = { width: width / 8, height: height / 8 };
 
-        const textPosition = { x: 2 / 3 * width, y: height / 2 };
-    
+        const isSwitch = type === TileType.Switch;
+
         return (
             <svg
-                className={`player-tile ${isSelected ? 'is-selected' : ''}`}
+                className={`player-tile ${isPlayable && isSelected ? 'is-selected' : ''}`}
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <TileBackground path={TILE_PATH} stroke={TILE_STROKE} color={color} isPlayable />
-                <TileText position={textPosition}>{strength}</TileText>
-                <TileIcon position={piecePosition} size={pieceSize} type={type} />
+                {isSwitch && <PlayerSwitchTileContent color={color} isPlayable={isPlayable} />}
+                {!isSwitch && <PlayerStandardTileContent color={color} type={type} strength={strength} isPlayable={isPlayable} />}
+                {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={SpecialTileType.Replay} />}
             </svg>
         );
     }
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.player.selectedTileId,
+    isSelected: ownProps.id === state.player.selectedPlayerTile,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    selectTile: (id: number) => dispatch(selectTile(id)),
+    selectPlayerTile: (id: number) => dispatch(selectPlayerTile(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerTileComponent);

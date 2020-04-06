@@ -8,28 +8,37 @@ import TileBackground from './TileBackground';
 import { getPositionInHexagon } from '../lib';
 import TileIcon from './TileIcon';
 import { TILE_PATH_BOARD, TILE_STROKE, TILE_SIZE, BOARD_ROTATION } from '../config';
+import { AppState } from '../types/StateTypes';
+import { selectBoardTile } from '../actions/BoardActions';
 
 interface OwnProps {
+    id: number,
     position: Coordinates2D,
     types: TileType[],
     isWater?: boolean,
     isPlayable?: boolean,
 }
 
-interface DispatchProps {
-    openDialog: () => void,
+interface StateProps {
+    isSelected: boolean,
 }
 
-type Props = OwnProps & DispatchProps;
+interface DispatchProps {
+    openDialog: () => void,
+    selectBoardTile: (id: number) => void,
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { isPlayable, openDialog } = this.props;
+        const { id, isPlayable, openDialog, selectBoardTile } = this.props;
 
         e.stopPropagation();
 
         if (isPlayable) {
+            selectBoardTile(id);
             openDialog();
         }
     }
@@ -73,8 +82,13 @@ class BoardTileComponent extends React.Component<Props, {}> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    openDialog: () => dispatch(openDialog),
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
+    isSelected: ownProps.id === state.board.selectedBoardTile,
 });
 
-export default connect(() => ({}), mapDispatchToProps)(BoardTileComponent);
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+    openDialog: () => dispatch(openDialog),
+    selectBoardTile: (id: number) => dispatch(selectBoardTile(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BoardTileComponent);

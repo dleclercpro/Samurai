@@ -52,6 +52,25 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
                     break;
             }
             break;
+        case 4:
+            switch (i) {
+                case 0:
+                    x = width / 4;
+                    y = height / 2;
+                    break;
+                case 1:
+                    x = width / 2;
+                    y = height / 4;
+                    break;
+                case 2:
+                    x = 3 / 4 * width;
+                    y = height / 2;
+                    break;
+                case 3:
+                    x = width / 2;
+                    y = 3 / 4 * height;
+                    break;
+            }
     }
 
     if (x === undefined || y === undefined) {

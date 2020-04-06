@@ -8,6 +8,7 @@ interface Props {
     color?: PlayerColor,
     isWater?: boolean,
     isPlayable?: boolean,
+    isShip?: boolean,
 }
 
 class TileBackground extends React.Component<Props, {}> {
@@ -28,14 +29,15 @@ class TileBackground extends React.Component<Props, {}> {
     }
 
     render() {
-        const { path, stroke, color, isPlayable, isWater } = this.props;
+        const { path, stroke, color, isPlayable, isWater, isShip } = this.props;
 
         return (
             <polygon
                 className={`
                     tile-background 
                     ${isPlayable ? 'is-playable' : ''}
-                    ${isWater ? 'is-water' : ''} 
+                    ${isWater ? 'is-water' : ''}
+                    ${isShip ? 'is-ship' : ''}
                     ${color !== undefined ? this.getColor(color) : ''}
                 `}
                 points={path}

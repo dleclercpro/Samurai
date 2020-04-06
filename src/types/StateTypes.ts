@@ -4,11 +4,12 @@ export interface PlayerState {
     id: number,
     color: PlayerColor,
     hand: PlayerTile[],
-    selectedTileId: number,
+    selectedPlayerTile: number,
 }
 
 export interface BoardState {
     tiles: BoardTileMap,
+    selectedBoardTile: number,
 }
 
 export interface DialogState {

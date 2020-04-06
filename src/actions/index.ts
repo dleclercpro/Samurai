@@ -1,7 +1,7 @@
-import { OpenDialog, CloseDialog, ToggleDialog, LoadBoard, LoadHand, SelectNextTile, SetPlayer, SetPlayerColor } from '../types/ActionTypes';
+import { OpenDialog, CloseDialog, ToggleDialog, LoadBoard, LoadHand, SelectPlayerTile, SetPlayer, SetPlayerColor, SelectBoardTile, DeselectPlayerTile, DeselectBoardTile } from '../types/ActionTypes';
 
-export type PlayerAction = SetPlayer | SetPlayerColor | LoadHand | SelectNextTile;
-export type BoardAction = LoadBoard;
+export type PlayerAction = SetPlayer | SetPlayerColor | LoadHand | SelectPlayerTile | DeselectPlayerTile;
+export type BoardAction = LoadBoard | SelectBoardTile | DeselectBoardTile;
 export type DialogAction = OpenDialog | CloseDialog | ToggleDialog;
 
 // Root action

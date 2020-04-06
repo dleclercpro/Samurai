@@ -17,24 +17,30 @@ export enum PlayerColor {
 }
 
 export enum TileType {
-    Military,
-    Commerce,
-    Religion,
-    Joker,
-    Boat,
-    Switch,
-    Move,
-    Unknown,
+    Military = 'Military',
+    Religion = 'Religion',
+    Commerce = 'Commerce',
+    Joker = 'Joker',
+    Ship = 'Ship',
+    Switch = 'Switch',
+    Move = 'Move',
+    Unknown = 'UnknownTileType',
+}
+
+export enum SpecialTileType {
+    Replay = 'Replay',
+    Unknown = 'UnknownSpecialTileType',
 }
 
 export interface BoardTile {
+    id: number,
     coordinates: Coordinates2D,
     neighborhood: Coordinates2D[],
     types: TileType[],
     isWater: boolean,
 }
 
-export type BoardTileMap = Map<Coordinates2D, BoardTile>;
+export type BoardTileMap = Map<number, BoardTile>;
 
 export interface PlayerTile {
     id: number,

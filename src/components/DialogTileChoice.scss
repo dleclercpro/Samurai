@@ -1,4 +1,6 @@
-.dialog--player-tile-choice {
+@import 'config';
+
+.dialog--tile-choice {
 
     > .content {
         
@@ -10,14 +12,10 @@
             }
         }
 
-        > .tiles {
-            display: flex;
-            align-items: center;
+        > .content {
+            @extend %center;
+            flex-direction: column;
             flex: 1;
-
-            > *:not(:last-child) {
-                margin-right: 10px;
-            }
         }
     }
 }

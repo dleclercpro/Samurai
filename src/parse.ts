@@ -7,22 +7,22 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 
     // Build tile map
     rawTiles.forEach((rawTile: BoardTileJSON) => {
-        const { coordinates, types, isWater } = rawTile;
+        const { id, coordinates, types, isWater } = rawTile;
         
-        if (tiles.has(coordinates)) {
+        if (tiles.has(id)) {
             console.warn('Trying to add same tile twice.');
             return;
         }
 
         const tile = {
+            id,
             coordinates,
             neighborhood: [],
             types: types.map(type => parseTileType(type)),
             isWater,
         };
 
-        // Use tile coordinates as key
-        tiles.set(coordinates, tile);
+        tiles.set(id, tile);
     });
 
     return tiles;
@@ -38,8 +38,8 @@ export const parseTileType = (data: String): TileType => {
             return TileType.Commerce;
         case 'Joker':
             return TileType.Joker;
-        case 'Boat':
-            return TileType.Boat;
+        case 'Ship':
+            return TileType.Ship;
         case 'Move':
             return TileType.Move;
         case 'Switch':

@@ -2,7 +2,6 @@ import React, { Dispatch } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Home from '../pages/Home';
-import Overlay from './Overlay';
 import DialogTileChoice from './DialogTileChoice';
 import { loadBoard } from '../actions/BoardActions';
 import { BoardJSON, PlayerTileJSON } from '../types/JSONTypes';
@@ -61,9 +60,7 @@ class App extends React.Component<Props, {}> {
                         </Route>
                     </Switch>
                 </main>
-                <Overlay>
-                    <DialogTileChoice />
-                </Overlay>
+                <DialogTileChoice />
             </div>
         );
     }

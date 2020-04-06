@@ -1,9 +1,9 @@
-import { SELECT_NEXT_TILE, SelectNextTile, SET_PLAYER, SetPlayer, LoadHand, LOAD_HAND, SET_PLAYER_COLOR, SetPlayerColor } from '../types/ActionTypes';
+import { SELECT_PLAYER_TILE, SelectPlayerTile, SET_PLAYER, SetPlayer, LoadHand, LOAD_HAND, SET_PLAYER_COLOR, SetPlayerColor, DESELECT_PLAYER_TILE, DeselectPlayerTile } from '../types/ActionTypes';
 import { PlayerTileJSON } from '../types/JSONTypes';
 
-export const selectTile = (id: number): SelectNextTile => ({
-    type: SELECT_NEXT_TILE,
-    id,
+export const loadHand = (json: PlayerTileJSON[]): LoadHand => ({
+    type: LOAD_HAND,
+    json,
 });
 
 export const setPlayer = (id: number): SetPlayer => ({
@@ -16,7 +16,12 @@ export const setPlayerColor = (color: string): SetPlayerColor => ({
     color,
 });
 
-export const loadHand = (json: PlayerTileJSON[]): LoadHand => ({
-    type: LOAD_HAND,
-    json,
+export const selectPlayerTile = (id: number): SelectPlayerTile => ({
+    type: SELECT_PLAYER_TILE,
+    id,
 });
+
+export const deselectPlayerTile: DeselectPlayerTile = {
+    type: DESELECT_PLAYER_TILE,
+    id: -1,
+};

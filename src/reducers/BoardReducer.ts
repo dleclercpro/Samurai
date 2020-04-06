@@ -1,11 +1,12 @@
 import { BoardState } from '../types/StateTypes';
 import { BoardAction } from '../actions';
-import { LOAD_BOARD } from '../types/ActionTypes';
+import { LOAD_BOARD, SELECT_BOARD_TILE, DESELECT_BOARD_TILE } from '../types/ActionTypes';
 import { parseBoard } from '../parse';
 import { getTileNeighborhood } from '../lib';
 
 const initState = {
     tiles: new Map(),
+    selectedBoardTile: -1,
 };
 
 const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
@@ -25,6 +26,12 @@ const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
             return {
                 ...state,
                 tiles,
+            };
+        case SELECT_BOARD_TILE:
+        case DESELECT_BOARD_TILE:
+            return {
+                ...state,
+                selectedBoardTile: action.id,
             };
         default:
             return state;
