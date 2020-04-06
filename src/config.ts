@@ -3,8 +3,8 @@ import { getHexagonalPath } from "./lib";
 import { PlayerJSON } from "./types/JSONTypes";
 
 // Board
-export const BOARD_SIZE: Size2D = { width: 14, height: 14 };
-export const BOARD_ORIGIN: Coordinates2D = { x: 0, y: 0 };
+export const BOARD_SIZE: Size2D = { width: 11.5, height: 13 };
+export const BOARD_ORIGIN: Coordinates2D = { x: -2, y: 0.5 };
 export const BOARD_ROTATION: number = 60;
 
 // Tiles

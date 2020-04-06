@@ -45,9 +45,12 @@ class Dialog extends React.Component<Props, {}> {
         }
 
         return (
-            <div className='dialog-overlay' onClick={this.handleClose}>
-                <div className={`dialog ${type ? `dialog--${type}` : ''}`} onClick={this.handleClick}>
+            <div id='dialog-overlay' onClick={this.handleClose}>
+                <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <h2 className='headline'>{headline}</h2>
+                    <section className='text'>
+                        <p>This is a test.</p>
+                    </section>
                     <div className='content'>
                         {children}
                     </div>

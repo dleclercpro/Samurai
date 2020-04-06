@@ -1,0 +1,27 @@
+@mixin mq($type, $breakpoint) {
+
+    @if map-has-key($breakpoints, $type) {
+        $typedBreakpoints: map-get($breakpoints, $type);
+
+        @if map-has-key($typedBreakpoints, $breakpoint) {
+            $breakpoint-value: map-get($typedBreakpoints, $breakpoint);
+
+            @if $type == 'width' {
+                @media (min-width: $breakpoint-value) {
+                    @content;
+                }
+            
+            } @else if $type == 'height' {
+                @media (max-height: $breakpoint-value) {
+                    @content;
+                }
+            }
+
+        } @else {
+            @warn 'Invalid breakpoint: #{$breakpoint}.';
+        }
+
+    } @else {
+        @warn 'Invalid breakpoint type: #{$type}.';
+    }
+};

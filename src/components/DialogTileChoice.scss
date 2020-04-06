@@ -1,21 +1,3 @@
-@import 'config';
+#dialog--tile-choice {
 
-.dialog--tile-choice {
-
-    > .content {
-        
-        > .text {
-            margin-bottom: 12px;
-
-            > p {
-                font-size: 20px;
-            }
-        }
-
-        > .content {
-            @extend %center;
-            flex-direction: column;
-            flex: 1;
-        }
-    }
 }

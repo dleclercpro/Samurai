@@ -26,12 +26,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
     render() {
         return (
             <Dialog type='tile-choice' headline='Tile Choice' onClose={this.handleClose}>
-                <section className='text'>
-                    <p>This is a test.</p>
-                </section>
-                <section className='content'>
-                    <Hand isPlayable />
-                </section>
+                <Hand isPlayable />
             </Dialog>
         );
     }

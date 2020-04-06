@@ -1,9 +1,44 @@
 @import 'config';
 
-.player-tile {
-    height: 100%;
+$spacing: 12px;
 
-    .dialog--tile-choice & {
-        height: 150px;
+.player-tile {
+    margin-bottom: $spacing;
+
+    @include mq(width, desktop) {
+        margin-bottom: 0;
+    }
+
+    &:not(:last-child) {
+        margin-right: $spacing;
+    }
+
+    #dialog--tile-choice & {
+        width: 75%;
+
+        @include mq(width, tablet) {
+            width: auto;
+            height: 100px;
+        }
+
+        @include mq(width, desktop) {
+            height: 150px;
+        }
+
+        &:not(:last-child) {
+            margin-right: 0;
+
+            @include mq(width, tablet) {
+                margin-right: $spacing;
+            }
+        }
+    }
+
+    #bottom .hand & {
+        height: 100px;
+
+        @include mq(width, desktop) {
+            height: 120px;
+        }
     }
 }

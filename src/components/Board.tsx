@@ -99,11 +99,13 @@ class Board extends React.Component<Props, State> {
         const { width, height } = this.state.size;
 
         return (
-            <svg id='board' viewBox={`0 0 ${width} ${height}`}>
-                <g id='board-tiles' transform={`rotate(${BOARD_ROTATION})`}>
-                    {this.getTileNodes()}
-                </g>
-            </svg>
+            <div id='board-wrapper'>
+                <svg id='board' viewBox={`0 0 ${width} ${height}`}>
+                    <g id='board-tiles' transform={`rotate(${BOARD_ROTATION})`}>
+                        {this.getTileNodes()}
+                    </g>
+                </svg>
+            </div>
         );
     }
 }

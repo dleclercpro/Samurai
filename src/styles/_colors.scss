@@ -11,6 +11,8 @@ $color-black-transparent: rgba(0, 0, 0, 0.5);
 $color-ground: #fbebd4;
 $color-water: #bfefff;
 
+$color-light-grey: #eeeeee;
+
 $color-dark-ground: darken($color: $color-ground, $amount: 15);
 $color-dark-water: darken($color: $color-water, $amount: 15);
 
