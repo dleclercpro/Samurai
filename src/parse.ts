@@ -129,7 +129,7 @@ export const parsePlayedTileMap = (data: PlayedTileMapJSON): PlayedTileMap => {
     const playedTiles = new Map<number, number>();
 
     Object.entries(data).forEach(([boardID, initHandID]) => {
-        if (initHandID) {
+        if (initHandID !== undefined) {
             playedTiles.set(parseInt(boardID), initHandID);
         }
     });
