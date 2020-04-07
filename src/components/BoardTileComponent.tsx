@@ -9,6 +9,7 @@ import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../config';
 import { AppState } from '../types/StateTypes';
 import { selectTile } from '../actions/BoardActions';
 import BoardTileContent from './BoardTileContent';
+import { DialogType } from '../types/DialogTypes';
 
 interface OwnProps {
     id: number,
@@ -72,7 +73,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    openDialog: () => dispatch(openDialog),
+    openDialog: () => dispatch(openDialog(DialogType.TileChoice)),
     selectTile: (id: number) => dispatch(selectTile(id)),
 });
 

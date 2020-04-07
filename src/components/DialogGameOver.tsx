@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import { Player } from '../types/GameTypes';
 import { getWinners } from '../selectors';
+import { DialogType } from '../types/DialogTypes';
 
 interface StateProps {
     winners: Player[],
@@ -32,7 +33,7 @@ class DialogGameOver extends React.Component<Props, {}> {
 
         return (
             <Dialog
-                type='game-over'
+                type={DialogType.GameOver}
                 headline='Game Over'
                 description={description}
             >

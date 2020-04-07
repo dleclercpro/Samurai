@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { AppAction } from '../actions';
 import { deselectBoardTile } from '../actions/BoardActions';
 import { deselectHandTile } from '../actions/GameActions';
+import { DialogType } from '../types/DialogTypes';
 
 interface DispatchProps {
     deselectBoardTile: () => void,
@@ -26,7 +27,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
     render() {
         return (
             <Dialog
-                type='tile-choice'
+                type={DialogType.TileChoice}
                 headline='Tile Choice'
                 description='Choose which tile to place on the empty space you just clicked on the board.'
                 onClose={this.handleClose}

@@ -1,13 +1,11 @@
-import { OPEN_DIALOG, CLOSE_DIALOG, TOGGLE_DIALOG, OpenDialog, CloseDialog, ToggleDialog } from '../types/ActionTypes';
+import { OPEN_DIALOG, CLOSE_DIALOG, OpenDialog, CloseDialog } from '../types/ActionTypes';
+import { DialogType } from '../types/DialogTypes';
 
-export const openDialog: OpenDialog = {
+export const openDialog = (dialogType: DialogType): OpenDialog => ({
     type: OPEN_DIALOG,
-};
+    dialogType,
+});
 
 export const closeDialog: CloseDialog = {
     type: CLOSE_DIALOG,
-};
-
-export const toggleDialog: ToggleDialog = {
-    type: TOGGLE_DIALOG,
 };

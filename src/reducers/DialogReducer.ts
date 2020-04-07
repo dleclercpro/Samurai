@@ -1,8 +1,10 @@
 import { DialogState } from '../types/StateTypes';
 import { DialogAction } from '../actions';
-import { OPEN_DIALOG, CLOSE_DIALOG, TOGGLE_DIALOG } from '../types/ActionTypes';
+import { OPEN_DIALOG, CLOSE_DIALOG } from '../types/ActionTypes';
+import { DialogType } from '../types/DialogTypes';
 
 const initState = {
+    type: DialogType.None,
     isOpen: false,
 };
 
@@ -12,16 +14,13 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
             return {
                 ...state,
                 isOpen: true,
+                type: action.dialogType,
             };
         case CLOSE_DIALOG:
             return {
                 ...state,
                 isOpen: false,
-            };
-        case TOGGLE_DIALOG:
-            return {
-                ...state,
-                isOpen: !state.isOpen,
+                type: DialogType.None,
             };
         default:
             return state;

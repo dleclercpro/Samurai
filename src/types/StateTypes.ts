@@ -1,4 +1,5 @@
 import { TileMap, PlayerTile, Player } from './GameTypes';
+import { DialogType } from './DialogTypes';
 
 export interface GameState {
     player: Player,
@@ -15,6 +16,7 @@ export interface BoardState {
 
 export interface DialogState {
     isOpen: boolean,
+    type: DialogType,
 }
 
 // Root state

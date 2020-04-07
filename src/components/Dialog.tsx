@@ -6,10 +6,11 @@ import { AppAction } from '../actions';
 import Button from './Button';
 import { ReactComponent as CloseIcon } from '../icons/close.svg';
 import { AppState } from '../types/StateTypes';
+import { DialogType } from '../types/DialogTypes';
 
 interface OwnProps {
     children: ReactNode,
-    type: string,
+    type: DialogType,
     headline: string,
     description: string,
     onClose?: () => void,
@@ -17,6 +18,7 @@ interface OwnProps {
 
 interface StateProps {
     isOpen: boolean,
+    dialogType: DialogType,
 }
 
 interface DispatchProps {
@@ -42,9 +44,9 @@ class Dialog extends React.Component<Props, {}> {
     }
 
     render() {
-        const { children, description, type, headline, closeDialog, isOpen } = this.props;
+        const { children, description, type, dialogType, headline, closeDialog, isOpen } = this.props;
 
-        if (!isOpen) {
+        if (!isOpen || type !== dialogType) {
             return null;
         }
         
@@ -71,6 +73,7 @@ class Dialog extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => ({
     isOpen: state.dialog.isOpen,
+    dialogType: state.dialog.type,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
