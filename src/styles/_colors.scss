@@ -1,7 +1,7 @@
 $color-black: #000000;
 $color-grey: #555555;
 $color-white: #ffffff;
-$color-red: #ff7f7f;
+$color-red: #ffa1a1;
 $color-purple: #d8b2d8;
 $color-orange: #ffc04d;
 $color-green: #e6fc76;
@@ -11,13 +11,13 @@ $color-black-transparent: rgba(0, 0, 0, 0.5);
 $color-ground: #faf1ed;
 $color-water: #bfefff;
 
-$color-light-grey: #eeeeee;
-
 $color-dark-ground: darken($color: $color-ground, $amount: 15);
 $color-dark-water: darken($color: $color-water, $amount: 15);
 
-$color-dark-red: darken($color: $color-red, $amount: 30);
-$color-dark-purple: darken($color: $color-purple, $amount: 30);
-$color-dark-orange: darken($color: $color-orange, $amount: 30);
-$color-dark-green: darken($color: $color-green, $amount: 30);
-$color-dark-grey: darken($color: $color-grey, $amount: 30);
+$color-dark-red: darken($color: $color-red, $amount: 40);
+$color-dark-purple: darken($color: $color-purple, $amount: 40);
+$color-dark-orange: darken($color: $color-orange, $amount: 40);
+$color-dark-green: darken($color: $color-green, $amount: 40);
+$color-dark-grey: darken($color: $color-grey, $amount: 15);
+
+$color-light-grey: lighten($color: $color-grey, $amount: 60);

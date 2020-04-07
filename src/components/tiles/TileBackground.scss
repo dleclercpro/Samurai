@@ -4,6 +4,15 @@
     fill: $color-ground;
     stroke: $color-dark-ground;
     @extend %no-highlight;
+
+    &.is-water {
+        fill: $color-water;
+        stroke: $color-dark-water;
+
+        .is-playable &:hover {
+            fill: $color-dark-water;
+        }
+    }
     
     .is-playable & {
         cursor: pointer;
@@ -71,19 +80,10 @@
 
     .is-switch & {
         fill: $color-dark-grey;
-        stroke: $color-dark-grey;
+        stroke: $color-black;
 
         .is-playable &:hover {
             fill: $color-grey;
-        }
-    }
-
-    &.is-water {
-        fill: $color-water;
-        stroke: $color-dark-water;
-
-        .is-playable &:hover {
-            fill: $color-dark-water;
         }
     }
 }
