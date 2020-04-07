@@ -3,6 +3,7 @@
 .tile-background {
     fill: $color-ground;
     stroke: $color-dark-ground;
+    @extend %no-highlight;
     
     &.is-playable {
         cursor: pointer;

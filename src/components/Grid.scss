@@ -2,7 +2,6 @@
 
 $height-top: 0px;
 $height-bottom: 150px;
-$spacing-bottom: 30px;
 
 #grid {
     display: flex;
@@ -12,21 +11,18 @@ $spacing-bottom: 30px;
     height: 100%;
     overflow: hidden;
 
-    > #top,
-    > #bottom {
-        @extend %center;
-        width: 100%;
-    }
-
     > #top {
+        display: flex;
+        width: 100%;
         height: $height-top;
     }
 
     > #bottom {
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
         height: $height-bottom;
-        padding: 0 $spacing-bottom;
+        padding: 25px 0;
         overflow: auto;
         border-top: 1px solid $color-light-grey;
     }

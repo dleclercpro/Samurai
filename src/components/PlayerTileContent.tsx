@@ -27,11 +27,11 @@ const PlayerTileContent: React.FC<Props> = (props) => {
     const isShip = type === Figure.Ship;
 
     return (
-        <React.Fragment>
+        <g className='player-tile-content'>
             <TileBackground path={TILE_PATH} stroke={TILE_STROKE} color={color} isShip={isShip} isPlayable={isPlayable} />
             <TileText position={textPosition}>{strength}</TileText>
             <TileIcon position={iconPosition} size={iconSize} type={type} />
-        </React.Fragment>
+        </g>
     );
 };
 

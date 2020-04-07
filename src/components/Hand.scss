@@ -4,18 +4,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     width: 100%;
     height: 100%;
 
-    @include mq(width, tablet) {
-        flex-wrap: nowrap;
-    }
+    #dialog--tile-choice & {
+        flex-wrap: wrap;
 
-    #bottom & {
-
-        @include mq(width, desktop) {
-            width: 60%;
+        @include mq(width, tablet) {
+            flex-wrap: nowrap;
+            height: 150px;
         }
+    }
+    
+    #bottom & {
+        width: auto;
+        margin-right: auto;
+        padding: 0 30px;
     }
 }

@@ -23,13 +23,13 @@ const PlayerSwitchTileContent: React.FC<Props> = (props) => {
     switchIconPosition.y += iconSize.height / 4;
 
     return (
-        <React.Fragment>
+        <g className='player-switch-tile-content'>
             <TileBackground path={TILE_PATH} stroke={TILE_STROKE} color={color} isPlayable={isPlayable} />
             <TileIcon position={getPositionInHexagon(0, 4, TILE_SIZE)} size={iconSize} type={Caste.Military} />
             <TileIcon position={getPositionInHexagon(1, 4, TILE_SIZE)} size={iconSize} type={Caste.Religion} />
             <TileIcon position={getPositionInHexagon(2, 4, TILE_SIZE)} size={iconSize} type={Caste.Commerce} />
             <TileIcon position={switchIconPosition} size={iconSize} type={Action.Move} />
-        </React.Fragment>
+        </g>
     );
 };
 

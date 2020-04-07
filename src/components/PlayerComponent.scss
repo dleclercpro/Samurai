@@ -3,6 +3,10 @@
 .player {
     width: 60px;
 
+    &:not(:last-child) {
+        margin-right: 30px;
+    }
+
     > .username {
         width: 100%;
         font-size: 16px;

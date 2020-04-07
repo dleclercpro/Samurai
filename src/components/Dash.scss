@@ -4,11 +4,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-shrink: 0;
     width: 100%;
     height: 100%;
+    margin-left: auto;
+    padding: 0 30px;
 
     @include mq(width, desktop) {
-        width: 40%;
-        margin-bottom: 0;
+        width: auto;
     }
 }
