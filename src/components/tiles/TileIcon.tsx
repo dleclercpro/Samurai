@@ -1,13 +1,13 @@
 import React from 'react';
-import { Size2D, Coordinates2D, TileType, Caste, Figure, Action } from '../types/GameTypes';
+import { Size2D, Coordinates2D, TileType, Caste, Figure, Action } from '../../types/GameTypes';
 import './TileIcon.scss';
-import { ReactComponent as HouseIcon } from '../icons/house.svg';
-import { ReactComponent as MonkIcon } from '../icons/monk.svg';
-import { ReactComponent as RiceIcon } from '../icons/rice.svg';
-import { ReactComponent as HorseIcon } from '../icons/horse.svg';
-import { ReactComponent as ShipIcon } from '../icons/ship.svg';
-import { ReactComponent as ExchangeIcon } from '../icons/exchange.svg';
-import { ReactComponent as KanjiIcon } from '../icons/kanji.svg';
+import { ReactComponent as HouseIcon } from '../../icons/house.svg';
+import { ReactComponent as MonkIcon } from '../../icons/monk.svg';
+import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
+import { ReactComponent as HorseIcon } from '../../icons/horse.svg';
+import { ReactComponent as ShipIcon } from '../../icons/ship.svg';
+import { ReactComponent as ExchangeIcon } from '../../icons/exchange.svg';
+import { ReactComponent as KanjiIcon } from '../../icons/kanji.svg';
 
 interface Props {
     position: Coordinates2D,

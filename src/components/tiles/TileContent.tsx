@@ -1,9 +1,9 @@
 import React from 'react';
-import { TileType, Action, Caste } from '../types/GameTypes';
+import { TileType, Action, Caste } from '../../types/GameTypes';
 import './TileContent.scss';
 import TileIcon from './TileIcon';
-import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../config';
-import { getPositionInHexagon } from '../lib';
+import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
+import { getPositionInHexagon } from '../../lib';
 import TileBackground from './TileBackground';
 import TileText from './TileText';
 

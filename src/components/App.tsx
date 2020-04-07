@@ -2,7 +2,7 @@ import React, { Dispatch } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Home from '../pages/Home';
-import DialogTileChoice from './DialogTileChoice';
+import DialogTileChoice from './dialogs/DialogTileChoice';
 import { loadBoard } from '../actions/BoardActions';
 import { BoardJSON, PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
 import { AppAction } from '../actions';
@@ -14,8 +14,8 @@ import OPPONENTS from '../data/Opponents.json';
 import { loadHand, loadPlayer, loadOpponents, loadInitHand } from '../actions/GameActions';
 import { HAND_SIZE } from '../config';
 import Grid from './Grid';
-import DialogGameOver from './DialogGameOver';
-import DialogTileSwitch from './DialogTileSwitch';
+import DialogGameOver from './dialogs/DialogGameOver';
+import DialogTileSwitch from './dialogs/DialogTileSwitch';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,

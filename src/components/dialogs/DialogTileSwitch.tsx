@@ -1,8 +1,8 @@
 import React from 'react';
 import './DialogTileSwitch.scss';
 import Dialog from './Dialog';
-import { DialogType } from '../types/DialogTypes';
-import Button from './Button';
+import { DialogType } from '../../types/DialogTypes';
+import Button from '../Button';
 
 class DialogTileSwitch extends React.Component<{}, {}> {
 

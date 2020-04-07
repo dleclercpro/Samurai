@@ -1,15 +1,15 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, Caste } from '../types/GameTypes';
+import { Coordinates2D, Caste } from '../../types/GameTypes';
 import './BoardTileComponent.scss';
-import { AppAction } from '../actions';
-import { openDialog } from '../actions/DialogActions';
+import { AppAction } from '../../actions';
+import { openDialog } from '../../actions/DialogActions';
 import TileBackground from './TileBackground';
-import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../config';
-import { AppState } from '../types/StateTypes';
-import { selectTile } from '../actions/BoardActions';
+import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../../config';
+import { AppState } from '../../types/StateTypes';
+import { selectTile } from '../../actions/BoardActions';
 import BoardTileContent from './BoardTileContent';
-import { DialogType } from '../types/DialogTypes';
+import { DialogType } from '../../types/DialogTypes';
 
 interface OwnProps {
     id: number,

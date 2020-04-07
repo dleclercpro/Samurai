@@ -1,9 +1,9 @@
 import React from 'react';
-import { Coordinates2D, Caste } from '../types/GameTypes';
+import { Coordinates2D, Caste } from '../../types/GameTypes';
 import './BoardTileContent.scss';
-import { getPositionInHexagon } from '../lib';
+import { getPositionInHexagon } from '../../lib';
 import TileIcon from './TileIcon';
-import { TILE_SIZE } from '../config';
+import { TILE_SIZE } from '../../config';
 
 interface OwnProps {
     position: Coordinates2D,

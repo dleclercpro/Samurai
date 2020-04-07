@@ -2,10 +2,10 @@ import React from 'react';
 import './DialogGameOver.scss';
 import Dialog from './Dialog';
 import { connect } from 'react-redux';
-import { AppState } from '../types/StateTypes';
-import { Player } from '../types/GameTypes';
-import { getWinners } from '../selectors';
-import { DialogType } from '../types/DialogTypes';
+import { AppState } from '../../types/StateTypes';
+import { Player } from '../../types/GameTypes';
+import { getWinners } from '../../selectors';
+import { DialogType } from '../../types/DialogTypes';
 
 interface StateProps {
     winners: Player[],

@@ -1,14 +1,14 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { AppState } from '../types/StateTypes';
-import { PlayerColor, TileType, Action } from '../types/GameTypes';
+import { AppState } from '../../types/StateTypes';
+import { PlayerColor, TileType, Action } from '../../types/GameTypes';
 import './HandTileComponent.scss';
-import { AppAction } from '../actions';
-import { selectHandTile, deselectHandTile } from '../actions/GameActions';
-import { TILE_SIZE } from '../config';
+import { AppAction } from '../../actions';
+import { selectHandTile, deselectHandTile } from '../../actions/GameActions';
+import { TILE_SIZE } from '../../config';
 import TileComponent from './TileComponent';
-import { openDialog } from '../actions/DialogActions';
-import { DialogType } from '../types/DialogTypes';
+import { openDialog } from '../../actions/DialogActions';
+import { DialogType } from '../../types/DialogTypes';
 
 interface OwnProps {
     id: number,

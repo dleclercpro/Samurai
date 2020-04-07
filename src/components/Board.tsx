@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import BoardTileComponent from './BoardTileComponent';
+import BoardTileComponent from './tiles/BoardTileComponent';
 import './Board.scss';
 import { Coordinates2D, Size2D, Tile, TileMap, Figure, PlayerTile, Player } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
-import PlayedTileComponent from './PlayedTileComponent';
+import PlayedTileComponent from './tiles/PlayedTileComponent';
 
 interface StateProps {
     player: Player,

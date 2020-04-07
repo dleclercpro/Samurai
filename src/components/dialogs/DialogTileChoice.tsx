@@ -1,15 +1,15 @@
 import React, { Dispatch } from 'react';
 import './DialogTileChoice.scss';
 import Dialog from './Dialog';
-import Hand from './Hand';
+import Hand from '../Hand';
 import { connect } from 'react-redux';
-import { AppAction } from '../actions';
-import { deselectBoardTile } from '../actions/BoardActions';
-import { deselectHandTile } from '../actions/GameActions';
-import { DialogType } from '../types/DialogTypes';
-import Button from './Button';
-import { AppState } from '../types/StateTypes';
-import { PlayerTile } from '../types/GameTypes';
+import { AppAction } from '../../actions';
+import { deselectBoardTile } from '../../actions/BoardActions';
+import { deselectHandTile } from '../../actions/GameActions';
+import { DialogType } from '../../types/DialogTypes';
+import Button from '../Button';
+import { AppState } from '../../types/StateTypes';
+import { PlayerTile } from '../../types/GameTypes';
 
 interface StateProps {
     hand: PlayerTile[],

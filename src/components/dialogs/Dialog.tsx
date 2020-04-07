@@ -1,12 +1,12 @@
 import React, { Dispatch, ReactNode } from 'react';
 import './Dialog.scss';
-import { closeDialog } from '../actions/DialogActions';
+import { closeDialog } from '../../actions/DialogActions';
 import { connect } from 'react-redux';
-import { AppAction } from '../actions';
-import Button from './Button';
-import { ReactComponent as CloseIcon } from '../icons/close.svg';
-import { AppState } from '../types/StateTypes';
-import { DialogType } from '../types/DialogTypes';
+import { AppAction } from '../../actions';
+import Button from '../Button';
+import { ReactComponent as CloseIcon } from '../../icons/close.svg';
+import { AppState } from '../../types/StateTypes';
+import { DialogType } from '../../types/DialogTypes';
 
 interface OwnProps {
     children: ReactNode,

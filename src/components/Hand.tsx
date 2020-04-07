@@ -3,7 +3,7 @@ import { PlayerColor, PlayerTile, Figure, Action } from '../types/GameTypes';
 import './Hand.scss';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
-import HandTileComponent from './HandTileComponent';
+import HandTileComponent from './tiles/HandTileComponent';
 
 interface OwnProps {
     isInDialog: boolean,

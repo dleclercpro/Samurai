@@ -1,7 +1,7 @@
 import React from 'react';
-import { PlayerColor, TileType, Action } from '../types/GameTypes';
+import { PlayerColor, TileType, Action } from '../../types/GameTypes';
 import './TileComponent.scss';
-import { TILE_SIZE } from '../config';
+import { TILE_SIZE } from '../../config';
 import TileContent from './TileContent';
 
 interface OwnProps {

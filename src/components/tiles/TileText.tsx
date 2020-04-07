@@ -1,6 +1,6 @@
 import React from 'react';
 import './TileText.scss';
-import { Coordinates2D } from '../types/GameTypes';
+import { Coordinates2D } from '../../types/GameTypes';
 
 interface Props {
     position: Coordinates2D,
