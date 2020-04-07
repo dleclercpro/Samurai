@@ -19,13 +19,9 @@ const TileIcon: React.FC<Props> = (props) => {
     const { position, size, type } = props;
     const { x, y } = position;
     const { width, height } = size;
-    const isCaste = type === Caste.Military || type === Caste.Religion || type === Caste.Commerce;
 
     const iconProps = {
-        className: `
-            tile-icon
-            ${isCaste ? 'is-caste' : ''}
-        `,
+        className: 'tile-icon',
         width: width,
         height: height,
         x: x - width / 2,  // Center in x

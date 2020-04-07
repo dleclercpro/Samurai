@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerColor, TileType, Action, Caste } from '../types/GameTypes';
+import { TileType, Action, Caste } from '../types/GameTypes';
 import './TileContent.scss';
 import TileIcon from './TileIcon';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../config';
@@ -8,11 +8,9 @@ import TileBackground from './TileBackground';
 import TileText from './TileText';
 
 interface OwnProps {
-    color: PlayerColor,
     type: TileType,
     strength: number,
     canReplay: boolean,
-    isSwitch: boolean,
 }
 
 type Props = OwnProps;
@@ -55,23 +53,8 @@ class TileContent extends React.Component<Props, {}> {
         );
     }
 
-    getColor = (color: PlayerColor): string => {
-        switch (color) {
-            case PlayerColor.Red:
-                return 'is-red';
-            case PlayerColor.Purple:
-                return 'is-purple';
-            case PlayerColor.Orange:
-                return 'is-orange';
-            case PlayerColor.Green:
-                return 'is-green';
-            default:
-                return '';
-        }
-    }
-
     render() {
-        const { type, color, canReplay } = this.props;
+        const { type, canReplay } = this.props;
         const { width, height } = TILE_SIZE;
     
         const isSwitch = type === Action.Switch;
@@ -80,13 +63,7 @@ class TileContent extends React.Component<Props, {}> {
         const replayIconSize = { width: width / 8, height: height / 8 };
     
         return (
-            <g
-                className={`
-                    tile-content
-                    ${color ? this.getColor(color) : ''}
-                    ${isSwitch ? 'is-switch' : ''}
-                `}
-            >
+            <g className='tile-content'>
                 {isSwitch ? this.getSwitch() : this.getNormal()}
                 {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
             </g>

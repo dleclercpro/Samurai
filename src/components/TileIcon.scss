@@ -3,19 +3,19 @@
 .tile-icon {
     pointer-events: none;
     
-    .is-switch.is-red &.is-caste {
-        fill: $color-dark-red;
+    .is-switch.is-red & {
+        fill: $color-red;
     }
 
-    .is-switch.is-purple &.is-caste {
-        fill: $color-dark-purple;
+    .is-switch.is-purple & {
+            fill: $color-purple;
     }
 
-    .is-switch.is-orange &.is-caste {
-        fill: $color-dark-orange;
+    .is-switch.is-orange & {
+        fill: $color-orange;
     }
 
-    .is-switch.is-green &.is-caste {
-        fill: $color-dark-green;
+    .is-switch.is-green & {
+        fill: $color-green;
     }
 }

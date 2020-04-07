@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import HandTileComponent from './HandTileComponent';
 
 interface OwnProps {
-    isPlayable: boolean,
+    isInDialog: boolean,
 }
 
 interface StateProps {
@@ -19,34 +19,31 @@ type Props = OwnProps & StateProps;
 
 class Hand extends React.Component<Props, {}> {
 
-    filter = (hand: PlayerTile[]): PlayerTile[] => {
-        const { isPlayable, isWaterTileSelected } = this.props;
-        let tiles: PlayerTile[] = [];
+    getFilteredForDialog = (): PlayerTile[] => {
+        const { hand, isWaterTileSelected } = this.props;
 
-        if (isPlayable) {
-            tiles = hand.filter((tile: PlayerTile) => {
-                const isSwitch = tile.type === Action.Switch;
-                const isShip = tile.type === Figure.Ship;
-    
-                return !isSwitch && ((isWaterTileSelected && isShip) || (!isWaterTileSelected && !isShip));
-            });
-        }
+        return hand.filter((tile: PlayerTile) => {
+            const isSwitch = tile.type === Action.Switch;
+            const isShip = tile.type === Figure.Ship;
 
-        return tiles;
+            return !isSwitch && ((isWaterTileSelected && isShip) || (!isWaterTileSelected && !isShip));
+        });
     }
 
     render() {
-        const { hand, color, isPlayable } = this.props;
-        const tiles = isPlayable ? this.filter(hand) : hand;
+        const { hand, color, isInDialog } = this.props;
+        const tiles = isInDialog ? this.getFilteredForDialog() : hand;
 
         return (
             <div className='hand'>
                 {tiles.map((tile: PlayerTile) => {
                     const { id, type, strength, canReplay } = tile;
-                    
+                    const isSwitch = type === Action.Switch;
+                    const isPlayable = isInDialog || isSwitch;
+
                     return (
                         <HandTileComponent
-                            key={`hand-tile-${id}`}
+                            key={`hand-tile-component-${id}`}
                             id={id}
                             color={color}
                             type={type}

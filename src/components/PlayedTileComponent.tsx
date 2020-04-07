@@ -1,8 +1,8 @@
 import React from 'react';
-import { PlayerColor, TileType, Coordinates2D, Action } from '../types/GameTypes';
+import { PlayerColor, TileType, Coordinates2D } from '../types/GameTypes';
 import './PlayedTileComponent.scss';
 import { TILE_SIZE } from '../config';
-import TileContent from './TileContent';
+import TileComponent from './TileComponent';
 
 interface OwnProps {
     position: Coordinates2D,
@@ -20,22 +20,20 @@ const PlayedTileComponent: React.FC<Props> = (props) => {
     const { position, rotation, color, type, strength, canReplay } = props;
     const { width, height } = TILE_SIZE;
     const center = { x: width / 2, y: height / 2 };
-    const isSwitch = type === Action.Switch;
     
     return (
         <g
-            className='played-tile'
+            className='played-tile-component'
             transform={`translate(${position.x},${position.y}) rotate(${rotation} ${center.x} ${center.y})`}
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
         >
-            <TileContent
+            <TileComponent
                 color={color}
                 type={type}
                 strength={strength}
                 canReplay={canReplay}
-                isSwitch={isSwitch}
             />
         </g>
     );

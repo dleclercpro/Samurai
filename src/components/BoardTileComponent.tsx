@@ -49,7 +49,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
         return (
             <g
                 className={`
-                    board-tile
+                    board-tile-component
                     ${isPlayable ? 'is-playable' : ''}
                 `}
                 transform={`translate(${position.x},${position.y})`}

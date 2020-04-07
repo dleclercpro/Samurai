@@ -1,12 +1,12 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { PlayerColor, TileType, Action } from '../types/GameTypes';
+import { PlayerColor, TileType } from '../types/GameTypes';
 import './HandTileComponent.scss';
 import { AppAction } from '../actions';
-import { selectHandTile } from '../actions/GameActions';
+import { selectHandTile, deselectHandTile } from '../actions/GameActions';
 import { TILE_SIZE } from '../config';
-import TileContent from './TileContent';
+import TileComponent from './TileComponent';
 
 interface OwnProps {
     id: number,
@@ -23,6 +23,7 @@ interface StateProps {
 
 interface DispatchProps {
     selectHandTile: (id: number) => void,
+    deselectHandTile: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -30,11 +31,13 @@ type Props = OwnProps & StateProps & DispatchProps;
 class HandTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { isPlayable, selectHandTile, id } = this.props;
+        const { isPlayable, isSelected, selectHandTile, deselectHandTile, id } = this.props;
         
         e.stopPropagation();
 
-        if (isPlayable) {
+        if (isSelected) {
+            deselectHandTile();
+        } else if(isPlayable) {
             selectHandTile(id);
         }
     }
@@ -42,24 +45,24 @@ class HandTileComponent extends React.Component<Props, {}> {
     render() {
         const { color, type, strength, isSelected, canReplay, isPlayable } = this.props;
         const { width, height } = TILE_SIZE;
-        const isSwitch = type === Action.Switch;
 
         return (
             <svg
                 className={`
-                    hand-tile
+                    hand-tile-component
                     ${isPlayable ? 'is-playable' : ''}
                     ${isPlayable && isSelected ? 'is-selected' : ''}
                 `}
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <TileContent
+                <TileComponent
                     color={color}
                     type={type}
                     strength={strength}
                     canReplay={canReplay}
-                    isSwitch={isSwitch}
+                    isPlayable={isPlayable}
+                    isSelected={isSelected}
                 />
             </svg>
         );
@@ -72,6 +75,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     selectHandTile: (id: number) => dispatch(selectHandTile(id)),
+    deselectHandTile: () => dispatch(deselectHandTile),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HandTileComponent);

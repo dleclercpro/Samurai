@@ -21,7 +21,7 @@ const BoardTileContent: React.FC<Props> = (props) => {
     
     return (
         <g
-            className='board-tile-content'
+            className='board-tile-component-content'
             transform={`rotate(${rotation} ${center.x} ${center.y})`}
         >
             {castes.map((type: Caste, index: number) => {

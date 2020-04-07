@@ -82,7 +82,7 @@ class Board extends React.Component<Props, State> {
 
                 return (
                     <PlayedTileComponent
-                        key={`played-tile-${initHandID}`}
+                        key={`played-tile-component-${initHandID}`}
                         id={initHandID}
                         type={type}
                         color={color}
@@ -129,7 +129,7 @@ class Board extends React.Component<Props, State> {
 
             return (
                 <BoardTileComponent
-                    key={`board-tile-${id}`}
+                    key={`board-tile-component-${id}`}
                     id={id}
                     position={position}
                     castes={castes}

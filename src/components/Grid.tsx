@@ -13,7 +13,7 @@ const Grid: React.FC<{}> = () => (
         </section>
         <section id='bottom'>
             <Dash />
-            <Hand isPlayable={false} />
+            <Hand isInDialog={false} />
         </section>
     </div>
 );
