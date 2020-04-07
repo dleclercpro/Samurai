@@ -5,72 +5,81 @@
     stroke: $color-dark-ground;
     @extend %no-highlight;
     
-    &.is-playable {
+    .is-playable & {
         cursor: pointer;
     }
 
-    &:hover.is-playable {
+    .is-playable &:hover {
         fill: $color-dark-ground;
     }
 
-    &.is-water {
+    .is-red & {
+        fill: $color-red;
+        stroke: $color-dark-red;
+
+        .is-playable &:hover {
+            fill: $color-dark-red;
+        }
+
+        .is-selected & {
+            fill: $color-dark-red;
+        }
+    }
+
+    .is-purple & {
+        fill: $color-purple;
+        stroke: $color-dark-purple;
+
+        .is-playable &:hover {
+            fill: $color-dark-purple;
+        }
+
+        .is-selected & {
+            fill: $color-dark-purple;
+        }
+    }
+
+    .is-orange & {
+        fill: $color-orange;
+        stroke: $color-dark-orange;
+
+        .is-playable &:hover {
+            fill: $color-dark-orange;
+        }
+
+        .is-selected & {
+            fill: $color-dark-orange;
+        }
+    }
+
+    .is-green & {
+        fill: $color-green;
+        stroke: $color-dark-green;
+
+        .is-playable &:hover {
+            fill: $color-dark-green;
+        }
+
+        .is-selected & {
+            fill: $color-dark-green;
+        }
+    }
+
+    .is-water & {
         fill: $color-water;
         stroke: $color-dark-water;
 
-        &:hover.is-playable {
+        .is-playable &:hover {
             fill: $color-dark-water;
         }
     }
 
-    &.is-red {
-        fill: $color-red;
-        stroke: $color-dark-red;
+    .is-switch & {
+        fill: $color-grey;
+        stroke: $color-dark-grey;
 
-        &:hover.is-playable {
-            fill: $color-dark-red;
-        }
-
-        .is-selected & {
-            fill: $color-dark-red;
-        }
-    }
-
-    &.is-purple {
-        fill: $color-purple;
-        stroke: $color-dark-purple;
-
-        &:hover.is-playable {
-            fill: $color-dark-purple;
-        }
-
-        .is-selected & {
-            fill: $color-dark-purple;
-        }
-    }
-
-    &.is-orange {
-        fill: $color-orange;
-        stroke: $color-dark-orange;
-
-        &:hover.is-playable {
-            fill: $color-dark-orange;
-        }
-
-        .is-selected & {
-            fill: $color-dark-orange;
-        }
-    }
-
-    &.is-green {
-        fill: $color-green;
-        stroke: $color-dark-green;
-
-        &:hover.is-playable {
-            fill: $color-dark-green;
-        }
-
-        .is-selected & {
-            fill: $color-dark-green;
+        .is-playable &:hover {
+            fill: $color-dark-grey;
         }
     }
 }

@@ -19,32 +19,36 @@ const TileIcon: React.FC<Props> = (props) => {
     const { position, size, type } = props;
     const { x, y } = position;
     const { width, height } = size;
+    const isCaste = type === Caste.Military || type === Caste.Religion || type === Caste.Commerce;
 
-    const svgProps = {
-        className: 'tile-icon',
+    const iconProps = {
+        className: `
+            tile-icon
+            ${isCaste ? 'is-caste' : ''}
+        `,
         width: width,
         height: height,
         x: x - width / 2,  // Center in x
         y: y - height / 2, // Center in y
-    }
+    };
 
     switch (type) {
         case Caste.Military:
-            return (<HouseIcon {...svgProps} />);
+            return (<HouseIcon {...iconProps} />);
         case Caste.Religion:
-            return (<MonkIcon {...svgProps} />);
+            return (<MonkIcon {...iconProps} />);
         case Caste.Commerce:
-            return (<RiceIcon {...svgProps} />);
+            return (<RiceIcon {...iconProps} />);
         case Figure.Samurai:
-            return (<HorseIcon {...svgProps} />);
+            return (<HorseIcon {...iconProps} />);
         case Figure.Ship:
-            return (<ShipIcon {...svgProps} />);
+            return (<ShipIcon {...iconProps} />);
         case Action.Switch:
-            return (<ExchangeIcon {...svgProps} />);
+            return (<ExchangeIcon {...iconProps} />);
         case Action.Move:
-            return (<ExchangeIcon {...svgProps} />);
+            return (<ExchangeIcon {...iconProps} />);
         case Action.Replay:
-            return (<KanjiIcon {...svgProps} />);
+            return (<KanjiIcon {...iconProps} />);
         default:
             return null;
     }

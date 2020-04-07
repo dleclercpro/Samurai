@@ -9,19 +9,23 @@ interface OwnProps {
     position: Coordinates2D,
     rotation: number,
     castes: Caste[],
+    isPlayable: boolean,
 }
 
 type Props = OwnProps;
 
 const BoardTileContent: React.FC<Props> = (props) => {
-    const { castes, rotation } = props;
+    const { castes, rotation, isPlayable } = props;
     const { width, height } = TILE_SIZE;
     const center = { x: width / 2, y: height / 2 };
     const pieceSize = { width: width / 3, height: height / 3};
     
     return (
         <g
-            className='board-tile-content'
+            className={`
+                board-tile-content
+                ${isPlayable ? 'is-playable' : ''}
+            `}
             transform={`rotate(${rotation} ${center.x} ${center.y})`}
         >
             {castes.map((type: Caste, index: number) => {

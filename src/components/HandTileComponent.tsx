@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { PlayerColor, TileType } from '../types/GameTypes';
+import { PlayerColor, TileType, Action } from '../types/GameTypes';
 import './HandTileComponent.scss';
 import { AppAction } from '../actions';
 import { selectHandTile } from '../actions/GameActions';
@@ -42,6 +42,7 @@ class HandTileComponent extends React.Component<Props, {}> {
     render() {
         const { color, type, strength, isSelected, canReplay, isPlayable } = this.props;
         const { width, height } = TILE_SIZE;
+        const isSwitch = type === Action.Switch;
 
         return (
             <svg
@@ -55,6 +56,7 @@ class HandTileComponent extends React.Component<Props, {}> {
                     strength={strength}
                     canReplay={canReplay}
                     isPlayable={isPlayable}
+                    isSwitch={isSwitch}
                 />
             </svg>
         );

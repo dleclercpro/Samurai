@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerColor, TileType, Coordinates2D } from '../types/GameTypes';
+import { PlayerColor, TileType, Coordinates2D, Action } from '../types/GameTypes';
 import './PlayedTileComponent.scss';
 import { TILE_SIZE } from '../config';
 import TileContent from './TileContent';
@@ -21,7 +21,8 @@ const PlayedTileComponent: React.FC<Props> = (props) => {
     const { position, rotation, color, type, strength, canReplay } = props;
     const { width, height } = TILE_SIZE;
     const center = { x: width / 2, y: height / 2 };
-
+    const isSwitch = type === Action.Switch;
+    
     return (
         <g
             className='played-tile'
@@ -36,6 +37,7 @@ const PlayedTileComponent: React.FC<Props> = (props) => {
                 strength={strength}
                 canReplay={canReplay}
                 isPlayable={false}
+                isSwitch={isSwitch}
             />
         </g>
     );

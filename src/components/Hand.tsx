@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerColor, PlayerTile, Figure } from '../types/GameTypes';
+import { PlayerColor, PlayerTile, Figure, Action } from '../types/GameTypes';
 import './Hand.scss';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
@@ -25,9 +25,10 @@ class Hand extends React.Component<Props, {}> {
 
         if (isPlayable) {
             tiles = hand.filter((tile: PlayerTile) => {
+                const isSwitch = tile.type === Action.Switch;
                 const isShip = tile.type === Figure.Ship;
     
-                return (isWaterTileSelected && isShip) || (!isWaterTileSelected && !isShip);
+                return !isSwitch && ((isWaterTileSelected && isShip) || (!isWaterTileSelected && !isShip));
             });
         }
 

@@ -29,7 +29,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
             <Dialog
                 type={DialogType.TileChoice}
                 headline='Tile Choice'
-                description='Choose which tile to place on the empty space you just clicked on the board.'
+                description='Choose which tile to place on the empty space you just clicked:'
                 onClose={this.handleClose}
             >
                 <Hand isPlayable />

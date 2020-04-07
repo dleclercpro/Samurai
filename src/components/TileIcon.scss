@@ -1,3 +1,21 @@
+@import 'config';
+
 .tile-icon {
     pointer-events: none;
+    
+    .is-switch.is-red &.is-caste {
+        fill: $color-dark-red;
+    }
+
+    .is-switch.is-purple &.is-caste {
+        fill: $color-dark-purple;
+    }
+
+    .is-switch.is-orange &.is-caste {
+        fill: $color-dark-orange;
+    }
+
+    .is-switch.is-green &.is-caste {
+        fill: $color-dark-green;
+    }
 }

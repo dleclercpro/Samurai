@@ -16,7 +16,7 @@ interface OwnProps {
     position: Coordinates2D,
     castes: Caste[],
     isWater?: boolean,
-    isPlayable?: boolean,
+    isPlayable: boolean,
 }
 
 interface StateProps {
@@ -56,12 +56,12 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     path={TILE_PATH_BOARD}
                     stroke={TILE_STROKE}
                     isWater={isWater}
-                    isPlayable={isPlayable}
                 />
                 <BoardTileContent
                     position={position}
                     rotation={-BOARD_ROTATION}
                     castes={castes}
+                    isPlayable={isPlayable}
                 />
             </g>
         );
