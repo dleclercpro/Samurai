@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "color": "blue",
+        "color": "purple",
         "username": "Player1",
         "score": {
             "Military": 0,
