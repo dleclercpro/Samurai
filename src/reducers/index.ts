@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import DialogReducer from './DialogReducer';
 import { AppState } from '../types/StateTypes';
-import PlayerReducer from './PlayerReducer';
+import GameReducer from './GameReducer';
 import BoardReducer from './BoardReducer';
 
 const rootReducer = combineReducers<AppState>({
-    player: PlayerReducer,
+    game: GameReducer,
     board: BoardReducer,
     dialog: DialogReducer,
 });

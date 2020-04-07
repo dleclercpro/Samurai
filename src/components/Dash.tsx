@@ -25,7 +25,11 @@ class Dash extends React.Component<Props, {}> {
                     const { username, score } = opponent;
                     
                     return (
-                        <PlayerComponent key={`player-${index}`} username={username} score={score} />
+                        <PlayerComponent
+                            key={`player-${index}`}
+                            username={username}
+                            score={score}
+                        />
                     );
                 })}
             </section>
@@ -34,8 +38,8 @@ class Dash extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    player: state.player.self,
-    opponents: state.player.opponents,
+    player: state.game.player,
+    opponents: state.game.opponents,
 });
 
 export default connect(mapStateToProps, () => ({}))(Dash);

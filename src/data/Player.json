@@ -1,0 +1,14 @@
+{
+    "id": 0,
+    "color": "red",
+    "username": "Player0",
+    "score": {
+        "Military": 0,
+        "Religion": 0,
+        "Commerce": 0
+    },
+    "isPlaying": true,
+    "playedTiles": {
+        "168": 0
+    }
+}

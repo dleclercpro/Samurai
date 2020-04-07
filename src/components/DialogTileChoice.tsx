@@ -5,11 +5,11 @@ import Hand from './Hand';
 import { connect } from 'react-redux';
 import { AppAction } from '../actions';
 import { deselectBoardTile } from '../actions/BoardActions';
-import { deselectPlayerTile } from '../actions/PlayerActions';
+import { deselectHandTile } from '../actions/GameActions';
 
 interface DispatchProps {
     deselectBoardTile: () => void,
-    deselectPlayerTile: () => void,
+    deselectHandTile: () => void,
 }
 
 type Props = DispatchProps;
@@ -17,10 +17,10 @@ type Props = DispatchProps;
 class DialogTileChoice extends React.Component<Props, {}> {
 
     handleClose = () => {
-        const { deselectBoardTile, deselectPlayerTile } = this.props;
+        const { deselectBoardTile, deselectHandTile } = this.props;
 
         deselectBoardTile();
-        deselectPlayerTile();
+        deselectHandTile();
     }
 
     render() {
@@ -34,7 +34,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     deselectBoardTile: () => dispatch(deselectBoardTile),
-    deselectPlayerTile: () => dispatch(deselectPlayerTile),
+    deselectHandTile: () => dispatch(deselectHandTile),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(DialogTileChoice);

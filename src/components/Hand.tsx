@@ -1,9 +1,9 @@
 import React from 'react';
 import { PlayerColor, PlayerTile, Figure } from '../types/GameTypes';
 import './Hand.scss';
-import PlayerTileComponent from './PlayerTileComponent';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
+import HandTileComponent from './HandTileComponent';
 
 interface OwnProps {
     isPlayable: boolean,
@@ -44,8 +44,8 @@ class Hand extends React.Component<Props, {}> {
                     const { id, type, strength, canReplay } = tile;
                     
                     return (
-                        <PlayerTileComponent
-                            key={`player-tile-component-${id}`}
+                        <HandTileComponent
+                            key={`hand-tile-${id}`}
                             id={id}
                             color={color}
                             type={type}
@@ -61,8 +61,8 @@ class Hand extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    hand: state.player.hand,
-    color: state.player.self.color,
+    hand: state.game.hand,
+    color: state.game.player.color,
     isWaterTileSelected: state.board.tiles.get(state.board.selectedTileID)?.isWater,
 });
 

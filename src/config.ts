@@ -1,6 +1,5 @@
-import { Size2D, Coordinates2D } from "./types/GameTypes";
-import { getHexagonalPath } from "./lib";
-import { PlayerJSON } from "./types/JSONTypes";
+import { Size2D, Coordinates2D } from './types/GameTypes';
+import { getHexagonalPath } from './lib';
 
 // Board
 export const BOARD_SIZE: Size2D = { width: 12, height: 12 };
@@ -15,49 +14,3 @@ export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superi
 
 // Player
 export const HAND_SIZE: number = 5;
-export const PLAYER: PlayerJSON = {
-    id: 0,
-    color: 'red',
-    username: 'user0',
-    score: {
-        'Military': 0,
-        'Religion': 0,
-        'Commerce': 0,
-    },
-    isPlaying: true,
-};
-export const OPPONENTS: PlayerJSON[] = [
-    {
-        id: 1,
-        color: 'blue',
-        username: 'user1',
-        score: {
-            'Military': 0,
-            'Religion': 0,
-            'Commerce': 0,
-        },
-        isPlaying: false,
-    },
-    {
-        id: 2,
-        color: 'orange',
-        username: 'user2',
-        score: {
-            'Military': 0,
-            'Religion': 0,
-            'Commerce': 0,
-        },
-        isPlaying: false,
-    },
-    {
-        id: 3,
-        color: 'green',
-        username: 'user3',
-        score: {
-            'Military': 0,
-            'Religion': 0,
-            'Commerce': 0,
-        },
-        isPlaying: false,
-    },
-];

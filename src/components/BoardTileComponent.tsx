@@ -5,11 +5,10 @@ import './BoardTileComponent.scss';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
 import TileBackground from './TileBackground';
-import { getPositionInHexagon } from '../lib';
-import TileIcon from './TileIcon';
-import { TILE_PATH_BOARD, TILE_STROKE, TILE_SIZE, BOARD_ROTATION } from '../config';
+import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../config';
 import { AppState } from '../types/StateTypes';
-import { selectBoardTile } from '../actions/BoardActions';
+import { selectTile } from '../actions/BoardActions';
+import BoardTileContent from './BoardTileContent';
 
 interface OwnProps {
     id: number,
@@ -25,7 +24,7 @@ interface StateProps {
 
 interface DispatchProps {
     openDialog: () => void,
-    selectBoardTile: (id: number) => void,
+    selectTile: (id: number) => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -33,22 +32,18 @@ type Props = OwnProps & StateProps & DispatchProps;
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, isPlayable, openDialog, selectBoardTile } = this.props;
+        const { id, isPlayable, openDialog, selectTile } = this.props;
 
         e.stopPropagation();
 
         if (isPlayable) {
-            selectBoardTile(id);
+            selectTile(id);
             openDialog();
         }
     }
 
     render() {
         const { position, castes, isWater, isPlayable } = this.props;
-        const { width, height } = TILE_SIZE;
-        const center = { x: width / 2, y: height / 2 };
-        const rotation = -BOARD_ROTATION;
-        const pieceSize = { width: width / 3, height: height / 3};
     
         return (
             <g
@@ -62,21 +57,11 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     isWater={isWater}
                     isPlayable={isPlayable}
                 />
-
-                <g className='board-tile-content' transform={`rotate(${rotation} ${center.x} ${center.y})`}>
-                    {castes.map((type: Caste, index: number) => {
-                        const position = getPositionInHexagon(index, castes.length, TILE_SIZE);
-
-                        return (
-                            <TileIcon
-                                key={index}
-                                position={position}
-                                size={pieceSize}
-                                type={type}
-                            />
-                        );
-                    })}
-                </g>
+                <BoardTileContent
+                    position={position}
+                    rotation={-BOARD_ROTATION}
+                    castes={castes}
+                />
             </g>
         );
     }
@@ -88,7 +73,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     openDialog: () => dispatch(openDialog),
-    selectBoardTile: (id: number) => dispatch(selectBoardTile(id)),
+    selectTile: (id: number) => dispatch(selectTile(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardTileComponent);

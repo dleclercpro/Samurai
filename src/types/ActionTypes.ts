@@ -27,6 +27,12 @@ export interface LoadHand {
     json: PlayerTileJSON[],
 }
 
+export const LOAD_INIT_HAND = 'LOAD_INIT_HAND';
+export interface LoadInitHand {
+    type: typeof LOAD_INIT_HAND,
+    json: PlayerTileJSON[],
+}
+
 export const LOAD_PLAYER = 'LOAD_PLAYER';
 export interface LoadPlayer {
     type: typeof LOAD_PLAYER,
@@ -40,7 +46,7 @@ export interface LoadOpponents {
 }
 
 export const SELECT_BOARD_TILE = 'SELECT_BOARD_TILE';
-export interface SelectBoardTile {
+export interface SelectTile {
     type: typeof SELECT_BOARD_TILE,
     id: number,
 }
@@ -51,14 +57,14 @@ export interface DeselectBoardTile {
     id: number,
 }
 
-export const SELECT_PLAYER_TILE = 'SELECT_PLAYER_TILE';
-export interface SelectPlayerTile {
-    type: typeof SELECT_PLAYER_TILE,
+export const SELECT_HAND_TILE = 'SELECT_HAND_TILE';
+export interface SelectHandTile {
+    type: typeof SELECT_HAND_TILE,
     id: number,
 }
 
-export const DESELECT_PLAYER_TILE = 'DESELECT_PLAYER_TILE';
-export interface DeselectPlayerTile {
-    type: typeof DESELECT_PLAYER_TILE,
+export const DESELECT_HAND_TILE = 'DESELECT_HAND_TILE';
+export interface DeselectHandTile {
+    type: typeof DESELECT_HAND_TILE,
     id: number,
 }

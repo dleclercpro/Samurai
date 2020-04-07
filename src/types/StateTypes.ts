@@ -1,14 +1,15 @@
-import { BoardTileMap, PlayerTile, Player } from './GameTypes';
+import { TileMap, PlayerTile, Player } from './GameTypes';
 
-export interface PlayerState {
-    self: Player,
+export interface GameState {
+    player: Player,
     opponents: Player[],
     hand: PlayerTile[],
+    initHand: PlayerTile[],
     selectedTileID: number,
 }
 
 export interface BoardState {
-    tiles: BoardTileMap,
+    tiles: TileMap,
     selectedTileID: number,
 }
 
@@ -18,7 +19,7 @@ export interface DialogState {
 
 // Root state
 export interface AppState {
-    player: PlayerState,
+    game: GameState,
     board: BoardState,
     dialog: DialogState,
 };

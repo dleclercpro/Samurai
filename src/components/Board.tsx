@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import BoardTileComponent from './BoardTileComponent';
 import './Board.scss';
-import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Figure } from '../types/GameTypes';
+import { Coordinates2D, Size2D, Tile, TileMap, Figure, PlayerTile, Player } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
+import PlayedTileComponent from './PlayedTileComponent';
 
 interface StateProps {
-    tiles: BoardTileMap,
+    player: Player,
+    opponents: Player[],
+    tiles: TileMap,
+    initHand: PlayerTile[],
     hasShipInHand: boolean,
 }
 
@@ -57,23 +61,65 @@ class Board extends React.Component<Props, State> {
         return { x, y };
     }
 
+    getPlayedTileNodes = (): ReactNode[] => {
+        const { player, opponents, initHand, tiles } = this.props;
+
+        return opponents.concat(player).map((person: Player) => {
+            const { playedTiles, color } = person;
+
+            return Array.from(playedTiles.keys()).map((boardID: number) => {
+                const initHandID = playedTiles.get(boardID);
+                const initHandTile = initHand.find((tile => tile.id === initHandID));
+                const boardTile = tiles.get(boardID);
+
+                if (initHandID === undefined || initHandTile === undefined || boardTile === undefined) {
+                    return null;
+                }
+
+                const { type, strength, canReplay } = initHandTile;
+                const { coordinates } = boardTile;
+                const position = this.getTilePosition(coordinates);
+
+                return (
+                    <PlayedTileComponent
+                        key={`played-tile-${initHandID}`}
+                        id={initHandID}
+                        type={type}
+                        color={color}
+                        strength={strength}
+                        canReplay={canReplay}
+                        isPlayable={false}
+                        position={position}
+                        rotation={-BOARD_ROTATION}
+                    />
+                );
+            });
+        });
+    }
+
     getTileNodes = (): ReactNode[] => {
         const { tiles, hasShipInHand } = this.props;
-        let waterTiles: BoardTile[] = [];
-        let groundTiles: BoardTile[] = [];
+        let waterTiles: Tile[] = [];
+        let groundTiles: Tile[] = [];        
+        let tileNodes: ReactNode[] = [];
+
+        // Filter out played tiles to get remaining free board tiles
+        /*
+        const filteredTiles = Array.from(tiles.values()).filter((tile: Tile) => {
+            return Array.from(playedTiles.keys()).some((key: number) => {
+                return tile.id !== key;
+            })
+        });
+        */
 
         // Differenciation between ground and water tiles
-        Array.from(tiles.values()).forEach((tile: BoardTile) => {
-            if (tile.isWater) {
-                waterTiles.push(tile);
-            } else {
-                groundTiles.push(tile);
-            }
+        Array.from(tiles.values()).forEach((tile: Tile) => {
+            tile.isWater ? waterTiles.push(tile) : groundTiles.push(tile);
         });
 
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
-        return waterTiles.concat(groundTiles).map((tile: BoardTile) => {
+        tileNodes.push(...waterTiles.concat(groundTiles).map((tile: Tile) => {
             const { id, coordinates, castes, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
@@ -84,7 +130,7 @@ class Board extends React.Component<Props, State> {
 
             return (
                 <BoardTileComponent
-                    key={`board-tile-component-${id}`}
+                    key={`board-tile-${id}`}
                     id={id}
                     position={position}
                     castes={castes}
@@ -92,7 +138,12 @@ class Board extends React.Component<Props, State> {
                     isPlayable={isPlayable}
                 />
             );
-        });
+        }));
+
+        // We place played tiles on board
+        tileNodes.push(...this.getPlayedTileNodes());
+
+        return tileNodes;
     }
 
     render() {
@@ -111,20 +162,15 @@ class Board extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { board, player } = state;
-    const { tiles } = board;
-    const { hand } = player;
-    let hasShipInHand = false;
-
-    for (let tile of hand.values()) {
-        if (tile.type === Figure.Ship) {
-            hasShipInHand = true;
-            break;
-        }
-    }
+    const { tiles } = state.board;
+    const { player, opponents, hand, initHand } = state.game;
+    const hasShipInHand = Array.from(hand.values()).some(tile => tile.type === Figure.Ship);
 
     return {
         tiles,
+        initHand,
+        player,
+        opponents,
         hasShipInHand,
     }
 };

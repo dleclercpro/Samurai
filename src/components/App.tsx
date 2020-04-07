@@ -7,15 +7,18 @@ import { loadBoard } from '../actions/BoardActions';
 import { BoardJSON, PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
-import BoardData from '../data/Board.json';
-import HandData from '../data/Hand.json';
-import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
-import { HAND_SIZE, PLAYER, OPPONENTS } from '../config';
+import BOARD from '../data/Board.json';
+import HAND from '../data/Hand.json';
+import PLAYER from '../data/Player.json';
+import OPPONENTS from '../data/Opponents.json';
+import { loadHand, loadPlayer, loadOpponents, loadInitHand } from '../actions/GameActions';
+import { HAND_SIZE } from '../config';
 import Grid from './Grid';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
     loadHand: (data: PlayerTileJSON[]) => void,
+    loadInitHand: (data: PlayerTileJSON[]) => void,
     loadPlayer: (data: PlayerJSON) => void,
     loadOpponents: (data: PlayerJSON[]) => void,
 }
@@ -25,9 +28,10 @@ type Props = DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadBoard, loadHand, loadPlayer, loadOpponents } = this.props;
+        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents } = this.props;
 
-        loadBoard(BoardData);
+        loadBoard(BOARD);
+        loadInitHand(HAND);
         loadHand(this.getHand());
         loadPlayer(PLAYER);
         loadOpponents(OPPONENTS);
@@ -39,14 +43,14 @@ class App extends React.Component<Props, {}> {
         const randomIndexes = new Set<number>();
 
         while (randomIndexes.size < HAND_SIZE) {
-            const i = Math.floor(Math.random() * HandData.length);
+            const i = Math.floor(Math.random() * HAND.length);
             
             if (!randomIndexes.has(i)) {
                 randomIndexes.add(i);
             }
         }
 
-        return [ ...randomIndexes ].map((i: number) => HandData[i]);
+        return [ ...randomIndexes ].map((i: number) => HAND[i]);
     }
 
     render() {
@@ -71,6 +75,7 @@ class App extends React.Component<Props, {}> {
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
     loadHand: (data: PlayerTileJSON[]) => dispatch(loadHand(data)),
+    loadInitHand: (data: PlayerTileJSON[]) => dispatch(loadInitHand(data)),
     loadPlayer: (data: PlayerJSON) => dispatch(loadPlayer(data)),
     loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
 });

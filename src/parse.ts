@@ -1,12 +1,12 @@
-import { BoardJSON, BoardTileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON } from './types/JSONTypes';
-import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore } from './types/GameTypes';
+import { BoardJSON, TileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTileMapJSON } from './types/JSONTypes';
+import { TileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, PlayedTileMap } from './types/GameTypes';
 
-export const parseBoard = (data: BoardJSON): BoardTileMap => {
+export const parseBoard = (data: BoardJSON): TileMap => {
     const rawTiles = Object.values(data).flat();
-    const tiles: BoardTileMap = new Map();
+    const tiles: TileMap = new Map();
 
     // Build tile map
-    rawTiles.forEach((rawTile: BoardTileJSON) => {
+    rawTiles.forEach((rawTile: TileJSON) => {
         const { id, coordinates, castes, isWater } = rawTile;
         
         if (tiles.has(id)) {
@@ -102,14 +102,15 @@ export const parseScore = (data: PlayerScoreJSON): PlayerScore => {
 }
 
 export const parsePlayer = (data: PlayerJSON): Player => {
-    const { id, color, username, score, isPlaying } = data;
+    const { id, color, username, score, isPlaying, playedTiles } = data;
     
     return {
         id,
-        color: parseColor(color),
         username,
-        score: parseScore(score),
         isPlaying,
+        color: parseColor(color),
+        score: parseScore(score),
+        playedTiles: parsePlayedTileMap(playedTiles),
     }
 }
 
@@ -122,4 +123,14 @@ export const parsePlayerTile = (data: PlayerTileJSON): PlayerTile => {
         strength,
         canReplay,
     };
+}
+
+export const parsePlayedTileMap = (data: PlayedTileMapJSON): PlayedTileMap => {
+    const playedTiles = new Map<number, number>();
+
+    Object.entries(data).forEach(([boardID, initHandID]) => {
+        playedTiles.set(parseInt(boardID), initHandID);
+    });
+
+    return playedTiles;
 }

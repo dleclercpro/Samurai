@@ -1,6 +1,6 @@
 import { Coordinates2D } from './GameTypes';
 
-export interface BoardTileJSON {
+export interface TileJSON {
     id: number,
     coordinates: Coordinates2D,
     castes: string[],
@@ -8,8 +8,12 @@ export interface BoardTileJSON {
 }
 
 export interface BoardJSON {
-    [section: string]: BoardTileJSON[],
+    [section: string]: TileJSON[],
 }
+
+export type PlayedTileMapJSON = {
+    [id: number]: number,
+};
 
 export interface PlayerTileJSON {
     id: number,
@@ -24,6 +28,7 @@ export interface PlayerJSON {
     color: string,
     isPlaying: boolean,
     score: PlayerScoreJSON,
+    playedTiles: PlayedTileMapJSON,
 }
 
 export interface PlayerScoreJSON {

@@ -1,41 +1,48 @@
-import { PlayerState } from '../types/StateTypes';
-import { PlayerAction } from '../actions';
-import { SELECT_PLAYER_TILE, LOAD_PLAYER, LOAD_HAND, DESELECT_PLAYER_TILE, LOAD_OPPONENTS } from '../types/ActionTypes';
+import { GameState } from '../types/StateTypes';
+import { GameAction } from '../actions';
+import { SELECT_HAND_TILE, LOAD_PLAYER, LOAD_HAND, DESELECT_HAND_TILE, LOAD_OPPONENTS, LOAD_INIT_HAND } from '../types/ActionTypes';
 import { parsePlayerTile, parsePlayer } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
 const initState = {
-    self: {
+    player: {
         id: 0,
         color: PlayerColor.Unknown,
         username: '',
         isPlaying: false,
+        playedTiles: new Map(),
         score: new Map(),
     },
     opponents: [],
     hand: [],
+    initHand: [],
     selectedTileID: -1,
 };
 
-const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => {
+const GameReducer = (state: GameState = initState, action: GameAction) => {
     switch (action.type) {
         case LOAD_PLAYER:
             return {
                 ...state,
-                self: parsePlayer(action.player),
+                player: parsePlayer(action.player),
             };
         case LOAD_OPPONENTS:
             return {
                 ...state,
                 opponents: action.opponents.map(opponent => parsePlayer(opponent)),
             };
+        case LOAD_INIT_HAND:
+            return {
+                ...state,
+                initHand: action.json.map(tile => parsePlayerTile(tile)),
+            };
         case LOAD_HAND:
             return {
                 ...state,
                 hand: action.json.map(tile => parsePlayerTile(tile)),
             };
-        case SELECT_PLAYER_TILE:
-        case DESELECT_PLAYER_TILE:
+        case SELECT_HAND_TILE:
+        case DESELECT_HAND_TILE:
             return {
                 ...state,
                 selectedTileID: action.id,
@@ -45,4 +52,4 @@ const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => 
     }
 };
 
-export default PlayerReducer;
+export default GameReducer;

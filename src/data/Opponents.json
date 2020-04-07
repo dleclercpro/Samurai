@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "color": "blue",
+        "username": "Player1",
+        "score": {
+            "Military": 0,
+            "Religion": 0,
+            "Commerce": 0
+        },
+        "isPlaying": false,
+        "playedTiles": {}
+    },
+    {
+        "id": 2,
+        "color": "orange",
+        "username": "Player2",
+        "score": {
+            "Military": 0,
+            "Religion": 0,
+            "Commerce": 0
+        },
+        "isPlaying": false,
+        "playedTiles": {}
+    },
+    {
+        "id": 3,
+        "color": "green",
+        "username": "Player3",
+        "score": {
+            "Military": 0,
+            "Religion": 0,
+            "Commerce": 0
+        },
+        "isPlaying": false,
+        "playedTiles": {}
+    }
+]
