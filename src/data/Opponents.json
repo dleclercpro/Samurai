@@ -9,7 +9,9 @@
             "Commerce": 0
         },
         "isPlaying": false,
-        "playedTiles": {}
+        "playedTiles": {
+            "167": 1
+        }
     },
     {
         "id": 2,

@@ -11,7 +11,8 @@ interface OwnProps {
     children: ReactNode,
     type: string,
     headline: string,
-    onClose: () => void,
+    description: string,
+    onClose?: () => void,
 }
 
 interface StateProps {
@@ -33,23 +34,26 @@ class Dialog extends React.Component<Props, {}> {
     handleClose = () => {
         const { onClose, closeDialog } = this.props;
 
-        onClose();
+        if (onClose) {
+            onClose();
+        }
+
         closeDialog();
     }
 
     render() {
-        const { children, type, headline, closeDialog, isOpen } = this.props;
+        const { children, description, type, headline, closeDialog, isOpen } = this.props;
 
         if (!isOpen) {
             return null;
         }
-
+        
         return (
             <div id='dialog-overlay' onClick={this.handleClose}>
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <h2 className='headline'>{headline}</h2>
                     <section className='text'>
-                        <p>This is a test.</p>
+                        <p className='description'>{description}</p>
                     </section>
                     <div className='content'>
                         {children}
