@@ -23,7 +23,9 @@
             "Commerce": 0
         },
         "isPlaying": false,
-        "playedTiles": {}
+        "playedTiles": {
+            "169": 2
+        }
     },
     {
         "id": 3,
@@ -35,6 +37,8 @@
             "Commerce": 0
         },
         "isPlaying": false,
-        "playedTiles": {}
+        "playedTiles": {
+            "171": 3
+        }
     }
 ]
