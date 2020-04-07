@@ -12,7 +12,6 @@ interface OwnProps {
     type: TileType,
     strength: number,
     canReplay: boolean,
-    isPlayable: boolean,
 }
 
 type Props = OwnProps;
@@ -36,7 +35,6 @@ const PlayedTileComponent: React.FC<Props> = (props) => {
                 type={type}
                 strength={strength}
                 canReplay={canReplay}
-                isPlayable={false}
                 isSwitch={isSwitch}
             />
         </g>

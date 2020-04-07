@@ -12,7 +12,6 @@ interface OwnProps {
     type: TileType,
     strength: number,
     canReplay: boolean,
-    isPlayable: boolean,
     isSwitch: boolean,
 }
 
@@ -72,7 +71,7 @@ class TileContent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { type, color, isPlayable, canReplay } = this.props;
+        const { type, color, canReplay } = this.props;
         const { width, height } = TILE_SIZE;
     
         const isSwitch = type === Action.Switch;
@@ -85,7 +84,6 @@ class TileContent extends React.Component<Props, {}> {
                 className={`
                     tile-content
                     ${color ? this.getColor(color) : ''}
-                    ${isPlayable ? 'is-playable' : ''}
                     ${isSwitch ? 'is-switch' : ''}
                 `}
             >

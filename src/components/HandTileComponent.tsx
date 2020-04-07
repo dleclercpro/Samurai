@@ -46,7 +46,11 @@ class HandTileComponent extends React.Component<Props, {}> {
 
         return (
             <svg
-                className={`hand-tile ${isPlayable && isSelected ? 'is-selected' : ''}`}
+                className={`
+                    hand-tile
+                    ${isPlayable ? 'is-playable' : ''}
+                    ${isPlayable && isSelected ? 'is-selected' : ''}
+                `}
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
@@ -55,7 +59,6 @@ class HandTileComponent extends React.Component<Props, {}> {
                     type={type}
                     strength={strength}
                     canReplay={canReplay}
-                    isPlayable={isPlayable}
                     isSwitch={isSwitch}
                 />
             </svg>

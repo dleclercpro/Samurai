@@ -88,7 +88,6 @@ class Board extends React.Component<Props, State> {
                         color={color}
                         strength={strength}
                         canReplay={canReplay}
-                        isPlayable={false}
                         position={position}
                         rotation={-BOARD_ROTATION}
                     />

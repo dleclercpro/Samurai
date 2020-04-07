@@ -48,7 +48,10 @@ class BoardTileComponent extends React.Component<Props, {}> {
     
         return (
             <g
-                className='board-tile'
+                className={`
+                    board-tile
+                    ${isPlayable ? 'is-playable' : ''}
+                `}
                 transform={`translate(${position.x},${position.y})`}
                 onClick={this.handleClick}
             >
@@ -57,12 +60,12 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     stroke={TILE_STROKE}
                     isWater={isWater}
                 />
-                <BoardTileContent
-                    position={position}
-                    rotation={-BOARD_ROTATION}
-                    castes={castes}
-                    isPlayable={isPlayable}
-                />
+                {castes.length > 0 &&
+                    <BoardTileContent
+                        position={position}
+                        rotation={-BOARD_ROTATION}
+                        castes={castes}
+                    />}
             </g>
         );
     }
