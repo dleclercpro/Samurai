@@ -65,21 +65,21 @@
         }
     }
 
-    .is-water & {
-        fill: $color-water;
-        stroke: $color-dark-water;
-
-        .is-playable &:hover {
-            fill: $color-dark-water;
-        }
-    }
-
     .is-switch & {
         fill: $color-grey;
         stroke: $color-dark-grey;
 
         .is-playable &:hover {
             fill: $color-dark-grey;
+        }
+    }
+
+    &.is-water {
+        fill: $color-water;
+        stroke: $color-dark-water;
+
+        .is-playable &:hover {
+            fill: $color-dark-water;
         }
     }
 }
