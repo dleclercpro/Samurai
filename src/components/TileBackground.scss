@@ -35,16 +35,16 @@
         }
     }
 
-    &.is-blue {
-        fill: $color-blue;
-        stroke: $color-dark-blue;
+    &.is-purple {
+        fill: $color-purple;
+        stroke: $color-dark-purple;
 
         &:hover.is-playable {
-            fill: $color-dark-blue;
+            fill: $color-dark-purple;
         }
 
         .is-selected & {
-            fill: $color-dark-blue;
+            fill: $color-dark-purple;
         }
     }
 

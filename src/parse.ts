@@ -80,8 +80,8 @@ export const parseColor = (color: String): PlayerColor => {
     switch (color) {
         case 'red':
             return PlayerColor.Red;
-        case 'blue':
-            return PlayerColor.Blue;
+        case 'purple':
+            return PlayerColor.Purple;
         case 'orange':
             return PlayerColor.Orange;
         case 'green':

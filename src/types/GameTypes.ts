@@ -51,7 +51,7 @@ export type PlayedTileMap = Map<number, number>;
 
 export enum PlayerColor {
     Red = 'Red',
-    Blue = 'Blue',
+    Purple = 'Purple',
     Orange = 'Orange',
     Green = 'Green',
     Unknown = 'Unknown',
