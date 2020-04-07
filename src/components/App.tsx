@@ -15,6 +15,7 @@ import { loadHand, loadPlayer, loadOpponents, loadInitHand } from '../actions/Ga
 import { HAND_SIZE } from '../config';
 import Grid from './Grid';
 import DialogGameOver from './DialogGameOver';
+import DialogTileSwitch from './DialogTileSwitch';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
@@ -68,6 +69,7 @@ class App extends React.Component<Props, {}> {
                     </Switch>
                 </main>
                 <DialogTileChoice />
+                <DialogTileSwitch />
                 <DialogGameOver />
             </div>
         );

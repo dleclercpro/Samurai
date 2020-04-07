@@ -12,7 +12,7 @@ export interface BoardJSON {
 }
 
 export type PlayedTileMapJSON = {
-    [id: number]: number,
+    [id: string]: number | undefined,
 };
 
 export interface PlayerTileJSON {

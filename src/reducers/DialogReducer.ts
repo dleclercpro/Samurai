@@ -4,8 +4,8 @@ import { OPEN_DIALOG, CLOSE_DIALOG } from '../types/ActionTypes';
 import { DialogType } from '../types/DialogTypes';
 
 const initState = {
-    type: DialogType.None,
     isOpen: false,
+    type: DialogType.None,
 };
 
 const DialogReducer = (state: DialogState = initState, action: DialogAction) => {
