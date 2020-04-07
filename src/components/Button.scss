@@ -1,7 +1,7 @@
 @import 'config';
 
 .button {
-    border: none;
+    border: 1px solid transparent;
     border-radius: 4px;
     background: $color-black;
     color: $color-white;
@@ -14,5 +14,12 @@
 
     &:hover {
         background: lighten($color: $color-black, $amount: 25);
+    }
+
+    &.is-inactive {
+        background: $color-white !important;
+        border: 1px solid $color-black;
+        color: $color-black;
+        cursor: auto;
     }
 }

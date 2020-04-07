@@ -36,6 +36,7 @@ class DialogGameOver extends React.Component<Props, {}> {
                 type={DialogType.GameOver}
                 headline='Game Over'
                 description={description}
+                cancelButtonText={'OK'}
             >
                 {winners.map((winner: Player) => (
                     <React.Fragment>

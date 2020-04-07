@@ -13,12 +13,14 @@ interface OwnProps {
     type: DialogType,
     headline: string,
     description: string,
+    cancelButtonText?: string,
+    actionButton?: ReactNode,
     onClose?: () => void,
 }
 
 interface StateProps {
     isOpen: boolean,
-    dialogType: DialogType,
+    currentType: DialogType,
 }
 
 interface DispatchProps {
@@ -44,12 +46,13 @@ class Dialog extends React.Component<Props, {}> {
     }
 
     render() {
-        const { children, description, type, dialogType, headline, closeDialog, isOpen } = this.props;
+        const { children, description, type, currentType, headline, cancelButtonText, actionButton, isOpen } = this.props;
+        const hasChildren = React.Children.count(children) > 0;
 
-        if (!isOpen || type !== dialogType) {
+        if (!isOpen || type !== currentType) {
             return null;
         }
-        
+
         return (
             <div id='dialog-overlay' onClick={this.handleClose}>
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
@@ -57,12 +60,16 @@ class Dialog extends React.Component<Props, {}> {
                     <section className='text'>
                         <p className='description'>{description}</p>
                     </section>
-                    <div className='content'>
-                        {children}
-                    </div>
+                    {hasChildren &&
+                        <div className='content'>
+                            {children}
+                        </div>
+                    }
                     <div className='buttons'>
-                        <Button action={closeDialog}>Cancel</Button>
-                        <Button action={closeDialog}>OK</Button>
+                        <Button isActive action={this.handleClose}>
+                            {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
+                        </Button>
+                        {actionButton}
                     </div>
                     <CloseIcon className='icon-close' onClick={this.handleClose} />
                 </div>
@@ -73,7 +80,7 @@ class Dialog extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => ({
     isOpen: state.dialog.isOpen,
-    dialogType: state.dialog.type,
+    currentType: state.dialog.type,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
