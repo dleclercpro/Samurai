@@ -1,6 +1,6 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, Caste, CasteSwitch, Figure } from '../../types/GameTypes';
+import { Coordinates2D, Caste, Figure } from '../../types/GameTypes';
 import './BoardTileComponent.scss';
 import { AppAction } from '../../actions';
 import { openDialog } from '../../actions/DialogActions';
@@ -9,7 +9,7 @@ import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../../config';
 import { AppState } from '../../types/StateTypes';
 import BoardTileContent from './BoardTileContent';
 import { DialogType } from '../../types/DialogTypes';
-import { selectCasteFrom, selectCasteTo, selectBoardTile } from '../../actions/GameActions';
+import { selectBoardTile, selectCasteSwitchTile } from '../../actions/GameActions';
 import { getHand } from '../../selectors';
 
 interface OwnProps {
@@ -23,13 +23,13 @@ interface StateProps {
     isSwitching: boolean,
     isSelected: boolean,
     isPlayable: boolean,
-    casteSwitch: CasteSwitch,
 }
 
 interface DispatchProps {
     openTileChoiceDialog: () => void,
-    openCasteSwitchConfirmDialog: () => void,
-    selectBoardTile: (id: number) => void,
+    openCasteChoiceDialog: () => void,
+    selectBoardTile: () => void,
+    selectCasteSwitchTile: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -37,25 +37,16 @@ type Props = OwnProps & StateProps & DispatchProps;
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, isPlayable, isSwitching, casteSwitch, openTileChoiceDialog, openCasteSwitchConfirmDialog, selectBoardTile } = this.props;
+        const { isPlayable, isSwitching, openTileChoiceDialog, openCasteChoiceDialog, selectBoardTile, selectCasteSwitchTile } = this.props;
 
         e.stopPropagation();
 
         if (isPlayable) {
             if (isSwitching) {
-                const isChoosingFrom = casteSwitch.from.tile === -1 && casteSwitch.from.caste === Caste.Unknown;
-                const isChoosingTo = casteSwitch.to.tile === -1 && casteSwitch.to.caste === Caste.Unknown;
-    
-                if (isChoosingFrom) {
-                    return;
-                }
-                
-                if (isChoosingTo) {
-                    openCasteSwitchConfirmDialog();
-                    return;
-                }
+                selectCasteSwitchTile();
+                openCasteChoiceDialog();
             } else {
-                selectBoardTile(id);
+                selectBoardTile();
                 openTileChoiceDialog();
             }
         }
@@ -91,7 +82,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { game } = state;
-    const { isSwitching, casteSwitch } = game;
+    const { isSwitching, casteSwitch, selected } = game;
 
     const { id, castes, isWater } = ownProps;
     const isCity = castes.length > 0;
@@ -106,19 +97,21 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     }
 
     return {
-        isSwitching: game.isSwitching,
-        isSelected: ownProps.id === game.selectedBoardTile,
+        isSwitching: isSwitching,
+        isSelected: ownProps.id === selected.boardTile,
         isPlayable,
-        casteSwitch,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    selectBoardTile: (id: number) => dispatch(selectBoardTile(id)),
-    selectCasteFrom: (tile: number, caste: Caste) => dispatch(selectCasteFrom(tile, caste)),
-    selectCasteTo: (tile: number, caste: Caste) => dispatch(selectCasteTo(tile, caste)),
-    openCasteSwitchConfirmDialog: () => dispatch(openDialog(DialogType.CasteSwitchConfirm)),
-    openTileChoiceDialog: () => dispatch(openDialog(DialogType.TileChoice)),
-});
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) => {
+    const { id } = ownProps;
+
+    return {
+        selectBoardTile: () => dispatch(selectBoardTile(id)),
+        selectCasteSwitchTile: () => dispatch(selectCasteSwitchTile(id)),
+        openTileChoiceDialog: () => dispatch(openDialog(DialogType.TileChoice)),
+        openCasteChoiceDialog: () => dispatch(openDialog(DialogType.CasteChoice)),
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardTileComponent);

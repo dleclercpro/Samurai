@@ -48,6 +48,7 @@ export interface OpenDialog {
 export const CLOSE_DIALOG = 'CLOSE_DIALOG';
 export interface CloseDialog {
     type: typeof CLOSE_DIALOG,
+    dialogType: DialogType,
 }
 
 
@@ -103,6 +104,28 @@ export interface EndCasteSwitch {
     type: typeof END_CASTE_SWITCH,
 }
 
+export const SELECT_CASTE_SWITCH_TILE = 'SELECT_CASTE_SWITCH_TILE';
+export interface SelectCasteSwitchTile {
+    type: typeof SELECT_CASTE_SWITCH_TILE,
+    tile: number,
+}
+
+export const SELECT_CASTE_FOR_SWITCH = 'SELECT_CASTE_FOR_SWITCH';
+export interface SelectCasteForSwitch {
+    type: typeof SELECT_CASTE_FOR_SWITCH,
+    caste: Caste,
+}
+
+export const DESELECT_CASTE_SWITCH_TILE = 'DESELECT_CASTE_SWITCH_TILE';
+export interface DeselectCasteSwitchTile {
+    type: typeof DESELECT_CASTE_SWITCH_TILE,
+}
+
+export const DESELECT_CASTE_FOR_SWITCH = 'DESELECT_CASTE_FOR_SWITCH';
+export interface DeselectCasteForSwitch {
+    type: typeof DESELECT_CASTE_FOR_SWITCH,
+}
+
 export const SELECT_CASTE_SWITCH_FROM = 'SELECT_CASTE_SWITCH_FROM';
 export interface SelectCasteSwitchFrom {
     type: typeof SELECT_CASTE_SWITCH_FROM,
@@ -115,4 +138,14 @@ export interface SelectCasteSwitchTo {
     type: typeof SELECT_CASTE_SWITCH_TO,
     tile: number,
     caste: Caste,
+}
+
+export const DESELECT_CASTE_SWITCH_FROM = 'DESELECT_CASTE_SWITCH_FROM';
+export interface DeselectCasteSwitchFrom {
+    type: typeof DESELECT_CASTE_SWITCH_FROM,
+}
+
+export const DESELECT_CASTE_SWITCH_TO = 'DESELECT_CASTE_SWITCH_TO';
+export interface DeselectCasteSwitchTo {
+    type: typeof DESELECT_CASTE_SWITCH_TO,
 }

@@ -14,13 +14,14 @@ interface OwnProps {
     headline: string,
     description: string,
     cancelButtonText?: string,
-    actionButton?: ReactNode,
-    onClose?: () => void,
+    actionButtonText?: string,
+    onCancel?: () => void,
+    onAction?: () => void,
+    isActionButtonActive: boolean,
 }
 
 interface StateProps {
     isOpen: boolean,
-    currentType: DialogType,
 }
 
 interface DispatchProps {
@@ -35,21 +36,32 @@ class Dialog extends React.Component<Props, {}> {
         e.stopPropagation();
     }
 
-    handleClose = () => {
-        const { onClose, closeDialog } = this.props;
+    handleAction = () => {
+        const { onAction, closeDialog } = this.props;
 
-        if (onClose) {
-            onClose();
+        if (onAction) {
+            onAction();
+        }
+
+        closeDialog();
+    }
+
+    handleClose = () => {
+        const { onCancel, closeDialog } = this.props;
+
+        if (onCancel) {
+            onCancel();
         }
 
         closeDialog();
     }
 
     render() {
-        const { children, description, type, currentType, headline, cancelButtonText, actionButton, isOpen } = this.props;
+        const { children, description, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onAction } = this.props;
         const hasChildren = React.Children.count(children) > 0;
+        const hasActionButton = onAction !== undefined;
 
-        if (!isOpen || type !== currentType) {
+        if (!isOpen) {
             return null;
         }
 
@@ -57,20 +69,28 @@ class Dialog extends React.Component<Props, {}> {
             <div id='dialog-overlay' onClick={this.handleClose}>
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <h2 className='headline'>{headline}</h2>
+
                     <section className='text'>
                         <p className='description'>{description}</p>
                     </section>
+
                     {hasChildren &&
                         <div className='content'>
                             {children}
                         </div>
                     }
+
                     <div className='buttons'>
                         <Button isActive action={this.handleClose}>
                             {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
                         </Button>
-                        {actionButton}
+                        
+                        {hasActionButton &&
+                        <Button isActive={isActionButtonActive} action={this.handleAction}>
+                            {actionButtonText !== undefined ? actionButtonText : 'OK'}
+                        </Button>}
                     </div>
+
                     <CloseIcon className='icon-close' onClick={this.handleClose} />
                 </div>
             </div>
@@ -78,13 +98,22 @@ class Dialog extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    isOpen: state.dialog.isOpen,
-    currentType: state.dialog.type,
-});
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
+    const { type } = ownProps;
+    const { dialog } = state;
+    const isOpen = dialog.isOpen[type];
+    
+    return {
+        isOpen,
+    };
+};
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    closeDialog: () => dispatch(closeDialog),
-});
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) => {
+    const { type } = ownProps;
+
+    return {
+        closeDialog: () => dispatch(closeDialog(type)),
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dialog);

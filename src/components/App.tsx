@@ -13,9 +13,11 @@ import OPPONENTS from '../data/Opponents.json';
 import { HAND_SIZE } from '../config';
 import Grid from './Grid';
 import DialogGameOver from './dialogs/DialogGameOver';
-import DialogCasteSwitch from './dialogs/DialogCasteSwitch';
+import DialogCasteSwitchPrompt from './dialogs/DialogCasteSwitchPrompt';
 import { loadBoard, loadInitHand } from '../actions/DataActions';
 import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
+import DialogCasteChoice from './dialogs/DialogCasteChoice';
+import DialogCasteSwitchConfirm from './dialogs/DialogCasteSwitchConfirm';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
@@ -66,9 +68,13 @@ class App extends React.Component<Props, {}> {
                         </Route>
                     </Switch>
                 </main>
-                <DialogTileChoice />
-                <DialogCasteSwitch />
-                <DialogGameOver />
+                <section id='dialogs'>
+                    <DialogGameOver />
+                    <DialogTileChoice />
+                    <DialogCasteChoice />
+                    <DialogCasteSwitchPrompt />
+                    <DialogCasteSwitchConfirm />
+                </section>
             </div>
         );
     }

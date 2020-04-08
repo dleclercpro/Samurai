@@ -6,6 +6,7 @@ export const openDialog = (dialogType: DialogType): OpenDialog => ({
     dialogType,
 });
 
-export const closeDialog: CloseDialog = {
+export const closeDialog = (dialogType: DialogType): CloseDialog => ({
     type: CLOSE_DIALOG,
-};
+    dialogType,
+});

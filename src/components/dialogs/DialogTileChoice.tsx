@@ -6,12 +6,11 @@ import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
 import { deselectPlayerTile, deselectBoardTile } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
-import Button from '../Button';
 import { AppState } from '../../types/StateTypes';
 
 interface StateProps {
     hand: number[],
-    isButtonActive: boolean,
+    isActionButtonActive: boolean,
 }
 
 interface DispatchProps {
@@ -23,31 +22,25 @@ type Props = StateProps & DispatchProps;
 
 class DialogTileChoice extends React.Component<Props, {}> {
 
-    handleClose = () => {
+    handleCancel = () => {
         const { deselectBoardTile, deselectPlayerTile } = this.props;
 
         deselectBoardTile();
         deselectPlayerTile();
     }
 
-    getActionButton = () => {
-        const { isButtonActive } = this.props;
-
-        return (
-            <Button isActive={isButtonActive} action={() => {}}>Choose</Button>
-        );
-    }
-
     render() {
-        const { hand } = this.props;
+        const { hand, isActionButtonActive } = this.props;
 
         return (
             <Dialog
                 type={DialogType.TileChoice}
                 headline='Tile Choice'
                 description='Choose which tile to place on the empty space you just clicked:'
-                onClose={this.handleClose}
-                actionButton={this.getActionButton()}
+                actionButtonText='Choose'
+                onCancel={this.handleCancel}
+                onAction={() => {}}
+                isActionButtonActive={isActionButtonActive}
             >
                 {hand && <Hand inDialog />}
             </Dialog>
@@ -57,10 +50,11 @@ class DialogTileChoice extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { game, player } = state;
+    const { selected } = game;
 
     return {
         hand: player.hand,
-        isButtonActive: game.selectedPlayerTile !== -1 && game.selectedBoardTile !== -1,
+        isActionButtonActive: selected.playerTile !== -1 && selected.boardTile !== -1,
     }
 };
 
