@@ -11,7 +11,7 @@ export interface BoardJSON {
     [section: string]: TileJSON[],
 }
 
-export type PlayedTileMapJSON = {
+export type PlayedTilesJSON = {
     [id: string]: number | undefined,
 };
 
@@ -28,7 +28,7 @@ export interface PlayerJSON {
     color: string,
     isPlaying: boolean,
     score: PlayerScoreJSON,
-    playedTiles: PlayedTileMapJSON,
+    playedTiles: PlayedTilesJSON,
 }
 
 export interface PlayerScoreJSON {

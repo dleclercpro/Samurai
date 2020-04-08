@@ -1,7 +1,30 @@
 import { GameState } from "../types/StateTypes";
-import { Player, Caste } from "../types/GameTypes";
+import { Player, Caste, PlayerTile } from "../types/GameTypes";
+import { notUndefined } from "../types/FunctionTypes";
 
-export const getWinners = (state: GameState) => {
+export const getHand = (state: GameState): PlayerTile[] => {
+    return state.hand.map((id: number) => (
+        state.initHand.get(id)
+    )).filter(notUndefined);
+}
+
+export const getPlayedTileIds = (state: GameState): number[] => {
+    const players = state.opponents.concat(state.player);
+    
+    return players.reduce((tileIds: number[], player: Player) => {
+        const playedTileIds = Array.from(player.playedTiles.values());
+        
+        return tileIds.concat(playedTileIds);
+    }, []);
+}
+
+export const getPlayedTiles = (state: GameState): PlayerTile[] => {
+    return getPlayedTileIds(state).map((id: number) => (
+        state.initHand.get(id)
+    )).filter(notUndefined);
+}
+
+export const getWinners = (state: GameState): Player[] => {
     const { player, opponents } = state;
     
     const winners = opponents.reduce((winners: Player[], person: Player) => {

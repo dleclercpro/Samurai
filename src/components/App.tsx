@@ -15,11 +15,11 @@ import { loadHand, loadPlayer, loadOpponents, loadInitHand } from '../actions/Ga
 import { HAND_SIZE } from '../config';
 import Grid from './Grid';
 import DialogGameOver from './dialogs/DialogGameOver';
-import DialogTileSwitch from './dialogs/DialogTileSwitch';
+import DialogCasteSwitch from './dialogs/DialogCasteSwitch';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
-    loadHand: (data: PlayerTileJSON[]) => void,
+    loadHand: (data: number[]) => void,
     loadInitHand: (data: PlayerTileJSON[]) => void,
     loadPlayer: (data: PlayerJSON) => void,
     loadOpponents: (data: PlayerJSON[]) => void,
@@ -40,8 +40,6 @@ class App extends React.Component<Props, {}> {
     }
 
     getHand = () => {
-
-        // Simulate random 5 tiles in hand
         const randomIndexes = new Set<number>();
 
         while (randomIndexes.size < HAND_SIZE) {
@@ -52,7 +50,7 @@ class App extends React.Component<Props, {}> {
             }
         }
 
-        return [ ...randomIndexes ].map((i: number) => HAND[i]);
+        return [ ...randomIndexes ];
     }
 
     render() {
@@ -69,7 +67,7 @@ class App extends React.Component<Props, {}> {
                     </Switch>
                 </main>
                 <DialogTileChoice />
-                <DialogTileSwitch />
+                <DialogCasteSwitch />
                 <DialogGameOver />
             </div>
         );
@@ -78,7 +76,7 @@ class App extends React.Component<Props, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
-    loadHand: (data: PlayerTileJSON[]) => dispatch(loadHand(data)),
+    loadHand: (data: number[]) => dispatch(loadHand(data)),
     loadInitHand: (data: PlayerTileJSON[]) => dispatch(loadInitHand(data)),
     loadPlayer: (data: PlayerJSON) => dispatch(loadPlayer(data)),
     loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),

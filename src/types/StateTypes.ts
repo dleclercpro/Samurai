@@ -1,17 +1,21 @@
-import { TileMap, PlayerTile, Player } from './GameTypes';
+import { BoardTileMap, Player, CasteSwitch, PlayerTileMap, TileMove } from './GameTypes';
 import { DialogType } from './DialogTypes';
 
 export interface GameState {
     player: Player,
     opponents: Player[],
-    hand: PlayerTile[],
-    initHand: PlayerTile[],
-    selectedTileID: number,
+    initHand: PlayerTileMap,
+    hand: number[],
+    casteSwitch: CasteSwitch,
+    tileMove: TileMove,
+    isSwitching: boolean,
+    isMoving: boolean,
+    selectedPlayerTile: number,
 }
 
 export interface BoardState {
-    tiles: TileMap,
-    selectedTileID: number,
+    tiles: BoardTileMap,
+    selectedTileForNextPlayerTile: number,
 }
 
 export interface DialogState {

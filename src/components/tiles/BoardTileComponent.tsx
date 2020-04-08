@@ -1,6 +1,6 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, Caste } from '../../types/GameTypes';
+import { Coordinates2D, Caste, CasteSwitch, Figure } from '../../types/GameTypes';
 import './BoardTileComponent.scss';
 import { AppAction } from '../../actions';
 import { openDialog } from '../../actions/DialogActions';
@@ -10,21 +10,26 @@ import { AppState } from '../../types/StateTypes';
 import { selectTile } from '../../actions/BoardActions';
 import BoardTileContent from './BoardTileContent';
 import { DialogType } from '../../types/DialogTypes';
+import { selectCasteFrom, selectCasteTo } from '../../actions/GameActions';
+import { getHand } from '../../selectors';
 
 interface OwnProps {
     id: number,
     position: Coordinates2D,
     castes: Caste[],
     isWater?: boolean,
-    isPlayable: boolean,
 }
 
 interface StateProps {
+    isSwitching: boolean,
     isSelected: boolean,
+    isPlayable: boolean,
+    casteSwitch: CasteSwitch,
 }
 
 interface DispatchProps {
-    openDialog: () => void,
+    openTileChoiceDialog: () => void,
+    openCasteSwitchConfirmDialog: () => void,
     selectTile: (id: number) => void,
 }
 
@@ -33,13 +38,27 @@ type Props = OwnProps & StateProps & DispatchProps;
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, isPlayable, openDialog, selectTile } = this.props;
+        const { id, isPlayable, isSwitching, casteSwitch, openTileChoiceDialog, openCasteSwitchConfirmDialog, selectTile } = this.props;
 
         e.stopPropagation();
 
         if (isPlayable) {
-            selectTile(id);
-            openDialog();
+            if (isSwitching) {
+                const isChoosingFrom = casteSwitch.from.tile === -1 && casteSwitch.from.caste === Caste.Unknown;
+                const isChoosingTo = casteSwitch.to.tile === -1 && casteSwitch.to.caste === Caste.Unknown;
+    
+                if (isChoosingFrom) {
+                    return;
+                }
+                
+                if (isChoosingTo) {
+                    openCasteSwitchConfirmDialog();
+                    return;
+                }
+            } else {
+                selectTile(id);
+                openTileChoiceDialog();
+            }
         }
     }
 
@@ -71,13 +90,35 @@ class BoardTileComponent extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.board.selectedTileID,
-});
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
+    const { game } = state;
+    const { isSwitching, casteSwitch } = game;
+    const { id, castes, isWater } = ownProps;
+    const isCity = castes.length > 0;
+    const hasShipInHand = getHand(game).some(tile => tile.type === Figure.Ship);
+    const isSelectedForCasteSwitch = id === casteSwitch.from.tile || id === casteSwitch.to.tile;
+    let isPlayable = false;
+
+    if (isSwitching) {
+        isPlayable = isCity && !isSelectedForCasteSwitch;
+    } else {
+        isPlayable = !isCity && (!isWater || hasShipInHand);
+    }
+
+    return {
+        isSwitching: game.isSwitching,
+        isSelected: ownProps.id === state.board.selectedTileForNextPlayerTile,
+        isPlayable,
+        casteSwitch,
+    };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    openDialog: () => dispatch(openDialog(DialogType.TileChoice)),
     selectTile: (id: number) => dispatch(selectTile(id)),
+    selectCasteFrom: (tile: number, caste: Caste) => dispatch(selectCasteFrom(tile, caste)),
+    selectCasteTo: (tile: number, caste: Caste) => dispatch(selectCasteTo(tile, caste)),
+    openCasteSwitchConfirmDialog: () => dispatch(openDialog(DialogType.CasteSwitchConfirm)),
+    openTileChoiceDialog: () => dispatch(openDialog(DialogType.TileChoice)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardTileComponent);

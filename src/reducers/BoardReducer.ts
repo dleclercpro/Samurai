@@ -6,13 +6,13 @@ import { getTileNeighborhood } from '../lib';
 
 const initState = {
     tiles: new Map(),
-    selectedTileID: -1,
+    selectedTileForNextPlayerTile: -1,
 };
 
 const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
     switch (action.type) {
         case LOAD_BOARD:
-            const tiles = parseBoard(action.json);
+            const tiles = parseBoard(action.data);
 
             // Build tile neighborhoods
             for (let tile of tiles.values()) {
@@ -29,7 +29,7 @@ const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
         case DESELECT_BOARD_TILE:
             return {
                 ...state,
-                selectedTileID: action.id,
+                selectedTileForNextPlayerTile: action.id,
             };
         default:
             return state;

@@ -1,9 +1,9 @@
 import { LOAD_BOARD, LoadBoard, SELECT_BOARD_TILE, SelectTile, DESELECT_BOARD_TILE, DeselectBoardTile } from '../types/ActionTypes';
 import { BoardJSON } from '../types/JSONTypes';
 
-export const loadBoard = (json: BoardJSON): LoadBoard => ({
+export const loadBoard = (data: BoardJSON): LoadBoard => ({
     type: LOAD_BOARD,
-    json,
+    data,
 });
 
 export const selectTile = (id: number): SelectTile => ({

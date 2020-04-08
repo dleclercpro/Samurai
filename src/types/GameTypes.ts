@@ -30,9 +30,7 @@ export enum Action {
 
 export type TileType = Caste | Figure | Action | undefined;
 
-export type TileMap = Map<number, Tile>;
-
-export interface Tile {
+export interface BoardTile {
     id: number,
     coordinates: Coordinates2D,
     neighborhood: number[],
@@ -47,7 +45,17 @@ export interface PlayerTile {
     canReplay: boolean,
 }
 
-export type PlayedTileMap = Map<number, number>;
+export type BoardTileMap = Map<number, BoardTile>;
+export type PlayerTileMap = Map<number, PlayerTile>;
+
+export interface Player {
+    id: number,
+    username: string,
+    isPlaying: boolean,
+    color: PlayerColor,
+    score: PlayerScore,
+    playedTiles: Map<number, number>,
+}
 
 export enum PlayerColor {
     Red = 'Red',
@@ -59,11 +67,18 @@ export enum PlayerColor {
 
 export type PlayerScore = Map<Caste, number>;
 
-export interface Player {
-    id: number,
-    username: string,
-    isPlaying: boolean,
-    color: PlayerColor,
-    score: PlayerScore,
-    playedTiles: PlayedTileMap,
+export interface CasteSwitch {
+    from: {
+        tile: number,
+        caste: Caste,
+    },
+    to: {
+        tile: number,
+        caste: Caste,
+    },
+}
+
+export interface TileMove {
+    from: number,
+    to: number,
 }

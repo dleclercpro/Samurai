@@ -4,15 +4,17 @@ import './Hand.scss';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
 import HandTileComponent from './tiles/HandTileComponent';
+import { notUndefined } from '../types/FunctionTypes';
 
 interface OwnProps {
-    isInDialog: boolean,
+    inDialog: boolean,
 }
 
 interface StateProps {
     hand: PlayerTile[],
     color: PlayerColor,
     isWaterTileSelected?: boolean,
+    isSwitching: boolean,
 }
 
 type Props = OwnProps & StateProps;
@@ -31,15 +33,15 @@ class Hand extends React.Component<Props, {}> {
     }
 
     render() {
-        const { hand, color, isInDialog } = this.props;
-        const tiles = isInDialog ? this.getFilteredForDialog() : hand;
+        const { hand, color, inDialog, isSwitching } = this.props;
+        const tiles = inDialog ? this.getFilteredForDialog() : hand;
 
         return (
             <div className='hand'>
                 {tiles.map((tile: PlayerTile) => {
                     const { id, type, strength, canReplay } = tile;
                     const isSwitch = type === Action.Switch;
-                    const isPlayable = isInDialog || isSwitch;
+                    const isPlayable = inDialog || (isSwitch && !isSwitching);
 
                     return (
                         <HandTileComponent
@@ -58,10 +60,17 @@ class Hand extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    hand: state.game.hand,
-    color: state.game.player.color,
-    isWaterTileSelected: state.board.tiles.get(state.board.selectedTileID)?.isWater,
-});
+const mapStateToProps = (state: AppState) => {
+    const { game, board } = state;
+    const { initHand, isSwitching } = game;
+    const hand = game.hand.map((id: number) => initHand.get(id)).filter(notUndefined);
+
+    return {
+        hand,
+        color: game.player.color,
+        isWaterTileSelected: board.tiles.get(board.selectedTileForNextPlayerTile)?.isWater,
+        isSwitching,
+    };
+};
 
 export default connect(mapStateToProps, () => ({}))(Hand);

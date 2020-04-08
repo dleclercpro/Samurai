@@ -9,11 +9,10 @@ import { deselectHandTile } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
 import Button from '../Button';
 import { AppState } from '../../types/StateTypes';
-import { PlayerTile } from '../../types/GameTypes';
 
 interface StateProps {
-    hand: PlayerTile[],
-    isActive: boolean,
+    hand: number[],
+    isButtonActive: boolean,
 }
 
 interface DispatchProps {
@@ -33,10 +32,10 @@ class DialogTileChoice extends React.Component<Props, {}> {
     }
 
     getActionButton = () => {
-        const { isActive } = this.props;
+        const { isButtonActive } = this.props;
 
         return (
-            <Button isActive={isActive} action={() => {}}>Choose</Button>
+            <Button isActive={isButtonActive} action={() => {}}>Choose</Button>
         );
     }
 
@@ -51,7 +50,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
                 onClose={this.handleClose}
                 actionButton={this.getActionButton()}
             >
-                {hand && <Hand isInDialog />}
+                {hand && <Hand inDialog />}
             </Dialog>
         );
     }
@@ -59,7 +58,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => ({
     hand: state.game.hand,
-    isActive: state.game.selectedTileID !== -1 && state.board.selectedTileID !== -1,
+    isButtonActive: state.game.selectedPlayerTile !== -1 && state.board.selectedTileForNextPlayerTile !== -1,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({

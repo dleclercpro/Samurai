@@ -1,9 +1,9 @@
-import { BoardJSON, TileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTileMapJSON } from './types/JSONTypes';
-import { TileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, PlayedTileMap } from './types/GameTypes';
+import { BoardJSON, TileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/JSONTypes';
+import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, PlayerTileMap } from './types/GameTypes';
 
-export const parseBoard = (data: BoardJSON): TileMap => {
+export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
-    const tiles: TileMap = new Map();
+    const tiles: BoardTileMap = new Map();
 
     // Build tile map
     rawTiles.forEach((rawTile: TileJSON) => {
@@ -110,7 +110,7 @@ export const parsePlayer = (data: PlayerJSON): Player => {
         isPlaying,
         color: parseColor(color),
         score: parseScore(score),
-        playedTiles: parsePlayedTileMap(playedTiles),
+        playedTiles: parsePlayedTiles(playedTiles),
     }
 }
 
@@ -125,14 +125,24 @@ export const parsePlayerTile = (data: PlayerTileJSON): PlayerTile => {
     };
 }
 
-export const parsePlayedTileMap = (data: PlayedTileMapJSON): PlayedTileMap => {
+export const parsePlayedTiles = (data: PlayedTilesJSON): Map<number, number> => {
     const playedTiles = new Map<number, number>();
 
-    Object.entries(data).forEach(([boardID, initHandID]) => {
-        if (initHandID !== undefined) {
-            playedTiles.set(parseInt(boardID), initHandID);
+    Object.entries(data).forEach(([boardId, handId]) => {
+        if (handId !== undefined) {
+            playedTiles.set(parseInt(boardId), handId);
         }
     });
 
     return playedTiles;
+}
+
+export const parseInitHand = (data: PlayerTileJSON[]): PlayerTileMap => {
+    const hand = new Map<number, PlayerTile>();
+
+    data.forEach(tile => {
+        hand.set(tile.id, parsePlayerTile(tile));
+    });
+
+    return hand;
 }

@@ -1,4 +1,4 @@
-import { Size2D, Coordinates2D, Tile, TileMap } from './types/GameTypes';
+import { Size2D, Coordinates2D, BoardTile, BoardTileMap } from './types/GameTypes';
 
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
@@ -80,7 +80,7 @@ export const getPositionInHexagon = (i: number, n: number, size: Size2D): Coordi
     return { x, y };
 }
 
-export const getTileNeighborhood = (tile: Tile, tiles: TileMap): number[] => {
+export const getTileNeighborhood = (tile: BoardTile, tiles: BoardTileMap): number[] => {
     let neighborhood = [];
 
     if (tiles) {
