@@ -152,14 +152,14 @@ class Board extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { game, board } = state;
-    const { player, opponents, initHand } = game;
-    const { tiles } = board;
+    const { data, player } = state;
+    const { self, opponents } = player;
+    const { tiles, initHand } = data;
 
     return {
         tiles,
         initHand,
-        player,
+        player: self,
         opponents,
     }
 };

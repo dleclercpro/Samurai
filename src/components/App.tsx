@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 import Home from '../pages/Home';
 import DialogTileChoice from './dialogs/DialogTileChoice';
-import { loadBoard } from '../actions/BoardActions';
 import { BoardJSON, PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
@@ -11,11 +10,12 @@ import BOARD from '../data/Board.json';
 import HAND from '../data/Hand.json';
 import PLAYER from '../data/Player.json';
 import OPPONENTS from '../data/Opponents.json';
-import { loadHand, loadPlayer, loadOpponents, loadInitHand } from '../actions/GameActions';
 import { HAND_SIZE } from '../config';
 import Grid from './Grid';
 import DialogGameOver from './dialogs/DialogGameOver';
 import DialogCasteSwitch from './dialogs/DialogCasteSwitch';
+import { loadBoard, loadInitHand } from '../actions/DataActions';
+import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,

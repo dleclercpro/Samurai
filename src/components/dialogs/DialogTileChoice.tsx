@@ -4,8 +4,7 @@ import Dialog from './Dialog';
 import Hand from '../Hand';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { deselectBoardTile } from '../../actions/BoardActions';
-import { deselectHandTile } from '../../actions/GameActions';
+import { deselectPlayerTile, deselectBoardTile } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
 import Button from '../Button';
 import { AppState } from '../../types/StateTypes';
@@ -17,7 +16,7 @@ interface StateProps {
 
 interface DispatchProps {
     deselectBoardTile: () => void,
-    deselectHandTile: () => void,
+    deselectPlayerTile: () => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -25,10 +24,10 @@ type Props = StateProps & DispatchProps;
 class DialogTileChoice extends React.Component<Props, {}> {
 
     handleClose = () => {
-        const { deselectBoardTile, deselectHandTile } = this.props;
+        const { deselectBoardTile, deselectPlayerTile } = this.props;
 
         deselectBoardTile();
-        deselectHandTile();
+        deselectPlayerTile();
     }
 
     getActionButton = () => {
@@ -56,14 +55,18 @@ class DialogTileChoice extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    hand: state.game.hand,
-    isButtonActive: state.game.selectedPlayerTile !== -1 && state.board.selectedTileForNextPlayerTile !== -1,
-});
+const mapStateToProps = (state: AppState) => {
+    const { game, player } = state;
+
+    return {
+        hand: player.hand,
+        isButtonActive: game.selectedPlayerTile !== -1 && game.selectedBoardTile !== -1,
+    }
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     deselectBoardTile: () => dispatch(deselectBoardTile),
-    deselectHandTile: () => dispatch(deselectHandTile),
+    deselectPlayerTile: () => dispatch(deselectPlayerTile),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileChoice);

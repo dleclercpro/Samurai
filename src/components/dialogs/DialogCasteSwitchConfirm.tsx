@@ -58,11 +58,11 @@ class DialogCasteSwitchConfirm extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { game } = state;
+    const { game, player } = state;
 
     return {
         switch: game.casteSwitch,
-        color: game.player.color,
+        color: player.self.color,
     };
 }
 

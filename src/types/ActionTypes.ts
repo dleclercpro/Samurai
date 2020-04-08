@@ -2,17 +2,11 @@ import { BoardJSON, PlayerTileJSON, PlayerJSON } from './JSONTypes';
 import { DialogType } from './DialogTypes';
 import { Caste } from './GameTypes';
 
-// Loading actions
+// Data actions
 export const LOAD_BOARD = 'LOAD_BOARD';
 export interface LoadBoard {
     type: typeof LOAD_BOARD,
     data: BoardJSON,
-}
-
-export const LOAD_HAND = 'LOAD_HAND';
-export interface LoadHand {
-    type: typeof LOAD_HAND,
-    data: number[],
 }
 
 export const LOAD_INIT_HAND = 'LOAD_INIT_HAND';
@@ -21,6 +15,9 @@ export interface LoadInitHand {
     data: PlayerTileJSON[],
 }
 
+
+
+// Player actions
 export const LOAD_PLAYER = 'LOAD_PLAYER';
 export interface LoadPlayer {
     type: typeof LOAD_PLAYER,
@@ -31,6 +28,12 @@ export const LOAD_OPPONENTS = 'LOAD_OPPONENTS';
 export interface LoadOpponents {
     type: typeof LOAD_OPPONENTS,
     data: PlayerJSON[],
+}
+
+export const LOAD_HAND = 'LOAD_HAND';
+export interface LoadHand {
+    type: typeof LOAD_HAND,
+    data: number[],
 }
 
 
@@ -51,7 +54,7 @@ export interface CloseDialog {
 
 // Tile actions
 export const SELECT_BOARD_TILE = 'SELECT_BOARD_TILE';
-export interface SelectTile {
+export interface SelectBoardTile {
     type: typeof SELECT_BOARD_TILE,
     id: number,
 }
@@ -62,17 +65,30 @@ export interface DeselectBoardTile {
     id: number,
 }
 
-export const SELECT_HAND_TILE = 'SELECT_HAND_TILE';
-export interface SelectHandTile {
-    type: typeof SELECT_HAND_TILE,
+export const SELECT_PLAYER_TILE = 'SELECT_PLAYER_TILE';
+export interface SelectPlayerTile {
+    type: typeof SELECT_PLAYER_TILE,
     id: number,
 }
 
-export const DESELECT_HAND_TILE = 'DESELECT_HAND_TILE';
-export interface DeselectHandTile {
-    type: typeof DESELECT_HAND_TILE,
+export const DESELECT_PLAYER_TILE = 'DESELECT_PLAYER_TILE';
+export interface DeselectPlayerTile {
+    type: typeof DESELECT_PLAYER_TILE,
     id: number,
 }
+
+
+
+// Move actions
+export const START_TILE_MOVE = 'START_TILE_MOVE';
+export interface StartTileMove {
+    type: typeof START_TILE_MOVE,
+};
+
+export const END_TILE_MOVE = 'END_TILE_MOVE';
+export interface EndTileMove {
+    type: typeof END_TILE_MOVE,
+};
 
 
 

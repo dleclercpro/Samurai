@@ -1,38 +1,24 @@
-import { SELECT_HAND_TILE, SelectHandTile, LOAD_PLAYER, LoadPlayer, LoadHand, LOAD_HAND, DESELECT_HAND_TILE, DeselectHandTile, LOAD_OPPONENTS, LoadOpponents, LOAD_INIT_HAND, LoadInitHand, SELECT_CASTE_SWITCH_FROM, SELECT_CASTE_SWITCH_TO, SelectCasteSwitchFrom, SelectCasteSwitchTo, StartCasteSwitch, START_CASTE_SWITCH, EndCasteSwitch, END_CASTE_SWITCH } from '../types/ActionTypes';
-import { PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
+import { SELECT_PLAYER_TILE, SelectPlayerTile, DESELECT_PLAYER_TILE, DeselectPlayerTile, SELECT_CASTE_SWITCH_FROM, SELECT_CASTE_SWITCH_TO, SelectCasteSwitchFrom, SelectCasteSwitchTo, StartCasteSwitch, START_CASTE_SWITCH, EndCasteSwitch, END_CASTE_SWITCH, SelectBoardTile, SELECT_BOARD_TILE, DeselectBoardTile, DESELECT_BOARD_TILE } from '../types/ActionTypes';
 import { Caste } from '../types/GameTypes';
 
-// Loading
-export const loadHand = (data: number[]): LoadHand => ({
-    type: LOAD_HAND,
-    data,
-});
-
-export const loadInitHand = (data: PlayerTileJSON[]): LoadInitHand => ({
-    type: LOAD_INIT_HAND,
-    data,
-});
-
-export const loadPlayer = (data: PlayerJSON): LoadPlayer => ({
-    type: LOAD_PLAYER,
-    data,
-});
-
-export const loadOpponents = (data: PlayerJSON[]): LoadOpponents => ({
-    type: LOAD_OPPONENTS,
-    data,
-});
-
-
-
 // Tile selection
-export const selectHandTile = (id: number): SelectHandTile => ({
-    type: SELECT_HAND_TILE,
+export const selectBoardTile = (id: number): SelectBoardTile => ({
+    type: SELECT_BOARD_TILE,
     id,
 });
 
-export const deselectHandTile: DeselectHandTile = {
-    type: DESELECT_HAND_TILE,
+export const deselectBoardTile: DeselectBoardTile = {
+    type: DESELECT_BOARD_TILE,
+    id: -1,
+};
+
+export const selectPlayerTile = (id: number): SelectPlayerTile => ({
+    type: SELECT_PLAYER_TILE,
+    id,
+});
+
+export const deselectPlayerTile: DeselectPlayerTile = {
+    type: DESELECT_PLAYER_TILE,
     id: -1,
 };
 

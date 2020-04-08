@@ -1,17 +1,7 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_HAND_TILE, LOAD_PLAYER, LOAD_HAND, DESELECT_HAND_TILE, LOAD_OPPONENTS, LOAD_INIT_HAND, SELECT_CASTE_SWITCH_FROM, SELECT_CASTE_SWITCH_TO, START_CASTE_SWITCH, END_CASTE_SWITCH } from '../types/ActionTypes';
-import { parsePlayer, parseInitHand } from '../parse';
-import { PlayerColor, Caste } from '../types/GameTypes';
-
-const initPlayerState = {
-    id: 0,
-    color: PlayerColor.Unknown,
-    username: '',
-    isPlaying: false,
-    playedTiles: new Map(),
-    score: new Map(),
-};
+import { SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_CASTE_SWITCH_FROM, SELECT_CASTE_SWITCH_TO, START_CASTE_SWITCH, END_CASTE_SWITCH, START_TILE_MOVE, END_TILE_MOVE, SELECT_BOARD_TILE, DESELECT_BOARD_TILE } from '../types/ActionTypes';
+import { Caste } from '../types/GameTypes';
 
 const initCasteSwitchState = {
     from: {
@@ -30,12 +20,9 @@ const initTileMoveState = {
 };
 
 const initState = {
-    player: { ...initPlayerState },
-    opponents: [],
-    hand: [],
-    initHand: new Map(),
     isSwitching: false,
     isMoving: false,
+    selectedBoardTile: -1,
     selectedPlayerTile: -1,
     casteSwitch: { ...initCasteSwitchState },
     tileMove: { ...initTileMoveState },
@@ -43,31 +30,28 @@ const initState = {
 
 const GameReducer = (state: GameState = initState, action: GameAction) => {
     switch (action.type) {
-        case LOAD_PLAYER:
+        case SELECT_BOARD_TILE:
+        case DESELECT_BOARD_TILE:
             return {
                 ...state,
-                player: parsePlayer(action.data),
+                selectedBoardTile: action.id,
             };
-        case LOAD_OPPONENTS:
-            return {
-                ...state,
-                opponents: action.data.map(opponent => parsePlayer(opponent)),
-            };
-        case LOAD_INIT_HAND:
-            return {
-                ...state,
-                initHand: parseInitHand(action.data),
-            };
-        case LOAD_HAND:
-            return {
-                ...state,
-                hand: action.data,
-            };
-        case SELECT_HAND_TILE:
-        case DESELECT_HAND_TILE:
+        case SELECT_PLAYER_TILE:
+        case DESELECT_PLAYER_TILE:
             return {
                 ...state,
                 selectedTile: action.id,
+            };
+        case START_TILE_MOVE:
+            return {
+                ...state,
+                isMoving: true,
+            };
+        case END_TILE_MOVE:
+            return {
+                ...state,
+                isMoving: false,
+                tileMove: { ...initTileMoveState },
             };
         case START_CASTE_SWITCH:
             return {

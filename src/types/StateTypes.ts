@@ -1,21 +1,24 @@
 import { BoardTileMap, Player, CasteSwitch, PlayerTileMap, TileMove } from './GameTypes';
 import { DialogType } from './DialogTypes';
 
-export interface GameState {
-    player: Player,
-    opponents: Player[],
+export interface DataState {
+    tiles: BoardTileMap,
     initHand: PlayerTileMap,
-    hand: number[],
+}
+
+export interface GameState {
     casteSwitch: CasteSwitch,
     tileMove: TileMove,
     isSwitching: boolean,
     isMoving: boolean,
     selectedPlayerTile: number,
+    selectedBoardTile: number,
 }
 
-export interface BoardState {
-    tiles: BoardTileMap,
-    selectedTileForNextPlayerTile: number,
+export interface PlayerState {
+    self: Player,
+    opponents: Player[],
+    hand: number[],
 }
 
 export interface DialogState {
@@ -26,6 +29,7 @@ export interface DialogState {
 // Root state
 export interface AppState {
     game: GameState,
-    board: BoardState,
+    player: PlayerState,
     dialog: DialogState,
+    data: DataState,
 };

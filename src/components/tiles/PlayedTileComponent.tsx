@@ -61,8 +61,8 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { game } = state;
-    const { type } = ownProps;
     const { isMoving } = game;
+    const { type } = ownProps;
     const isPlayable = isMoving && [Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai].some(tileType => type === tileType);
 
     return {

@@ -4,7 +4,7 @@ import { AppState } from '../../types/StateTypes';
 import { PlayerColor, TileType, Action } from '../../types/GameTypes';
 import './HandTileComponent.scss';
 import { AppAction } from '../../actions';
-import { selectHandTile, deselectHandTile } from '../../actions/GameActions';
+import { selectPlayerTile, deselectPlayerTile } from '../../actions/GameActions';
 import { TILE_SIZE } from '../../config';
 import TileComponent from './TileComponent';
 import { openDialog } from '../../actions/DialogActions';
@@ -24,8 +24,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    selectHandTile: (id: number) => void,
-    deselectHandTile: () => void,
+    selectPlayerTile: (id: number) => void,
+    deselectPlayerTile: () => void,
     openCasteSwitchDialog: () => void,
 }
 
@@ -34,7 +34,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 class HandTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, type, isPlayable, isSelected, selectHandTile, deselectHandTile, openCasteSwitchDialog } = this.props;
+        const { id, type, isPlayable, isSelected, selectPlayerTile, deselectPlayerTile, openCasteSwitchDialog } = this.props;
         const isSwitch = type === Action.Switch;
         
         e.stopPropagation();
@@ -47,9 +47,9 @@ class HandTileComponent extends React.Component<Props, {}> {
         
         // Tile selection
         if (isSelected) {
-            deselectHandTile();
+            deselectPlayerTile();
         } else if(isPlayable) {
-            selectHandTile(id);
+            selectPlayerTile(id);
         }
     }
 
@@ -80,13 +80,17 @@ class HandTileComponent extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    isSelected: ownProps.id === state.game.selectedPlayerTile,
-});
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
+    const { game } = state;
+
+    return {
+        isSelected: ownProps.id === game.selectedPlayerTile,
+    }
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    selectHandTile: (id: number) => dispatch(selectHandTile(id)),
-    deselectHandTile: () => dispatch(deselectHandTile),
+    selectPlayerTile: (id: number) => dispatch(selectPlayerTile(id)),
+    deselectPlayerTile: () => dispatch(deselectPlayerTile),
     openCasteSwitchDialog: () => dispatch(openDialog(DialogType.CasteSwitch)),
 });
 

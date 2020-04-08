@@ -37,9 +37,13 @@ class Dash extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    player: state.game.player,
-    opponents: state.game.opponents,
-});
+const mapStateToProps = (state: AppState) => {
+    const { player } = state;
+
+    return {
+        player: player.self,
+        opponents: player.opponents,
+    }
+};
 
 export default connect(mapStateToProps, () => ({}))(Dash);

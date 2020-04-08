@@ -1,15 +1,15 @@
-import { BoardState } from '../types/StateTypes';
-import { BoardAction } from '../actions';
-import { LOAD_BOARD, SELECT_BOARD_TILE, DESELECT_BOARD_TILE } from '../types/ActionTypes';
-import { parseBoard } from '../parse';
+import { DataAction } from '../actions';
+import { LOAD_BOARD, LOAD_INIT_HAND } from '../types/ActionTypes';
+import { parseBoard, parseInitHand } from '../parse';
 import { getTileNeighborhood } from '../lib';
+import { DataState } from '../types/StateTypes';
 
 const initState = {
     tiles: new Map(),
-    selectedTileForNextPlayerTile: -1,
+    initHand: new Map(),
 };
 
-const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
+const DataReducer = (state: DataState = initState, action: DataAction) => {
     switch (action.type) {
         case LOAD_BOARD:
             const tiles = parseBoard(action.data);
@@ -25,15 +25,14 @@ const BoardReducer = (state: BoardState = initState, action: BoardAction) => {
                 ...state,
                 tiles,
             };
-        case SELECT_BOARD_TILE:
-        case DESELECT_BOARD_TILE:
+        case LOAD_INIT_HAND:
             return {
                 ...state,
-                selectedTileForNextPlayerTile: action.id,
+                initHand: parseInitHand(action.data),
             };
         default:
             return state;
     }
 };
 
-export default BoardReducer;
+export default DataReducer;
