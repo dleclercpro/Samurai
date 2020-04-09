@@ -7,7 +7,7 @@ import { DialogType } from '../../types/DialogTypes';
 import { AppState } from '../../types/StateTypes';
 import { openDialog } from '../../actions/DialogActions';
 import { Caste, CasteSwitchStep } from '../../types/GameTypes';
-import { deselectTileFromForSwitch, deselectTileToForSwitch, finishCasteSwitch } from '../../actions/GameActions';
+import { deselectTileFromForSwitch, deselectTileToForSwitch, finishCasteSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } from '../../actions/GameActions';
 import CasteComponent from '../tiles/CasteComponent';
 
 interface StateProps {
@@ -22,6 +22,8 @@ interface StateProps {
 interface DispatchProps {
     deselectTileFromForSwitch: () => void,
     deselectTileToForSwitch: () => void,
+    deselectCasteFromForSwitch: () => void,
+    deselectCasteToForSwitch: () => void,
     finishCasteSwitch: () => void,
     openCasteSwitchConfirmDialog: () => void,
 }
@@ -31,17 +33,13 @@ type Props = StateProps & DispatchProps;
 class DialogCasteChoice extends React.Component<Props, {}> {
 
     handleCancel = () => {
-        const { isChoosingFrom, isChoosingTo, hasChosenFrom, hasChosenTo, deselectTileFromForSwitch, deselectTileToForSwitch } = this.props;
+        const { isChoosingFrom, isChoosingTo, hasChosenFrom, hasChosenTo, deselectTileFromForSwitch, deselectTileToForSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } = this.props;
 
-        if (isChoosingFrom || hasChosenFrom) {
-            return deselectTileFromForSwitch();
-        }
+        hasChosenFrom && deselectCasteFromForSwitch() && deselectTileFromForSwitch();
+        isChoosingFrom && deselectTileFromForSwitch();
 
-        if (isChoosingTo || hasChosenTo) {
-            return deselectTileToForSwitch();
-        }
-
-        return null;
+        hasChosenTo && deselectCasteToForSwitch() && deselectTileToForSwitch();
+        isChoosingTo && deselectTileToForSwitch();
     }
 
     handleAction = () => {
@@ -66,6 +64,7 @@ class DialogCasteChoice extends React.Component<Props, {}> {
                 description='Choose the caste figure you want to switch from the following:'
                 actionButtonText='Choose'
                 cancelButtonText='Back'
+                onClose={this.handleCancel}
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
@@ -119,6 +118,8 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     deselectTileFromForSwitch: () => dispatch(deselectTileFromForSwitch),
     deselectTileToForSwitch: () => dispatch(deselectTileToForSwitch),
+    deselectCasteFromForSwitch: () => dispatch(deselectCasteFromForSwitch),
+    deselectCasteToForSwitch: () => dispatch(deselectCasteToForSwitch),
     finishCasteSwitch: () => dispatch(finishCasteSwitch),
     openCasteSwitchConfirmDialog: () => dispatch(openDialog(DialogType.CasteSwitchConfirm)),
 });

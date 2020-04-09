@@ -15,6 +15,7 @@ interface OwnProps {
     description: string,
     cancelButtonText?: string,
     actionButtonText?: string,
+    onClose?: () => void,
     onCancel?: () => void,
     onAction?: () => void,
     isActionButtonActive: boolean,
@@ -46,7 +47,7 @@ class Dialog extends React.Component<Props, {}> {
         closeDialog();
     }
 
-    handleClose = () => {
+    handleCancel = () => {
         const { onCancel, closeDialog } = this.props;
 
         if (onCancel) {
@@ -54,6 +55,16 @@ class Dialog extends React.Component<Props, {}> {
         }
 
         closeDialog();
+    }
+
+    handleClose = () => {
+        const { onClose, closeDialog } = this.props;
+
+        // Close only if callback provided
+        if (onClose) {
+            onClose();
+            closeDialog();
+        }
     }
 
     render() {
@@ -81,7 +92,7 @@ class Dialog extends React.Component<Props, {}> {
                     }
 
                     <div className='buttons'>
-                        <Button isActive action={this.handleClose}>
+                        <Button isActive action={this.handleCancel}>
                             {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
                         </Button>
                         
