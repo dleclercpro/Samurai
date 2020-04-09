@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react';
-import './DialogCasteSwitchConfirm.scss';
+import './DialogCasteSwitchEnd.scss';
 import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ interface DispatchProps {
 
 type Props = DispatchProps;
 
-class DialogCasteSwitchConfirm extends React.Component<Props, {}> {
+class DialogCasteSwitchEnd extends React.Component<Props, {}> {
 
     handleCancel = () => {
         const { endTurn } = this.props;
@@ -33,8 +33,8 @@ class DialogCasteSwitchConfirm extends React.Component<Props, {}> {
     render() {
         return (
             <Dialog
-                type={DialogType.CasteSwitchConfirm}
-                headline='Caste Switch'
+                type={DialogType.CasteSwitchEnd}
+                headline='Caste Switch Confirmation'
                 description='Are you sure you want to switch those two caste figures?'
                 actionButtonText='Confirm'
                 cancelButtonText='Cancel Switch'
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     endTurn: () => dispatch(endTurn),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(DialogCasteSwitchConfirm);
+export default connect(() => ({}), mapDispatchToProps)(DialogCasteSwitchEnd);

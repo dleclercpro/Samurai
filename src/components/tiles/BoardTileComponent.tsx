@@ -28,6 +28,7 @@ interface StateProps {
 interface DispatchProps {
     openTileChoiceDialog: () => void,
     openCasteChoiceDialog: () => void,
+    openTileMoveEndDialog: () => void,
     selectBoardTile: () => void,
     selectTileFromForSwitch: () => void,
     selectTileToForSwitch: () => void,
@@ -39,7 +40,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { step, isPlayable, openTileChoiceDialog, openCasteChoiceDialog, selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileForMove } = this.props;
+        const { step, isPlayable, openTileChoiceDialog, openCasteChoiceDialog, openTileMoveEndDialog, selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileForMove } = this.props;
 
         e.stopPropagation();
 
@@ -59,6 +60,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     return;
                 case TileMoveStep.ChooseBoardTile:
                     selectBoardTileForMove();
+                    openTileMoveEndDialog();
                     return;
             }
         }
@@ -135,6 +137,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) =
         selectBoardTileForMove: () => dispatch(selectBoardTileForMove(id)),
         openTileChoiceDialog: () => dispatch(openDialog(DialogType.TileChoice)),
         openCasteChoiceDialog: () => dispatch(openDialog(DialogType.CasteChoice)),
+        openTileMoveEndDialog: () => dispatch(openDialog(DialogType.TileMoveEnd)),
     }
 };
 

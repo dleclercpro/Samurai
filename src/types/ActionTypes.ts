@@ -98,20 +98,15 @@ export interface SelectPlayerTileForMove {
     tile: number,
 }
 
-export const DESELECT_PLAYER_TILE_FOR_MOVE = 'DESELECT_PLAYER_TILE_FOR_MOVE';
-export interface DeselectPlayerTileForMove {
-    type: typeof DESELECT_PLAYER_TILE_FOR_MOVE,
-}
-
 export const SELECT_BOARD_TILE_FOR_MOVE = 'SELECT_BOARD_TILE_FOR_MOVE';
 export interface SelectBoardTileForMove {
     type: typeof SELECT_BOARD_TILE_FOR_MOVE,
     tile: number,
 }
 
-export const DESELECT_BOARD_TILE_FOR_MOVE = 'DESELECT_BOARD_TILE_FOR_MOVE';
-export interface DeselectBoardTileForMove {
-    type: typeof DESELECT_BOARD_TILE_FOR_MOVE,
+export const CANCEL_TILE_MOVE = 'CANCEL_TILE_MOVE';
+export interface CancelTileMove {
+    type: typeof CANCEL_TILE_MOVE,
 }
 
 

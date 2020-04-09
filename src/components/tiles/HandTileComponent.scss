@@ -4,7 +4,8 @@ $spacing: 12px;
 
 .hand-tile-component {
 
-    #dialog--tile-choice & {
+    #dialog--tile-choice &,
+    #dialog--tile-move-end & {
         margin-bottom: $spacing;
         width: 75%;
 

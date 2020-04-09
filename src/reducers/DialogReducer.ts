@@ -11,8 +11,10 @@ const initState = {
     [DialogType.GameOver]: { ...initDialogState },
     [DialogType.TileChoice]: { ...initDialogState },
     [DialogType.CasteChoice]: { ...initDialogState },
+    [DialogType.TileMoveStart]: { ...initDialogState },
+    [DialogType.TileMoveEnd]: { ...initDialogState },
     [DialogType.CasteSwitchStart]: { ...initDialogState },
-    [DialogType.CasteSwitchConfirm]: { ...initDialogState },
+    [DialogType.CasteSwitchEnd]: { ...initDialogState },
 };
 
 const DialogReducer = (state: DialogState = initState, action: DialogAction) => {

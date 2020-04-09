@@ -90,6 +90,7 @@ class Board extends React.Component<Props, State> {
                     <PlayedTileComponent
                         key={`played-tile-component-${playedTileId}`}
                         id={playedTileId}
+                        boardId={boardTileId}
                         type={type}
                         color={color}
                         strength={strength}

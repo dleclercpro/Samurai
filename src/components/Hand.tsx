@@ -14,6 +14,7 @@ interface OwnProps {
 interface StateProps {
     hand: PlayerTile[],
     color: PlayerColor,
+    selectedTileForMove: number,
     isWaterTileSelected?: boolean,
 }
 
@@ -22,18 +23,23 @@ type Props = OwnProps & StateProps;
 class Hand extends React.Component<Props, {}> {
 
     getFilteredForDialog = (dialog : DialogType): PlayerTile[] => {
-        const { hand, isWaterTileSelected } = this.props;
+        const { hand, selectedTileForMove, isWaterTileSelected } = this.props;
 
         return hand.filter((tile: PlayerTile) => {
-            const isSwitch = tile.type === Action.Switch;
-            const isShip = tile.type === Figure.Ship;
+            const { id, type } = tile;
+
+            const isSwitch = type === Action.Switch;
+            const isShip = type === Figure.Ship;
+            const isSelectedForMove = selectedTileForMove !== -1 && id === selectedTileForMove;
 
             switch (dialog) {
                 case DialogType.TileChoice:
                     return !isSwitch && (isWaterTileSelected === isShip);
-                default:
-                    return false;
+                case DialogType.TileMoveEnd:
+                    return isSelectedForMove;
             }
+
+            return false;
         });
     }
 
@@ -68,12 +74,13 @@ const mapStateToProps = (state: AppState) => {
     const { selection } = game;
     const { initHand, tiles } = data;
     const { self, hand } = player;
-    const { play } = selection;
+    const { play, move } = selection;
 
     return {
         hand: hand.map((id: number) => initHand.get(id)).filter(notUndefined),
         color: self.color,
         isWaterTileSelected: tiles.get(play.boardTile)?.isWater,
+        selectedTileForMove: move.from,
     };
 };
 

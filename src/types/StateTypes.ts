@@ -6,8 +6,8 @@ interface PlayState {
 }
 
 interface MoveState {
-    tileFrom: number,
-    tileTo: number,
+    from: number,
+    to: number,
 }
 
 interface SwitchState {

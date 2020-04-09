@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { PlayerColor, TileType, Coordinates2D, Caste, Figure, TileMoveStep, GameStep } from '../../types/GameTypes';
 import './PlayedTileComponent.scss';
 import { TILE_SIZE } from '../../config';
 import TileComponent from './TileComponent';
 import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
+import { AppAction } from '../../actions';
+import { selectPlayerTileForMove } from '../../actions/GameActions';
 
 interface OwnProps {
     id: number,
+    boardId: number,
     position: Coordinates2D,
     rotation: number,
     color: PlayerColor,
@@ -19,6 +22,7 @@ interface OwnProps {
 interface StateProps {
     step: GameStep,
     isPlayable: boolean,
+    selectPlayerTileForMove: (id: number) => void,
 }
 
 type Props = OwnProps & StateProps;
@@ -26,12 +30,12 @@ type Props = OwnProps & StateProps;
 class PlayedTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { step, isPlayable } = this.props;
+        const { id, step, isPlayable, selectPlayerTileForMove } = this.props;
 
         if (isPlayable) {
             switch (step) {
                 case TileMoveStep.ChoosePlayerTile:
-                    // START TILE MOVE HERE
+                    selectPlayerTileForMove(id);
                     break;
             }
         }
@@ -64,11 +68,13 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
+    const { player } = state;
     const { step } = state.game;
-    const { type } = ownProps;
+    const { id, boardId, type } = ownProps;
 
+    const isMine = player.self.playedTiles.get(boardId) === id;
     const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
-    const isPlayable = (step === TileMoveStep.ChoosePlayerTile) && isMovable;
+    const isPlayable = isMine && isMovable && (step === TileMoveStep.ChoosePlayerTile);
 
     return {
         step,
@@ -76,4 +82,8 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     };
 }
 
-export default connect(mapStateToProps, () => ({}))(PlayedTileComponent);
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+    selectPlayerTileForMove: (id: number) => dispatch(selectPlayerTileForMove(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayedTileComponent);

@@ -23,11 +23,14 @@ interface StateProps {
     step: GameStep,
     isSelected: boolean,
     isPlayable: boolean,
+    isMove: boolean,
+    isSwitch: boolean,
 }
 
 interface DispatchProps {
     selectPlayerTile: (id: number) => void,
     deselectPlayerTile: () => void,
+    openTileMoveStartDialog: () => void,
     openCasteSwitchStartDialog: () => void,
 }
 
@@ -36,19 +39,19 @@ type Props = OwnProps & StateProps & DispatchProps;
 class HandTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, step, isPlayable, isSelected, selectPlayerTile, deselectPlayerTile, openCasteSwitchStartDialog } = this.props;
+        const { id, step, isMove, isSwitch, isPlayable, isSelected, selectPlayerTile, deselectPlayerTile, openTileMoveStartDialog, openCasteSwitchStartDialog } = this.props;
         
         e.stopPropagation();
 
         if (isPlayable) {
             switch (step) {
-
-                // Switch tile
                 case TilePlayStep.ChooseBoardTile:
-                    openCasteSwitchStartDialog();
+                    if (isMove) {
+                        openTileMoveStartDialog();
+                    } else if (isSwitch) {
+                        openCasteSwitchStartDialog();
+                    }
                     return;
-                
-                // In tile choice dialog
                 case TilePlayStep.ChoosePlayerTile:
                     selectPlayerTile(id);
                     return;
@@ -87,22 +90,28 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { play } = selection;
     const { isInDialog, id, type } = ownProps;
 
+    const isMove = type === Action.Move;
     const isSwitch = type === Action.Switch;
-    const isSelected = id === play.playerTile;    
     const isPlayable =
         (isInDialog && (step === TilePlayStep.ChoosePlayerTile || step === TilePlayStep.Done)) ||
-        (isSwitch && step === TilePlayStep.ChooseBoardTile);
+        (isSwitch && step === TilePlayStep.ChooseBoardTile) ||
+        (isMove && step === TilePlayStep.ChooseBoardTile);
+
+    const isSelected = id === play.playerTile;    
 
     return {
         step,
-        isSelected,
         isPlayable,
+        isSelected,
+        isMove,
+        isSwitch,
     }
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     selectPlayerTile: (id: number) => dispatch(selectPlayerTile(id)),
     deselectPlayerTile: () => dispatch(deselectPlayerTile),
+    openTileMoveStartDialog: () => dispatch(openDialog(DialogType.TileMoveStart)),
     openCasteSwitchStartDialog: () => dispatch(openDialog(DialogType.CasteSwitchStart)),
 });
 

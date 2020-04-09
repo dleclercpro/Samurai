@@ -25,7 +25,7 @@ interface DispatchProps {
     deselectCasteFromForSwitch: () => void,
     deselectCasteToForSwitch: () => void,
     finishCasteSwitch: () => void,
-    openCasteSwitchConfirmDialog: () => void,
+    openCasteSwitchEndDialog: () => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -43,14 +43,14 @@ class DialogCasteChoice extends React.Component<Props, {}> {
     }
 
     handleAction = () => {
-        const { hasChosenFrom, hasChosenTo, finishCasteSwitch, openCasteSwitchConfirmDialog } = this.props;
+        const { hasChosenFrom, hasChosenTo, finishCasteSwitch, openCasteSwitchEndDialog } = this.props;
 
         if (hasChosenFrom) {
             finishCasteSwitch();
         }
 
         if (hasChosenTo) {
-            openCasteSwitchConfirmDialog();            
+            openCasteSwitchEndDialog();            
         }
     }
 
@@ -121,7 +121,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     deselectCasteFromForSwitch: () => dispatch(deselectCasteFromForSwitch),
     deselectCasteToForSwitch: () => dispatch(deselectCasteToForSwitch),
     finishCasteSwitch: () => dispatch(finishCasteSwitch),
-    openCasteSwitchConfirmDialog: () => dispatch(openDialog(DialogType.CasteSwitchConfirm)),
+    openCasteSwitchEndDialog: () => dispatch(openDialog(DialogType.CasteSwitchEnd)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogCasteChoice);

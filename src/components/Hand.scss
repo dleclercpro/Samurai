@@ -7,7 +7,8 @@
     width: 100%;
     height: 100%;
 
-    #dialog--tile-choice & {
+    #dialog--tile-choice &,
+    #dialog--tile-move-end & {
         flex-wrap: wrap;
 
         @include mq(width, tablet) {

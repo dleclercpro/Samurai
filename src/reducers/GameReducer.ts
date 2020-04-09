@@ -1,6 +1,6 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_PLAYER_TILE_FOR_MOVE, SELECT_BOARD_TILE_FOR_MOVE, DESELECT_PLAYER_TILE_FOR_MOVE, DESELECT_BOARD_TILE_FOR_MOVE, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH } from '../types/ActionTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_PLAYER_TILE_FOR_MOVE, SELECT_BOARD_TILE_FOR_MOVE, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH } from '../types/ActionTypes';
 import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep } from '../types/GameTypes';
 
 const initPlayState = {
@@ -9,8 +9,8 @@ const initPlayState = {
 };
 
 const initMoveState = {
-    tileFrom: -1,
-    tileTo: -1,
+    from: -1,
+    to: -1,
 };
 
 const initSwitchInnerState = {
@@ -125,15 +125,9 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
             switch (action) {
                 case SELECT_BOARD_TILE_FOR_MOVE:
                     return TileMoveStep.Done;
-                case DESELECT_PLAYER_TILE_FOR_MOVE:
-                    return TileMoveStep.ChoosePlayerTile;
             }
             break;
         case TileMoveStep.Done:
-            switch (action) {
-                case DESELECT_BOARD_TILE_FOR_MOVE:
-                    return TileMoveStep.ChooseBoardTile;
-            }
             break;
     }
 
@@ -201,6 +195,30 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
                     play: {
                         ...newState.selection.play,
                         playerTile: -1,
+                    },
+                },
+            };
+
+        // Move steps
+        case SELECT_PLAYER_TILE_FOR_MOVE:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    move: {
+                        ...newState.selection.move,
+                        from: action.tile,
+                    },
+                },
+            };
+        case SELECT_BOARD_TILE_FOR_MOVE:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    move: {
+                        ...newState.selection.move,
+                        to: action.tile,
                     },
                 },
             };

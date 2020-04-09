@@ -17,7 +17,9 @@ import DialogCasteSwitchStart from './dialogs/DialogCasteSwitchStart';
 import { loadBoard, loadInitHand } from '../actions/DataActions';
 import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
 import DialogCasteChoice from './dialogs/DialogCasteChoice';
-import DialogCasteSwitchConfirm from './dialogs/DialogCasteSwitchConfirm';
+import DialogCasteSwitchEnd from './dialogs/DialogCasteSwitchEnd';
+import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
+import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
@@ -72,8 +74,10 @@ class App extends React.Component<Props, {}> {
                     <DialogGameOver />
                     <DialogTileChoice />
                     <DialogCasteChoice />
+                    <DialogTileMoveStart />
+                    <DialogTileMoveEnd />
                     <DialogCasteSwitchStart />
-                    <DialogCasteSwitchConfirm />
+                    <DialogCasteSwitchEnd />
                 </section>
             </div>
         );
