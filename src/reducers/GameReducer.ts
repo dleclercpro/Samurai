@@ -137,6 +137,7 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
             break;
     }
 
+    // Default game state
     return TilePlayStep.ChooseBoardTile;
 }
 
