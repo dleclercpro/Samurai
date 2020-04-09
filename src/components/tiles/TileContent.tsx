@@ -56,12 +56,12 @@ class TileContent extends React.Component<Props, {}> {
     render() {
         const { type, canReplay } = this.props;
         const { width, height } = TILE_SIZE;
-    
-        const isSwitch = type === Action.Switch;
-    
+
         const replayIconPosition = { x: width / 2, y: 5/6 * height};
         const replayIconSize = { width: width / 8, height: height / 8 };
     
+        const isSwitch = type === Action.Switch;
+
         return (
             <g className='tile-content'>
                 {isSwitch ? this.getSwitch() : this.getNormal()}

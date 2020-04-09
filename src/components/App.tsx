@@ -13,7 +13,7 @@ import OPPONENTS from '../data/Opponents.json';
 import { HAND_SIZE } from '../config';
 import Grid from './Grid';
 import DialogGameOver from './dialogs/DialogGameOver';
-import DialogCasteSwitchPrompt from './dialogs/DialogCasteSwitchPrompt';
+import DialogCasteSwitchStart from './dialogs/DialogCasteSwitchStart';
 import { loadBoard, loadInitHand } from '../actions/DataActions';
 import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
 import DialogCasteChoice from './dialogs/DialogCasteChoice';
@@ -72,7 +72,7 @@ class App extends React.Component<Props, {}> {
                     <DialogGameOver />
                     <DialogTileChoice />
                     <DialogCasteChoice />
-                    <DialogCasteSwitchPrompt />
+                    <DialogCasteSwitchStart />
                     <DialogCasteSwitchConfirm />
                 </section>
             </div>

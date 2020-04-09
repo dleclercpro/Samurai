@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerColor, TileType, Coordinates2D, Caste, Figure } from '../../types/GameTypes';
+import { PlayerColor, TileType, Coordinates2D, Caste, Figure, TileMoveStep, GameStep } from '../../types/GameTypes';
 import './PlayedTileComponent.scss';
 import { TILE_SIZE } from '../../config';
 import TileComponent from './TileComponent';
@@ -17,7 +17,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-    isMoving: boolean,
+    step: GameStep,
     isPlayable: boolean,
 }
 
@@ -26,10 +26,14 @@ type Props = OwnProps & StateProps;
 class PlayedTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { isPlayable, isMoving } = this.props;
-        
-        if (isPlayable && isMoving) {
+        const { step, isPlayable } = this.props;
 
+        if (isPlayable) {
+            switch (step) {
+                case TileMoveStep.ChoosePlayerTile:
+                    // START TILE MOVE HERE
+                    break;
+            }
         }
     }
 
@@ -60,13 +64,14 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { game } = state;
-    const { isMoving } = game;
+    const { step } = state.game;
     const { type } = ownProps;
-    const isPlayable = isMoving && [Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai].some(tileType => type === tileType);
+
+    const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
+    const isPlayable = (step === TileMoveStep.ChoosePlayerTile) && isMovable;
 
     return {
-        isMoving,
+        step,
         isPlayable,
     };
 }

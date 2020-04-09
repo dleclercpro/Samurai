@@ -6,19 +6,5 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        
-        > .caste-icon {
-            width: 120px;
-            height: 120px;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-
-            &:hover,
-            &.is-selected {
-                fill: $color-white;
-                background-color: $color-black;
-            }
-        }
     }
 }

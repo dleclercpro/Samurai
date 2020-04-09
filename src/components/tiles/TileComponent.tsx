@@ -42,7 +42,7 @@ class TileComponent extends React.Component<Props, {}> {
                 className={`
                     tile-component
                     ${isPlayable ? 'is-playable' : ''}
-                    ${isPlayable && isSelected ? 'is-selected' : ''}
+                    ${isSelected ? 'is-selected' : ''}
                     ${color ? this.getColor(color) : ''}
                     ${isSwitch ? 'is-switch' : ''}
                 `}

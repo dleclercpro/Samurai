@@ -82,3 +82,29 @@ export interface TileMove {
     from: number,
     to: number,
 }
+
+export enum TilePlayStep {
+    ChooseBoardTile = 'TilePlay | ChooseBoardTile',
+    ChoosePlayerTile = 'TilePlay | ChoosePlayerTile',
+    Done = 'TilePlay | Done',
+}
+
+export enum TileMoveStep {
+    ChoosePlayerTile = 'TileMove | ChoosePlayerTile',
+    ChooseBoardTile = 'TileMove | ChooseBoardTile',
+    Done = 'TileMove | Done',
+}
+
+export enum CasteSwitchStep {
+    ChooseTileFrom = 'CasteSwitch | ChooseTileFrom',
+    ChooseCasteFrom = 'CasteSwitch | ChooseCasteFrom',
+    ChooseFromDone = 'CasteSwitch | ChooseFromDone',
+    ChooseTileTo = 'CasteSwitch | ChooseTileTo',
+    ChooseCasteTo = 'CasteSwitch | ChooseCasteTo',
+    ChooseToDone = 'CasteSwitch | ChooseToDone',
+}
+
+export type GameStep =
+    TilePlayStep |
+    TileMoveStep |
+    CasteSwitchStep;

@@ -1,6 +1,6 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Coordinates2D, Caste, Figure } from '../../types/GameTypes';
+import { Coordinates2D, Caste, Figure, CasteSwitchStep, TilePlayStep, TileMoveStep, GameStep } from '../../types/GameTypes';
 import './BoardTileComponent.scss';
 import { AppAction } from '../../actions';
 import { openDialog } from '../../actions/DialogActions';
@@ -9,7 +9,7 @@ import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../../config';
 import { AppState } from '../../types/StateTypes';
 import BoardTileContent from './BoardTileContent';
 import { DialogType } from '../../types/DialogTypes';
-import { selectBoardTile, selectCasteSwitchTile } from '../../actions/GameActions';
+import { selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileForMove } from '../../actions/GameActions';
 import { getHand } from '../../selectors';
 
 interface OwnProps {
@@ -20,7 +20,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-    isSwitching: boolean,
+    step: GameStep,
     isSelected: boolean,
     isPlayable: boolean,
 }
@@ -29,7 +29,9 @@ interface DispatchProps {
     openTileChoiceDialog: () => void,
     openCasteChoiceDialog: () => void,
     selectBoardTile: () => void,
-    selectCasteSwitchTile: () => void,
+    selectTileFromForSwitch: () => void,
+    selectTileToForSwitch: () => void,
+    selectBoardTileForMove: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -37,17 +39,27 @@ type Props = OwnProps & StateProps & DispatchProps;
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { isPlayable, isSwitching, openTileChoiceDialog, openCasteChoiceDialog, selectBoardTile, selectCasteSwitchTile } = this.props;
+        const { step, isPlayable, openTileChoiceDialog, openCasteChoiceDialog, selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileForMove } = this.props;
 
         e.stopPropagation();
 
         if (isPlayable) {
-            if (isSwitching) {
-                selectCasteSwitchTile();
-                openCasteChoiceDialog();
-            } else {
-                selectBoardTile();
-                openTileChoiceDialog();
+            switch (step) {
+                case TilePlayStep.ChooseBoardTile:
+                    selectBoardTile();
+                    openTileChoiceDialog();
+                    return;
+                case CasteSwitchStep.ChooseTileFrom:
+                    selectTileFromForSwitch();
+                    openCasteChoiceDialog();
+                    return;
+                case CasteSwitchStep.ChooseTileTo:
+                    selectTileToForSwitch();
+                    openCasteChoiceDialog();
+                    return;
+                case TileMoveStep.ChooseBoardTile:
+                    selectBoardTileForMove();
+                    return;
             }
         }
     }
@@ -70,11 +82,11 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     isWater={isWater}
                 />
                 {castes.length > 0 &&
-                    <BoardTileContent
-                        position={position}
-                        rotation={-BOARD_ROTATION}
-                        castes={castes}
-                    />}
+                <BoardTileContent
+                    position={position}
+                    rotation={-BOARD_ROTATION}
+                    castes={castes}
+                />}
             </g>
         );
     }
@@ -82,23 +94,33 @@ class BoardTileComponent extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { game } = state;
-    const { isSwitching, casteSwitch, selected } = game;
-
+    const { step, selection } = game;
     const { id, castes, isWater } = ownProps;
+
+    const isSelected = ownProps.id === selection.play.boardTile;
+    const isSelectedForSwitch = (id === selection.switch.from.tile) || (id === selection.switch.to.tile);
     const isCity = castes.length > 0;
     const hasShipInHand = getHand(state).some(tile => tile.type === Figure.Ship);
-    const isSelectedForCasteSwitch = id === casteSwitch.from.tile || id === casteSwitch.to.tile;
+    
+    // Playability
     let isPlayable = false;
 
-    if (isSwitching) {
-        isPlayable = isCity && !isSelectedForCasteSwitch;
-    } else {
-        isPlayable = !isCity && (!isWater || hasShipInHand);
+    switch (step) {
+        case TilePlayStep.ChooseBoardTile:
+            isPlayable = !isCity && (!isWater || hasShipInHand);
+            break;
+        case CasteSwitchStep.ChooseTileFrom:
+        case CasteSwitchStep.ChooseTileTo:
+            isPlayable = isCity && !isSelectedForSwitch;
+            break;
+        case TileMoveStep.ChooseBoardTile:
+            isPlayable = !isCity;
+            break;
     }
 
     return {
-        isSwitching: isSwitching,
-        isSelected: ownProps.id === selected.boardTile,
+        step,
+        isSelected,
         isPlayable,
     };
 };
@@ -108,7 +130,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) =
 
     return {
         selectBoardTile: () => dispatch(selectBoardTile(id)),
-        selectCasteSwitchTile: () => dispatch(selectCasteSwitchTile(id)),
+        selectTileFromForSwitch: () => dispatch(selectTileFromForSwitch(id)),
+        selectTileToForSwitch: () => dispatch(selectTileToForSwitch(id)),
+        selectBoardTileForMove: () => dispatch(selectBoardTileForMove(id)),
         openTileChoiceDialog: () => dispatch(openDialog(DialogType.TileChoice)),
         openCasteChoiceDialog: () => dispatch(openDialog(DialogType.CasteChoice)),
     }

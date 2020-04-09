@@ -1,158 +1,320 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_CASTE_SWITCH_FROM, SELECT_CASTE_SWITCH_TO, START_CASTE_SWITCH, END_CASTE_SWITCH, START_TILE_MOVE, END_TILE_MOVE, SELECT_BOARD_TILE, DESELECT_BOARD_TILE, DESELECT_CASTE_SWITCH_FROM, DESELECT_CASTE_SWITCH_TO, SELECT_CASTE_SWITCH_TILE, SELECT_CASTE_FOR_SWITCH, DESELECT_CASTE_SWITCH_TILE, DESELECT_CASTE_FOR_SWITCH } from '../types/ActionTypes';
-import { Caste } from '../types/GameTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_PLAYER_TILE_FOR_MOVE, SELECT_BOARD_TILE_FOR_MOVE, DESELECT_PLAYER_TILE_FOR_MOVE, DESELECT_BOARD_TILE_FOR_MOVE, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH } from '../types/ActionTypes';
+import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep } from '../types/GameTypes';
 
-const initCasteSwitchFromToState = {
+const initPlayState = {
+    boardTile: -1,
+    playerTile: -1,
+};
+
+const initMoveState = {
+    tileFrom: -1,
+    tileTo: -1,
+};
+
+const initSwitchInnerState = {
     tile: -1,
     caste: Caste.Unknown,
 }
 
-const initTileMoveState = {
-    from: -1,
-    to: -1,
+const initSwitchState = {
+    from: { ...initSwitchInnerState },
+    to: { ...initSwitchInnerState },
 };
 
-const initCasteSwitchState = {
-    from: { ...initCasteSwitchFromToState },
-    to: { ...initCasteSwitchFromToState },
-};
-
-const initSelectedState = {
-    boardTile: -1,
-    boardTileForSwitch: -1,
-    playerTile: -1,
-    playerTileForMove: -1,
-    caste: Caste.Unknown,
+const initSelectionState = {
+    play: { ...initPlayState },
+    move: { ...initMoveState },
+    switch: { ...initSwitchState },
 }
 
 const initState = {
-    isSwitching: false,
-    isMoving: false,
-    selected: { ...initSelectedState },
-    casteSwitch: { ...initCasteSwitchState },
-    tileMove: { ...initTileMoveState },
+    step: TilePlayStep.ChooseBoardTile,
+    selection: { ...initSelectionState },
 };
 
+const getNextStep = (step: GameStep, action: string): GameStep => {
+    
+    switch (step) {
+
+        // Tile play
+        case TilePlayStep.ChooseBoardTile:
+            switch (action) {
+                case SELECT_BOARD_TILE:
+                    return TilePlayStep.ChoosePlayerTile;
+                case START_CASTE_SWITCH:
+                    return CasteSwitchStep.ChooseTileFrom;
+                case START_TILE_MOVE:
+                    return TileMoveStep.ChoosePlayerTile;
+            }
+            break;
+        case TilePlayStep.ChoosePlayerTile:
+            switch (action) {
+                case DESELECT_BOARD_TILE:
+                    return TilePlayStep.ChooseBoardTile;
+                case SELECT_PLAYER_TILE:
+                    return TilePlayStep.Done;
+            }
+            break;
+        case TilePlayStep.Done:
+            switch (action) {
+                case DESELECT_PLAYER_TILE:
+                    return TilePlayStep.ChoosePlayerTile;
+                case SELECT_PLAYER_TILE:
+                    return step;
+            }
+            break;
+
+        // Caste switch
+        case CasteSwitchStep.ChooseTileFrom:
+            switch (action) {
+                case SELECT_TILE_FROM_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseCasteFrom;
+            }
+            break;
+        case CasteSwitchStep.ChooseCasteFrom:
+            switch (action) {
+                case DESELECT_TILE_FROM_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseTileFrom;
+                case SELECT_CASTE_FROM_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseFromDone;
+            }
+            break;
+        case CasteSwitchStep.ChooseFromDone:
+            switch (action) {
+                case FINISH_CASTE_SWITCH:
+                    return CasteSwitchStep.ChooseTileTo;
+                case DESELECT_CASTE_FROM_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseCasteFrom;
+                case SELECT_CASTE_FROM_FOR_SWITCH:
+                    return step;
+            }
+            break;
+        case CasteSwitchStep.ChooseTileTo:
+            switch (action) {
+                case SELECT_TILE_TO_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseCasteTo;
+            }
+            break;
+        case CasteSwitchStep.ChooseCasteTo:
+            switch (action) {
+                case DESELECT_TILE_TO_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseTileTo;
+                case SELECT_CASTE_TO_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseToDone;
+            }
+            break;
+        case CasteSwitchStep.ChooseToDone:
+            switch (action) {
+                case DESELECT_CASTE_TO_FOR_SWITCH:
+                    return CasteSwitchStep.ChooseCasteTo;
+                case SELECT_CASTE_TO_FOR_SWITCH:
+                    return step;
+            }
+            break;
+
+        // Tile move
+        case TileMoveStep.ChoosePlayerTile:
+            switch (action) {
+                case SELECT_PLAYER_TILE_FOR_MOVE:
+                    return TileMoveStep.ChooseBoardTile;
+            }
+            break;
+        case TileMoveStep.ChooseBoardTile:
+            switch (action) {
+                case SELECT_BOARD_TILE_FOR_MOVE:
+                    return TileMoveStep.Done;
+                case DESELECT_PLAYER_TILE_FOR_MOVE:
+                    return TileMoveStep.ChoosePlayerTile;
+            }
+            break;
+        case TileMoveStep.Done:
+            switch (action) {
+                case DESELECT_BOARD_TILE_FOR_MOVE:
+                    return TileMoveStep.ChooseBoardTile;
+            }
+            break;
+    }
+
+    return TilePlayStep.ChooseBoardTile;
+}
+
 const GameReducer = (state: GameState = initState, action: GameAction) => {
+    const newState = {
+        ...state,
+        step: getNextStep(state.step, action.type),
+    };
+
     switch (action.type) {
+        case START_TILE_MOVE:
+        case START_CASTE_SWITCH:
+        case FINISH_CASTE_SWITCH:
+            return {
+                ...newState,
+            }
+
+        case END_TURN:
+            return {
+                ...initState,
+            };
+
         case SELECT_BOARD_TILE:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    play: {
+                        ...newState.selection.play,
+                        boardTile: action.id,
+                    },
+                },
+            };
         case DESELECT_BOARD_TILE:
             return {
-                ...state,
-                selected: {
-                    ...state.selected,
-                    boardTile: action.id,
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    play: {
+                        ...newState.selection.play,
+                        boardTile: -1,
+                    },
                 },
             };
         case SELECT_PLAYER_TILE:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    play: {
+                        ...newState.selection.play,
+                        playerTile: action.id,
+                    },
+                },
+            };
         case DESELECT_PLAYER_TILE:
             return {
-                ...state,
-                selected: {
-                    ...state.selected,
-                    playerTile: action.id,
-                },
-            };
-        case START_TILE_MOVE:
-            return {
-                ...state,
-                isMoving: true,
-            };
-        case END_TILE_MOVE:
-            return {
-                ...state,
-                isMoving: false,
-                tileMove: { ...initTileMoveState },
-                selected: {
-                    ...state.selected,
-                    playerTileForMove: -1,
-                },
-            };
-        case START_CASTE_SWITCH:
-            return {
-                ...state,
-                isSwitching: true,
-            };
-        case END_CASTE_SWITCH:
-            return {
-                ...state,
-                isSwitching: false,
-                casteSwitch: { ...initCasteSwitchState },
-                selected: {
-                    ...state.selected,
-                    boardTileForSwitch: -1,
-                    caste: Caste.Unknown,
-                },
-            };
-        case SELECT_CASTE_SWITCH_TILE:
-            return {
-                ...state,
-                selected: {
-                    ...state.selected,
-                    boardTileForSwitch: action.tile,
-                },
-            };
-        case SELECT_CASTE_FOR_SWITCH:
-            return {
-                ...state,
-                selected: {
-                    ...state.selected,
-                    caste: action.caste,
-                },
-            };
-        case DESELECT_CASTE_SWITCH_TILE:
-            return {
-                ...state,
-                selected: {
-                    ...state.selected,
-                    boardTileForSwitch: -1,
-                },
-            };
-        case DESELECT_CASTE_FOR_SWITCH:
-            return {
-                ...state,
-                selected: {
-                    ...state.selected,
-                    caste: Caste.Unknown,
-                },
-            };
-        case SELECT_CASTE_SWITCH_FROM:
-            return {
-                ...state,
-                casteSwitch: {
-                    ...state.casteSwitch,
-                    from: {
-                        tile: action.tile,
-                        caste: action.caste,
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    play: {
+                        ...newState.selection.play,
+                        playerTile: -1,
                     },
                 },
             };
-        case SELECT_CASTE_SWITCH_TO:
+
+        // Switch steps
+        case SELECT_TILE_FROM_FOR_SWITCH:
             return {
-                ...state,
-                casteSwitch: {
-                    ...state.casteSwitch,
-                    to: {
-                        tile: action.tile,
-                        caste: action.caste,
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        from: {
+                            ...newState.selection.switch.from,
+                            tile: action.tile,
+                        },
                     },
                 },
             };
-        case DESELECT_CASTE_SWITCH_FROM:
+        case DESELECT_TILE_FROM_FOR_SWITCH:
             return {
-                ...state,
-                casteSwitch: {
-                    ...state.casteSwitch,
-                    from: { ...initCasteSwitchFromToState },
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        from: {
+                            ...newState.selection.switch.from,
+                            tile: -1,
+                        },
+                    },
                 },
             };
-        case DESELECT_CASTE_SWITCH_TO:
+        case SELECT_CASTE_FROM_FOR_SWITCH:
             return {
-                ...state,
-                casteSwitch: {
-                    ...state.casteSwitch,
-                    to: { ...initCasteSwitchFromToState },
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        from: {
+                            ...newState.selection.switch.from,
+                            caste: action.caste,
+                        },
+                    },
+                },
+            };
+        case DESELECT_CASTE_FROM_FOR_SWITCH:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        from: {
+                            ...newState.selection.switch.from,
+                            caste: Caste.Unknown,
+                        },
+                    },
+                },
+            };
+        case SELECT_TILE_TO_FOR_SWITCH:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        to: {
+                            ...newState.selection.switch.to,
+                            tile: action.tile,
+                        },
+                    },
+                },
+            };
+        case DESELECT_TILE_TO_FOR_SWITCH:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        to: {
+                            ...newState.selection.switch.to,
+                            tile: -1,
+                        },
+                    },
+                },
+            };
+        case SELECT_CASTE_TO_FOR_SWITCH:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        to: {
+                            ...newState.selection.switch.to,
+                            caste: action.caste,
+                        },
+                    },
+                },
+            };
+        case DESELECT_CASTE_TO_FOR_SWITCH:
+            return {
+                ...newState,
+                selection: {
+                    ...newState.selection,
+                    switch: {
+                        ...newState.selection.switch,
+                        to: {
+                            ...newState.selection.switch.to,
+                            caste: Caste.Unknown,
+                        },
+                    },
                 },
             };
         default:

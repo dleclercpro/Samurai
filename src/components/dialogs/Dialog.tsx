@@ -9,7 +9,7 @@ import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 
 interface OwnProps {
-    children: ReactNode,
+    children?: ReactNode,
     type: DialogType,
     headline: string,
     description: string,
@@ -101,7 +101,7 @@ class Dialog extends React.Component<Props, {}> {
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { type } = ownProps;
     const { dialog } = state;
-    const isOpen = dialog.isOpen[type];
+    const { isOpen } = dialog[type];
     
     return {
         isOpen,

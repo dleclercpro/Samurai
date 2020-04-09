@@ -4,19 +4,33 @@ import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { endCasteSwitch } from '../../actions/GameActions';
+import { endTurn } from '../../actions/GameActions';
 
 interface DispatchProps {
-    endCasteSwitch: () => void,
+    endTurn: () => void,
 }
 
 type Props = DispatchProps;
 
 class DialogCasteSwitchConfirm extends React.Component<Props, {}> {
 
-    render() {
-        const { endCasteSwitch } = this.props;
+    handleCancel = () => {
+        const { endTurn } = this.props;
 
+        alert('Caste switch was canceled altogether.');
+
+        endTurn();
+    }
+
+    handleAction = () => {
+        const { endTurn } = this.props;
+
+        alert('Caste switch will now be sent to server.');
+        
+        endTurn();
+    }
+
+    render() {
         return (
             <Dialog
                 type={DialogType.CasteSwitchConfirm}
@@ -24,17 +38,16 @@ class DialogCasteSwitchConfirm extends React.Component<Props, {}> {
                 description='Are you sure you want to switch those two caste figures?'
                 actionButtonText='Confirm'
                 cancelButtonText='Cancel Switch'
-                onAction={() => {}}
-                onCancel={endCasteSwitch}
+                onAction={this.handleAction}
+                onCancel={this.handleCancel}
                 isActionButtonActive
-            >
-            </Dialog>
+            />
         );
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    endCasteSwitch: () => dispatch(endCasteSwitch),
+    endTurn: () => dispatch(endTurn),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(DialogCasteSwitchConfirm);

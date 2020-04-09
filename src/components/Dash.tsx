@@ -38,11 +38,11 @@ class Dash extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { player } = state;
+    const { self, opponents } = state.player;
 
     return {
-        player: player.self,
-        opponents: player.opponents,
+        player: self,
+        opponents: opponents,
     }
 };
 

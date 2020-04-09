@@ -53,6 +53,14 @@ export interface CloseDialog {
 
 
 
+// Game actions
+export const END_TURN = 'END_TURN';
+export interface EndTurn {
+    type: typeof END_TURN,
+};
+
+
+
 // Tile actions
 export const SELECT_BOARD_TILE = 'SELECT_BOARD_TILE';
 export interface SelectBoardTile {
@@ -63,7 +71,6 @@ export interface SelectBoardTile {
 export const DESELECT_BOARD_TILE = 'DESELECT_BOARD_TILE';
 export interface DeselectBoardTile {
     type: typeof DESELECT_BOARD_TILE,
-    id: number,
 }
 
 export const SELECT_PLAYER_TILE = 'SELECT_PLAYER_TILE';
@@ -75,7 +82,6 @@ export interface SelectPlayerTile {
 export const DESELECT_PLAYER_TILE = 'DESELECT_PLAYER_TILE';
 export interface DeselectPlayerTile {
     type: typeof DESELECT_PLAYER_TILE,
-    id: number,
 }
 
 
@@ -86,10 +92,27 @@ export interface StartTileMove {
     type: typeof START_TILE_MOVE,
 };
 
-export const END_TILE_MOVE = 'END_TILE_MOVE';
-export interface EndTileMove {
-    type: typeof END_TILE_MOVE,
-};
+export const SELECT_PLAYER_TILE_FOR_MOVE = 'SELECT_PLAYER_TILE_FOR_MOVE';
+export interface SelectPlayerTileForMove {
+    type: typeof SELECT_PLAYER_TILE_FOR_MOVE,
+    tile: number,
+}
+
+export const DESELECT_PLAYER_TILE_FOR_MOVE = 'DESELECT_PLAYER_TILE_FOR_MOVE';
+export interface DeselectPlayerTileForMove {
+    type: typeof DESELECT_PLAYER_TILE_FOR_MOVE,
+}
+
+export const SELECT_BOARD_TILE_FOR_MOVE = 'SELECT_BOARD_TILE_FOR_MOVE';
+export interface SelectBoardTileForMove {
+    type: typeof SELECT_BOARD_TILE_FOR_MOVE,
+    tile: number,
+}
+
+export const DESELECT_BOARD_TILE_FOR_MOVE = 'DESELECT_BOARD_TILE_FOR_MOVE';
+export interface DeselectBoardTileForMove {
+    type: typeof DESELECT_BOARD_TILE_FOR_MOVE,
+}
 
 
 
@@ -99,53 +122,51 @@ export interface StartCasteSwitch {
     type: typeof START_CASTE_SWITCH,
 }
 
-export const END_CASTE_SWITCH = 'END_CASTE_SWITCH';
-export interface EndCasteSwitch {
-    type: typeof END_CASTE_SWITCH,
+export const FINISH_CASTE_SWITCH = 'FINISH_CASTE_SWITCH';
+export interface FinishCasteSwitch {
+    type: typeof FINISH_CASTE_SWITCH,
 }
 
-export const SELECT_CASTE_SWITCH_TILE = 'SELECT_CASTE_SWITCH_TILE';
-export interface SelectCasteSwitchTile {
-    type: typeof SELECT_CASTE_SWITCH_TILE,
+export const SELECT_TILE_FROM_FOR_SWITCH = 'SELECT_TILE_FROM_FOR_SWITCH';
+export interface SelectTileFromForSwitch {
+    type: typeof SELECT_TILE_FROM_FOR_SWITCH,
     tile: number,
 }
 
-export const SELECT_CASTE_FOR_SWITCH = 'SELECT_CASTE_FOR_SWITCH';
-export interface SelectCasteForSwitch {
-    type: typeof SELECT_CASTE_FOR_SWITCH,
+export const DESELECT_TILE_FROM_FOR_SWITCH = 'DESELECT_TILE_FROM_FOR_SWITCH';
+export interface DeselectTileFromForSwitch {
+    type: typeof DESELECT_TILE_FROM_FOR_SWITCH,
+}
+
+export const SELECT_CASTE_FROM_FOR_SWITCH = 'SELECT_CASTE_FROM_FOR_SWITCH';
+export interface SelectCasteFromForSwitch {
+    type: typeof SELECT_CASTE_FROM_FOR_SWITCH,
     caste: Caste,
 }
 
-export const DESELECT_CASTE_SWITCH_TILE = 'DESELECT_CASTE_SWITCH_TILE';
-export interface DeselectCasteSwitchTile {
-    type: typeof DESELECT_CASTE_SWITCH_TILE,
+export const DESELECT_CASTE_FROM_FOR_SWITCH = 'DESELECT_CASTE_FROM_FOR_SWITCH';
+export interface DeselectCasteFromForSwitch {
+    type: typeof DESELECT_CASTE_FROM_FOR_SWITCH,
 }
 
-export const DESELECT_CASTE_FOR_SWITCH = 'DESELECT_CASTE_FOR_SWITCH';
-export interface DeselectCasteForSwitch {
-    type: typeof DESELECT_CASTE_FOR_SWITCH,
-}
-
-export const SELECT_CASTE_SWITCH_FROM = 'SELECT_CASTE_SWITCH_FROM';
-export interface SelectCasteSwitchFrom {
-    type: typeof SELECT_CASTE_SWITCH_FROM,
+export const SELECT_TILE_TO_FOR_SWITCH = 'SELECT_TILE_TO_FOR_SWITCH';
+export interface SelectTileToForSwitch {
+    type: typeof SELECT_TILE_TO_FOR_SWITCH,
     tile: number,
+}
+
+export const DESELECT_TILE_TO_FOR_SWITCH = 'DESELECT_TILE_TO_FOR_SWITCH';
+export interface DeselectTileToForSwitch {
+    type: typeof DESELECT_TILE_TO_FOR_SWITCH,
+}
+
+export const SELECT_CASTE_TO_FOR_SWITCH = 'SELECT_CASTE_TO_FOR_SWITCH';
+export interface SelectCasteToForSwitch {
+    type: typeof SELECT_CASTE_TO_FOR_SWITCH,
     caste: Caste,
 }
 
-export const SELECT_CASTE_SWITCH_TO = 'SELECT_CASTE_SWITCH_TO';
-export interface SelectCasteSwitchTo {
-    type: typeof SELECT_CASTE_SWITCH_TO,
-    tile: number,
-    caste: Caste,
-}
-
-export const DESELECT_CASTE_SWITCH_FROM = 'DESELECT_CASTE_SWITCH_FROM';
-export interface DeselectCasteSwitchFrom {
-    type: typeof DESELECT_CASTE_SWITCH_FROM,
-}
-
-export const DESELECT_CASTE_SWITCH_TO = 'DESELECT_CASTE_SWITCH_TO';
-export interface DeselectCasteSwitchTo {
-    type: typeof DESELECT_CASTE_SWITCH_TO,
+export const DESELECT_CASTE_TO_FOR_SWITCH = 'DESELECT_CASTE_TO_FOR_SWITCH';
+export interface DeselectCasteToForSwitch {
+    type: typeof DESELECT_CASTE_TO_FOR_SWITCH,
 }

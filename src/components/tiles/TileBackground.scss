@@ -13,77 +13,62 @@
             fill: $color-dark-water;
         }
     }
-    
+
     .is-playable & {
         cursor: pointer;
-    }
 
-    .is-playable &:hover {
-        fill: $color-dark-ground;
-    }
-
-    .is-selected > .is-switch & {
-        fill: $color-grey !important;
+        &:hover {
+            fill: $color-dark-ground;
+        }
     }
 
     .is-red & {
         fill: $color-red;
         stroke: $color-dark-red;
-
-        .is-playable &:hover {
-            fill: $color-dark-red;
-        }
-
-        .is-selected & {
-            fill: $color-dark-red;
-        }
     }
 
     .is-purple & {
         fill: $color-purple;
         stroke: $color-dark-purple;
-
-        .is-playable &:hover {
-            fill: $color-dark-purple;
-        }
-
-        .is-selected & {
-            fill: $color-dark-purple;
-        }
     }
 
     .is-orange & {
         fill: $color-orange;
         stroke: $color-dark-orange;
-
-        .is-playable &:hover {
-            fill: $color-dark-orange;
-        }
-
-        .is-selected & {
-            fill: $color-dark-orange;
-        }
     }
 
     .is-green & {
         fill: $color-green;
         stroke: $color-dark-green;
-
-        .is-playable &:hover {
-            fill: $color-dark-green;
-        }
-
-        .is-selected & {
-            fill: $color-dark-green;
-        }
     }
 
     .is-switch & {
         fill: $color-dark-grey;
         stroke: $color-black;
+    }
 
-        .is-playable &:hover {
-            fill: $color-grey;
-        }
+    .is-playable.is-red &:hover,
+    .is-selected.is-red & {
+        fill: $color-dark-red;
+    }
+
+    .is-playable.is-orange &:hover,
+    .is-selected.is-orange & {
+        fill: $color-dark-orange;
+    }
+
+    .is-playable.is-purple &:hover,
+    .is-selected.is-purple & {
+        fill: $color-dark-purple;
+    }
+
+    .is-playable.is-green &:hover,
+    .is-selected.is-green & {
+        fill: $color-dark-green;
+    }
+
+    .is-playable.is-switch &:hover,
+    .is-selected.is-switch & {
+        fill: $color-grey;
     }
 }

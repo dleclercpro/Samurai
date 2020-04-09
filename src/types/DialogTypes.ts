@@ -1,8 +1,7 @@
 export enum DialogType {
-    None = 'none',
     GameOver = 'game-over',
     TileChoice = 'tile-choice',
     CasteChoice = 'caste-choice',
-    CasteSwitchPrompt = 'caste-switch-prompt',
+    CasteSwitchStart = 'caste-switch-start',
     CasteSwitchConfirm = 'caste-switch-confirm',
 }

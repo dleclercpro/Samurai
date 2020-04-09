@@ -3,14 +3,16 @@ import { DialogAction } from '../actions';
 import { OPEN_DIALOG, CLOSE_DIALOG } from '../types/ActionTypes';
 import { DialogType } from '../types/DialogTypes';
 
+const initDialogState = {
+    isOpen: false,
+};
+
 const initState = {
-    isOpen: {
-        [DialogType.GameOver]: false,
-        [DialogType.TileChoice]: false,
-        [DialogType.CasteChoice]: false,
-        [DialogType.CasteSwitchPrompt]: false,
-        [DialogType.CasteSwitchConfirm]: false,
-    },
+    [DialogType.GameOver]: { ...initDialogState },
+    [DialogType.TileChoice]: { ...initDialogState },
+    [DialogType.CasteChoice]: { ...initDialogState },
+    [DialogType.CasteSwitchStart]: { ...initDialogState },
+    [DialogType.CasteSwitchConfirm]: { ...initDialogState },
 };
 
 const DialogReducer = (state: DialogState = initState, action: DialogAction) => {
@@ -18,17 +20,17 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
         case OPEN_DIALOG:
             return {
                 ...state,
-                isOpen: {
-                    ...state.isOpen,
-                    [action.dialogType]: true,
+                [action.dialogType]: {
+                    ...state[action.dialogType],
+                    isOpen: true,
                 },
             };
         case CLOSE_DIALOG:
             return {
                 ...state,
-                isOpen: {
-                    ...state.isOpen,
-                    [action.dialogType]: false,
+                [action.dialogType]: {
+                    ...state[action.dialogType],
+                    isOpen: false,
                 },
             };
         default:

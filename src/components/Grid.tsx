@@ -13,7 +13,7 @@ const Grid: React.FC<{}> = () => (
         </section>
         <section id='bottom'>
             <Dash />
-            <Hand inDialog={false} />
+            <Hand />
         </section>
     </div>
 );

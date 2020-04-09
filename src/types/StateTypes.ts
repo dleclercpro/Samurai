@@ -1,22 +1,31 @@
-import { BoardTileMap, Player, CasteSwitch, PlayerTileMap, TileMove, Caste } from './GameTypes';
-import { DialogType } from './DialogTypes';
+import { BoardTileMap, Player, PlayerTileMap, Caste, GameStep } from './GameTypes';
 
-export interface DataState {
-    tiles: BoardTileMap,
-    initHand: PlayerTileMap,
+interface PlayState {
+    boardTile: number,
+    playerTile: number,
+}
+
+interface MoveState {
+    tileFrom: number,
+    tileTo: number,
+}
+
+interface SwitchState {
+    from: SwitchPartialState,
+    to: SwitchPartialState,
+}
+
+interface SwitchPartialState {
+    tile: number,
+    caste: Caste,
 }
 
 export interface GameState {
-    isSwitching: boolean,
-    isMoving: boolean,
-    casteSwitch: CasteSwitch,
-    tileMove: TileMove,
-    selected: {
-        boardTile: number,
-        boardTileForSwitch: number,
-        playerTile: number,
-        playerTileForMove: number,
-        caste: Caste,
+    step: GameStep,
+    selection: {
+        play: PlayState,
+        move: MoveState,
+        switch: SwitchState,
     }
 }
 
@@ -27,9 +36,14 @@ export interface PlayerState {
 }
 
 export interface DialogState {
-    isOpen: {
-        [type: string]: boolean,
+    [type: string]: {
+        isOpen: boolean,
     },
+}
+
+export interface DataState {
+    tiles: BoardTileMap,
+    initHand: PlayerTileMap,
 }
 
 // Root state

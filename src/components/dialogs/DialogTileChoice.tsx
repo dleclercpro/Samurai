@@ -4,9 +4,10 @@ import Dialog from './Dialog';
 import Hand from '../Hand';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { deselectPlayerTile, deselectBoardTile } from '../../actions/GameActions';
+import { deselectBoardTile, endTurn } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
 import { AppState } from '../../types/StateTypes';
+import { TilePlayStep } from '../../types/GameTypes';
 
 interface StateProps {
     hand: number[],
@@ -14,23 +15,24 @@ interface StateProps {
 }
 
 interface DispatchProps {
+    endTurn: () => void,
     deselectBoardTile: () => void,
-    deselectPlayerTile: () => void,
 }
 
 type Props = StateProps & DispatchProps;
 
 class DialogTileChoice extends React.Component<Props, {}> {
 
-    handleCancel = () => {
-        const { deselectBoardTile, deselectPlayerTile } = this.props;
+    handleAction = () => {
+        const { endTurn } = this.props;
 
-        deselectBoardTile();
-        deselectPlayerTile();
+        alert('Tile choice will now be sent to server.');
+
+        endTurn();
     }
 
     render() {
-        const { hand, isActionButtonActive } = this.props;
+        const { hand, isActionButtonActive, deselectBoardTile } = this.props;
 
         return (
             <Dialog
@@ -38,11 +40,11 @@ class DialogTileChoice extends React.Component<Props, {}> {
                 headline='Tile Choice'
                 description='Choose which tile to place on the empty space you just clicked:'
                 actionButtonText='Choose'
-                onCancel={this.handleCancel}
-                onAction={() => {}}
+                onCancel={deselectBoardTile}
+                onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
             >
-                {hand && <Hand inDialog />}
+                {hand && <Hand inDialog={DialogType.TileChoice} />}
             </Dialog>
         );
     }
@@ -50,17 +52,19 @@ class DialogTileChoice extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { game, player } = state;
-    const { selected } = game;
+    const { step } = game;
+
+    const isActionButtonActive = step === TilePlayStep.Done;
 
     return {
         hand: player.hand,
-        isActionButtonActive: selected.playerTile !== -1 && selected.boardTile !== -1,
+        isActionButtonActive,
     }
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+    endTurn: () => dispatch(endTurn),
     deselectBoardTile: () => dispatch(deselectBoardTile),
-    deselectPlayerTile: () => dispatch(deselectPlayerTile),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileChoice);
