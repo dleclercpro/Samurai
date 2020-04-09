@@ -116,7 +116,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
             isPlayable = isCity && !isSelectedForSwitch;
             break;
         case TileMoveStep.ChooseBoardTile:
-            isPlayable = !isCity;
+            isPlayable = !isCity && !isWater;
             break;
     }
 

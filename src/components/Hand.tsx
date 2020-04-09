@@ -37,9 +37,9 @@ class Hand extends React.Component<Props, {}> {
                     return !isSwitch && (isWaterTileSelected === isShip);
                 case DialogType.TileMoveEnd:
                     return isSelectedForMove;
-            }
-
-            return false;
+                default:
+                    return false;
+        }
         });
     }
 
