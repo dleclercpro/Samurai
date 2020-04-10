@@ -42,7 +42,8 @@
         stroke: $color-dark-green;
     }
 
-    .is-switch & {
+    .is-switch &,
+    .is-move & {
         fill: $color-dark-grey;
         stroke: $color-black;
     }
@@ -68,7 +69,9 @@
     }
 
     .is-playable.is-switch &:hover,
-    .is-selected.is-switch & {
+    .is-selected.is-switch &,
+    .is-playable.is-move &:hover,
+    .is-selected.is-move & {
         fill: $color-grey;
     }
 }

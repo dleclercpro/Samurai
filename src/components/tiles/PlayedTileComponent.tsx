@@ -2,11 +2,11 @@ import React, { Dispatch } from 'react';
 import { PlayerColor, TileType, Coordinates2D, Caste, Figure, TileMoveStep, GameStep } from '../../types/GameTypes';
 import './PlayedTileComponent.scss';
 import { TILE_SIZE } from '../../config';
-import TileComponent from './TileComponent';
 import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { AppAction } from '../../actions';
 import { selectPlayerTileForMove } from '../../actions/GameActions';
+import PlayerTileComponent from './PlayerTileComponent';
 
 interface OwnProps {
     id: number,
@@ -55,7 +55,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <TileComponent
+                <PlayerTileComponent
                     color={color}
                     type={type}
                     strength={strength}

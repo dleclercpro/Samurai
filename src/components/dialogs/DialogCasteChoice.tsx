@@ -72,7 +72,7 @@ class DialogCasteChoice extends React.Component<Props, {}> {
                 <div className='icons'>
                     {castes && castes.map((caste: Caste, index: number) => (
                         <CasteComponent
-                            key={`caste-component-dialog-caste-choice-${index}`}
+                            key={`caste-component-${index}--dialog-caste-choice`}
                             caste={caste}
                         />
                     ))}

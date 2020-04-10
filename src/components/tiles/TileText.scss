@@ -7,4 +7,20 @@
     dominant-baseline: central;
     text-anchor: middle;
     pointer-events: none;
+
+    .is-move.is-red & {
+        fill: $color-red;
+    }
+
+    .is-move.is-purple & {
+        fill: $color-purple;
+    }
+
+    .is-move.is-orange & {
+        fill: $color-orange;
+    }
+
+    .is-move.is-green & {
+        fill: $color-green;
+    }
 }

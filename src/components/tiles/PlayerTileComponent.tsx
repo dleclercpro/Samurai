@@ -1,8 +1,8 @@
 import React from 'react';
 import { PlayerColor, TileType, Action } from '../../types/GameTypes';
-import './TileComponent.scss';
+import './PlayerTileComponent.scss';
 import { TILE_SIZE } from '../../config';
-import TileContent from './TileContent';
+import PlayerTileContent from './PlayerTileContent';
 
 interface OwnProps {
     color: PlayerColor,
@@ -15,7 +15,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-class TileComponent extends React.Component<Props, {}> {
+class PlayerTileComponent extends React.Component<Props, {}> {
 
     getColor = (color: PlayerColor): string => {
         switch (color) {
@@ -35,20 +35,22 @@ class TileComponent extends React.Component<Props, {}> {
     render() {
         const { color, type, strength, canReplay, isPlayable, isSelected } = this.props;
         const { width, height } = TILE_SIZE;
+        const isMove = type === Action.Move;
         const isSwitch = type === Action.Switch;
     
         return (
             <g
                 className={`
-                    tile-component
+                    player-tile-component
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
                     ${color ? this.getColor(color) : ''}
+                    ${isMove ? 'is-move' : ''}
                     ${isSwitch ? 'is-switch' : ''}
                 `}
                 viewBox={`0 0 ${width} ${height}`}
             >
-                <TileContent
+                <PlayerTileContent
                     type={type}
                     strength={strength}
                     canReplay={canReplay}
@@ -58,4 +60,4 @@ class TileComponent extends React.Component<Props, {}> {
     }
 }
 
-export default TileComponent;
+export default PlayerTileComponent;

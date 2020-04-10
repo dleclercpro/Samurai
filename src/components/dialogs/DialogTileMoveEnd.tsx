@@ -1,15 +1,18 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, ReactNode } from 'react';
 import './DialogTileMoveEnd.scss';
 import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
 import { endTurn } from '../../actions/GameActions';
-import Hand from '../Hand';
 import { AppState } from '../../types/StateTypes';
+import HandTileComponent from '../tiles/HandTileComponent';
+import { PlayerColor, PlayerTile } from '../../types/GameTypes';
+import { NoPlayerTile } from '../../constants';
 
 interface StateProps {
-    hand: number[],
+    color: PlayerColor,
+    movingTile: PlayerTile,
 }
 
 interface DispatchProps {
@@ -36,9 +39,29 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
         endTurn();
     }
 
+    getMovingTile = (): ReactNode => {
+        const { color, movingTile } = this.props;
+
+        if (movingTile === NoPlayerTile) {
+            return null;
+        }
+
+        const { id, type, strength, canReplay } = movingTile;
+
+        return (
+            <HandTileComponent
+                key={`hand-tile-component-${id}--dialog-tile-move-end`}
+                id={id}
+                color={color}
+                type={type}
+                strength={strength}
+                canReplay={canReplay}
+                isInDialog
+            />
+        );
+    }
+
     render() {
-        const { hand } = this.props;
-        
         return (
             <Dialog
                 type={DialogType.TileMoveEnd}
@@ -50,17 +73,21 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 isActionButtonActive
             >
-                {hand && <Hand inDialog={DialogType.TileMoveEnd} />}
+                {this.getMovingTile()}
             </Dialog>
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { player } = state;
+    const { game, player, data } = state;
+    const { selection } = game;
+    const { self } = player;
+    const { initHand } = data;
 
     return {
-        hand: player.hand,
+        color: self.color,
+        movingTile: initHand.get(selection.move.from) || NoPlayerTile,
     }
 };
 

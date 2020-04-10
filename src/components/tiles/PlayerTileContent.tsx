@@ -1,6 +1,6 @@
 import React from 'react';
 import { TileType, Action, Caste } from '../../types/GameTypes';
-import './TileContent.scss';
+import './PlayerTileContent.scss';
 import TileIcon from './TileIcon';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
 import { getPositionInHexagon } from '../../lib';
@@ -15,7 +15,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-class TileContent extends React.Component<Props, {}> {
+class PlayerTileContent extends React.Component<Props, {}> {
 
     getNormal = () => {
         const { strength, type } = this.props;
@@ -63,7 +63,7 @@ class TileContent extends React.Component<Props, {}> {
         const isSwitch = type === Action.Switch;
 
         return (
-            <g className='tile-content'>
+            <g className='player-tile-content'>
                 {isSwitch ? this.getSwitch() : this.getNormal()}
                 {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
             </g>
@@ -71,4 +71,4 @@ class TileContent extends React.Component<Props, {}> {
     }
 }
 
-export default TileContent;
+export default PlayerTileContent;

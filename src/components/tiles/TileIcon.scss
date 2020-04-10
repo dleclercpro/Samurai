@@ -3,19 +3,23 @@
 .tile-icon {
     pointer-events: none;
     
-    .is-switch.is-red & {
+    .is-switch.is-red &,
+    .is-move.is-red & {
         fill: $color-red;
     }
 
-    .is-switch.is-purple & {
+    .is-switch.is-purple &,
+    .is-move.is-purple & {
         fill: $color-purple;
     }
 
-    .is-switch.is-orange & {
+    .is-switch.is-orange &,
+    .is-move.is-orange & {
         fill: $color-orange;
     }
 
-    .is-switch.is-green & {
+    .is-switch.is-green &,
+    .is-move.is-green & {
         fill: $color-green;
     }
 }
