@@ -55,6 +55,7 @@ export interface Player {
     color: PlayerColor,
     score: PlayerScore,
     playedTiles: Map<number, number>,
+    hasWon: boolean,
 }
 
 export enum PlayerColor {

@@ -11,7 +11,8 @@
         "isPlaying": false,
         "playedTiles": {
             "167": 1
-        }
+        },
+        "hasWon": false
     },
     {
         "id": 2,
@@ -25,7 +26,8 @@
         "isPlaying": false,
         "playedTiles": {
             "169": 2
-        }
+        },
+        "hasWon": false
     },
     {
         "id": 3,
@@ -39,6 +41,7 @@
         "isPlaying": false,
         "playedTiles": {
             "171": 3
-        }
+        },
+        "hasWon": false
     }
 ]

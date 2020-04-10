@@ -10,5 +10,6 @@
     "isPlaying": true,
     "playedTiles": {
         "168": 0
-    }
+    },
+    "hasWon": false
 }

@@ -1,5 +1,5 @@
 import { AppState, PlayerState } from "../types/StateTypes";
-import { Player, Caste, PlayerTile } from "../types/GameTypes";
+import { Player, PlayerTile } from "../types/GameTypes";
 import { notUndefined } from "../types/FunctionTypes";
 
 export const getHand = (state: AppState): PlayerTile[] => {
@@ -32,31 +32,7 @@ export const getPlayedTiles = (state: AppState): PlayerTile[] => {
 export const getWinners = (state: PlayerState): Player[] => {
     const { self, opponents } = state;
     
-    const winners = opponents.reduce((winners: Player[], person: Player) => {
-        const { score } = person;
-    
-        const isWinner = (
-            (score.get(Caste.Military) || 0) > (winners[0].score.get(Caste.Military) || 0) &&
-            (score.get(Caste.Religion) || 0) > (winners[0].score.get(Caste.Religion) || 0) &&
-            (score.get(Caste.Commerce) || 0) > (winners[0].score.get(Caste.Commerce) || 0)
-        );
-    
-        if (isWinner) {
-            return [ person ];
-        }
-    
-        const isExAequo = (
-            (score.get(Caste.Military) || 0) === (winners[0].score.get(Caste.Military) || 0) &&
-            (score.get(Caste.Religion) || 0) === (winners[0].score.get(Caste.Religion) || 0) &&
-            (score.get(Caste.Commerce) || 0) === (winners[0].score.get(Caste.Commerce) || 0)
-        );
-    
-        if (isExAequo) {
-            return winners.concat(person);
-        }
-    
-        return winners;
-    }, [ self ]);
+    const winners = opponents.concat(self).filter((person: Player) => person.hasWon);
 
     // If everyone wins, everyone lost
     return winners.length === opponents.length + 1 ? [] : winners;

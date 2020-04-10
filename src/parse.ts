@@ -102,7 +102,7 @@ export const parseScore = (data: PlayerScoreJSON): PlayerScore => {
 }
 
 export const parsePlayer = (data: PlayerJSON): Player => {
-    const { id, color, username, score, isPlaying, playedTiles } = data;
+    const { id, color, username, score, isPlaying, playedTiles, hasWon } = data;
     
     return {
         id,
@@ -111,6 +111,7 @@ export const parsePlayer = (data: PlayerJSON): Player => {
         color: parseColor(color),
         score: parseScore(score),
         playedTiles: parsePlayedTiles(playedTiles),
+        hasWon,
     }
 }
 

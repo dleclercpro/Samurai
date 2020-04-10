@@ -29,6 +29,7 @@ export interface PlayerJSON {
     isPlaying: boolean,
     score: PlayerScoreJSON,
     playedTiles: PlayedTilesJSON,
+    hasWon: boolean,
 }
 
 export interface PlayerScoreJSON {

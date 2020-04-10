@@ -11,6 +11,7 @@ const initPlayerState = {
     score: new Map(),
     isPlaying: false,
     playedTiles: new Map(),
+    hasWon: false,
 };
 
 const initState = {
