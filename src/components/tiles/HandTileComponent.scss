@@ -7,11 +7,9 @@ $spacing: 12px;
     #dialog--tile-choice &,
     #dialog--tile-move-end & {
         margin-bottom: $spacing;
-        width: 75%;
+        height: 150px;
 
         @include mq(width, tablet) {
-            width: auto;
-            height: 100%;
             margin-bottom: 0;
         }
 
@@ -24,7 +22,7 @@ $spacing: 12px;
     }
 
     #bottom .hand & {
-        height: 100%;
+        height: 100px;
 
         &:not(:last-child) {
             margin-right: $spacing;

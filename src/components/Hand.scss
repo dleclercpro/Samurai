@@ -1,25 +1,21 @@
 @import 'config';
 
 .hand {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+    @extend %center;
 
     #dialog--tile-choice &,
     #dialog--tile-move-end & {
+        width: 100%;
         flex-wrap: wrap;
 
         @include mq(width, tablet) {
             flex-wrap: nowrap;
-            height: 150px;
         }
     }
     
     #bottom & {
-        width: auto;
-        margin-right: auto;
-        padding: 0 30px;
+        flex-shrink: 0;
+        margin-left: auto;
+        padding: 0 15px;
     }
 }

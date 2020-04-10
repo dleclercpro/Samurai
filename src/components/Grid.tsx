@@ -12,8 +12,8 @@ const Grid: React.FC<{}> = () => (
             <Board />
         </section>
         <section id='bottom'>
-            <Dash />
             <Hand />
+            <Dash />
         </section>
     </div>
 );

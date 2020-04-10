@@ -1,7 +1,5 @@
 import React, { Dispatch } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import './App.scss';
-import Home from '../pages/Home';
 import DialogTileChoice from './dialogs/DialogTileChoice';
 import { BoardJSON, PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
 import { AppAction } from '../actions';
@@ -61,14 +59,7 @@ class App extends React.Component<Props, {}> {
         return (
             <div id='app'>
                 <main id='main'>
-                    <Switch>
-                        <Route exact path='/'>
-                            <Grid />
-                        </Route>
-                        <Route exact path='/home/'>
-                            <Home />
-                        </Route>
-                    </Switch>
+                    <Grid />
                 </main>
                 <section id='dialogs'>
                     <DialogGameOver />
