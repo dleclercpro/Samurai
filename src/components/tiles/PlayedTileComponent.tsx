@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { AppAction } from '../../actions';
 import { selectPlayerTileForMove } from '../../actions/GameActions';
-import PlayerTileComponent from './PlayerTileComponent';
+import PlayerTileContent from './PlayerTileContent';
 
 interface OwnProps {
     id: number,
@@ -22,6 +22,7 @@ interface OwnProps {
 interface StateProps {
     step: GameStep,
     isPlayable: boolean,
+    isSelected: boolean,
     selectPlayerTileForMove: (id: number) => void,
 }
 
@@ -42,7 +43,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { position, rotation, color, type, strength, canReplay, isPlayable } = this.props;
+        const { position, rotation, color, type, strength, canReplay, isPlayable, isSelected } = this.props;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
         
@@ -55,12 +56,13 @@ class PlayedTileComponent extends React.Component<Props, {}> {
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <PlayerTileComponent
+                <PlayerTileContent
                     color={color}
                     type={type}
                     strength={strength}
                     canReplay={canReplay}
                     isPlayable={isPlayable}
+                    isSelected={isSelected}
                 />
             </g>
         );
@@ -69,16 +71,18 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { player } = state;
-    const { step } = state.game;
+    const { step, selection } = state.game;
     const { id, boardId, type } = ownProps;
 
     const isMine = player.self.playedTiles.get(boardId) === id;
     const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
     const isPlayable = isMine && isMovable && (step === TileMoveStep.ChoosePlayerTile);
+    const isSelected = id === selection.move.from;
 
     return {
         step,
         isPlayable,
+        isSelected,
     };
 }
 

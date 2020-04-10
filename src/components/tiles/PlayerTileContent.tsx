@@ -1,5 +1,5 @@
 import React from 'react';
-import { TileType, Action, Caste } from '../../types/GameTypes';
+import { TileType, Action, Caste, PlayerColor } from '../../types/GameTypes';
 import './PlayerTileContent.scss';
 import TileIcon from './TileIcon';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
@@ -9,14 +9,32 @@ import TileText from './TileText';
 
 interface OwnProps {
     type: TileType,
+    color: PlayerColor,
     strength: number,
     canReplay: boolean,
+    isPlayable?: boolean,
+    isSelected?: boolean,
 }
 
 type Props = OwnProps;
 
 class PlayerTileContent extends React.Component<Props, {}> {
 
+    getColor = (color: PlayerColor): string => {
+        switch (color) {
+            case PlayerColor.Red:
+                return 'is-red';
+            case PlayerColor.Purple:
+                return 'is-purple';
+            case PlayerColor.Orange:
+                return 'is-orange';
+            case PlayerColor.Green:
+                return 'is-green';
+            default:
+                return '';
+        }
+    }
+    
     getNormal = () => {
         const { strength, type } = this.props;
         const { width, height } = TILE_SIZE;
@@ -54,16 +72,27 @@ class PlayerTileContent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { type, canReplay } = this.props;
+        const { type, color, isPlayable, isSelected, canReplay } = this.props;
         const { width, height } = TILE_SIZE;
 
         const replayIconPosition = { x: width / 2, y: 5/6 * height};
         const replayIconSize = { width: width / 8, height: height / 8 };
     
+        const isMove = type === Action.Move;
         const isSwitch = type === Action.Switch;
 
         return (
-            <g className='player-tile-content'>
+            <g
+                className={`
+                    player-tile-content
+                    ${isPlayable ? 'is-playable' : ''}
+                    ${isSelected ? 'is-selected' : ''}
+                    ${color ? this.getColor(color) : ''}
+                    ${isMove ? 'is-move' : ''}
+                    ${isSwitch ? 'is-switch' : ''}
+                `}
+                viewBox={`0 0 ${width} ${height}`}
+            >
                 {isSwitch ? this.getSwitch() : this.getNormal()}
                 {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
             </g>

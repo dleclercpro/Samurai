@@ -23,6 +23,7 @@ class DialogCasteSwitchStart extends React.Component<Props, {}> {
                 headline='Caste Switch'
                 description='Do you want to switch two caste figures from two different cities?'
                 actionButtonText='Start Switch'
+                onClose={() => {}}
                 onAction={startCasteSwitch}
                 isActionButtonActive
             />

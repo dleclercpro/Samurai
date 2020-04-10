@@ -6,9 +6,9 @@ import './HandTileComponent.scss';
 import { AppAction } from '../../actions';
 import { selectPlayerTile, deselectPlayerTile } from '../../actions/GameActions';
 import { TILE_SIZE } from '../../config';
-import PlayerTileComponent from './PlayerTileComponent';
 import { openDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
+import PlayerTileContent from './PlayerTileContent';
 
 interface OwnProps {
     id: number,
@@ -72,7 +72,7 @@ class HandTileComponent extends React.Component<Props, {}> {
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <PlayerTileComponent
+                <PlayerTileContent
                     color={color}
                     type={type}
                     strength={strength}
