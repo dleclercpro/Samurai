@@ -1,5 +1,5 @@
 import React from 'react';
-import { TileType, Action, Caste, PlayerColor } from '../../types/GameTypes';
+import { TileType, Action, Caste, PlayerColor, Figure } from '../../types/GameTypes';
 import './PlayerTileContent.scss';
 import TileIcon from './TileIcon';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
@@ -80,6 +80,7 @@ class PlayerTileContent extends React.Component<Props, {}> {
     
         const isMove = type === Action.Move;
         const isSwitch = type === Action.Switch;
+        const isShip = type === Figure.Ship;
 
         return (
             <g
@@ -90,6 +91,7 @@ class PlayerTileContent extends React.Component<Props, {}> {
                     ${color ? this.getColor(color) : ''}
                     ${isMove ? 'is-move' : ''}
                     ${isSwitch ? 'is-switch' : ''}
+                    ${isShip ? 'is-ship' : ''}
                 `}
                 viewBox={`0 0 ${width} ${height}`}
             >

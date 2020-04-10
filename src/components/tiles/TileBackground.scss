@@ -48,6 +48,11 @@
         stroke: $color-black;
     }
 
+    .is-ship & {
+        fill: $color-blue;
+        stroke: $color-dark-blue;
+    }
+
     .is-playable.is-red &:hover,
     .is-selected.is-red & {
         fill: $color-dark-red;
@@ -73,5 +78,10 @@
     .is-playable.is-move &:hover,
     .is-selected.is-move & {
         fill: $color-grey;
+    }
+
+    .is-playable.is-ship &:hover,
+    .is-selected.is-ship & {
+        fill: $color-dark-blue;
     }
 }

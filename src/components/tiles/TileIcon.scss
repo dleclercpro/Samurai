@@ -22,4 +22,20 @@
     .is-move.is-green & {
         fill: $color-green;
     }
+
+    .is-ship.is-red & {
+        fill: $color-red;
+    }
+
+    .is-ship.is-purple & {
+        fill: $color-purple;
+    }
+
+    .is-ship.is-orange & {
+        fill: $color-orange;
+    }
+
+    .is-ship.is-green & {
+        fill: $color-green;
+    }
 }

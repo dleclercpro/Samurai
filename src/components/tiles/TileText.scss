@@ -8,19 +8,23 @@
     text-anchor: middle;
     pointer-events: none;
 
-    .is-move.is-red & {
+    .is-move.is-red &,
+    .is-ship.is-red & {
         fill: $color-red;
     }
 
-    .is-move.is-purple & {
+    .is-move.is-purple &,
+    .is-ship.is-purple & {
         fill: $color-purple;
     }
 
-    .is-move.is-orange & {
+    .is-move.is-orange &,
+    .is-ship.is-orange & {
         fill: $color-orange;
     }
 
-    .is-move.is-green & {
+    .is-move.is-green &,
+    .is-ship.is-green & {
         fill: $color-green;
     }
 }
