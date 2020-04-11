@@ -17,6 +17,12 @@ $height-bottom: 150px;
         height: $height-top;
     }
 
+    > #center {
+        @extend %center;
+        width: 100%;
+        height: calc(100% - #{$height-top} - #{$height-bottom});
+    }
+
     > #bottom {
         display: flex;
         align-items: center;
@@ -25,11 +31,5 @@ $height-bottom: 150px;
         padding: 20px 0;
         overflow: auto;
         border-top: 1px solid $color-light-grey;
-    }
-
-    > #center {
-        @extend %center;
-        width: 100%;
-        height: calc(100% - #{$height-top} - #{$height-bottom});
     }
 }
