@@ -11,20 +11,36 @@
     .is-move.is-red &,
     .is-ship.is-red & {
         fill: $color-red;
+
+        .is-colorblind & {
+            fill: $color-blind-red;
+        }
     }
 
     .is-move.is-purple &,
     .is-ship.is-purple & {
         fill: $color-purple;
+
+        .is-colorblind & {
+            fill: $color-blind-purple;
+        }
     }
 
     .is-move.is-orange &,
     .is-ship.is-orange & {
         fill: $color-orange;
+
+        .is-colorblind & {
+            fill: $color-blind-orange;
+        }
     }
 
     .is-move.is-green &,
     .is-ship.is-green & {
         fill: $color-green;
+
+        .is-colorblind & {
+            fill: $color-blind-green;
+        }
     }
 }

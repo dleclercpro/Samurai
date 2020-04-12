@@ -18,6 +18,7 @@ import DialogCasteChoice from './dialogs/DialogCasteChoice';
 import DialogCasteSwitchEnd from './dialogs/DialogCasteSwitchEnd';
 import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
 import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
+import { Switch, Route } from 'react-router-dom';
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
@@ -59,7 +60,14 @@ class App extends React.Component<Props, {}> {
         return (
             <div id='app'>
                 <main id='main'>
-                    <Grid />
+                    <Switch>
+                        <Route exact path='/'>
+                            <Grid />
+                        </Route>
+                        <Route exact path='/colorblind/'>
+                            <Grid isColorblind />
+                        </Route>
+                    </Switch>
                 </main>
                 <section id='dialogs'>
                     <DialogGameOver />
