@@ -1,7 +1,7 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_PLAYER_TILE_FOR_MOVE, SELECT_BOARD_TILE_FOR_MOVE, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH } from '../types/ActionTypes';
-import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep } from '../types/GameTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_PLAYER_TILE_FOR_MOVE, SELECT_BOARD_TILE_FOR_MOVE, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH, SWITCH_COLORS } from '../types/ActionTypes';
+import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
 
 const initPlayState = {
     boardTile: -1,
@@ -32,6 +32,7 @@ const initSelectionState = {
 const initState = {
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
+    colors: ColorMode.Normal,
 };
 
 const getNextStep = (step: GameStep, action: string): GameStep => {
@@ -152,6 +153,12 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
         case END_TURN:
             return {
                 ...initState,
+            };
+
+        case SWITCH_COLORS:
+            return {
+                ...state,
+                colors: state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal,
             };
 
         case SELECT_BOARD_TILE:

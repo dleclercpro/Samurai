@@ -8,7 +8,7 @@ import { AppState } from '../../types/StateTypes';
 import { openDialog } from '../../actions/DialogActions';
 import { Caste, CasteSwitchStep } from '../../types/GameTypes';
 import { deselectTileFromForSwitch, deselectTileToForSwitch, finishCasteSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } from '../../actions/GameActions';
-import CasteComponent from '../tiles/CasteComponent';
+import CasteComponent from '../CasteComponent';
 
 interface StateProps {
     isChoosingFrom: boolean,

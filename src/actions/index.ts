@@ -1,4 +1,4 @@
-import { LoadBoard, LoadInitHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectPlayerTileForMove, SelectBoardTileForMove, DeselectCasteFromForSwitch, FinishCasteSwitch } from '../types/ActionTypes';
+import { LoadBoard, LoadInitHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectPlayerTileForMove, SelectBoardTileForMove, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors } from '../types/ActionTypes';
 
 export type DataAction =
     LoadBoard |
@@ -6,6 +6,8 @@ export type DataAction =
 
 export type GameAction =
     EndTurn |
+    SwitchColors |
+
     StartTileMove |
     StartCasteSwitch |
     FinishCasteSwitch |

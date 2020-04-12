@@ -66,6 +66,11 @@ export enum PlayerColor {
     Unknown = 'Unknown',
 }
 
+export enum ColorMode {
+    Normal = 'Normal',
+    Blind = 'Blind',
+}
+
 export type PlayerScore = Map<Caste, number>;
 
 export interface CasteSwitch {

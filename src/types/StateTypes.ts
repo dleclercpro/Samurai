@@ -1,4 +1,4 @@
-import { BoardTileMap, Player, PlayerTileMap, Caste, GameStep } from './GameTypes';
+import { BoardTileMap, Player, PlayerTileMap, Caste, GameStep, ColorMode } from './GameTypes';
 
 interface PlayState {
     boardTile: number,
@@ -26,7 +26,8 @@ export interface GameState {
         play: PlayState,
         move: MoveState,
         switch: SwitchState,
-    }
+    },
+    colors: ColorMode,
 }
 
 export interface PlayerState {

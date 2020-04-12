@@ -1,9 +1,12 @@
-import { SelectBoardTile, SELECT_BOARD_TILE, SelectPlayerTile, SELECT_PLAYER_TILE, DeselectBoardTile, DESELECT_BOARD_TILE, DeselectPlayerTile, DESELECT_PLAYER_TILE, StartCasteSwitch, START_CASTE_SWITCH, SelectTileFromForSwitch, SELECT_TILE_FROM_FOR_SWITCH, SelectCasteFromForSwitch, SELECT_CASTE_FROM_FOR_SWITCH, SelectTileToForSwitch, SELECT_TILE_TO_FOR_SWITCH, SelectCasteToForSwitch, SELECT_CASTE_TO_FOR_SWITCH, DeselectTileFromForSwitch, DESELECT_TILE_FROM_FOR_SWITCH, DeselectTileToForSwitch, DESELECT_TILE_TO_FOR_SWITCH, DeselectCasteToForSwitch, DESELECT_CASTE_TO_FOR_SWITCH, SelectBoardTileForMove, SELECT_BOARD_TILE_FOR_MOVE, SelectPlayerTileForMove, SELECT_PLAYER_TILE_FOR_MOVE, DeselectCasteFromForSwitch, DESELECT_CASTE_FROM_FOR_SWITCH, END_TURN, EndTurn, FINISH_CASTE_SWITCH, FinishCasteSwitch, StartTileMove, START_TILE_MOVE } from '../types/ActionTypes';
+import { SelectBoardTile, SELECT_BOARD_TILE, SelectPlayerTile, SELECT_PLAYER_TILE, DeselectBoardTile, DESELECT_BOARD_TILE, DeselectPlayerTile, DESELECT_PLAYER_TILE, StartCasteSwitch, START_CASTE_SWITCH, SelectTileFromForSwitch, SELECT_TILE_FROM_FOR_SWITCH, SelectCasteFromForSwitch, SELECT_CASTE_FROM_FOR_SWITCH, SelectTileToForSwitch, SELECT_TILE_TO_FOR_SWITCH, SelectCasteToForSwitch, SELECT_CASTE_TO_FOR_SWITCH, DeselectTileFromForSwitch, DESELECT_TILE_FROM_FOR_SWITCH, DeselectTileToForSwitch, DESELECT_TILE_TO_FOR_SWITCH, DeselectCasteToForSwitch, DESELECT_CASTE_TO_FOR_SWITCH, SelectBoardTileForMove, SELECT_BOARD_TILE_FOR_MOVE, SelectPlayerTileForMove, SELECT_PLAYER_TILE_FOR_MOVE, DeselectCasteFromForSwitch, DESELECT_CASTE_FROM_FOR_SWITCH, END_TURN, EndTurn, FINISH_CASTE_SWITCH, FinishCasteSwitch, StartTileMove, START_TILE_MOVE, SwitchColors, SWITCH_COLORS } from '../types/ActionTypes';
 import { Caste } from '../types/GameTypes';
 
-// End of turn
 export const endTurn: EndTurn = {
     type: END_TURN,
+};
+
+export const switchColors: SwitchColors = {
+    type: SWITCH_COLORS,
 };
 
 

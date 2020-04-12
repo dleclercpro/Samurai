@@ -59,6 +59,11 @@ export interface EndTurn {
     type: typeof END_TURN,
 };
 
+export const SWITCH_COLORS = 'SWITCH_COLORS';
+export interface SwitchColors {
+    type: typeof SWITCH_COLORS,
+};
+
 
 
 // Tile actions

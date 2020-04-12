@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './Button.scss';
 
-interface Props {
-    children: string,
+interface OwnProps {
+    id?: string,
+    children: string | ReactNode,
     isActive: boolean,
     action: () => void,
 }
 
+type Props = OwnProps;
+
 class Button extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent): void => {
-        const { isActive } = this.props;
+        const { isActive, action } = this.props;
         
         e.stopPropagation();
 
         if (isActive) {
-            this.props.action();
+            action();
         }
     }
 
     render() {
-        const { children, isActive } = this.props;
+        const { id, children, isActive } = this.props;
 
         return (
             <button
+                id={id}
                 className={`
                     button
                     ${!isActive ? 'is-inactive' : ''}

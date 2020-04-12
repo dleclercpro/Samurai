@@ -18,7 +18,12 @@ import DialogCasteChoice from './dialogs/DialogCasteChoice';
 import DialogCasteSwitchEnd from './dialogs/DialogCasteSwitchEnd';
 import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
 import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
-import { Switch, Route } from 'react-router-dom';
+import { AppState } from '../types/StateTypes';
+import { ColorMode } from '../types/GameTypes';
+
+interface StateProps {
+    isColorblind: boolean,
+}
 
 interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
@@ -28,7 +33,7 @@ interface DispatchProps {
     loadOpponents: (data: PlayerJSON[]) => void,
 }
 
-type Props = DispatchProps;
+type Props = StateProps & DispatchProps;
 
 class App extends React.Component<Props, {}> {
     
@@ -57,17 +62,12 @@ class App extends React.Component<Props, {}> {
     }
 
     render() {
+        const { isColorblind } = this.props;
+
         return (
-            <div id='app'>
+            <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>
                 <main id='main'>
-                    <Switch>
-                        <Route exact path='/'>
-                            <Grid />
-                        </Route>
-                        <Route exact path='/colorblind/'>
-                            <Grid isColorblind />
-                        </Route>
-                    </Switch>
+                    <Grid />
                 </main>
                 <section id='dialogs'>
                     <DialogGameOver />
@@ -83,6 +83,10 @@ class App extends React.Component<Props, {}> {
     }
 }
 
+const mapStateToProps = (state: AppState) => ({
+    isColorblind: state.game.colors === ColorMode.Blind,
+});
+
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
     loadHand: (data: number[]) => dispatch(loadHand(data)),
@@ -91,4 +95,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,13 +1,13 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { AppState } from '../../types/StateTypes';
-import { GameStep, Caste, CasteSwitchStep } from '../../types/GameTypes';
+import { AppState } from '../types/StateTypes';
+import { GameStep, Caste, CasteSwitchStep } from '../types/GameTypes';
 import './CasteComponent.scss';
-import { AppAction } from '../../actions';
-import { selectCasteFromForSwitch, selectCasteToForSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } from '../../actions/GameActions';
-import { ReactComponent as HouseIcon } from '../../icons/house.svg';
-import { ReactComponent as MonkIcon } from '../../icons/monk.svg';
-import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
+import { AppAction } from '../actions';
+import { selectCasteFromForSwitch, selectCasteToForSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } from '../actions/GameActions';
+import { ReactComponent as HouseIcon } from '../icons/house.svg';
+import { ReactComponent as MonkIcon } from '../icons/monk.svg';
+import { ReactComponent as RiceIcon } from '../icons/rice.svg';
 
 interface OwnProps {
     caste: Caste,
