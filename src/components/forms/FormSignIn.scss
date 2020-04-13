@@ -1,0 +1,19 @@
+@import 'config';
+
+#form-sign-in {
+
+    > .fields {
+        width: 100%;
+
+        @include mq(width, desktop) {
+            width: 500px;
+        }
+
+        > .form-text-field {
+
+            @include mq(width, tablet) {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}
