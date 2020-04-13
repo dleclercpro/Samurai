@@ -96,6 +96,7 @@ class FormSignIn extends React.Component<Props, State> {
                 canSubmit={canSubmit}
             >
                     <FormTextField
+                        type='email'
                         name='email'
                         label='E-mail'
                         onChange={this.handleChange}
