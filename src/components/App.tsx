@@ -20,7 +20,7 @@ import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
 import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
 import { AppState } from '../types/StateTypes';
 import { ColorMode } from '../types/GameTypes';
-import DialogLogin from './dialogs/DialogLogin';
+import DialogSignIn from './dialogs/DialogSignIn';
 import DialogSignUp from './dialogs/DialogSignUp';
 import { openDialog } from '../actions/DialogActions';
 import { DialogType } from '../types/DialogTypes';
@@ -38,7 +38,7 @@ interface DispatchProps {
     loadPlayer: (data: PlayerJSON) => void,
     loadOpponents: (data: PlayerJSON[]) => void,
     openSignUpDialog: () => void,
-    openLoginDialog: () => void,
+    openSignInDialog: () => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -46,7 +46,7 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents, openSignUpDialog } = this.props;
+        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents, openSignInDialog } = this.props;
 
         loadBoard(BOARD);
         loadInitHand(HAND);
@@ -54,7 +54,7 @@ class App extends React.Component<Props, {}> {
         loadPlayer(PLAYER);
         loadOpponents(OPPONENTS);
 
-        openSignUpDialog();
+        openSignInDialog();
     }
 
     getHand = () => {
@@ -82,7 +82,7 @@ class App extends React.Component<Props, {}> {
                 <section id='dialogs'>
                     <DialogSuccess />
                     <DialogError />
-                    <DialogLogin />
+                    <DialogSignIn />
                     <DialogSignUp />
                     <DialogGameOver />
                     <DialogTileChoice />
@@ -108,7 +108,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadPlayer: (data: PlayerJSON) => dispatch(loadPlayer(data)),
     loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
     openSignUpDialog: () => dispatch(openDialog(DialogType.SignUp)),
-    openLoginDialog: () => dispatch(openDialog(DialogType.Login)),
+    openSignInDialog: () => dispatch(openDialog(DialogType.SignIn)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

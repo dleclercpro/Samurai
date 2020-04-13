@@ -84,6 +84,17 @@ class FormSignUp extends React.Component<Props, State> {
         }
     }
 
+    getPayload = (): object => {
+        const { fields } = this.state;
+
+        return Object.keys(fields).reduce((content: object, name: string) => {
+            return {
+                ...content,
+                [name]: fields[name].value,
+            };
+        }, {});
+    }
+
     handleChange = (e: React.ChangeEvent<HTMLInputElement>, validator?: (field: string) => boolean) => {
         const { name, value }  = e.target;
         const isInvalid = value !== '' && validator !== undefined && !validator(value);
@@ -108,18 +119,10 @@ class FormSignUp extends React.Component<Props, State> {
 
     handleSubmit = (e: React.FormEvent) => {
         const { openSuccessDialog, openErrorDialog, closeSignUpDialog } = this.props;
-        const { fields } = this.state;
-
-        const payload = Object.keys(fields).reduce((content: object, name: string) => {
-            return {
-                ...content,
-                [name]: fields[name].value,
-            };
-        }, {});
 
         e.preventDefault();
 
-        new SignUpCall(payload).execute()
+        new SignUpCall(this.getPayload()).execute()
             .then((response: any) => {
                 closeSignUpDialog();
                 openSuccessDialog('You have successfully signed up.');
