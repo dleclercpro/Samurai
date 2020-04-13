@@ -3,9 +3,10 @@ import './Button.scss';
 
 interface OwnProps {
     id?: string,
+    type?: string,
+    action?: () => void,
     children: string | ReactNode,
     isActive: boolean,
-    action: () => void,
 }
 
 type Props = OwnProps;
@@ -17,21 +18,24 @@ class Button extends React.Component<Props, {}> {
         
         e.stopPropagation();
 
-        if (isActive) {
+        if (!isActive) {
+            e.preventDefault();
+        }
+
+        if (isActive && action) {
             action();
         }
     }
 
     render() {
-        const { id, children, isActive } = this.props;
+        const { id, type, children, isActive } = this.props;
+        const isSubmit = type === 'submit';
 
         return (
             <button
                 id={id}
-                className={`
-                    button
-                    ${!isActive ? 'is-inactive' : ''}
-                `}
+                type={isSubmit ? 'submit' : 'button'}
+                className={`button ${!isActive ? 'is-inactive' : ''}`}
                 onClick={this.handleClick}
             >
                 {children}

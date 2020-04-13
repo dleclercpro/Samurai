@@ -129,15 +129,14 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
             }
             break;
         case TileMoveStep.Done:
-            break;
+            return step;
     }
 
-    // Default game state
     return TilePlayStep.ChooseBoardTile;
 }
 
 const GameReducer = (state: GameState = initState, action: GameAction) => {
-    const newState = {
+    const nextState = {
         ...state,
         step: getNextStep(state.step, action.type),
     };
@@ -147,7 +146,7 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
         case START_CASTE_SWITCH:
         case FINISH_CASTE_SWITCH:
             return {
-                ...newState,
+                ...nextState,
             }
 
         case END_TURN:
@@ -163,44 +162,44 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
 
         case SELECT_BOARD_TILE:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     play: {
-                        ...newState.selection.play,
+                        ...nextState.selection.play,
                         boardTile: action.id,
                     },
                 },
             };
         case DESELECT_BOARD_TILE:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     play: {
-                        ...newState.selection.play,
+                        ...nextState.selection.play,
                         boardTile: -1,
                     },
                 },
             };
         case SELECT_PLAYER_TILE:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     play: {
-                        ...newState.selection.play,
+                        ...nextState.selection.play,
                         playerTile: action.id,
                     },
                 },
             };
         case DESELECT_PLAYER_TILE:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     play: {
-                        ...newState.selection.play,
+                        ...nextState.selection.play,
                         playerTile: -1,
                     },
                 },
@@ -209,22 +208,22 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
         // Move steps
         case SELECT_PLAYER_TILE_FOR_MOVE:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     move: {
-                        ...newState.selection.move,
+                        ...nextState.selection.move,
                         from: action.tile,
                     },
                 },
             };
         case SELECT_BOARD_TILE_FOR_MOVE:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     move: {
-                        ...newState.selection.move,
+                        ...nextState.selection.move,
                         to: action.tile,
                     },
                 },
@@ -233,13 +232,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
         // Switch steps
         case SELECT_TILE_FROM_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         from: {
-                            ...newState.selection.switch.from,
+                            ...nextState.selection.switch.from,
                             tile: action.tile,
                         },
                     },
@@ -247,13 +246,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case DESELECT_TILE_FROM_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         from: {
-                            ...newState.selection.switch.from,
+                            ...nextState.selection.switch.from,
                             tile: -1,
                         },
                     },
@@ -261,13 +260,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case SELECT_CASTE_FROM_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         from: {
-                            ...newState.selection.switch.from,
+                            ...nextState.selection.switch.from,
                             caste: action.caste,
                         },
                     },
@@ -275,13 +274,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case DESELECT_CASTE_FROM_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         from: {
-                            ...newState.selection.switch.from,
+                            ...nextState.selection.switch.from,
                             caste: Caste.Unknown,
                         },
                     },
@@ -289,13 +288,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case SELECT_TILE_TO_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         to: {
-                            ...newState.selection.switch.to,
+                            ...nextState.selection.switch.to,
                             tile: action.tile,
                         },
                     },
@@ -303,13 +302,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case DESELECT_TILE_TO_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         to: {
-                            ...newState.selection.switch.to,
+                            ...nextState.selection.switch.to,
                             tile: -1,
                         },
                     },
@@ -317,13 +316,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case SELECT_CASTE_TO_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         to: {
-                            ...newState.selection.switch.to,
+                            ...nextState.selection.switch.to,
                             caste: action.caste,
                         },
                     },
@@ -331,13 +330,13 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
         case DESELECT_CASTE_TO_FOR_SWITCH:
             return {
-                ...newState,
+                ...nextState,
                 selection: {
-                    ...newState.selection,
+                    ...nextState.selection,
                     switch: {
-                        ...newState.selection.switch,
+                        ...nextState.selection.switch,
                         to: {
-                            ...newState.selection.switch.to,
+                            ...nextState.selection.switch.to,
                             caste: Caste.Unknown,
                         },
                     },

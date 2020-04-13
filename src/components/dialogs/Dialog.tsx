@@ -7,18 +7,20 @@ import Button from '../Button';
 import { ReactComponent as CloseIcon } from '../../icons/close.svg';
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
+import Overlay from '../Overlay';
 
 interface OwnProps {
     children?: ReactNode,
     type: DialogType,
     headline: string,
-    description: string,
+    description?: string,
     cancelButtonText?: string,
     actionButtonText?: string,
     onClose?: () => void,
     onCancel?: () => void,
     onAction?: () => void,
-    isActionButtonActive: boolean,
+    hideButtons?: boolean,
+    isActionButtonActive?: boolean,
 }
 
 interface StateProps {
@@ -68,8 +70,10 @@ class Dialog extends React.Component<Props, {}> {
     }
 
     render() {
-        const { children, description, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onAction } = this.props;
+        const { children, description, type, headline, hideButtons, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onAction } = this.props;
         const hasChildren = React.Children.count(children) > 0;
+        const hasDescription = description !== undefined && description !== '';
+        const hasButtons = hideButtons === undefined || !hideButtons;
         const hasActionButton = onAction !== undefined;
 
         if (!isOpen) {
@@ -77,13 +81,18 @@ class Dialog extends React.Component<Props, {}> {
         }
 
         return (
-            <div id='dialog-overlay' onClick={this.handleClose}>
+            <Overlay
+                id='dialog'
+                onClick={this.handleClose}
+            >
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <h2 className='headline'>{headline}</h2>
 
-                    <section className='text'>
-                        <p className='description'>{description}</p>
-                    </section>
+                    {hasDescription &&                
+                        <section className='text'>
+                            <p className='description'>{description}</p>
+                        </section>
+                    }
 
                     {hasChildren &&
                         <div className='content'>
@@ -91,20 +100,28 @@ class Dialog extends React.Component<Props, {}> {
                         </div>
                     }
 
-                    <div className='buttons'>
-                        <Button isActive action={this.handleCancel}>
-                            {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
-                        </Button>
+                    {hasButtons &&
+                        <div className='buttons'>
+                            <Button
+                                isActive
+                                action={this.handleCancel}
+                            >
+                                {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
+                            </Button>
                         
-                        {hasActionButton &&
-                        <Button isActive={isActionButtonActive} action={this.handleAction}>
-                            {actionButtonText !== undefined ? actionButtonText : 'OK'}
-                        </Button>}
-                    </div>
+                            {hasActionButton &&
+                            <Button
+                                isActive={isActionButtonActive !== undefined && isActionButtonActive}
+                                action={this.handleAction}
+                            >
+                                {actionButtonText !== undefined ? actionButtonText : 'OK'}
+                            </Button>}
+                        </div>
+                    }
 
                     <CloseIcon className='icon-close' onClick={this.handleClose} />
                 </div>
-            </div>
+            </Overlay>
         );
     }
 }

@@ -8,6 +8,8 @@ const initDialogState = {
 };
 
 const initState = {
+    [DialogType.Login]: { ...initDialogState },
+    [DialogType.SignUp]: { ...initDialogState },
     [DialogType.GameOver]: { ...initDialogState },
     [DialogType.TileChoice]: { ...initDialogState },
     [DialogType.CasteChoice]: { ...initDialogState },

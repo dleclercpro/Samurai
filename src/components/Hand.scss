@@ -6,9 +6,11 @@
     #dialog--tile-choice &,
     #dialog--tile-move-end & {
         width: 100%;
+        flex-direction: column;
         flex-wrap: wrap;
 
         @include mq(width, tablet) {
+            flex-direction: row;
             flex-wrap: nowrap;
         }
     }

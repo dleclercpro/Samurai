@@ -20,6 +20,8 @@ import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
 import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
 import { AppState } from '../types/StateTypes';
 import { ColorMode } from '../types/GameTypes';
+import DialogLogin from './dialogs/DialogLogin';
+import DialogSignUp from './dialogs/DialogSignUp';
 
 interface StateProps {
     isColorblind: boolean,
@@ -70,6 +72,8 @@ class App extends React.Component<Props, {}> {
                     <Grid />
                 </main>
                 <section id='dialogs'>
+                    <DialogLogin />
+                    <DialogSignUp />
                     <DialogGameOver />
                     <DialogTileChoice />
                     <DialogCasteChoice />

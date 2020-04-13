@@ -38,7 +38,6 @@ class DialogGameOver extends React.Component<Props, {}> {
                 description={description}
                 cancelButtonText='OK'
                 onClose={() => {}}
-                isActionButtonActive={false}
             >
                 {winners.map((winner: Player) => (
                     <React.Fragment>
