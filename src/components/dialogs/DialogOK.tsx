@@ -7,6 +7,7 @@ interface OwnProps {
     type: DialogType,
     headline: string,
     message: string,
+    explanation?: string,
 }
 
 type Props = OwnProps;
@@ -14,13 +15,14 @@ type Props = OwnProps;
 class DialogOK extends React.Component<Props, {}> {
 
     render() {
-        const { type, headline, message } = this.props;
+        const { type, headline, message, explanation } = this.props;
 
         return (
             <Dialog
                 type={type}
                 headline={headline}
                 message={message}
+                explanation={explanation}
                 cancelButtonText='OK'
                 onCancel={() => {}}
             />

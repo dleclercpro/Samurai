@@ -41,6 +41,7 @@ export interface DialogState {
         isOpen: boolean,
         headline?: string,
         message?: string,
+        explanation?: string,
     },
 }
 

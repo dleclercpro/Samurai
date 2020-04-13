@@ -46,7 +46,7 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents, openSignInDialog } = this.props;
+        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents, openSignUpDialog } = this.props;
 
         loadBoard(BOARD);
         loadInitHand(HAND);
@@ -54,7 +54,7 @@ class App extends React.Component<Props, {}> {
         loadPlayer(PLAYER);
         loadOpponents(OPPONENTS);
 
-        openSignInDialog();
+        openSignUpDialog();
     }
 
     getHand = () => {

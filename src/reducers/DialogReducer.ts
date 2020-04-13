@@ -60,6 +60,7 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
                 [DialogType.Error]: {
                     ...state[DialogType.Error],
                     message: action.message,
+                    explanation: action.explanation,
                 },
             };
         default:

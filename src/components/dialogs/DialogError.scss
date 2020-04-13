@@ -1,3 +1,13 @@
+@import 'config';
+
 #dialog--error {
 
+    > .text {
+
+        > .explanation {
+            color: $color-dark-red;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
 }

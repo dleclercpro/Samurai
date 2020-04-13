@@ -14,6 +14,7 @@ interface OwnProps {
     type: DialogType,
     headline: string,
     message?: string,
+    explanation?: string,
     cancelButtonText?: string,
     actionButtonText?: string,
     onClose?: () => void,
@@ -72,9 +73,10 @@ class Dialog extends React.Component<Props, {}> {
     }
 
     render() {
-        const { children, message, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel, onAction } = this.props;
+        const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel, onAction } = this.props;
         const hasChildren = React.Children.count(children) > 0;
-        const hasDescription = message !== undefined && message !== '';
+        const hasMessage = message !== undefined && message !== '';
+        const hasExplanation = explanation !== undefined && explanation !== '';
         const hasButtons = onCancel !== undefined || onAction !== undefined;
         const hasActionButton = onAction !== undefined;
 
@@ -90,9 +92,13 @@ class Dialog extends React.Component<Props, {}> {
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <h2 className='headline'>{headline}</h2>
 
-                    {hasDescription &&                
+                    {hasMessage &&                
                         <section className='text'>
                             <p className='message'>{message}</p>
+
+                            {hasExplanation &&
+                                <p className='explanation'>{explanation}</p>
+                            }
                         </section>
                     }
 

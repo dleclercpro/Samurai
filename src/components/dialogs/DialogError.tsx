@@ -5,32 +5,35 @@ import DialogOK from './DialogOK';
 import { AppState } from '../../types/StateTypes';
 import { connect } from 'react-redux';
 
-interface OwnProps {
+interface StateProps {
     message: string,
+    explanation: string,
 }
 
-type Props = OwnProps;
+type Props = StateProps;
 
 class DialogError extends React.Component<Props, {}> {
 
     render() {
-        const { message } = this.props;
+        const { message, explanation } = this.props;
 
         return (
             <DialogOK
                 type={DialogType.Error}
                 headline='Error'
                 message={message}
+                explanation={explanation}
             />
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { message } = state.dialog.error;
+    const { message, explanation } = state.dialog.error;
 
     return {
         message: message !== undefined ? message : '',
+        explanation: explanation !== undefined ? explanation : '',
     };
 };
 

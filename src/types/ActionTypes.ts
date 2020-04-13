@@ -61,6 +61,7 @@ export const SET_ERROR_DIALOG = 'SET_ERROR_DIALOG';
 export interface SetErrorDialog {
     type: typeof SET_ERROR_DIALOG,
     message: string,
+    explanation: string,
 }
 
 

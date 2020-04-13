@@ -19,7 +19,7 @@ const INIT_STATE = {
 
 interface DispatchProps {
     openSuccessDialog: (message: string) => void,
-    openErrorDialog: (message: string) => void,
+    openErrorDialog: (message: string, explanation: string) => void,
     closeSignInDialog: () => void,
 }
 
@@ -80,7 +80,7 @@ class FormSignIn extends React.Component<Props, State> {
             })
             .catch((error: any) => {
                 closeSignInDialog();
-                openErrorDialog(`There was an error while signing in: ${error.message}`);
+                openErrorDialog('There was an error while signing in:', error.message);
             });
     }
 
@@ -123,8 +123,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => {
             dispatch(setSuccessDialog(message));
             dispatch(openDialog(DialogType.Success));
         },
-        openErrorDialog: (message: string) => {
-            dispatch(setErrorDialog(message));
+        openErrorDialog: (message: string, explanation: string) => {
+            dispatch(setErrorDialog(message, explanation));
             dispatch(openDialog(DialogType.Error));
         },
         closeSignInDialog: () => dispatch(closeDialog(DialogType.SignIn)),

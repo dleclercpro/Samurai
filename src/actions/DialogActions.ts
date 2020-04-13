@@ -16,7 +16,8 @@ export const setSuccessDialog = (message: string): SetSuccessDialog => ({
     message,
 });
 
-export const setErrorDialog = (message: string): SetErrorDialog => ({
+export const setErrorDialog = (message: string, explanation: string): SetErrorDialog => ({
     type: SET_ERROR_DIALOG,
     message,
+    explanation,
 });
