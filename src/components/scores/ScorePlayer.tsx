@@ -1,9 +1,9 @@
 import React from 'react';
-import { PlayerScore, Caste } from '../types/GameTypes';
-import './PlayerComponent.scss';
-import { ReactComponent as HouseIcon } from '../icons/house.svg';
-import { ReactComponent as MonkIcon } from '../icons/monk.svg';
-import { ReactComponent as RiceIcon } from '../icons/rice.svg';
+import { PlayerScore, Caste } from '../../types/GameTypes';
+import './ScorePlayer.scss';
+import { ReactComponent as HouseIcon } from '../../icons/house.svg';
+import { ReactComponent as MonkIcon } from '../../icons/monk.svg';
+import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
 
 interface OwnProps {
     username: string,
@@ -12,11 +12,11 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const PlayerComponent: React.FC<Props> = (props) => {
+const ScorePlayer: React.FC<Props> = (props) => {
     const { username, score } = props;
 
     return (
-        <div className='player'>
+        <div className='score-player'>
             <h3 className='username'>{username}</h3>
             <table className='score'>
                 <thead>
@@ -38,4 +38,4 @@ const PlayerComponent: React.FC<Props> = (props) => {
     );
 }
 
-export default PlayerComponent;
+export default ScorePlayer;

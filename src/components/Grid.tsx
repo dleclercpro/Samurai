@@ -2,8 +2,8 @@ import React from 'react';
 import './Grid.scss';
 import Board from './Board';
 import Hand from './Hand';
-import Dash from './Dash';
 import SwitchColorButton from './SwitchColorButton';
+import ScoreBoard from './scores/ScoreBoard';
 
 const Grid: React.FC<{}> = () => (
     <div id='grid'>
@@ -15,7 +15,7 @@ const Grid: React.FC<{}> = () => (
         </section>
         <section id='bottom'>
             <Hand />
-            <Dash />
+            <ScoreBoard />
         </section>
     </div>
 );

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Player } from '../types/GameTypes';
-import './Dash.scss';
-import { AppState } from '../types/StateTypes';
+import './ScoreBoard.scss';
 import { connect } from 'react-redux';
-import PlayerComponent from './PlayerComponent';
+import ScorePlayer from './ScorePlayer';
+import { Player } from '../../types/GameTypes';
+import { AppState } from '../../types/StateTypes';
 
 interface StateProps {
     player: Player,
@@ -12,20 +12,20 @@ interface StateProps {
 
 type Props = StateProps;
 
-class Dash extends React.Component<Props, {}> {
+class ScoreBoard extends React.Component<Props, {}> {
 
     render() {
         const { player, opponents } = this.props;
         const { username, score } = player;
 
         return (
-            <section id='dash'>
-                <PlayerComponent username={username} score={score} />
+            <section id='score-board'>
+                <ScorePlayer username={username} score={score} />
                 {opponents.map((opponent: Player, index: number) => {
                     const { username, score } = opponent;
                     
                     return (
-                        <PlayerComponent
+                        <ScorePlayer
                             key={`player-${index}`}
                             username={username}
                             score={score}
@@ -46,4 +46,4 @@ const mapStateToProps = (state: AppState) => {
     }
 };
 
-export default connect(mapStateToProps, () => ({}))(Dash);
+export default connect(mapStateToProps, () => ({}))(ScoreBoard);
