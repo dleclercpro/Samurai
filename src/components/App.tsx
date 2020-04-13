@@ -22,6 +22,8 @@ import { AppState } from '../types/StateTypes';
 import { ColorMode } from '../types/GameTypes';
 import DialogLogin from './dialogs/DialogLogin';
 import DialogSignUp from './dialogs/DialogSignUp';
+import { openDialog } from '../actions/DialogActions';
+import { DialogType } from '../types/DialogTypes';
 
 interface StateProps {
     isColorblind: boolean,
@@ -33,6 +35,8 @@ interface DispatchProps {
     loadInitHand: (data: PlayerTileJSON[]) => void,
     loadPlayer: (data: PlayerJSON) => void,
     loadOpponents: (data: PlayerJSON[]) => void,
+    openSignUpDialog: () => void,
+    openLoginDialog: () => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -40,13 +44,15 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents } = this.props;
+        const { loadBoard, loadHand, loadInitHand, loadPlayer, loadOpponents, openSignUpDialog } = this.props;
 
         loadBoard(BOARD);
         loadInitHand(HAND);
         loadHand(this.getHand());
         loadPlayer(PLAYER);
         loadOpponents(OPPONENTS);
+
+        openSignUpDialog();
     }
 
     getHand = () => {
@@ -97,6 +103,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadInitHand: (data: PlayerTileJSON[]) => dispatch(loadInitHand(data)),
     loadPlayer: (data: PlayerJSON) => dispatch(loadPlayer(data)),
     loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
+    openSignUpDialog: () => dispatch(openDialog(DialogType.SignUp)),
+    openLoginDialog: () => dispatch(openDialog(DialogType.Login)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -71,7 +71,7 @@ class FormLogin extends React.Component<Props, State> {
             >
                     <FormTextField
                         name='email'
-                        label='Email'
+                        label='E-mail'
                         onChange={(e) => { this.handleChange('email', e) }}
                         value={email.value}
                         error={email.error}

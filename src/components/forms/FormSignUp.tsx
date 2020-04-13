@@ -159,7 +159,7 @@ class FormSignUp extends React.Component<Props, State> {
 
                 <FormTextField
                     name='email'
-                    label='Email'
+                    label='E-mail'
                     onChange={(e) => { this.handleChange(e, 'email', this.isEmailValid) }}
                     value={email.value}
                     error={email.error}

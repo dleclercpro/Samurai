@@ -7,8 +7,8 @@ import FormSignUp from '../forms/FormSignUp';
 const DialogSignUp: React.FC<{}> = () => (
     <Dialog
         type={DialogType.SignUp}
-        headline='Sign Up'
-        description='Provide the following information to sign up:'
+        headline='Sign up'
+        description='Provide the following information to register as a user:'
         actionButtonText='Sign up'
         onClose={() => {}}
         hideButtons
