@@ -33,11 +33,13 @@ class FormLogin extends React.Component<Props, State> {
         this.state = { ...INIT_STATE };
     }
 
-    handleChange = (field: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value }  = e.target;
+
         const fields = {
             ...this.state.fields,
-            [field]: {
-                value: e.target.value,
+            [name]: {
+                value,
                 error: '',
             },
         };
@@ -51,11 +53,9 @@ class FormLogin extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        const { canSubmit } = this.state;
+        e.preventDefault();
 
-        if (canSubmit) {
-            alert('Logging in on server.');
-        }
+        alert('Logging in on server.');
     }
 
     render() {
@@ -72,7 +72,7 @@ class FormLogin extends React.Component<Props, State> {
                     <FormTextField
                         name='email'
                         label='E-mail'
-                        onChange={(e) => { this.handleChange('email', e) }}
+                        onChange={this.handleChange}
                         value={email.value}
                         error={email.error}
                     />
@@ -80,7 +80,7 @@ class FormLogin extends React.Component<Props, State> {
                     <FormTextField
                         name='password'
                         label='Password'
-                        onChange={(e) => { this.handleChange('password', e) }}
+                        onChange={this.handleChange}
                         value={password.value}
                         error={password.error}
                     />

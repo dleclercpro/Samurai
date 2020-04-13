@@ -14,15 +14,11 @@ type Props = OwnProps;
 class Button extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent): void => {
-        const { isActive, action } = this.props;
+        const { action } = this.props;
         
         e.stopPropagation();
 
-        if (!isActive) {
-            e.preventDefault();
-        }
-
-        if (isActive && action) {
+        if (action) {
             action();
         }
     }
@@ -37,6 +33,7 @@ class Button extends React.Component<Props, {}> {
                 type={isSubmit ? 'submit' : 'button'}
                 className={`button ${!isActive ? 'is-inactive' : ''}`}
                 onClick={this.handleClick}
+                disabled={!isActive}
             >
                 {children}
             </button>

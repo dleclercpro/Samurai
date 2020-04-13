@@ -44,16 +44,15 @@ class FormSignUp extends React.Component<Props, State> {
         this.state = { ...INIT_STATE };
     }
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: string, validator?: (field: string) => boolean) => {
-        const value = e.target.value;
-        
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>, validator?: (field: string) => boolean) => {
+        const { name, value }  = e.target;
         const isInvalid = value !== '' && validator !== undefined && !validator(value);
         
         const fields = {
             ...this.state.fields,
-            [field]: {
+            [name]: {
                 value: value,
-                error: isInvalid ? this.getError(field) : '',
+                error: isInvalid ? this.getError(name) : '',
             },
         };
 
@@ -68,6 +67,8 @@ class FormSignUp extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
         alert('Signing up on server.');
     }
 
@@ -136,7 +137,7 @@ class FormSignUp extends React.Component<Props, State> {
                 <FormTextField
                     name='firstName'
                     label='First name'
-                    onChange={(e) => { this.handleChange(e, 'firstName') }}
+                    onChange={this.handleChange}
                     value={firstName.value}
                     error={firstName.error}
                 />
@@ -144,7 +145,7 @@ class FormSignUp extends React.Component<Props, State> {
                 <FormTextField
                     name='lastName'
                     label='Last name'
-                    onChange={(e) => { this.handleChange(e, 'lastName') }}
+                    onChange={this.handleChange}
                     value={lastName.value}
                     error={lastName.error}
                 />
@@ -152,7 +153,7 @@ class FormSignUp extends React.Component<Props, State> {
                 <FormTextField
                     name='username'
                     label='Username'
-                    onChange={(e) => { this.handleChange(e, 'username') }}
+                    onChange={this.handleChange}
                     value={username.value}
                     error={username.error}
                 />
@@ -160,7 +161,7 @@ class FormSignUp extends React.Component<Props, State> {
                 <FormTextField
                     name='email'
                     label='E-mail'
-                    onChange={(e) => { this.handleChange(e, 'email', this.isEmailValid) }}
+                    onChange={(e) => { this.handleChange(e, this.isEmailValid) }}
                     value={email.value}
                     error={email.error}
                 />
@@ -169,7 +170,7 @@ class FormSignUp extends React.Component<Props, State> {
                     type='password'
                     name='password'
                     label='Password'
-                    onChange={(e) => { this.handleChange(e, 'password', this.isPasswordValid) }}
+                    onChange={(e) => { this.handleChange(e, this.isPasswordValid) }}
                     value={password.value}
                     error={password.error}
                 />
