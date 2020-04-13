@@ -13,13 +13,13 @@ interface OwnProps {
     children?: ReactNode,
     type: DialogType,
     headline: string,
-    description?: string,
+    message?: string,
     cancelButtonText?: string,
     actionButtonText?: string,
     onClose?: () => void,
     onCancel?: () => void,
     onAction?: () => void,
-    hideButtons?: boolean,
+    canClose?: boolean,
     isActionButtonActive?: boolean,
 }
 
@@ -60,20 +60,22 @@ class Dialog extends React.Component<Props, {}> {
     }
 
     handleClose = () => {
-        const { onClose, closeDialog } = this.props;
+        const { onClose, canClose, closeDialog } = this.props;
 
-        // Close only if callback provided
         if (onClose) {
             onClose();
+        }
+
+        if (canClose === undefined || canClose) {
             closeDialog();
         }
     }
 
     render() {
-        const { children, description, type, headline, hideButtons, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onAction } = this.props;
+        const { children, message, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel, onAction } = this.props;
         const hasChildren = React.Children.count(children) > 0;
-        const hasDescription = description !== undefined && description !== '';
-        const hasButtons = hideButtons === undefined || !hideButtons;
+        const hasDescription = message !== undefined && message !== '';
+        const hasButtons = onCancel !== undefined || onAction !== undefined;
         const hasActionButton = onAction !== undefined;
 
         if (!isOpen) {
@@ -90,7 +92,7 @@ class Dialog extends React.Component<Props, {}> {
 
                     {hasDescription &&                
                         <section className='text'>
-                            <p className='description'>{description}</p>
+                            <p className='message'>{message}</p>
                         </section>
                     }
 

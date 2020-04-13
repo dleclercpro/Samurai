@@ -24,6 +24,8 @@ import DialogLogin from './dialogs/DialogLogin';
 import DialogSignUp from './dialogs/DialogSignUp';
 import { openDialog } from '../actions/DialogActions';
 import { DialogType } from '../types/DialogTypes';
+import DialogSuccess from './dialogs/DialogSuccess';
+import DialogError from './dialogs/DialogError';
 
 interface StateProps {
     isColorblind: boolean,
@@ -78,6 +80,8 @@ class App extends React.Component<Props, {}> {
                     <Grid />
                 </main>
                 <section id='dialogs'>
+                    <DialogSuccess />
+                    <DialogError />
                     <DialogLogin />
                     <DialogSignUp />
                     <DialogGameOver />

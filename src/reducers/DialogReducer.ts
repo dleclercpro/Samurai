@@ -1,6 +1,6 @@
 import { DialogState } from '../types/StateTypes';
 import { DialogAction } from '../actions';
-import { OPEN_DIALOG, CLOSE_DIALOG } from '../types/ActionTypes';
+import { OPEN_DIALOG, CLOSE_DIALOG, SET_SUCCESS_DIALOG, SET_ERROR_DIALOG } from '../types/ActionTypes';
 import { DialogType } from '../types/DialogTypes';
 
 const initDialogState = {
@@ -17,6 +17,15 @@ const initState = {
     [DialogType.TileMoveEnd]: { ...initDialogState },
     [DialogType.CasteSwitchStart]: { ...initDialogState },
     [DialogType.CasteSwitchEnd]: { ...initDialogState },
+
+    [DialogType.Success]: {
+        ...initDialogState,
+        message: '',
+    },
+    [DialogType.Error]: {
+        ...initDialogState,
+        message: '',
+    },
 };
 
 const DialogReducer = (state: DialogState = initState, action: DialogAction) => {
@@ -35,6 +44,22 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
                 [action.dialogType]: {
                     ...state[action.dialogType],
                     isOpen: false,
+                },
+            };
+        case SET_SUCCESS_DIALOG:
+            return {
+                ...state,
+                [DialogType.Success]: {
+                    ...state[DialogType.Success],
+                    message: action.message,
+                },
+            };
+        case SET_ERROR_DIALOG:
+            return {
+                ...state,
+                [DialogType.Error]: {
+                    ...state[DialogType.Error],
+                    message: action.message,
                 },
             };
         default:

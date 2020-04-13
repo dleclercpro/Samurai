@@ -39,6 +39,8 @@ export interface PlayerState {
 export interface DialogState {
     [type: string]: {
         isOpen: boolean,
+        headline?: string,
+        message?: string,
     },
 }
 

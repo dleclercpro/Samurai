@@ -48,7 +48,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
             <Dialog
                 type={DialogType.TileChoice}
                 headline='Tile Choice'
-                description='Choose which tile to place on the empty space you just clicked:'
+                message='Choose which tile to place on the empty space you just clicked:'
                 actionButtonText='Choose'
                 onClose={this.handleCancel}
                 onCancel={this.handleCancel}

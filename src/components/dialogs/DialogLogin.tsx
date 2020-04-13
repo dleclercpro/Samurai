@@ -9,8 +9,6 @@ const DialogLogin: React.FC<{}> = () => (
         type={DialogType.Login}
         headline='Login'
         actionButtonText='Log in'
-        onClose={() => {}}
-        hideButtons
     >
         <FormLogin />
     </Dialog>

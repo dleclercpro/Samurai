@@ -35,7 +35,7 @@ class DialogCasteSwitchEnd extends React.Component<Props, {}> {
             <Dialog
                 type={DialogType.CasteSwitchEnd}
                 headline='Caste Switch Confirmation'
-                description='Are you sure you want to switch those two caste figures?'
+                message='Are you sure you want to switch those two caste figures?'
                 actionButtonText='Confirm'
                 cancelButtonText='Cancel Switch'
                 onAction={this.handleAction}

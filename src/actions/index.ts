@@ -1,4 +1,4 @@
-import { LoadBoard, LoadInitHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectPlayerTileForMove, SelectBoardTileForMove, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors } from '../types/ActionTypes';
+import { LoadBoard, LoadInitHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectPlayerTileForMove, SelectBoardTileForMove, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors, SetErrorDialog, SetSuccessDialog } from '../types/ActionTypes';
 
 export type DataAction =
     LoadBoard |
@@ -36,7 +36,9 @@ export type PlayerAction =
 
 export type DialogAction =
     OpenDialog |
-    CloseDialog;
+    CloseDialog |
+    SetSuccessDialog |
+    SetErrorDialog;
 
 // Root action
 export type AppAction =

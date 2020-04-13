@@ -8,14 +8,10 @@ const DialogSignUp: React.FC<{}> = () => (
     <Dialog
         type={DialogType.SignUp}
         headline='Sign up'
-        description='Provide the following information to register as a user:'
+        message='Provide the following information to register as a user:'
         actionButtonText='Sign up'
-        onClose={() => {}}
-        hideButtons
     >
-        <FormSignUp
-        
-        />
+        <FormSignUp />
     </Dialog>
 );
 

@@ -1,4 +1,6 @@
 export enum DialogType {
+    Success = 'success',
+    Error = 'error',
     Login = 'log-in',
     SignUp = 'sign-up',
     GameOver = 'game-over',

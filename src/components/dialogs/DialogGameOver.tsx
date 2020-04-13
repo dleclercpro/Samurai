@@ -1,11 +1,11 @@
 import React from 'react';
 import './DialogGameOver.scss';
-import Dialog from './Dialog';
 import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { Player } from '../../types/GameTypes';
 import { getWinners } from '../../selectors';
 import { DialogType } from '../../types/DialogTypes';
+import DialogOK from './DialogOK';
 
 interface StateProps {
     winners: Player[],
@@ -17,27 +17,25 @@ class DialogGameOver extends React.Component<Props, {}> {
 
     render() {
         const { winners } = this.props;
-        let description;
+        let message;
 
         switch (winners.length) {
             case 0:
-                description = 'There is no winner.'
+                message = 'There is no winner.'
                 break;
             case 1:
-                description = 'The winner is:'
+                message = 'The winner is:'
                 break;
             default:
-                description = 'The winners are:'
+                message = 'The winners are:'
                 break;
         }
 
         return (
-            <Dialog
+            <DialogOK
                 type={DialogType.GameOver}
                 headline='Game Over'
-                description={description}
-                cancelButtonText='OK'
-                onClose={() => {}}
+                message={message}
             >
                 {winners.map((winner: Player) => (
                     <React.Fragment>
@@ -45,7 +43,7 @@ class DialogGameOver extends React.Component<Props, {}> {
                         <br/>
                     </React.Fragment>
                 ))}
-            </Dialog>
+            </DialogOK>
         );
     }
 }

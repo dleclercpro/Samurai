@@ -66,7 +66,7 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
             <Dialog
                 type={DialogType.TileMoveEnd}
                 headline='Tile Move Confirmation'
-                description='Are you sure you want to move the following tile?'
+                message='Are you sure you want to move the following tile?'
                 actionButtonText='Confirm'
                 cancelButtonText='Cancel Move'
                 onAction={this.handleAction}

@@ -5,6 +5,9 @@ import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
+import { SignUpCall } from '../../calls/CallSignUp';
+import { openDialog, setSuccessDialog, setErrorDialog, closeDialog } from '../../actions/DialogActions';
+import { DialogType } from '../../types/DialogTypes';
 
 const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.';
 
@@ -25,7 +28,9 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-
+    openSuccessDialog: (message: string) => void,
+    openErrorDialog: (message: string) => void,
+    closeSignUpDialog: () => void,
 }
 
 type Props = DispatchProps;
@@ -42,61 +47,6 @@ class FormSignUp extends React.Component<Props, State> {
         super(props);
 
         this.state = { ...INIT_STATE };
-    }
-
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>, validator?: (field: string) => boolean) => {
-        const { name, value }  = e.target;
-        const isInvalid = value !== '' && validator !== undefined && !validator(value);
-        
-        const fields = {
-            ...this.state.fields,
-            [name]: {
-                value: value,
-                error: isInvalid ? this.getError(name) : '',
-            },
-        };
-
-        const isFilled = Object.values(fields).map(field => field.value).every(value => value !== '');
-        const hasErrors = Object.values(fields).map(field => field.error).some(value => value !== '');
-
-        this.setState({
-            fields,
-            isFilled,
-            hasErrors,
-        });
-    }
-
-    handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        alert('Signing up on server.');
-    }
-
-    getError = (field: string): string => {
-        switch (field) {
-            case 'email':
-                return ERROR_EMAIL;
-            case 'password':
-                return ERROR_PASSWORD;
-            default:
-                return 'Invalid field.';
-        }
-    }
-
-    validate = (field: string, validator: (field: string) => boolean) => {
-        const { value } = this.state.fields[field];
-
-        if (!validator(value)) {
-            this.setState({
-                fields: {
-                    ...this.state.fields,
-                    [field]: {
-                        error: this.getError(field),
-                        value,
-                    },
-                },
-            });
-        }
     }
 
     /**
@@ -123,6 +73,63 @@ class FormSignUp extends React.Component<Props, State> {
         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
     }
 
+    getError = (field: string): string => {
+        switch (field) {
+            case 'email':
+                return ERROR_EMAIL;
+            case 'password':
+                return ERROR_PASSWORD;
+            default:
+                return 'Invalid field.';
+        }
+    }
+
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>, validator?: (field: string) => boolean) => {
+        const { name, value }  = e.target;
+        const isInvalid = value !== '' && validator !== undefined && !validator(value);
+        
+        const fields = {
+            ...this.state.fields,
+            [name]: {
+                value: value,
+                error: isInvalid ? this.getError(name) : '',
+            },
+        };
+
+        const isFilled = Object.values(fields).map(field => field.value).every(value => value !== '');
+        const hasErrors = Object.values(fields).map(field => field.error).some(value => value !== '');
+
+        this.setState({
+            fields,
+            isFilled,
+            hasErrors,
+        });
+    }
+
+    handleSubmit = (e: React.FormEvent) => {
+        const { openSuccessDialog, openErrorDialog, closeSignUpDialog } = this.props;
+        const { fields } = this.state;
+
+        const payload = Object.keys(fields).reduce((content: object, name: string) => {
+            return {
+                ...content,
+                [name]: fields[name].value,
+            };
+        }, {});
+
+        e.preventDefault();
+
+        new SignUpCall(payload).execute()
+            .then((response: any) => {
+                closeSignUpDialog();
+                openSuccessDialog('You have successfully signed up.');
+            })
+            .catch((error: any) => {
+                closeSignUpDialog();
+                openErrorDialog(`There was an error while signing up: ${error.message}`);
+            });
+    }
+    
     render() {
         const { fields, isFilled, hasErrors } = this.state;
         const { username, firstName, lastName, email, password } = fields;
@@ -181,7 +188,15 @@ class FormSignUp extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => {
     return {
-
+        openSuccessDialog: (message: string) => {
+            dispatch(setSuccessDialog(message));
+            dispatch(openDialog(DialogType.Success));
+        },
+        openErrorDialog: (message: string) => {
+            dispatch(setErrorDialog(message));
+            dispatch(openDialog(DialogType.Error));
+        },
+        closeSignUpDialog: () => dispatch(closeDialog(DialogType.SignUp)),
     };
 };
 

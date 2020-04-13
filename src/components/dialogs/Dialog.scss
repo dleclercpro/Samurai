@@ -30,7 +30,6 @@ $padding-horizontal: 24px;
     }
 
     > .text {
-        margin-bottom: 30px;
 
         > p {
             font-size: 18px;
@@ -42,6 +41,7 @@ $padding-horizontal: 24px;
         flex-direction: column;
         flex: 1;
         overflow: auto;
+        margin-top: 30px;
     }
 
     > .buttons {
