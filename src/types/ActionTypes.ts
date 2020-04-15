@@ -9,9 +9,9 @@ export interface LoadBoard {
     data: BoardJSON,
 }
 
-export const LOAD_INIT_HAND = 'LOAD_INIT_HAND';
-export interface LoadInitHand {
-    type: typeof LOAD_INIT_HAND,
+export const LOAD_FULL_HAND = 'LOAD_FULL_HAND';
+export interface LoadFullHand {
+    type: typeof LOAD_FULL_HAND,
     data: PlayerTileJSON[],
 }
 

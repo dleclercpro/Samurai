@@ -5,7 +5,7 @@ import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { SignInCall } from '../../calls/CallSignIn';
+import { CallSignIn } from '../../calls/CallSignIn';
 import { setSuccessDialog, openDialog, setErrorDialog, closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 
@@ -73,7 +73,7 @@ class FormSignIn extends React.Component<Props, State> {
         
         e.preventDefault();
 
-        new SignInCall(this.getPayload()).execute()
+        new CallSignIn(this.getPayload()).execute()
             .then((response: any) => {
                 closeSignInDialog();
                 openSuccessDialog('You have successfully signed in.');
@@ -85,6 +85,7 @@ class FormSignIn extends React.Component<Props, State> {
     }
 
     render() {
+        const { closeSignInDialog } = this.props;
         const { fields, canSubmit } = this.state;
         const { email, password } = fields;
 
@@ -92,6 +93,7 @@ class FormSignIn extends React.Component<Props, State> {
             <Form
                 id='sign-in'
                 submitText='Sign in'
+                onCancel={closeSignInDialog}
                 onSubmit={this.handleSubmit}
                 canSubmit={canSubmit}
             >

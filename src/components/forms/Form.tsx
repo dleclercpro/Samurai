@@ -7,7 +7,7 @@ interface OwnProps {
     children?: ReactNode,
     cancelText?: string,
     submitText?: string,
-    onCancel?: () => void,
+    onCancel: () => void,
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
     canSubmit: boolean,
 }

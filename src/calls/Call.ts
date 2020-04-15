@@ -56,9 +56,15 @@ class Call {
         this.prepare();
 
         return fetch(this.url, this.params).then((response: Response) => {
-            if (response.status !== 200) {
-                throw new Error(response.statusText);
+            return response.json();
+        }).then((json: any) => {
+            const { status, message } = json;
+
+            if (status === 200) {
+                return json.data;
             }
+
+            throw new Error(message);
         });
     }
 }

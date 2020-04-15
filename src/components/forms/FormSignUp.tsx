@@ -5,7 +5,7 @@ import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { SignUpCall } from '../../calls/CallSignUp';
+import { CallSignUp } from '../../calls/CallSignUp';
 import { openDialog, setSuccessDialog, setErrorDialog, closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 
@@ -122,7 +122,7 @@ class FormSignUp extends React.Component<Props, State> {
 
         e.preventDefault();
 
-        new SignUpCall(this.getPayload()).execute()
+        new CallSignUp(this.getPayload()).execute()
             .then((response: any) => {
                 closeSignUpDialog();
                 openSuccessDialog('You have successfully signed up.');
@@ -134,6 +134,7 @@ class FormSignUp extends React.Component<Props, State> {
     }
     
     render() {
+        const { closeSignUpDialog } = this.props;
         const { fields, isFilled, hasErrors } = this.state;
         const { username, firstName, lastName, email, password } = fields;
 
@@ -141,6 +142,7 @@ class FormSignUp extends React.Component<Props, State> {
             <Form
                 id='sign-up'
                 submitText='Sign up'
+                onCancel={closeSignUpDialog}
                 onSubmit={this.handleSubmit}
                 canSubmit={isFilled && !hasErrors}
             >
