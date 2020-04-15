@@ -67,8 +67,10 @@ $padding-horizontal: 24px;
         cursor: pointer;
         fill: $color-black;
 
-        &:hover {
-            fill: $color-grey;
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-grey;
+            }
         }
     }
 }

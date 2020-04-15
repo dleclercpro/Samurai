@@ -19,11 +19,13 @@
             stroke: $color-blind-dark-water;
         }
 
-        .is-playable &:hover {
-            fill: $color-dark-water;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-water;
+        @media (hover: hover) {
+            .is-playable &:hover {
+                fill: $color-dark-water;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-water;
+                }
             }
         }
     }
@@ -31,11 +33,13 @@
     .is-playable & {
         cursor: pointer;
 
-        &:hover {
-            fill: $color-dark-ground;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-ground;
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-dark-ground;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-ground;
+                }
             }
         }
     }
@@ -98,11 +102,13 @@
 
     .is-playable.is-red & {
 
-        &:hover {
-            fill: $color-dark-red;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-red;
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-dark-red;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-red;
+                }
             }
         }
     }
@@ -117,12 +123,14 @@
 
     .is-playable.is-purple & {
 
-        &:hover {
-            fill: $color-dark-purple;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-purple;
-            }
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-dark-purple;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-purple;
+                }
+            }   
         }
     }
 
@@ -136,12 +144,14 @@
 
     .is-playable.is-orange & {
 
-        &:hover {
-            fill: $color-dark-orange;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-orange;
-            }
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-dark-orange;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-orange;
+                }
+            }   
         }
     }
 
@@ -155,12 +165,14 @@
 
     .is-playable.is-green & {
 
-        &:hover {
-            fill: $color-dark-green;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-green;
-            }
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-dark-green;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-green;
+                }
+            }   
         }
     }
 
@@ -175,8 +187,10 @@
     .is-playable.is-switch &,
     .is-playable.is-move & {
 
-        &:hover {
-            fill: $color-grey !important;
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-grey !important;
+            }   
         }
     }
 
@@ -187,12 +201,14 @@
     
     .is-playable.is-ship & {
 
-        &:hover {
-            fill: $color-dark-blue;
-
-            .is-colorblind & {
-                fill: $color-blind-dark-blue;
-            }
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-dark-blue;
+    
+                .is-colorblind & {
+                    fill: $color-blind-dark-blue;
+                }
+            }   
         }
     }
 

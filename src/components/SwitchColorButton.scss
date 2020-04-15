@@ -9,8 +9,10 @@
     padding: 5px;
     background: $color-black-transparent;
 
-    &:hover {
-        background: $color-black;
+    @media (hover: hover) {
+        &:hover {
+            background: $color-black;
+        }
     }
 
     .icon-eye {

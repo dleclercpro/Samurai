@@ -10,10 +10,21 @@
     &.is-playable {
         cursor: pointer;
 
-        &:hover,
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-white;
+                background-color: $color-black;
+            }    
+        }
+        
         &.is-selected {
             fill: $color-white;
             background-color: $color-black;
+        }
+
+        @media (hover: none) {
+            fill: inherit;
+            background-color: inherit;
         }
     }
 }

@@ -13,8 +13,10 @@
     outline: none;
     user-select: none;
 
-    &:hover {
-        background: lighten($color: $color-black, $amount: 25);
+    @media (hover: hover) {
+        &:hover {
+            background: lighten($color: $color-black, $amount: 25);
+        }
     }
 
     &.is-inactive {
