@@ -12,6 +12,7 @@
         font-size: 16px;
         text-align: center;
         margin-bottom: 6px;
+        user-select: none;
     }
 
     > .score {
@@ -21,16 +22,17 @@
         td {
             text-align: center;
             vertical-align: middle;
-        }
 
-        .icon {
-            height: 20px;
-        }
-
-        .value {
-
-            &.is-highest {
-                font-weight: bold;
+            > .icon {
+                height: 20px;
+            }
+    
+            > .value {
+                user-select: none;
+    
+                &.is-highest {
+                    font-weight: bold;
+                }
             }
         }
     }

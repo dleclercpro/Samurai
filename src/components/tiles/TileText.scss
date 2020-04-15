@@ -7,6 +7,7 @@
     dominant-baseline: central;
     text-anchor: middle;
     pointer-events: none;
+    user-select: none;
 
     .is-move.is-red &,
     .is-ship.is-red & {
