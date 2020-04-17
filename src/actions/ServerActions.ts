@@ -17,6 +17,7 @@ import { Caste } from '../types/GameTypes';
 import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
+import { ServerResponse } from '../types/ServerTypes';
 
 export const signIn = (email: string, password: string): SignIn => {
 
@@ -59,7 +60,9 @@ export const createGame = (name: string, users: string[]): CreateGame => {
     return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
         
         return new CallCreateGame(name, users).execute()
-            .then((id: number) => {
+            .then((response: ServerResponse) => {
+                const { id } = response.data;
+
                 dispatch(closeDialog(DialogType.CreateGame));
                 dispatch(setSuccessDialog(`You have successfully create a new game. Its ID is: ${id}`));
                 dispatch(openDialog(DialogType.Success));
@@ -79,18 +82,24 @@ export const refreshGame = (): RefreshGame => {
         const { game } = state;
 
         return new CallGetBoard(game.id).execute()
-            .then((board: BoardJSON) => {
+            .then((response: ServerResponse) => {
+                const board: BoardJSON = response.data;
+
                 dispatch(loadBoard(board));
 
                 return new CallGetPlayers(game.id).execute();    
             })
-            .then((players: PlayersJSON) => {
+            .then((response: ServerResponse) => {
+                const players: PlayersJSON = response.data;
+
                 dispatch(loadPlayer(players.self));
                 dispatch(loadOpponents(players.opponents));
 
                 return new CallGetHand(game.id).execute();
             })
-            .then((hand: HandJSON) => {
+            .then((response: ServerResponse) => {
+                const hand: HandJSON = response.data;
+                
                 dispatch(loadHand(hand));
             });
     }

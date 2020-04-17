@@ -68,7 +68,7 @@ class FormCreateGame extends React.Component<Props, State> {
 
         e.preventDefault();
 
-        createGame(name, [user1, user2, user3, user4])
+        createGame(name, [ user1, user2, user3, user4 ])
             .then(() => {
                 close();
             });

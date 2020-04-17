@@ -56,15 +56,34 @@ class Call {
         this.prepare();
 
         return fetch(this.url, this.params).then((response: Response) => {
-            return response.json();
-        }).then((json: any) => {
-            const { status, message } = json;
 
-            if (status === 200) {
-                return json.data;
+            // Raw server response
+            if (response.ok) {
+                return response.json();
             }
 
-            throw new Error(message);
+            throw new Error(response.statusText);
+        
+        }).then((json: any) => {
+            const { status } = json;
+
+            // User-defined server response
+            if (status === 200) {
+                return json;
+            }
+
+            return Promise.reject(json);
+        
+        }).catch((error: any) => {
+            const { message } = error;
+            
+            // Raw server call crashed
+            if (error.status === undefined) {
+                throw new Error(`[${message.toUpperCase()}]`);
+            }
+            
+            // Re-throw user-defined error for further processing
+            return Promise.reject(error);
         });
     }
 }
