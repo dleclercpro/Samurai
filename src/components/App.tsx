@@ -24,6 +24,7 @@ import Home from '../pages/Home';
 import DialogCreateGame from './dialogs/DialogCreateGame';
 import Game from './Game';
 import DialogPlayGame from './dialogs/DialogPlayGame';
+import SwitchColorButton from './SwitchColorButton';
 
 interface StateProps {
     isColorblind: boolean,
@@ -48,6 +49,7 @@ class App extends React.Component<Props, {}> {
 
         return (
             <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>
+                <SwitchColorButton />
                 <main id='main'>
                     <Switch>
                         <Route exact path='/'>
