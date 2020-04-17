@@ -37,32 +37,36 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 class Dialog extends React.Component<Props, {}> {
 
-    componentDidMount() {
-        document.addEventListener('keydown', this.handleEnterPress, false);
-        document.addEventListener('keydown', this.handleEscPress, false);
-    }
+    componentDidUpdate(prevProps: Props) {
+        const wasClosed = prevProps.isOpen && !this.props.isOpen;
+        const wasOpened = !prevProps.isOpen && this.props.isOpen;
 
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleEnterPress, false);
-        document.removeEventListener('keydown', this.handleEscPress, false);
+        if (wasOpened) {
+            document.addEventListener('keydown', this.handleEnterPress, false);
+            document.addEventListener('keydown', this.handleEscPress, false);
+        }
+
+        if (wasClosed) {
+            document.removeEventListener('keydown', this.handleEnterPress, false);
+            document.removeEventListener('keydown', this.handleEscPress, false);
+        }
     }
 
     handleEnterPress = (e: KeyboardEvent) => {
-        const { isOpen, isActionButtonActive } = this.props;
+        const { isActionButtonActive } = this.props;
         
         // Pressing on enter inside dialog is the same as
         // pressing on action button
-        if (e.keyCode === KEY_ENTER_ID && isOpen && isActionButtonActive) {
+        if (e.keyCode === KEY_ENTER_ID && isActionButtonActive) {
             this.handleAction();
         }
     }
 
     handleEscPress = (e: KeyboardEvent) => {
-        const { isOpen } = this.props;
         
         // Pressing on escape inside dialog is the same as
         // pressing on cancel button
-        if (e.keyCode === KEY_ESC_ID && isOpen) {
+        if (e.keyCode === KEY_ESC_ID) {
             this.handleCancel();
         }
     }

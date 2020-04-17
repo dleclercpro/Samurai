@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import './Form.scss';
 import Button from '../Button';
-import { KEY_ESC_ID } from '../../constants';
 
 interface OwnProps {
     id: string,
@@ -16,24 +15,6 @@ interface OwnProps {
 type Props = OwnProps;
 
 class Form extends React.Component<Props, {}> {
-
-    handleEscPress = (e: KeyboardEvent) => {
-        const { onCancel } = this.props;
-        
-        // Pressing on escape inside form is the same as
-        // pressing on cancel button
-        if (e.keyCode === KEY_ESC_ID) {
-            onCancel();
-        }
-    }
-
-    componentDidMount() {
-        document.addEventListener('keydown', this.handleEscPress, false);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleEscPress, false);
-    }
     
     render() {
         const { id, children, cancelText, submitText, onCancel, onSubmit, canSubmit } = this.props;
