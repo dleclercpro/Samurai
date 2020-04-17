@@ -1,4 +1,6 @@
 import { Size2D, Coordinates2D, BoardTile, BoardTileMap } from './types/GameTypes';
+import { FormFields, FormPayload } from './types/FormTypes';
+import { PlayerTileJSON } from './types/JSONTypes';
 
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
@@ -102,4 +104,28 @@ export const getTileNeighborhood = (tile: BoardTile, tiles: BoardTileMap): numbe
     }
 
     return neighborhood;
+}
+
+export const getFormPayload = (fields: FormFields): FormPayload => {
+    return Object.keys(fields).reduce((content, name) => {
+        return {
+            ...content,
+            [name]: fields[name].value,
+        };
+    }, {});
+}
+
+export const getRandomHand = (fullHand: PlayerTileJSON[]) => {
+    const randomIndexes = new Set<number>();
+    const handSize = 5;
+
+    while (randomIndexes.size < handSize) {
+        const i = Math.floor(Math.random() * fullHand.length);
+        
+        if (!randomIndexes.has(i)) {
+            randomIndexes.add(i);
+        }
+    }
+
+    return [ ...randomIndexes ];
 }

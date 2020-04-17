@@ -1,6 +1,6 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_PLAYER_TILE_FOR_MOVE, SELECT_BOARD_TILE_FOR_MOVE, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH, SWITCH_COLORS } from '../types/ActionTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_PLAYER_TILE, DESELECT_PLAYER_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH, SWITCH_COLORS, SET_GAME_ID } from '../types/ActionTypes';
 import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
 
 const initPlayState = {
@@ -30,6 +30,7 @@ const initSelectionState = {
 }
 
 const initState = {
+    id: -1,
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
     colors: ColorMode.Normal,
@@ -64,6 +65,8 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
                     return TilePlayStep.ChoosePlayerTile;
                 case SELECT_PLAYER_TILE:
                     return step;
+                case END_TURN:
+                    return TilePlayStep.ChooseBoardTile;
             }
             break;
 
@@ -112,24 +115,26 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
                     return CasteSwitchStep.ChooseCasteTo;
                 case SELECT_CASTE_TO_FOR_SWITCH:
                     return step;
+                case END_TURN:
+                    return TilePlayStep.ChooseBoardTile;
             }
             break;
 
         // Tile move
         case TileMoveStep.ChoosePlayerTile:
             switch (action) {
-                case SELECT_PLAYER_TILE_FOR_MOVE:
+                case SELECT_BOARD_TILE_TO_MOVE_FROM:
                     return TileMoveStep.ChooseBoardTile;
             }
             break;
         case TileMoveStep.ChooseBoardTile:
             switch (action) {
-                case SELECT_BOARD_TILE_FOR_MOVE:
+                case SELECT_BOARD_TILE_TO_MOVE_TO:
                     return TileMoveStep.Done;
             }
             break;
         case TileMoveStep.Done:
-            return step;
+            return TilePlayStep.ChooseBoardTile;
     }
 
     return TilePlayStep.ChooseBoardTile;
@@ -142,23 +147,30 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
     };
 
     switch (action.type) {
-        case START_TILE_MOVE:
-        case START_CASTE_SWITCH:
-        case FINISH_CASTE_SWITCH:
+        case SET_GAME_ID:
             return {
-                ...nextState,
+                ...state,
+                id: action.id,
             }
-
-        case END_TURN:
-            return {
-                ...initState,
-            };
 
         case SWITCH_COLORS:
             return {
                 ...state,
                 colors: state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal,
             };
+
+        case END_TURN:
+            return {
+                ...nextState,
+                selection: { ...initSelectionState },
+            };
+
+        case START_TILE_MOVE:
+        case START_CASTE_SWITCH:
+        case FINISH_CASTE_SWITCH:
+            return {
+                ...nextState,
+            }
 
         case SELECT_BOARD_TILE:
             return {
@@ -206,7 +218,7 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
 
         // Move steps
-        case SELECT_PLAYER_TILE_FOR_MOVE:
+        case SELECT_BOARD_TILE_TO_MOVE_FROM:
             return {
                 ...nextState,
                 selection: {
@@ -217,7 +229,7 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
                     },
                 },
             };
-        case SELECT_BOARD_TILE_FOR_MOVE:
+        case SELECT_BOARD_TILE_TO_MOVE_TO:
             return {
                 ...nextState,
                 selection: {

@@ -78,13 +78,13 @@ export const parseAction = (data: String) : Action => {
 
 export const parseColor = (color: String): PlayerColor => {
     switch (color) {
-        case 'red':
+        case 'RED':
             return PlayerColor.Red;
-        case 'purple':
+        case 'PURPLE':
             return PlayerColor.Purple;
-        case 'orange':
+        case 'ORANGE':
             return PlayerColor.Orange;
-        case 'green':
+        case 'GREEN':
             return PlayerColor.Green;
         default:
             return PlayerColor.Unknown;

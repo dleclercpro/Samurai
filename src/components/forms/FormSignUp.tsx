@@ -8,6 +8,7 @@ import Form from './Form';
 import { CallSignUp } from '../../calls/CallSignUp';
 import { openDialog, setSuccessDialog, setErrorDialog, closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
+import { getFormPayload } from '../../lib';
 
 const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.';
 
@@ -84,17 +85,6 @@ class FormSignUp extends React.Component<Props, State> {
         }
     }
 
-    getPayload = (): object => {
-        const { fields } = this.state;
-
-        return Object.keys(fields).reduce((content: object, name: string) => {
-            return {
-                ...content,
-                [name]: fields[name].value,
-            };
-        }, {});
-    }
-
     handleChange = (e: React.ChangeEvent<HTMLInputElement>, validator?: (field: string) => boolean) => {
         const { name, value }  = e.target;
         const isInvalid = value !== '' && validator !== undefined && !validator(value);
@@ -119,10 +109,11 @@ class FormSignUp extends React.Component<Props, State> {
 
     handleSubmit = (e: React.FormEvent) => {
         const { openSuccessDialog, openErrorDialog, closeSignUpDialog } = this.props;
+        const { username, firstName, lastName, email, password } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
-        new CallSignUp(this.getPayload()).execute()
+        new CallSignUp(username, firstName, lastName, email, password).execute()
             .then((response: any) => {
                 closeSignUpDialog();
                 openSuccessDialog('You have successfully signed up.');

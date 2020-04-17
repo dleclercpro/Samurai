@@ -5,7 +5,7 @@ import { TILE_SIZE } from '../../config';
 import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { AppAction } from '../../actions';
-import { selectPlayerTileForMove } from '../../actions/GameActions';
+import { selectBoardTileToMoveFrom } from '../../actions/GameActions';
 import PlayerTileContent from './PlayerTileContent';
 
 interface OwnProps {
@@ -23,7 +23,7 @@ interface StateProps {
     step: GameStep,
     isPlayable: boolean,
     isSelected: boolean,
-    selectPlayerTileForMove: (id: number) => void,
+    selectBoardTileToMoveFrom: (id: number) => void,
 }
 
 type Props = OwnProps & StateProps;
@@ -31,12 +31,12 @@ type Props = OwnProps & StateProps;
 class PlayedTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, step, isPlayable, selectPlayerTileForMove } = this.props;
+        const { boardId, step, isPlayable, selectBoardTileToMoveFrom } = this.props;
 
         if (isPlayable) {
             switch (step) {
                 case TileMoveStep.ChoosePlayerTile:
-                    selectPlayerTileForMove(id);
+                    selectBoardTileToMoveFrom(boardId);
                     break;
             }
         }
@@ -77,7 +77,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const isMine = player.self.playedTiles.get(boardId) === id;
     const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
     const isPlayable = isMine && isMovable && (step === TileMoveStep.ChoosePlayerTile);
-    const isSelected = id === selection.move.from;
+    const isSelected = isMine && id === selection.move.from;
 
     return {
         step,
@@ -87,7 +87,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    selectPlayerTileForMove: (id: number) => dispatch(selectPlayerTileForMove(id)),
+    selectBoardTileToMoveFrom: (id: number) => dispatch(selectBoardTileToMoveFrom(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayedTileComponent);

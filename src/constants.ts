@@ -1,6 +1,2 @@
-export const NoPlayerTile = {
-    id: -1,
-    type: undefined,
-    strength: -1,
-    canReplay: false,
-};
+export const TILE_SWITCH_ID = 18;
+export const TILE_MOVE_ID = 19;

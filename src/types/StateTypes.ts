@@ -15,12 +15,13 @@ interface SwitchState {
     to: SwitchPartialState,
 }
 
-interface SwitchPartialState {
+export interface SwitchPartialState {
     tile: number,
     caste: Caste,
 }
 
 export interface GameState {
+    id: number,
     step: GameStep,
     selection: {
         play: PlayState,

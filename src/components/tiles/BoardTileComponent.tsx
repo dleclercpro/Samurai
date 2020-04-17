@@ -9,7 +9,7 @@ import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../../config';
 import { AppState } from '../../types/StateTypes';
 import BoardTileContent from './BoardTileContent';
 import { DialogType } from '../../types/DialogTypes';
-import { selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileForMove } from '../../actions/GameActions';
+import { selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileToMoveTo } from '../../actions/GameActions';
 import { getHand } from '../../selectors';
 
 interface OwnProps {
@@ -32,7 +32,7 @@ interface DispatchProps {
     selectBoardTile: () => void,
     selectTileFromForSwitch: () => void,
     selectTileToForSwitch: () => void,
-    selectBoardTileForMove: () => void,
+    selectBoardTileToMoveTo: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -40,7 +40,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 class BoardTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { step, isPlayable, openTileChoiceDialog, openCasteChoiceDialog, openTileMoveEndDialog, selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileForMove } = this.props;
+        const { step, isPlayable, openTileChoiceDialog, openCasteChoiceDialog, openTileMoveEndDialog, selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileToMoveTo } = this.props;
 
         e.stopPropagation();
 
@@ -59,7 +59,7 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     openCasteChoiceDialog();
                     return;
                 case TileMoveStep.ChooseBoardTile:
-                    selectBoardTileForMove();
+                    selectBoardTileToMoveTo();
                     openTileMoveEndDialog();
                     return;
             }
@@ -134,7 +134,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) =
         selectBoardTile: () => dispatch(selectBoardTile(id)),
         selectTileFromForSwitch: () => dispatch(selectTileFromForSwitch(id)),
         selectTileToForSwitch: () => dispatch(selectTileToForSwitch(id)),
-        selectBoardTileForMove: () => dispatch(selectBoardTileForMove(id)),
+        selectBoardTileToMoveTo: () => dispatch(selectBoardTileToMoveTo(id)),
         openTileChoiceDialog: () => dispatch(openDialog(DialogType.TileChoice)),
         openCasteChoiceDialog: () => dispatch(openDialog(DialogType.CasteChoice)),
         openTileMoveEndDialog: () => dispatch(openDialog(DialogType.TileMoveEnd)),

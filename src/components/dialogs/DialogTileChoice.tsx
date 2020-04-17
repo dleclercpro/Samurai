@@ -1,25 +1,30 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import './DialogTileChoice.scss';
 import Dialog from './Dialog';
 import Hand from '../Hand';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { deselectBoardTile, endTurn, deselectPlayerTile } from '../../actions/GameActions';
+import { deselectBoardTile, deselectPlayerTile } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
 import { AppState } from '../../types/StateTypes';
 import { TilePlayStep } from '../../types/GameTypes';
+import { playTile } from '../../actions/ServerActions';
+import { ThunkDispatch } from 'redux-thunk';
 
 interface StateProps {
+    playerTile: number,
+    boardTile: number,
+    hand: number[],
     isChoosing: boolean,
     hasChosen: boolean,
     isActionButtonActive: boolean,
-    hand: number[],
 }
 
 interface DispatchProps {
-    endTurn: () => void,
     deselectBoardTile: () => void,
     deselectPlayerTile: () => void,
+    
+    playTile: (playerTile: number, boardTile: number) => Promise<any>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -34,11 +39,9 @@ class DialogTileChoice extends React.Component<Props, {}> {
     }
 
     handleAction = () => {
-        const { endTurn } = this.props;
+        const { playerTile, boardTile, playTile } = this.props;
 
-        alert('Tile choice will now be sent to server.');
-
-        endTurn();
+        playTile(playerTile, boardTile);
     }
 
     render() {
@@ -63,24 +66,26 @@ class DialogTileChoice extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { game, player } = state;
-    const { step } = game;
+    const { step, selection } = game;
 
     const isChoosing = step === TilePlayStep.ChoosePlayerTile;
     const hasChosen = step === TilePlayStep.Done;
     const isActionButtonActive = step === TilePlayStep.Done;
 
     return {
+        playerTile: selection.play.playerTile,
+        boardTile: selection.play.boardTile,
+        hand: player.hand,
         isChoosing,
         hasChosen,
         isActionButtonActive,
-        hand: player.hand,
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
-    endTurn: () => dispatch(endTurn),
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     deselectBoardTile: () => dispatch(deselectBoardTile),
     deselectPlayerTile: () => dispatch(deselectPlayerTile),
+    playTile: (playerTile: number, boardTile: number) => dispatch(playTile(playerTile, boardTile)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileChoice);

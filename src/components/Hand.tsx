@@ -27,12 +27,13 @@ class Hand extends React.Component<Props, {}> {
         return hand.filter((tile: PlayerTile) => {
             const { type } = tile;
 
+            const isMove = type === Action.Move;
             const isSwitch = type === Action.Switch;
             const isShip = type === Figure.Ship;
 
             switch (dialog) {
                 case DialogType.TileChoice:
-                    return !isSwitch && (isWaterTileSelected === isShip);
+                    return !isMove && !isSwitch && (isWaterTileSelected === isShip);
                 default:
                     return false;
         }
@@ -50,7 +51,7 @@ class Hand extends React.Component<Props, {}> {
 
                     return (
                         <HandTileComponent
-                            key={`hand-tile-component-${id}`}
+                            key={`hand-tile-component-${id}-${color}`}
                             id={id}
                             color={color}
                             type={type}

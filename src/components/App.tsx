@@ -1,14 +1,13 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import './App.scss';
 import DialogTileChoice from './dialogs/DialogTileChoice';
 import { BoardJSON, PlayerTileJSON, PlayerJSON } from '../types/JSONTypes';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
-import BOARD from '../data/Board.json';
-import HAND from '../data/Hand.json';
-import PLAYER from '../data/Player.json';
-import OPPONENTS from '../data/Opponents.json';
-import { HAND_SIZE } from '../config';
+import FULL_HAND from '../data/FullHand.json';
+import FAKE_BOARD from '../data/FakeBoard.json';
+import FAKE_PLAYER from '../data/FakePlayer.json';
+import FAKE_OPPONENTS from '../data/FakeOpponents.json';
 import Grid from './Grid';
 import DialogGameOver from './dialogs/DialogGameOver';
 import DialogCasteSwitchStart from './dialogs/DialogCasteSwitchStart';
@@ -26,8 +25,10 @@ import { openDialog } from '../actions/DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import DialogSuccess from './dialogs/DialogSuccess';
 import DialogError from './dialogs/DialogError';
-import { CallGetFullHand } from '../calls/CallGetFullHand';
-import { CallGetBoard } from '../calls/CallGetBoard';
+import { refreshGame } from '../actions/ServerActions';
+import { ThunkDispatch } from 'redux-thunk';
+import { getRandomHand } from '../lib';
+import { setGameId } from '../actions/GameActions';
 
 interface StateProps {
     isColorblind: boolean,
@@ -41,6 +42,9 @@ interface DispatchProps {
     loadOpponents: (data: PlayerJSON[]) => void,
     openSignUpDialog: () => void,
     openSignInDialog: () => void,
+    setGameId: (id: number) => void,
+
+    refreshGame: () => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -48,39 +52,21 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadBoard, loadHand, loadFullHand, loadPlayer, loadOpponents, openSignInDialog } = this.props;
+        const { loadFullHand, loadBoard, loadPlayer, loadOpponents, refreshGame, setGameId, openSignInDialog } = this.props;
+        const game = 5;
+        
+        setGameId(game);
+        loadFullHand(FULL_HAND);
 
-        new CallGetBoard(1).execute().then((board: any) => {
-            loadBoard(board);
-        }).catch((error: any) => {
-            loadBoard(BOARD);
-        });
-
-        new CallGetFullHand().execute().then((fullHand: any) => {
-            loadFullHand(fullHand);
-        }).catch((error: any) => {
-            loadFullHand(HAND);
-        });
-
-        loadHand(this.getHand());
-        loadPlayer(PLAYER);
-        loadOpponents(OPPONENTS);
+        refreshGame()
+            .catch((error: any) => {
+                loadHand(getRandomHand(FULL_HAND));
+                loadBoard(FAKE_BOARD);
+                loadPlayer(FAKE_PLAYER);
+                loadOpponents(FAKE_OPPONENTS);
+            });
 
         openSignInDialog();
-    }
-
-    getHand = () => {
-        const randomIndexes = new Set<number>();
-
-        while (randomIndexes.size < HAND_SIZE) {
-            const i = Math.floor(Math.random() * HAND.length);
-            
-            if (!randomIndexes.has(i)) {
-                randomIndexes.add(i);
-            }
-        }
-
-        return [ ...randomIndexes ];
     }
 
     render() {
@@ -113,7 +99,7 @@ const mapStateToProps = (state: AppState) => ({
     isColorblind: state.game.colors === ColorMode.Blind,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
     loadHand: (data: number[]) => dispatch(loadHand(data)),
     loadFullHand: (data: PlayerTileJSON[]) => dispatch(loadFullHand(data)),
@@ -121,6 +107,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
     openSignUpDialog: () => dispatch(openDialog(DialogType.SignUp)),
     openSignInDialog: () => dispatch(openDialog(DialogType.SignIn)),
+    setGameId: (id: number) => dispatch(setGameId(id)),
+
+    refreshGame: () => dispatch(refreshGame()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

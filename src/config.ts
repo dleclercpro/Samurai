@@ -11,6 +11,3 @@ export const TILE_SIZE: Size2D = { width: 300, height: 260 };
 export const TILE_STROKE: number = 12;
 export const TILE_PATH: string = getHexagonalPath(TILE_SIZE, TILE_STROKE);
 export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superimposing tiles on their contours
-
-// Player
-export const HAND_SIZE: number = 5;

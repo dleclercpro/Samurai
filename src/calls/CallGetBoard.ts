@@ -1,8 +1,8 @@
-import CallGET from "./CallGET";
+import CallGET from './CallGET';
 
 export class CallGetBoard extends CallGET {
 
-    constructor(game: number) {
-        super(`game/${game}/`);
+    constructor(gameId: number) {
+        super(`game/${gameId}/board/`);
     }
 };

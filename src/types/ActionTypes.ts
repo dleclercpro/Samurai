@@ -1,6 +1,19 @@
 import { BoardJSON, PlayerTileJSON, PlayerJSON } from './JSONTypes';
 import { DialogType } from './DialogTypes';
 import { Caste } from './GameTypes';
+import { AppAction } from '../actions';
+import { ThunkAction } from 'redux-thunk';
+import { AppState } from './StateTypes';
+
+// Server actions
+export type SignIn = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+export type RefreshGame = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+export type PlayGame = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+export type PlayTile = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+export type MoveTile = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+export type SwitchCastePieces = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+
+
 
 // Data actions
 export const LOAD_BOARD = 'LOAD_BOARD';
@@ -14,6 +27,25 @@ export interface LoadFullHand {
     type: typeof LOAD_FULL_HAND,
     data: PlayerTileJSON[],
 }
+
+
+
+// Game actions
+export const SET_GAME_ID = 'SET_GAME_ID';
+export interface SetGameId {
+    type: typeof SET_GAME_ID,
+    id: number,
+}
+
+export const END_TURN = 'END_TURN';
+export interface EndTurn {
+    type: typeof END_TURN,
+};
+
+export const SWITCH_COLORS = 'SWITCH_COLORS';
+export interface SwitchColors {
+    type: typeof SWITCH_COLORS,
+};
 
 
 
@@ -66,19 +98,6 @@ export interface SetErrorDialog {
 
 
 
-// Game actions
-export const END_TURN = 'END_TURN';
-export interface EndTurn {
-    type: typeof END_TURN,
-};
-
-export const SWITCH_COLORS = 'SWITCH_COLORS';
-export interface SwitchColors {
-    type: typeof SWITCH_COLORS,
-};
-
-
-
 // Tile actions
 export const SELECT_BOARD_TILE = 'SELECT_BOARD_TILE';
 export interface SelectBoardTile {
@@ -110,15 +129,15 @@ export interface StartTileMove {
     type: typeof START_TILE_MOVE,
 };
 
-export const SELECT_PLAYER_TILE_FOR_MOVE = 'SELECT_PLAYER_TILE_FOR_MOVE';
-export interface SelectPlayerTileForMove {
-    type: typeof SELECT_PLAYER_TILE_FOR_MOVE,
+export const SELECT_BOARD_TILE_TO_MOVE_FROM = 'SELECT_BOARD_TILE_TO_MOVE_FROM';
+export interface SelectBoardTileToMoveFrom {
+    type: typeof SELECT_BOARD_TILE_TO_MOVE_FROM,
     tile: number,
 }
 
-export const SELECT_BOARD_TILE_FOR_MOVE = 'SELECT_BOARD_TILE_FOR_MOVE';
-export interface SelectBoardTileForMove {
-    type: typeof SELECT_BOARD_TILE_FOR_MOVE,
+export const SELECT_BOARD_TILE_TO_MOVE_TO = 'SELECT_BOARD_TILE_TO_MOVE_TO';
+export interface SelectBoardTileToMoveTo {
+    type: typeof SELECT_BOARD_TILE_TO_MOVE_TO,
     tile: number,
 }
 

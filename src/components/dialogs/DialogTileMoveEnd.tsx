@@ -1,22 +1,27 @@
-import React, { Dispatch, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import './DialogTileMoveEnd.scss';
 import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { endTurn } from '../../actions/GameActions';
 import { AppState } from '../../types/StateTypes';
 import HandTileComponent from '../tiles/HandTileComponent';
-import { PlayerColor, PlayerTile } from '../../types/GameTypes';
-import { NoPlayerTile } from '../../constants';
+import { PlayerColor, PlayerTileMap } from '../../types/GameTypes';
+import { moveTile } from '../../actions/ServerActions';
+import { ThunkDispatch } from 'redux-thunk';
+import { endTurn } from '../../actions/GameActions';
 
 interface StateProps {
+    from: number,
+    to: number,
     color: PlayerColor,
-    movingTile: PlayerTile,
+    initHand: PlayerTileMap,
 }
 
 interface DispatchProps {
     endTurn: () => void,
+
+    moveTile: (boardTileFrom: number, boardTileTo: number) => Promise<any>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -26,23 +31,20 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
     handleCancel = () => {
         const { endTurn } = this.props;
 
-        alert('Tile move was canceled altogether.');
-
         endTurn();
     }
 
     handleAction = () => {
-        const { endTurn } = this.props;
+        const { from, to, moveTile } = this.props;
 
-        alert('Tile move will now be sent to server.');
-        
-        endTurn();
+        moveTile(from, to);
     }
 
     getMovingTile = (): ReactNode => {
-        const { color, movingTile } = this.props;
+        const { color, initHand, from } = this.props;
+        const movingTile = initHand.get(from);
 
-        if (movingTile === NoPlayerTile) {
+        if (movingTile === undefined) {
             return null;
         }
 
@@ -86,13 +88,16 @@ const mapStateToProps = (state: AppState) => {
     const { initHand } = data;
 
     return {
+        from: selection.move.from,
+        to: selection.move.to,
         color: self.color,
-        movingTile: initHand.get(selection.move.from) || NoPlayerTile,
+        initHand,
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     endTurn: () => dispatch(endTurn),
+    moveTile: (boardTileFrom: number, boardTileTo: number) => dispatch(moveTile(boardTileFrom, boardTileTo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileMoveEnd);

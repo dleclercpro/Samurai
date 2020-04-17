@@ -1,6 +1,6 @@
-import { AppState, PlayerState } from "../types/StateTypes";
-import { Player, PlayerTile } from "../types/GameTypes";
-import { notUndefined } from "../types/FunctionTypes";
+import { AppState, PlayerState } from '../types/StateTypes';
+import { Player, PlayerTile } from '../types/GameTypes';
+import { notUndefined } from '../types/FunctionTypes';
 
 export const getHand = (state: AppState): PlayerTile[] => {
     const { data, player } = state;

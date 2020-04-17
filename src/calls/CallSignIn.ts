@@ -1,8 +1,11 @@
-import CallPOST from "./CallPOST";
+import CallPOST from './CallPOST';
 
 export class CallSignIn extends CallPOST {
 
-    constructor(payload: object) {
-        super('user/signin/', payload);
+    constructor(email: string, password: string) {
+        super('user/signin/', {
+            email,
+            password,
+        });
     }
 };

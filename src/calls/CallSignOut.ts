@@ -1,4 +1,4 @@
-import CallGET from "./CallGET";
+import CallGET from './CallGET';
 
 export class CallSignOut extends CallGET {
 

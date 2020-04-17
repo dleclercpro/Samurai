@@ -1,5 +1,5 @@
-import { PlayerJSON } from "../types/JSONTypes";
-import { LoadPlayer, LOAD_PLAYER, LoadOpponents, LOAD_OPPONENTS, LoadHand, LOAD_HAND } from "../types/ActionTypes";
+import { PlayerJSON } from '../types/JSONTypes';
+import { LoadPlayer, LOAD_PLAYER, LoadOpponents, LOAD_OPPONENTS, LoadHand, LOAD_HAND } from '../types/ActionTypes';
 
 export const loadPlayer = (data: PlayerJSON): LoadPlayer => ({
     type: LOAD_PLAYER,

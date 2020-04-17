@@ -1,13 +1,16 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import './FormSignIn.scss';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { CallSignIn } from '../../calls/CallSignIn';
-import { setSuccessDialog, openDialog, setErrorDialog, closeDialog } from '../../actions/DialogActions';
+import { closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
+import { getFormPayload } from '../../lib';
+import { ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../../types/StateTypes';
+import { signIn } from '../../actions/ServerActions';
 
 const INIT_STATE = {
     fields: {
@@ -18,8 +21,7 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    openSuccessDialog: (message: string) => void,
-    openErrorDialog: (message: string, explanation: string) => void,
+    signIn: (email: string, password: string) => Promise<void>,
     closeSignInDialog: () => void,
 }
 
@@ -36,17 +38,6 @@ class FormSignIn extends React.Component<Props, State> {
         super(props);
 
         this.state = { ...INIT_STATE };
-    }
-
-    getPayload = (): object => {
-        const { fields } = this.state;
-
-        return Object.keys(fields).reduce((content: object, name: string) => {
-            return {
-                ...content,
-                [name]: fields[name].value,
-            };
-        }, {});
     }
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,19 +60,12 @@ class FormSignIn extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        const { openSuccessDialog, openErrorDialog, closeSignInDialog } = this.props;
-        
+        const { signIn } = this.props;
+        const { email, password } = getFormPayload(this.state.fields);
+  
         e.preventDefault();
 
-        new CallSignIn(this.getPayload()).execute()
-            .then((response: any) => {
-                closeSignInDialog();
-                openSuccessDialog('You have successfully signed in.');
-            })
-            .catch((error: any) => {
-                closeSignInDialog();
-                openErrorDialog('There was an error while signing in:', error.message);
-            });
+        signIn(email, password);
     }
 
     render() {
@@ -119,18 +103,9 @@ class FormSignIn extends React.Component<Props, State> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => {
-    return {
-        openSuccessDialog: (message: string) => {
-            dispatch(setSuccessDialog(message));
-            dispatch(openDialog(DialogType.Success));
-        },
-        openErrorDialog: (message: string, explanation: string) => {
-            dispatch(setErrorDialog(message, explanation));
-            dispatch(openDialog(DialogType.Error));
-        },
-        closeSignInDialog: () => dispatch(closeDialog(DialogType.SignIn)),
-    };
-};
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    signIn: (email: string, password: string) => dispatch(signIn(email, password)),
+    closeSignInDialog: () => dispatch(closeDialog(DialogType.SignIn)),
+});
 
 export default connect(() => ({}), mapDispatchToProps)(FormSignIn);
