@@ -77,6 +77,7 @@ class CasteComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
+    const { self } = state.player;
     const { step, selection } = state.game;
     const { to, from } = selection.switch;
     const { caste } = ownProps;
@@ -87,7 +88,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const hasChosenTo = step === CasteSwitchStep.ChooseToDone;
 
     const isSelected = (hasChosenFrom && caste === from.caste) || (hasChosenTo && caste === to.caste);    
-    const isPlayable = isChoosingFrom || hasChosenFrom || isChoosingTo || hasChosenTo;
+    const isPlayable = self.isPlaying && (isChoosingFrom || hasChosenFrom || isChoosingTo || hasChosenTo);
 
     return {
         step,

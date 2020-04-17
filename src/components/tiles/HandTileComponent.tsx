@@ -95,10 +95,11 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 
     const isMove = type === Action.Move;
     const isSwitch = type === Action.Switch;
-    const isPlayable =
+    const isPlayable = self.isPlaying && (
         (isInDialog && (step === TilePlayStep.ChoosePlayerTile || step === TilePlayStep.Done)) ||
         (isSwitch && step === TilePlayStep.ChooseBoardTile) ||
-        (isMove && step === TilePlayStep.ChooseBoardTile && nPlayedTiles > 0);
+        (isMove && step === TilePlayStep.ChooseBoardTile && nPlayedTiles > 0)
+    );
 
     const isSelected = id === play.playerTile;    
 

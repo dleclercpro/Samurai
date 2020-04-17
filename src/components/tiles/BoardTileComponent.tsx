@@ -95,8 +95,8 @@ class BoardTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { game } = state;
-    const { step, selection } = game;
+    const { self} = state.player;
+    const { step, selection } = state.game;
     const { id, castes, isWater } = ownProps;
 
     const isSelected = ownProps.id === selection.play.boardTile;
@@ -109,14 +109,14 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 
     switch (step) {
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = !isCity && (!isWater || hasShipInHand);
+            isPlayable = self.isPlaying && !isCity && (!isWater || hasShipInHand);
             break;
         case CasteSwitchStep.ChooseTileFrom:
         case CasteSwitchStep.ChooseTileTo:
-            isPlayable = isCity && !isSelectedForSwitch;
+            isPlayable = self.isPlaying && isCity && !isSelectedForSwitch;
             break;
         case TileMoveStep.ChooseBoardTile:
-            isPlayable = !isCity && !isWater;
+            isPlayable = self.isPlaying && !isCity && !isWater;
             break;
     }
 

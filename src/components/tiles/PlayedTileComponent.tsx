@@ -70,13 +70,14 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { player } = state;
+    const { self } = state.player;
     const { step, selection } = state.game;
     const { id, boardId, type } = ownProps;
 
-    const isMine = player.self.playedTiles.get(boardId) === id;
+    const isPlaying = self.isPlaying;
+    const isMine = self.playedTiles.get(boardId) === id;
     const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
-    const isPlayable = isMine && isMovable && (step === TileMoveStep.ChoosePlayerTile);
+    const isPlayable = isMine && isPlaying && isMovable && (step === TileMoveStep.ChoosePlayerTile);
     const isSelected = isMine && id === selection.move.from;
 
     return {
