@@ -55,11 +55,11 @@ export const signUp = (username: string, firstName: string, lastName: string, em
     }
 }
 
-export const createGame = (name: string, users: string[]): CreateGame => {
+export const createGame = (name: string, self: string, opponents: string[]): CreateGame => {
 
     return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
         
-        return new CallCreateGame(name, users).execute()
+        return new CallCreateGame(name, self, opponents).execute()
             .then((response: ServerResponse) => {
                 const { id } = response.data;
 
@@ -99,7 +99,7 @@ export const refreshGame = (): RefreshGame => {
             })
             .then((response: ServerResponse) => {
                 const hand: HandJSON = response.data;
-                
+
                 dispatch(loadHand(hand));
             });
     }

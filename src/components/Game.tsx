@@ -5,29 +5,22 @@ import { setGameId } from '../actions/GameActions';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import { refreshGame } from '../actions/ServerActions';
-import { PlayerJSON, BoardJSON } from '../types/JSONTypes';
+import { BoardJSON } from '../types/JSONTypes';
 import { loadBoard } from '../actions/DataActions';
-import { loadHand, loadPlayer, loadOpponents } from '../actions/PlayerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../types/StateTypes';
-import { getRandomHand } from '../lib';
-import FULL_HAND from '../data/FullHand.json';
-import FAKE_BOARD from '../data/FakeBoard.json';
-import FAKE_PLAYER from '../data/FakePlayer.json';
-import FAKE_OPPONENTS from '../data/FakeOpponents.json';
 import { DialogType } from '../types/DialogTypes';
-import { closeDialog } from '../actions/DialogActions';
+import { closeDialog, setErrorDialog, openDialog } from '../actions/DialogActions';
 
 interface OwnProps {
     id: number,
 }
 
 interface DispatchProps {
-    loadBoard: (data: BoardJSON) => void,
-    loadHand: (data: number[]) => void,
-    loadPlayer: (data: PlayerJSON) => void,
-    loadOpponents: (data: PlayerJSON[]) => void,
     setGameId: (id: number) => void,
+    loadBoard: (data: BoardJSON) => void,
+    setErrorDialog: (message: string, explanation: string) => void,
+    openErrorDialog: () => void,
     closePlayGameDialog: () => void,
 
     refreshGame: () => Promise<void>,
@@ -38,18 +31,17 @@ type Props = OwnProps & DispatchProps;
 class Game extends React.Component<Props, {}> {
 
     componentDidMount() {
-        const { id, setGameId, closePlayGameDialog, refreshGame, loadHand, loadBoard, loadPlayer, loadOpponents } = this.props;
+        const { id, setGameId, refreshGame, setErrorDialog, openErrorDialog, closePlayGameDialog } = this.props;
 
+        // Trick: closing it here, since it cannot be closed before redirecting
         closePlayGameDialog();
 
         setGameId(id);
 
         refreshGame()
-            .catch(() => {
-                loadHand(getRandomHand(FULL_HAND));
-                loadBoard(FAKE_BOARD);
-                loadPlayer(FAKE_PLAYER);
-                loadOpponents(FAKE_OPPONENTS);
+            .catch((error: any) => {
+                setErrorDialog(`There was a problem loading the game with ID: ${id}`, error.message);
+                openErrorDialog();
             });
     }
 
@@ -61,11 +53,10 @@ class Game extends React.Component<Props, {}> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
-    loadHand: (data: number[]) => dispatch(loadHand(data)),
-    loadPlayer: (data: PlayerJSON) => dispatch(loadPlayer(data)),
-    loadOpponents: (data: PlayerJSON[]) => dispatch(loadOpponents(data)),
     setGameId: (id: number) => dispatch(setGameId(id)),
+    loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
+    setErrorDialog: (message: string, explanation: string) => dispatch(setErrorDialog(message, explanation)),
+    openErrorDialog: () => dispatch(openDialog(DialogType.Error)),
     closePlayGameDialog: () => dispatch(closeDialog(DialogType.PlayGame)),
 
     refreshGame: () => dispatch(refreshGame()),

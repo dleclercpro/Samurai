@@ -18,17 +18,20 @@ const INIT_STATE = {
         user1: { ...INIT_FIELD_STATE },
         user2: { ...INIT_FIELD_STATE },
         user3: { ...INIT_FIELD_STATE },
-        user4: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
 };
 
-interface DispatchProps {
-    close: () => void,
-    createGame: (name: string, users: string[]) => Promise<void>,
+interface StateProps {
+    self: string,
 }
 
-type Props = DispatchProps;
+interface DispatchProps {
+    close: () => void,
+    createGame: (name: string, self: string, opponents: string[]) => Promise<void>,
+}
+
+type Props = StateProps &  DispatchProps;
 
 interface State {
     fields: FormFields,
@@ -63,12 +66,12 @@ class FormCreateGame extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        const { createGame, close } = this.props;
-        const { name, user1, user2, user3, user4 } = getFormPayload(this.state.fields);
+        const { self, createGame, close } = this.props;
+        const { name, user1, user2, user3 } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
-        createGame(name, [ user1, user2, user3, user4 ])
+        createGame(name, self, [ user1, user2, user3 ])
             .then(() => {
                 close();
             });
@@ -77,7 +80,7 @@ class FormCreateGame extends React.Component<Props, State> {
     render() {
         const { close } = this.props;
         const { fields, isFilled } = this.state;
-        const { name, user1, user2, user3, user4 } = fields;
+        const { name, user1, user2, user3 } = fields;
 
         return (
             <Form
@@ -122,23 +125,18 @@ class FormCreateGame extends React.Component<Props, State> {
                     value={user3.value}
                     error={user3.error}
                 />
-
-                <FormTextField
-                    type='email'
-                    name='user4'
-                    label='Player 4 (E-mail)'
-                    onChange={this.handleChange}
-                    value={user4.value}
-                    error={user4.error}
-                />
             </Form>
         );
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    close: () => dispatch(closeDialog(DialogType.CreateGame)),
-    createGame: (name: string, users: string[]) => dispatch(createGame(name, users)),
+const mapStateToProps = (state: AppState) => ({
+    self: 'root', // FIXME!
 });
 
-export default connect(() => ({}), mapDispatchToProps)(FormCreateGame);
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    close: () => dispatch(closeDialog(DialogType.CreateGame)),
+    createGame: (name: string, self: string, opponents: string[]) => dispatch(createGame(name, self, opponents)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormCreateGame);

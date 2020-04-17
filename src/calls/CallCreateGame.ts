@@ -2,10 +2,11 @@ import CallPOST from './CallPOST';
 
 export class CallCreateGame extends CallPOST {
 
-    constructor(name: string, users: string[]) {
+    constructor(name: string, user: string, opponents: string[]) {
         super('game/create/', {
             name,
-            users,
+            user,
+            opponents,
         });
     }
 };
