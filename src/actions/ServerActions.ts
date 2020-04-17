@@ -78,10 +78,6 @@ export const playTile = (playerTile: number, boardTile: number): PlayGame => {
     return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
 
         return dispatch(play(playerTile, -1, boardTile, '', ''))
-            .then(() => {
-                dispatch(setSuccessDialog('Tile placement was successful.'));
-                dispatch(openDialog(DialogType.Success));
-            })
             .catch((error: any) => {
                 dispatch(setErrorDialog('Tile placement was unsuccessful.', error.message));
                 dispatch(openDialog(DialogType.Error));
@@ -94,10 +90,6 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): MoveTile =
     return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
 
         return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
-            .then(() => {
-                dispatch(setSuccessDialog('Tile move was successful.'));
-                dispatch(openDialog(DialogType.Success));
-            })
             .catch((error: any) => {
                 dispatch(setErrorDialog('Tile move was unsuccessful.', error.message));
                 dispatch(openDialog(DialogType.Error));
@@ -110,10 +102,6 @@ export const switchCastePieces = (boardTileFrom: number, boardTileTo: number, ca
     return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
 
         return dispatch(play(TILE_SWITCH_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
-            .then(() => {
-                dispatch(setSuccessDialog('Caste pieces switch was successful.'));
-                dispatch(openDialog(DialogType.Success));
-            })
             .catch((error: any) => {
                 dispatch(setErrorDialog('Caste pieces switch was unsuccessful.', error.message));
                 dispatch(openDialog(DialogType.Error));

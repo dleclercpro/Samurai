@@ -53,7 +53,7 @@ class App extends React.Component<Props, {}> {
     
     componentDidMount() {
         const { loadFullHand, loadBoard, loadPlayer, loadOpponents, refreshGame, setGameId, openSignInDialog } = this.props;
-        const game = 5;
+        const game = 6;
         
         setGameId(game);
         loadFullHand(FULL_HAND);
