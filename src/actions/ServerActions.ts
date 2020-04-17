@@ -5,7 +5,7 @@ import { setSuccessDialog, setErrorDialog, openDialog, closeDialog } from './Dia
 import { DialogType } from '../types/DialogTypes';
 import { PlayersJSON, HandJSON, BoardJSON } from '../types/JSONTypes';
 import { endTurn } from './GameActions';
-import { RefreshGame, PlayGame, MoveTile, SwitchCastePieces, SignIn } from '../types/ActionTypes';
+import { RefreshGame, PlayGame, MoveTile, SwitchCastePieces, SignIn, SignUp, CreateGame } from '../types/ActionTypes';
 import { CallGetBoard } from '../calls/CallGetBoard';
 import { CallGetPlayers } from '../calls/CallGetPlayers';
 import { loadBoard } from './DataActions';
@@ -15,6 +15,8 @@ import { Action } from 'redux';
 import { TILE_MOVE_ID, TILE_SWITCH_ID } from '../constants';
 import { Caste } from '../types/GameTypes';
 import { CallSignIn } from '../calls/CallSignIn';
+import { CallSignUp } from '../calls/CallSignUp';
+import { CallCreateGame } from '../calls/CallCreateGame';
 
 export const signIn = (email: string, password: string): SignIn => {
 
@@ -29,6 +31,42 @@ export const signIn = (email: string, password: string): SignIn => {
             .catch((error: any) => {
                 dispatch(closeDialog(DialogType.SignIn));
                 dispatch(setErrorDialog('There was an error while signing in:', error.message));
+                dispatch(openDialog(DialogType.Error));
+            });
+    }
+}
+
+export const signUp = (username: string, firstName: string, lastName: string, email: string, password: string): SignUp => {
+
+    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+        
+        return new CallSignUp(username, firstName, lastName, email, password).execute()
+            .then(() => {
+                dispatch(closeDialog(DialogType.SignUp));
+                dispatch(setSuccessDialog('You have successfully signed up.'));
+                dispatch(openDialog(DialogType.Success));
+            })
+            .catch((error: any) => {
+                dispatch(closeDialog(DialogType.SignUp));
+                dispatch(setErrorDialog('There was an error while signing up:', error.message));
+                dispatch(openDialog(DialogType.Error));
+            });
+    }
+}
+
+export const createGame = (name: string, users: string[]): CreateGame => {
+
+    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+        
+        return new CallCreateGame(name, users).execute()
+            .then((id: number) => {
+                dispatch(closeDialog(DialogType.CreateGame));
+                dispatch(setSuccessDialog(`You have successfully create a new game. Its ID is: ${id}`));
+                dispatch(openDialog(DialogType.Success));
+            })
+            .catch((error: any) => {
+                dispatch(closeDialog(DialogType.SignUp));
+                dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     }

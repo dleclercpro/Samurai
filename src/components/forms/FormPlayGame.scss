@@ -1,0 +1,12 @@
+@import 'config';
+
+#form-play-game {
+
+    > .fields {
+        width: 100%;
+
+        > .form-text-field--id {
+            flex-basis: 100%;
+        }
+    }
+}

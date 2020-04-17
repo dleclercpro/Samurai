@@ -6,12 +6,15 @@ import { ThunkAction } from 'redux-thunk';
 import { AppState } from './StateTypes';
 
 // Server actions
-export type SignIn = ThunkAction<Promise<void>, AppState, {}, AppAction>;
-export type RefreshGame = ThunkAction<Promise<void>, AppState, {}, AppAction>;
-export type PlayGame = ThunkAction<Promise<void>, AppState, {}, AppAction>;
-export type PlayTile = ThunkAction<Promise<void>, AppState, {}, AppAction>;
-export type MoveTile = ThunkAction<Promise<void>, AppState, {}, AppAction>;
-export type SwitchCastePieces = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+type ThunkResult = ThunkAction<Promise<void>, AppState, {}, AppAction>;
+export type SignUp = ThunkResult;
+export type SignIn = ThunkResult;
+export type CreateGame = ThunkResult;
+export type RefreshGame = ThunkResult;
+export type PlayGame = ThunkResult;
+export type PlayTile = ThunkResult;
+export type MoveTile = ThunkResult;
+export type SwitchCastePieces = ThunkResult;
 
 
 

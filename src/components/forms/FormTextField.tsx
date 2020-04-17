@@ -9,12 +9,13 @@ interface OwnProps {
     error: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void,
+    autoFocus?: boolean,
 }
 
 type Props = OwnProps;
 
 const FormTextField: React.FC<Props> = (props) => {
-    const { type, name, label, value, error, onChange, onBlur } = props;
+    const { type, name, label, value, error, onChange, onBlur, autoFocus } = props;
     const hasError = error !== '';
 
     return (
@@ -30,6 +31,7 @@ const FormTextField: React.FC<Props> = (props) => {
                 onChange={onChange}
                 onBlur={onBlur !== undefined ? onBlur : () => {}}
                 value={value}
+                autoFocus={autoFocus}
             />
                 {hasError &&
                     <p className='error'>{error}</p>

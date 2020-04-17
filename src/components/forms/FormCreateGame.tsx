@@ -1,0 +1,144 @@
+import React from 'react';
+import './FormCreateGame.scss';
+import { connect } from 'react-redux';
+import { AppAction } from '../../actions';
+import FormTextField from './FormTextField';
+import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
+import Form from './Form';
+import { closeDialog } from '../../actions/DialogActions';
+import { DialogType } from '../../types/DialogTypes';
+import { getFormPayload } from '../../lib';
+import { createGame } from '../../actions/ServerActions';
+import { ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../../types/StateTypes';
+
+const INIT_STATE = {
+    fields: {
+        name: { ...INIT_FIELD_STATE },
+        user1: { ...INIT_FIELD_STATE },
+        user2: { ...INIT_FIELD_STATE },
+        user3: { ...INIT_FIELD_STATE },
+        user4: { ...INIT_FIELD_STATE },
+    },
+    isFilled: false,
+};
+
+interface DispatchProps {
+    close: () => void,
+    createGame: (name: string, users: string[]) => Promise<void>,
+}
+
+type Props = DispatchProps;
+
+interface State {
+    fields: FormFields,
+    isFilled: boolean,
+}
+
+class FormCreateGame extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = { ...INIT_STATE };
+    }
+
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value }  = e.target;
+        
+        const fields = {
+            ...this.state.fields,
+            [name]: {
+                ...this.state.fields[name],
+                value: value,
+            },
+        };
+
+        const isFilled = Object.values(fields).map(field => field.value).every(value => value !== '');
+
+        this.setState({
+            fields,
+            isFilled,
+        });
+    }
+
+    handleSubmit = (e: React.FormEvent) => {
+        const { createGame, close } = this.props;
+        const { name, user1, user2, user3, user4 } = getFormPayload(this.state.fields);
+
+        e.preventDefault();
+
+        createGame(name, [user1, user2, user3, user4])
+            .then(() => {
+                close();
+            });
+    }
+    
+    render() {
+        const { close } = this.props;
+        const { fields, isFilled } = this.state;
+        const { name, user1, user2, user3, user4 } = fields;
+
+        return (
+            <Form
+                id='create-game'
+                submitText='Create'
+                onCancel={close}
+                onSubmit={this.handleSubmit}
+                canSubmit={isFilled}
+            >
+                <FormTextField
+                    name='name'
+                    label='Game name'
+                    onChange={this.handleChange}
+                    value={name.value}
+                    error={name.error}
+                    autoFocus
+                />
+
+                <FormTextField
+                    type='email'
+                    name='user1'
+                    label='Player 1 (E-mail)'
+                    onChange={this.handleChange}
+                    value={user1.value}
+                    error={user1.error}
+                />
+
+                <FormTextField
+                    type='email'
+                    name='user2'
+                    label='Player 2 (E-mail)'
+                    onChange={this.handleChange}
+                    value={user2.value}
+                    error={user2.error}
+                />
+
+                <FormTextField
+                    type='email'
+                    name='user3'
+                    label='Player 3 (E-mail)'
+                    onChange={this.handleChange}
+                    value={user3.value}
+                    error={user3.error}
+                />
+
+                <FormTextField
+                    type='email'
+                    name='user4'
+                    label='Player 4 (E-mail)'
+                    onChange={this.handleChange}
+                    value={user4.value}
+                    error={user4.error}
+                />
+            </Form>
+        );
+    }
+}
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    close: () => dispatch(closeDialog(DialogType.CreateGame)),
+    createGame: (name: string, users: string[]) => dispatch(createGame(name, users)),
+});
+
+export default connect(() => ({}), mapDispatchToProps)(FormCreateGame);

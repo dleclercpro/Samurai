@@ -1,14 +1,16 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import './FormSignUp.scss';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { CallSignUp } from '../../calls/CallSignUp';
-import { openDialog, setSuccessDialog, setErrorDialog, closeDialog } from '../../actions/DialogActions';
+import { closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
+import { signUp } from '../../actions/ServerActions';
+import { ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../../types/StateTypes';
 
 const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.';
 
@@ -29,9 +31,8 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    openSuccessDialog: (message: string) => void,
-    openErrorDialog: (message: string, explanation: string) => void,
-    closeSignUpDialog: () => void,
+    close: () => void,
+    signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => Promise<void>,
 }
 
 type Props = DispatchProps;
@@ -108,24 +109,16 @@ class FormSignUp extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        const { openSuccessDialog, openErrorDialog, closeSignUpDialog } = this.props;
+        const { signUp } = this.props;
         const { username, firstName, lastName, email, password } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
-        new CallSignUp(username, firstName, lastName, email, password).execute()
-            .then((response: any) => {
-                closeSignUpDialog();
-                openSuccessDialog('You have successfully signed up.');
-            })
-            .catch((error: any) => {
-                closeSignUpDialog();
-                openErrorDialog('There was an error while signing up:', error.message);
-            });
+        signUp(username, firstName, lastName, email, password);
     }
     
     render() {
-        const { closeSignUpDialog } = this.props;
+        const { close } = this.props;
         const { fields, isFilled, hasErrors } = this.state;
         const { username, firstName, lastName, email, password } = fields;
 
@@ -133,7 +126,7 @@ class FormSignUp extends React.Component<Props, State> {
             <Form
                 id='sign-up'
                 submitText='Sign up'
-                onCancel={closeSignUpDialog}
+                onCancel={close}
                 onSubmit={this.handleSubmit}
                 canSubmit={isFilled && !hasErrors}
             >
@@ -143,6 +136,7 @@ class FormSignUp extends React.Component<Props, State> {
                     onChange={this.handleChange}
                     value={firstName.value}
                     error={firstName.error}
+                    autoFocus
                 />
 
                 <FormTextField
@@ -183,18 +177,9 @@ class FormSignUp extends React.Component<Props, State> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => {
-    return {
-        openSuccessDialog: (message: string) => {
-            dispatch(setSuccessDialog(message));
-            dispatch(openDialog(DialogType.Success));
-        },
-        openErrorDialog: (message: string, explanation: string) => {
-            dispatch(setErrorDialog(message, explanation));
-            dispatch(openDialog(DialogType.Error));
-        },
-        closeSignUpDialog: () => dispatch(closeDialog(DialogType.SignUp)),
-    };
-};
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    close: () => dispatch(closeDialog(DialogType.SignUp)),
+    signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => dispatch(signUp(username, firstName, lastName, email, password)),
+});
 
 export default connect(() => ({}), mapDispatchToProps)(FormSignUp);

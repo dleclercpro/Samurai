@@ -3,6 +3,8 @@ export enum DialogType {
     Error = 'error',
     SignIn = 'sign-in',
     SignUp = 'sign-up',
+    PlayGame = 'play-game',
+    CreateGame = 'create-game',
     GameOver = 'game-over',
     TileChoice = 'tile-choice',
     CasteChoice = 'caste-choice',
