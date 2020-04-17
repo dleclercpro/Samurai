@@ -6,12 +6,14 @@ import './Board.scss';
 import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Player, PlayerTileMap } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 import PlayedTileComponent from './tiles/PlayedTileComponent';
+import { getBusyBoardTileIds } from '../selectors';
 
 interface StateProps {
     player: Player,
     opponents: Player[],
     tiles: BoardTileMap,
     initHand: PlayerTileMap,
+    busyBoardTileIds: number[],
 }
 
 type Props = StateProps;
@@ -104,13 +106,18 @@ class Board extends React.Component<Props, State> {
     }
 
     getTileNodes = (): ReactNode[] => {
-        const { tiles } = this.props;
+        const { tiles, busyBoardTileIds } = this.props;
         let waterTiles: BoardTile[] = [];
-        let groundTiles: BoardTile[] = [];        
+        let groundTiles: BoardTile[] = [];
         let tileNodes: ReactNode[] = [];
 
+        // Remove board tiles on which a tile was played
+        const freeBoardTiles = Array.from(tiles.values()).filter((tile: BoardTile) => {
+            return !busyBoardTileIds.includes(tile.id)
+        });
+
         // Differenciation between ground and water tiles
-        Array.from(tiles.values()).forEach((tile: BoardTile) => {
+        freeBoardTiles.forEach((tile: BoardTile) => {
             tile.isWater ? waterTiles.push(tile) : groundTiles.push(tile);
         });
 
@@ -153,15 +160,16 @@ class Board extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { data, player } = state;
-    const { self, opponents } = player;
-    const { tiles, initHand } = data;
+    const { self, opponents } = state.player;
+    const { tiles, initHand } = state.data;
+    const busyBoardTileIds = getBusyBoardTileIds(state.player);
 
     return {
         tiles,
         initHand,
         player: self,
         opponents,
+        busyBoardTileIds,
     }
 };
 

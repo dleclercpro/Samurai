@@ -10,23 +10,15 @@ export const getHand = (state: AppState): PlayerTile[] => {
     )).filter(notUndefined);
 }
 
-export const getPlayedTileIds = (state: PlayerState): number[] => {
+export const getBusyBoardTileIds = (state: PlayerState): number[] => {
     const { self, opponents } = state;
     const players = opponents.concat(self);
     
-    return players.reduce((tileIds: number[], player: Player) => {
-        const playedTileIds = Array.from(player.playedTiles.values());
+    return players.reduce((boardTileIds: number[], player: Player) => {
+        const playedTileIds = Array.from(player.playedTiles.keys());
         
-        return tileIds.concat(playedTileIds);
+        return boardTileIds.concat(playedTileIds);
     }, []);
-}
-
-export const getPlayedTiles = (state: AppState): PlayerTile[] => {
-    const { data, player } = state;
-
-    return getPlayedTileIds(player).map((id: number) => (
-        data.initHand.get(id)
-    )).filter(notUndefined);
 }
 
 export const getWinners = (state: PlayerState): Player[] => {
