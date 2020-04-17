@@ -8,6 +8,7 @@ import { ReactComponent as CloseIcon } from '../../icons/close.svg';
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 import Overlay from '../Overlay';
+import { KEY_ENTER_ID, KEY_ESC_ID } from '../../constants';
 
 interface OwnProps {
     children?: ReactNode,
@@ -35,6 +36,36 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 class Dialog extends React.Component<Props, {}> {
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleEnterPress, false);
+        document.addEventListener('keydown', this.handleEscPress, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleEnterPress, false);
+        document.removeEventListener('keydown', this.handleEscPress, false);
+    }
+
+    handleEnterPress = (e: KeyboardEvent) => {
+        const { isOpen, isActionButtonActive } = this.props;
+        
+        // Pressing on enter inside dialog is the same as
+        // pressing on action button
+        if (e.keyCode === KEY_ENTER_ID && isOpen && isActionButtonActive) {
+            this.handleAction();
+        }
+    }
+
+    handleEscPress = (e: KeyboardEvent) => {
+        const { isOpen } = this.props;
+        
+        // Pressing on escape inside dialog is the same as
+        // pressing on cancel button
+        if (e.keyCode === KEY_ESC_ID && isOpen) {
+            this.handleCancel();
+        }
+    }
 
     handleClick = (e: React.MouseEvent) => {
         e.stopPropagation();
