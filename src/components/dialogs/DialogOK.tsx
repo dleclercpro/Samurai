@@ -24,7 +24,8 @@ class DialogOK extends React.Component<Props, {}> {
                 message={message}
                 explanation={explanation}
                 cancelButtonText='OK'
-                onCancel={() => {}}
+                onAction={() => {}}
+                isActionButtonActive
             />
         );
     }

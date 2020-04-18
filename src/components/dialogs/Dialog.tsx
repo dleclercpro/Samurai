@@ -18,7 +18,6 @@ interface OwnProps {
     explanation?: string,
     cancelButtonText?: string,
     actionButtonText?: string,
-    onClose?: () => void,
     onCancel?: () => void,
     onAction?: () => void,
     canClose?: boolean,
@@ -95,25 +94,13 @@ class Dialog extends React.Component<Props, {}> {
         closeDialog();
     }
 
-    handleClose = () => {
-        const { onClose, canClose, closeDialog } = this.props;
-
-        if (onClose) {
-            onClose();
-        }
-
-        if (canClose === undefined || canClose) {
-            closeDialog();
-        }
-    }
-
     render() {
         const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel, onAction } = this.props;
         const hasChildren = React.Children.count(children) > 0;
         const hasMessage = message !== undefined && message !== '';
         const hasExplanation = explanation !== undefined && explanation !== '';
         const hasButtons = onCancel !== undefined || onAction !== undefined;
-        const hasActionButton = onAction !== undefined;
+        const hasCancelButton = onCancel !== undefined;
 
         if (!isOpen) {
             return null;
@@ -122,7 +109,7 @@ class Dialog extends React.Component<Props, {}> {
         return (
             <Overlay
                 id='dialog'
-                onClick={this.handleClose}
+                onClick={this.handleCancel}
             >
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <h2 className='headline'>{headline}</h2>
@@ -145,24 +132,25 @@ class Dialog extends React.Component<Props, {}> {
 
                     {hasButtons &&
                         <div className='buttons'>
-                            <Button
-                                isActive
-                                action={this.handleCancel}
-                            >
-                                {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
-                            </Button>
+                            {hasCancelButton &&
+                                <Button
+                                    isActive
+                                    action={this.handleCancel}
+                                >
+                                    {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
+                                </Button>
+                            }
                         
-                            {hasActionButton &&
                             <Button
                                 isActive={isActionButtonActive !== undefined && isActionButtonActive}
                                 action={this.handleAction}
                             >
                                 {actionButtonText !== undefined ? actionButtonText : 'OK'}
-                            </Button>}
+                            </Button>
                         </div>
                     }
 
-                    <CloseIcon className='icon-close' onClick={this.handleClose} />
+                    <CloseIcon className='icon-close' onClick={this.handleCancel} />
                 </div>
             </Overlay>
         );

@@ -64,7 +64,6 @@ class DialogCasteChoice extends React.Component<Props, {}> {
                 message='Choose the caste figure you want to switch from the following:'
                 actionButtonText='Choose'
                 cancelButtonText='Back'
-                onClose={this.handleCancel}
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
