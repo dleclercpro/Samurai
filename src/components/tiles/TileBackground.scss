@@ -10,15 +10,6 @@
         stroke: $color-blind-dark-ground;
     }
 
-    .is-playable.is-hovered & {
-        cursor: pointer;
-        fill: $color-dark-ground;
-
-        .is-colorblind & {
-            fill: $color-blind-dark-ground;
-        }
-    }
-
     &.is-water {
         fill: $color-water;
         stroke: $color-dark-water;
@@ -27,8 +18,17 @@
             fill: $color-blind-water;
             stroke: $color-blind-dark-water;
         }
+    }
 
-        .is-playable.is-hovered & {
+    .is-playable.is-hovered & {
+        cursor: pointer;
+        fill: $color-dark-ground;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-ground;
+        }
+
+        &.is-water {
             fill: $color-dark-water;
 
             .is-colorblind & {
@@ -93,7 +93,7 @@
         }
     }
 
-    .is-playable.is-red.is-hovered &,
+    .is-playable.is-hovered.is-red &,
     .is-selected.is-red & {
         fill: $color-dark-red;
 
@@ -102,7 +102,7 @@
         }
     }
 
-    .is-playable.is-purple.is-hovered &,
+    .is-playable.is-hovered.is-purple &,
     .is-selected.is-purple & {
         fill: $color-dark-purple;
 
@@ -111,7 +111,7 @@
         }
     }
 
-    .is-playable.is-orange.is-hovered &,
+    .is-playable.is-hovered.is-orange &,
     .is-selected.is-orange & {
         fill: $color-dark-orange;
 
@@ -120,7 +120,7 @@
         }
     }
 
-    .is-playable.is-green.is-hovered &,
+    .is-playable.is-hovered.is-green &,
     .is-selected.is-green {
         fill: $color-dark-green;
 
@@ -129,14 +129,14 @@
         }
     }
 
-    .is-playable.is-switch.is-hovered &,
-    .is-playable.is-move.is-hovered &,
+    .is-playable.is-hovered.is-switch &,
+    .is-playable.is-hovered.is-move &,
     .is-selected.is-switch &,
     .is-selected.is-move & {
         fill: $color-grey !important;
     }
 
-    .is-playable.is-ship.is-hovered &,
+    .is-playable.is-hovered.is-ship &,
     .is-selected.is-ship & {
         fill: $color-dark-blue;
 
