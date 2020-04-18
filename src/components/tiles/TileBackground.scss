@@ -121,7 +121,7 @@
     }
 
     .is-playable.is-hovered.is-green &,
-    .is-selected.is-green {
+    .is-selected.is-green & {
         fill: $color-dark-green;
 
         .is-colorblind & {
