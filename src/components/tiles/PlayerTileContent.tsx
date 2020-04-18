@@ -18,7 +18,31 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-class PlayerTileContent extends React.Component<Props, {}> {
+interface State {
+    isHovered: boolean,
+}
+
+class PlayerTileContent extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            isHovered: false,
+        };
+    }
+
+    handleMouseEnter = (e: React.MouseEvent) => {
+        this.setState({
+            isHovered: true,
+        });
+    }
+
+    handleMouseLeave = (e: React.MouseEvent) => {
+        this.setState({
+            isHovered: false,
+        });
+    }
 
     getColor = (color: PlayerColor): string => {
         switch (color) {
@@ -73,6 +97,7 @@ class PlayerTileContent extends React.Component<Props, {}> {
 
     render() {
         const { type, color, isPlayable, isSelected, canReplay } = this.props;
+        const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
 
         const replayIconPosition = { x: width / 2, y: 5/6 * height};
@@ -86,6 +111,7 @@ class PlayerTileContent extends React.Component<Props, {}> {
             <g
                 className={`
                     player-tile-content
+                    ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
                     ${color ? this.getColor(color) : ''}
@@ -94,6 +120,8 @@ class PlayerTileContent extends React.Component<Props, {}> {
                     ${isShip ? 'is-ship' : ''}
                 `}
                 viewBox={`0 0 ${width} ${height}`}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
             >
                 {isSwitch ? this.getSwitch() : this.getNormal()}
                 {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}

@@ -25,6 +25,10 @@
         }
     }
 
+    .is-ship.is-red.is-playable.is-hovered & {
+        fill: $color-red;
+    }
+
     .is-move.is-purple & {
         fill: $color-purple;
 
@@ -39,6 +43,10 @@
         .is-colorblind & {
             fill: $color-blind-purple;
         }
+    }
+
+    .is-ship.is-purple.is-playable.is-hovered & {
+        fill: $color-purple;
     }
 
     .is-move.is-orange & {
@@ -57,6 +65,10 @@
         }
     }
 
+    .is-ship.is-orange.is-playable.is-hovered & {
+        fill: $color-orange;
+    }
+
     .is-move.is-green & {
         fill: $color-green;
 
@@ -71,5 +83,9 @@
         .is-colorblind & {
             fill: $color-blind-green;
         }
+    }
+
+    .is-ship.is-green.is-playable.is-hovered & {
+        fill: $color-green;
     }
 }

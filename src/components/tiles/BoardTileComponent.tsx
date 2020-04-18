@@ -5,12 +5,13 @@ import './BoardTileComponent.scss';
 import { AppAction } from '../../actions';
 import { openDialog } from '../../actions/DialogActions';
 import TileBackground from './TileBackground';
-import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION } from '../../config';
+import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION, TILE_SIZE } from '../../config';
 import { AppState } from '../../types/StateTypes';
-import BoardTileContent from './BoardTileContent';
 import { DialogType } from '../../types/DialogTypes';
 import { selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileToMoveTo } from '../../actions/GameActions';
 import { getHand } from '../../selectors';
+import { getPositionInHexagon } from '../../lib';
+import TileIcon from './TileIcon';
 
 interface OwnProps {
     id: number,
@@ -37,7 +38,31 @@ interface DispatchProps {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-class BoardTileComponent extends React.Component<Props, {}> {
+interface State {
+    isHovered: boolean,
+}
+
+class BoardTileComponent extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            isHovered: false,
+        };
+    }
+
+    handleMouseEnter = (e: React.MouseEvent) => {
+        this.setState({
+            isHovered: true,
+        });
+    }
+
+    handleMouseLeave = (e: React.MouseEvent) => {
+        this.setState({
+            isHovered: false,
+        });
+    }
 
     handleClick = (e: React.MouseEvent) => {
         const { step, isPlayable, openTileChoiceDialog, openCasteChoiceDialog, openTileMoveEndDialog, selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileToMoveTo } = this.props;
@@ -68,15 +93,22 @@ class BoardTileComponent extends React.Component<Props, {}> {
 
     render() {
         const { position, castes, isWater, isPlayable } = this.props;
+        const { isHovered } = this.state;
+        const { width, height } = TILE_SIZE;
+        const center = { x: width / 2, y: height / 2 };
+        const pieceSize = { width: width / 3, height: height / 3};
     
         return (
             <g
                 className={`
                     board-tile-component
+                    ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                 `}
                 transform={`translate(${position.x},${position.y})`}
                 onClick={this.handleClick}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
             >
                 <TileBackground
                     path={TILE_PATH_BOARD}
@@ -84,11 +116,24 @@ class BoardTileComponent extends React.Component<Props, {}> {
                     isWater={isWater}
                 />
                 {castes.length > 0 &&
-                <BoardTileContent
-                    position={position}
-                    rotation={-BOARD_ROTATION}
-                    castes={castes}
-                />}
+                    <g
+                        className='board-tile-component-content'
+                        transform={`rotate(${-BOARD_ROTATION} ${center.x} ${center.y})`}
+                    >
+                        {castes.map((type: Caste, index: number) => {
+                            const position = getPositionInHexagon(index, castes.length, TILE_SIZE);
+
+                            return (
+                                <TileIcon
+                                    key={`tile-icon-caste-${index}`}
+                                    position={position}
+                                    size={pieceSize}
+                                    type={type}
+                                />
+                            );
+                        })}
+                    </g>
+                }
             </g>
         );
     }
