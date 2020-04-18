@@ -5,13 +5,11 @@ import { setSuccessDialog, setErrorDialog, openDialog, closeDialog } from './Dia
 import { DialogType } from '../types/DialogTypes';
 import { PlayersJSON, HandJSON, BoardJSON } from '../types/JSONTypes';
 import { endTurn } from './GameActions';
-import { RefreshGame, PlayGame, MoveTile, SwitchCastePieces, SignIn, SignUp, CreateGame } from '../types/ActionTypes';
+import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
 import { CallGetBoard } from '../calls/CallGetBoard';
 import { CallGetPlayers } from '../calls/CallGetPlayers';
 import { loadBoard } from './DataActions';
-import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../types/StateTypes';
-import { Action } from 'redux';
 import { TILE_MOVE_ID, TILE_SWITCH_ID } from '../constants';
 import { Caste } from '../types/GameTypes';
 import { CallSignIn } from '../calls/CallSignIn';
@@ -19,9 +17,9 @@ import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
 
-export const signIn = (email: string, password: string): SignIn => {
+export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+    return (dispatch: ThunkDispatchResult<void>) => {
         
         return new CallSignIn(email, password).execute()
             .then(() => {
@@ -37,9 +35,9 @@ export const signIn = (email: string, password: string): SignIn => {
     }
 }
 
-export const signUp = (username: string, firstName: string, lastName: string, email: string, password: string): SignUp => {
+export const signUp = (username: string, firstName: string, lastName: string, email: string, password: string): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+    return (dispatch: ThunkDispatchResult<void>) => {
         
         return new CallSignUp(username, firstName, lastName, email, password).execute()
             .then(() => {
@@ -55,17 +53,19 @@ export const signUp = (username: string, firstName: string, lastName: string, em
     }
 }
 
-export const createGame = (name: string, self: string, opponents: string[]): CreateGame => {
+export const createGame = (name: string, self: string, opponents: string[]): ThunkActionResult<number> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+    return (dispatch: ThunkDispatchResult<number>) => {
         
         return new CallCreateGame(name, self, opponents).execute()
             .then((response: ServerResponse) => {
                 const { id } = response.data;
 
-                dispatch(closeDialog(DialogType.CreateGame));
-                dispatch(setSuccessDialog(`You have successfully create a new game. Its ID is: ${id}`));
-                dispatch(openDialog(DialogType.Success));
+                //dispatch(closeDialog(DialogType.CreateGame));
+                //dispatch(setSuccessDialog(`You have successfully create a new game. Its ID is: ${id}`));
+                //dispatch(openDialog(DialogType.Success));
+
+                return id;
             })
             .catch((error: any) => {
                 dispatch(closeDialog(DialogType.SignUp));
@@ -75,9 +75,9 @@ export const createGame = (name: string, self: string, opponents: string[]): Cre
     }
 }
 
-export const refreshGame = (): RefreshGame => {
+export const refreshGame = (): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>, getState: () => AppState) => {
+    return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
         const { game } = state;
 
@@ -105,9 +105,9 @@ export const refreshGame = (): RefreshGame => {
     }
 }
 
-const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, casteFrom: string, casteTo: string): PlayGame => {
+const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, casteFrom: string, casteTo: string): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>, getState: () => AppState) => {
+    return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
         const { game } = state;
 
@@ -120,9 +120,9 @@ const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, ca
     }
 }
 
-export const playTile = (playerTile: number, boardTile: number): PlayGame => {
+export const playTile = (playerTile: number, boardTile: number): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+    return (dispatch: ThunkDispatchResult<void>) => {
 
         return dispatch(play(playerTile, -1, boardTile, '', ''))
             .catch((error: any) => {
@@ -132,9 +132,9 @@ export const playTile = (playerTile: number, boardTile: number): PlayGame => {
     }
 }
 
-export const moveTile = (boardTileFrom: number, boardTileTo: number): MoveTile => {
+export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+    return (dispatch: ThunkDispatchResult<void>) => {
 
         return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
             .catch((error: any) => {
@@ -144,9 +144,9 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): MoveTile =
     }
 }
 
-export const switchCastePieces = (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste): SwitchCastePieces => {
+export const switchCastePieces = (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatch<AppState, Promise<void>, Action>) => {
+    return (dispatch: ThunkDispatchResult<void>) => {
 
         return dispatch(play(TILE_SWITCH_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
             .catch((error: any) => {

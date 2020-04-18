@@ -10,14 +10,12 @@ import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { Redirect } from 'react-router-dom';
 
 const INIT_STATE = {
     fields: {
         id: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
-    gameToPlay: -1,
 };
 
 interface DispatchProps {
@@ -29,7 +27,6 @@ type Props = DispatchProps;
 interface State {
     fields: FormFields,
     isFilled: boolean,
-    gameToPlay: number,
 }
 
 class FormPlayGame extends React.Component<Props, State> {
@@ -60,27 +57,21 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
+        const { close } = this.props;
         const { id } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
-        this.setState({
-            gameToPlay: parseInt(id),
-        });
+        close();
 
+        // Redirect to game
+        document.location.replace(`/samurai/game/${id}/`);
     }
     
     render() {
         const { close } = this.props;
-        const { fields, isFilled, gameToPlay } = this.state;
+        const { fields, isFilled } = this.state;
         const { id } = fields;
-
-        if (gameToPlay >= 0) {
-
-            return (
-                <Redirect to={`/samurai/game/${gameToPlay}/`} />
-            );
-        }
 
         return (
             <Form

@@ -10,7 +10,7 @@ import { loadBoard } from '../actions/DataActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../types/StateTypes';
 import { DialogType } from '../types/DialogTypes';
-import { closeDialog, setErrorDialog, openDialog } from '../actions/DialogActions';
+import { setErrorDialog, openDialog } from '../actions/DialogActions';
 
 interface OwnProps {
     id: number,
@@ -21,7 +21,6 @@ interface DispatchProps {
     loadBoard: (data: BoardJSON) => void,
     setErrorDialog: (message: string, explanation: string) => void,
     openErrorDialog: () => void,
-    closePlayGameDialog: () => void,
 
     refreshGame: () => Promise<void>,
 }
@@ -31,10 +30,7 @@ type Props = OwnProps & DispatchProps;
 class Game extends React.Component<Props, {}> {
 
     componentDidMount() {
-        const { id, setGameId, refreshGame, setErrorDialog, openErrorDialog, closePlayGameDialog } = this.props;
-
-        // Trick: closing it here, since it cannot be closed before redirecting
-        closePlayGameDialog();
+        const { id, setGameId, refreshGame, setErrorDialog, openErrorDialog } = this.props;
 
         setGameId(id);
 
@@ -57,7 +53,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, App
     loadBoard: (data: BoardJSON) => dispatch(loadBoard(data)),
     setErrorDialog: (message: string, explanation: string) => dispatch(setErrorDialog(message, explanation)),
     openErrorDialog: () => dispatch(openDialog(DialogType.Error)),
-    closePlayGameDialog: () => dispatch(closeDialog(DialogType.PlayGame)),
 
     refreshGame: () => dispatch(refreshGame()),
 });

@@ -2,19 +2,12 @@ import { BoardJSON, PlayerTileJSON, PlayerJSON } from './JSONTypes';
 import { DialogType } from './DialogTypes';
 import { Caste } from './GameTypes';
 import { AppAction } from '../actions';
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AppState } from './StateTypes';
 
 // Server actions
-type ThunkResult = ThunkAction<Promise<void>, AppState, {}, AppAction>;
-export type SignUp = ThunkResult;
-export type SignIn = ThunkResult;
-export type CreateGame = ThunkResult;
-export type RefreshGame = ThunkResult;
-export type PlayGame = ThunkResult;
-export type PlayTile = ThunkResult;
-export type MoveTile = ThunkResult;
-export type SwitchCastePieces = ThunkResult;
+export type ThunkDispatchResult<R> = ThunkDispatch<AppState, Promise<R>, AppAction>;
+export type ThunkActionResult<R> = ThunkAction<Promise<R>, AppState, {}, AppAction>;
 
 
 

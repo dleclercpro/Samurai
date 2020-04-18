@@ -28,7 +28,7 @@ interface StateProps {
 
 interface DispatchProps {
     close: () => void,
-    createGame: (name: string, self: string, opponents: string[]) => Promise<void>,
+    createGame: (name: string, self: string, opponents: string[]) => Promise<number>,
 }
 
 type Props = StateProps &  DispatchProps;
@@ -72,8 +72,11 @@ class FormCreateGame extends React.Component<Props, State> {
         e.preventDefault();
 
         createGame(name, self, [ user1, user2, user3 ])
-            .then(() => {
+            .then((id: number) => {
                 close();
+
+                // Redirect to game
+                document.location.replace(`/samurai/game/${id}/`);
             });
     }
     
