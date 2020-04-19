@@ -31,7 +31,7 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    close: () => void,
+    closeSignUpDialog: () => void,
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => Promise<void>,
 }
 
@@ -109,16 +109,19 @@ class FormSignUp extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        const { signUp } = this.props;
+        const { signUp, closeSignUpDialog } = this.props;
         const { username, firstName, lastName, email, password } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
-        signUp(username, firstName, lastName, email, password);
+        signUp(username, firstName, lastName, email, password)
+            .then(() => {
+                closeSignUpDialog();
+            });
     }
     
     render() {
-        const { close } = this.props;
+        const { closeSignUpDialog } = this.props;
         const { fields, isFilled, hasErrors } = this.state;
         const { username, firstName, lastName, email, password } = fields;
 
@@ -126,7 +129,7 @@ class FormSignUp extends React.Component<Props, State> {
             <Form
                 id='sign-up'
                 submitText='Sign up'
-                onCancel={close}
+                onCancel={closeSignUpDialog}
                 onSubmit={this.handleSubmit}
                 canSubmit={isFilled && !hasErrors}
             >
@@ -178,7 +181,7 @@ class FormSignUp extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    close: () => dispatch(closeDialog(DialogType.SignUp)),
+    closeSignUpDialog: () => dispatch(closeDialog(DialogType.SignUp)),
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => dispatch(signUp(username, firstName, lastName, email, password)),
 });
 

@@ -21,7 +21,7 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    close: () => void,
+    closeSignInDialog: () => void,
     signIn: (email: string, password: string) => Promise<void>,
 }
 
@@ -60,16 +60,19 @@ class FormSignIn extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        const { signIn } = this.props;
+        const { signIn, closeSignInDialog } = this.props;
         const { email, password } = getFormPayload(this.state.fields);
   
         e.preventDefault();
 
-        signIn(email, password);
+        signIn(email, password)
+            .then(() => {
+                closeSignInDialog();
+            });
     }
 
     render() {
-        const { close } = this.props;
+        const { closeSignInDialog } = this.props;
         const { fields, canSubmit } = this.state;
         const { email, password } = fields;
 
@@ -77,7 +80,7 @@ class FormSignIn extends React.Component<Props, State> {
             <Form
                 id='sign-in'
                 submitText='Sign in'
-                onCancel={close}
+                onCancel={closeSignInDialog}
                 onSubmit={this.handleSubmit}
                 canSubmit={canSubmit}
             >
@@ -105,7 +108,7 @@ class FormSignIn extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    close: () => dispatch(closeDialog(DialogType.SignIn)),
+    closeSignInDialog: () => dispatch(closeDialog(DialogType.SignIn)),
     signIn: (email: string, password: string) => dispatch(signIn(email, password)),
 });
 

@@ -27,7 +27,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    close: () => void,
+    closeCreateGameDialog: () => void,
     createGame: (name: string, self: string, opponents: string[]) => Promise<number>,
 }
 
@@ -66,22 +66,23 @@ class FormCreateGame extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        const { self, createGame, close } = this.props;
+        const { self, createGame, closeCreateGameDialog } = this.props;
         const { name, user1, user2, user3 } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
         createGame(name, self, [ user1, user2, user3 ])
             .then((id: number) => {
-                close();
+                closeCreateGameDialog();
 
-                // Redirect to game
-                document.location.replace(`/samurai/game/${id}/`);
+                if (id !== -1) {
+                    document.location.replace(`/samurai/game/${id}/`);
+                }
             });
     }
     
     render() {
-        const { close } = this.props;
+        const { closeCreateGameDialog } = this.props;
         const { fields, isFilled } = this.state;
         const { name, user1, user2, user3 } = fields;
 
@@ -89,7 +90,7 @@ class FormCreateGame extends React.Component<Props, State> {
             <Form
                 id='create-game'
                 submitText='Create'
-                onCancel={close}
+                onCancel={closeCreateGameDialog}
                 onSubmit={this.handleSubmit}
                 canSubmit={isFilled}
             >
@@ -138,7 +139,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    close: () => dispatch(closeDialog(DialogType.CreateGame)),
+    closeCreateGameDialog: () => dispatch(closeDialog(DialogType.CreateGame)),
     createGame: (name: string, self: string, opponents: string[]) => dispatch(createGame(name, self, opponents)),
 });
 

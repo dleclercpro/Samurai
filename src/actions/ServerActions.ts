@@ -1,7 +1,7 @@
 import { CallPlayGame } from '../calls/CallPlayGame';
 import { CallGetHand } from '../calls/CallGetHand';
 import { loadPlayer, loadOpponents, loadHand } from './PlayerActions';
-import { setSuccessDialog, setErrorDialog, openDialog, closeDialog } from './DialogActions';
+import { setSuccessDialog, setErrorDialog, openDialog } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { PlayersJSON, HandJSON, BoardJSON } from '../types/JSONTypes';
 import { endTurn } from './GameActions';
@@ -23,12 +23,10 @@ export const signIn = (email: string, password: string): ThunkActionResult<void>
         
         return new CallSignIn(email, password).execute()
             .then(() => {
-                dispatch(closeDialog(DialogType.SignIn));
                 dispatch(setSuccessDialog('You have successfully signed in.'));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(closeDialog(DialogType.SignIn));
                 dispatch(setErrorDialog('There was an error while signing in:', error.message));
                 dispatch(openDialog(DialogType.Error));
             });
@@ -41,12 +39,10 @@ export const signUp = (username: string, firstName: string, lastName: string, em
         
         return new CallSignUp(username, firstName, lastName, email, password).execute()
             .then(() => {
-                dispatch(closeDialog(DialogType.SignUp));
                 dispatch(setSuccessDialog('You have successfully signed up.'));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(closeDialog(DialogType.SignUp));
                 dispatch(setErrorDialog('There was an error while signing up:', error.message));
                 dispatch(openDialog(DialogType.Error));
             });
@@ -61,16 +57,14 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
             .then((response: ServerResponse) => {
                 const { id } = response.data;
 
-                //dispatch(closeDialog(DialogType.CreateGame));
-                //dispatch(setSuccessDialog(`You have successfully create a new game. Its ID is: ${id}`));
-                //dispatch(openDialog(DialogType.Success));
-
                 return id;
             })
             .catch((error: any) => {
-                dispatch(closeDialog(DialogType.SignUp));
                 dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
+
+                // Return invalid ID
+                return -1;
             });
     }
 }

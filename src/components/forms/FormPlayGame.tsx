@@ -19,7 +19,7 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    close: () => void,
+    closePlayGameDialog: () => void,
 }
 
 type Props = DispatchProps;
@@ -57,19 +57,18 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        const { close } = this.props;
+        const { closePlayGameDialog } = this.props;
         const { id } = getFormPayload(this.state.fields);
 
         e.preventDefault();
 
-        close();
+        closePlayGameDialog();
 
-        // Redirect to game
         document.location.replace(`/samurai/game/${id}/`);
     }
     
     render() {
-        const { close } = this.props;
+        const { closePlayGameDialog } = this.props;
         const { fields, isFilled } = this.state;
         const { id } = fields;
 
@@ -77,7 +76,7 @@ class FormPlayGame extends React.Component<Props, State> {
             <Form
                 id='play-game'
                 submitText='Play'
-                onCancel={close}
+                onCancel={closePlayGameDialog}
                 onSubmit={this.handleSubmit}
                 canSubmit={isFilled}
             >
@@ -96,7 +95,7 @@ class FormPlayGame extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    close: () => dispatch(closeDialog(DialogType.PlayGame)),
+    closePlayGameDialog: () => dispatch(closeDialog(DialogType.PlayGame)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(FormPlayGame);
