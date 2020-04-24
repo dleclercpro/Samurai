@@ -135,7 +135,7 @@ class FormCreateGame extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    self: 'root', // FIXME!
+    self: 'd.leclerc.pro@gmail.com', // FIXME!
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
