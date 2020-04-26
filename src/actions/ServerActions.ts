@@ -76,29 +76,45 @@ export const refreshGame = (): ThunkActionResult<void> => {
         const state = getState();
         const { game } = state;
 
+        let board: BoardJSON;
+        let players: PlayersJSON;
+        let hand: HandJSON;
+
         dispatch(openLoadingOverlay);
 
         return new CallGetBoard(game.id).execute()
             .then((response: ServerResponse) => {
-                const board: BoardJSON = response.data;
-
-                dispatch(loadBoard(board));
+                board = response.data;
 
                 return new CallGetPlayers(game.id).execute();    
             })
             .then((response: ServerResponse) => {
-                const players: PlayersJSON = response.data;
-
-                dispatch(loadPlayer(players.self));
-                dispatch(loadOpponents(players.opponents));
+                players = response.data;
 
                 return new CallGetHand(game.id).execute();
             })
             .then((response: ServerResponse) => {
-                const hand: HandJSON = response.data;
+                hand = response.data;
 
+                return Promise.resolve();
+            })
+            .then(() => {
+
+                // Loaded everything
+                dispatch(loadBoard(board));
+                dispatch(loadPlayer(players.self));
+                dispatch(loadOpponents(players.opponents));
                 dispatch(loadHand(hand));
-            }).finally(() => {
+            })
+            .catch((error: any) => {
+                dispatch(setErrorDialog(`There was a problem loading the game with ID: ${game.id}`, error.message,
+                    () => { document.location.replace(`/samurai/game/`) }
+                ));
+                dispatch(openDialog(DialogType.Error));
+
+                return Promise.reject();
+            })
+            .finally(() => {
                 dispatch(closeLoadingOverlay);
             });
     }

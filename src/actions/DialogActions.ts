@@ -11,13 +11,15 @@ export const closeDialog = (dialogType: DialogType): CloseDialog => ({
     dialogType,
 });
 
-export const setSuccessDialog = (message: string): SetSuccessDialog => ({
+export const setSuccessDialog = (message: string, action?: () => void): SetSuccessDialog => ({
     type: SET_SUCCESS_DIALOG,
     message,
+    action,
 });
 
-export const setErrorDialog = (message: string, explanation: string): SetErrorDialog => ({
+export const setErrorDialog = (message: string, explanation: string, action?: () => void): SetErrorDialog => ({
     type: SET_ERROR_DIALOG,
     message,
     explanation,
+    action,
 });

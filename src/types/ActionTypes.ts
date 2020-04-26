@@ -96,6 +96,7 @@ export const SET_SUCCESS_DIALOG = 'SET_SUCCESS_DIALOG';
 export interface SetSuccessDialog {
     type: typeof SET_SUCCESS_DIALOG,
     message: string,
+    action?: () => void,
 }
 
 export const SET_ERROR_DIALOG = 'SET_ERROR_DIALOG';
@@ -103,6 +104,7 @@ export interface SetErrorDialog {
     type: typeof SET_ERROR_DIALOG,
     message: string,
     explanation: string,
+    action?: () => void,
 }
 
 

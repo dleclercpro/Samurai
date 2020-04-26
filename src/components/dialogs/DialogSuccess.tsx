@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 interface StateProps {
     message: string,
+    action?: () => void,
 }
 
 type Props = StateProps;
@@ -14,23 +15,25 @@ type Props = StateProps;
 class DialogSuccess extends React.Component<Props, {}> {
 
     render() {
-        const { message } = this.props;
+        const { message, action } = this.props;
 
         return (
             <DialogOK
                 type={DialogType.Success}
                 headline='Success'
                 message={message}
+                action={action}
             />
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { message } = state.dialog.success;
+    const { message, action } = state.dialog.success;
 
     return {
         message: message !== undefined ? message : '',
+        action,
     };
 };
 

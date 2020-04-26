@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 interface StateProps {
     message: string,
     explanation: string,
+    action?: () => void,
 }
 
 type Props = StateProps;
@@ -15,7 +16,7 @@ type Props = StateProps;
 class DialogError extends React.Component<Props, {}> {
 
     render() {
-        const { message, explanation } = this.props;
+        const { message, explanation, action } = this.props;
 
         return (
             <DialogOK
@@ -23,17 +24,19 @@ class DialogError extends React.Component<Props, {}> {
                 headline='Error'
                 message={message}
                 explanation={explanation}
+                action={action}
             />
         );
     }
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { message, explanation } = state.dialog.error;
+    const { message, explanation, action } = state.dialog.error;
 
     return {
         message: message !== undefined ? message : '',
         explanation: explanation !== undefined ? explanation : '',
+        action,
     };
 };
 

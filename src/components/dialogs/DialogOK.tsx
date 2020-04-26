@@ -8,6 +8,7 @@ interface OwnProps {
     headline: string,
     message: string,
     explanation?: string,
+    action?: () => void,
 }
 
 type Props = OwnProps;
@@ -15,7 +16,7 @@ type Props = OwnProps;
 class DialogOK extends React.Component<Props, {}> {
 
     render() {
-        const { type, headline, message, explanation } = this.props;
+        const { type, headline, message, explanation, action } = this.props;
 
         return (
             <Dialog
@@ -23,8 +24,8 @@ class DialogOK extends React.Component<Props, {}> {
                 headline={headline}
                 message={message}
                 explanation={explanation}
-                cancelButtonText='OK'
-                onAction={() => {}}
+                onAction={action}
+                actionButtonText='OK'
                 isActionButtonActive
             />
         );

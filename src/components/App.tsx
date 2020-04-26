@@ -23,7 +23,6 @@ import Home from '../pages/Home';
 import DialogCreateGame from './dialogs/DialogCreateGame';
 import Game from './Game';
 import DialogPlayGame from './dialogs/DialogPlayGame';
-import SwitchColorModeButton from './SwitchColorModeButton';
 import LoadingOverlay from './LoadingOverlay';
 import { PlayerTileJSON } from '../types/ServerTypes';
 
@@ -51,24 +50,21 @@ class App extends React.Component<Props, {}> {
         return (
             <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>
                 <LoadingOverlay />
-                <SwitchColorModeButton />
+           
                 <main id='main'>
                     <Switch>
                         <Route exact path='/'>
                             <Home />
                         </Route>
-                        <Route exact path='/samurai/game/:id/' render={({ match }) => {
-                            const { id } = match.params;
-
-                            return (
-                                <Game id={parseInt(id)} />
-                            );
-                        }} />
+                        <Route exact path='/samurai/game/:id/' render={({ match }) => (
+                            <Game id={parseInt(match.params.id)} />
+                        )} />
                         <Route>
                             <Redirect to='/' />
                         </Route>
                     </Switch>
                 </main>
+
                 <section id='dialogs'>
                     <DialogSuccess />
                     <DialogError />

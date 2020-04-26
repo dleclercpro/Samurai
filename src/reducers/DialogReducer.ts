@@ -23,10 +23,12 @@ const initState = {
     [DialogType.Success]: {
         ...initDialogState,
         message: '',
+        action: () => {},
     },
     [DialogType.Error]: {
         ...initDialogState,
         message: '',
+        action: () => {},
     },
 };
 
@@ -54,6 +56,7 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
                 [DialogType.Success]: {
                     ...state[DialogType.Success],
                     message: action.message,
+                    action: action.action,
                 },
             };
         case SET_ERROR_DIALOG:
@@ -63,6 +66,7 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
                     ...state[DialogType.Error],
                     message: action.message,
                     explanation: action.explanation,
+                    action: action.action,
                 },
             };
         default:
