@@ -36,7 +36,7 @@ const initState = {
     colors: ColorMode.Normal,
 };
 
-const getNextStep = (step: GameStep, action: string): GameStep => {
+const getNextGameStep = (step: GameStep, action: string): GameStep => {
     
     switch (step) {
 
@@ -65,12 +65,10 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
                     return TilePlayStep.ChoosePlayerTile;
                 case SELECT_PLAYER_TILE:
                     return step;
-                case END_TURN:
-                    return TilePlayStep.ChooseBoardTile;
             }
             break;
 
-        // Caste switch
+        // Caste piece switch
         case CasteSwitchStep.ChooseTileFrom:
             switch (action) {
                 case SELECT_TILE_FROM_FOR_SWITCH:
@@ -115,8 +113,6 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
                     return CasteSwitchStep.ChooseCasteTo;
                 case SELECT_CASTE_TO_FOR_SWITCH:
                     return step;
-                case END_TURN:
-                    return TilePlayStep.ChooseBoardTile;
             }
             break;
 
@@ -137,15 +133,11 @@ const getNextStep = (step: GameStep, action: string): GameStep => {
             return TilePlayStep.ChooseBoardTile;
     }
 
+    // Idle state
     return TilePlayStep.ChooseBoardTile;
 }
 
 const GameReducer = (state: GameState = initState, action: GameAction) => {
-    const nextState = {
-        ...state,
-        step: getNextStep(state.step, action.type),
-    };
-
     switch (action.type) {
         case SET_GAME_ID:
             return {
@@ -159,60 +151,44 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
                 colors: state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal,
             };
 
-        case END_TURN:
-            return {
-                ...nextState,
-                selection: { ...initSelectionState },
-            };
-
         case START_TILE_MOVE:
         case START_CASTE_SWITCH:
         case FINISH_CASTE_SWITCH:
             return {
-                ...nextState,
+                ...state,
+                step: getNextGameStep(state.step, action.type),
             }
 
-        case SELECT_BOARD_TILE:
+        case END_TURN:
             return {
-                ...nextState,
+                ...state,
+                step: getNextGameStep(state.step, action.type),
+                selection: { ...initSelectionState },
+            };
+
+        case SELECT_BOARD_TILE:
+        case DESELECT_BOARD_TILE:
+            return {
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     play: {
-                        ...nextState.selection.play,
+                        ...state.selection.play,
                         boardTile: action.id,
                     },
                 },
             };
-        case DESELECT_BOARD_TILE:
-            return {
-                ...nextState,
-                selection: {
-                    ...nextState.selection,
-                    play: {
-                        ...nextState.selection.play,
-                        boardTile: -1,
-                    },
-                },
-            };
         case SELECT_PLAYER_TILE:
-            return {
-                ...nextState,
-                selection: {
-                    ...nextState.selection,
-                    play: {
-                        ...nextState.selection.play,
-                        playerTile: action.id,
-                    },
-                },
-            };
         case DESELECT_PLAYER_TILE:
-            return {
-                ...nextState,
+                return {
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     play: {
-                        ...nextState.selection.play,
-                        playerTile: -1,
+                        ...state.selection.play,
+                        playerTile: action.id,
                     },
                 },
             };
@@ -220,22 +196,24 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
         // Move steps
         case SELECT_BOARD_TILE_TO_MOVE_FROM:
             return {
-                ...nextState,
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     move: {
-                        ...nextState.selection.move,
+                        ...state.selection.move,
                         from: action.tile,
                     },
                 },
             };
         case SELECT_BOARD_TILE_TO_MOVE_TO:
             return {
-                ...nextState,
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     move: {
-                        ...nextState.selection.move,
+                        ...state.selection.move,
                         to: action.tile,
                     },
                 },
@@ -243,113 +221,65 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
 
         // Switch steps
         case SELECT_TILE_FROM_FOR_SWITCH:
-            return {
-                ...nextState,
-                selection: {
-                    ...nextState.selection,
-                    switch: {
-                        ...nextState.selection.switch,
-                        from: {
-                            ...nextState.selection.switch.from,
-                            tile: action.tile,
-                        },
-                    },
-                },
-            };
         case DESELECT_TILE_FROM_FOR_SWITCH:
-            return {
-                ...nextState,
+                return {
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     switch: {
-                        ...nextState.selection.switch,
+                        ...state.selection.switch,
                         from: {
-                            ...nextState.selection.switch.from,
-                            tile: -1,
+                            ...state.selection.switch.from,
+                            tile: action.tile,
                         },
                     },
                 },
             };
         case SELECT_CASTE_FROM_FOR_SWITCH:
-            return {
-                ...nextState,
-                selection: {
-                    ...nextState.selection,
-                    switch: {
-                        ...nextState.selection.switch,
-                        from: {
-                            ...nextState.selection.switch.from,
-                            caste: action.caste,
-                        },
-                    },
-                },
-            };
         case DESELECT_CASTE_FROM_FOR_SWITCH:
-            return {
-                ...nextState,
+                return {
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     switch: {
-                        ...nextState.selection.switch,
+                        ...state.selection.switch,
                         from: {
-                            ...nextState.selection.switch.from,
-                            caste: Caste.Unknown,
+                            ...state.selection.switch.from,
+                            caste: action.caste,
                         },
                     },
                 },
             };
         case SELECT_TILE_TO_FOR_SWITCH:
+        case DESELECT_TILE_TO_FOR_SWITCH:
             return {
-                ...nextState,
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     switch: {
-                        ...nextState.selection.switch,
+                        ...state.selection.switch,
                         to: {
-                            ...nextState.selection.switch.to,
+                            ...state.selection.switch.to,
                             tile: action.tile,
                         },
                     },
                 },
             };
-        case DESELECT_TILE_TO_FOR_SWITCH:
-            return {
-                ...nextState,
-                selection: {
-                    ...nextState.selection,
-                    switch: {
-                        ...nextState.selection.switch,
-                        to: {
-                            ...nextState.selection.switch.to,
-                            tile: -1,
-                        },
-                    },
-                },
-            };
         case SELECT_CASTE_TO_FOR_SWITCH:
-            return {
-                ...nextState,
-                selection: {
-                    ...nextState.selection,
-                    switch: {
-                        ...nextState.selection.switch,
-                        to: {
-                            ...nextState.selection.switch.to,
-                            caste: action.caste,
-                        },
-                    },
-                },
-            };
         case DESELECT_CASTE_TO_FOR_SWITCH:
-            return {
-                ...nextState,
+                return {
+                ...state,
+                step: getNextGameStep(state.step, action.type),
                 selection: {
-                    ...nextState.selection,
+                    ...state.selection,
                     switch: {
-                        ...nextState.selection.switch,
+                        ...state.selection.switch,
                         to: {
-                            ...nextState.selection.switch.to,
-                            caste: Caste.Unknown,
+                            ...state.selection.switch.to,
+                            caste: action.caste,
                         },
                     },
                 },

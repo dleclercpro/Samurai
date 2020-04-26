@@ -24,17 +24,19 @@ export const selectBoardTile = (id: number): SelectBoardTile => ({
     id,
 });
 
+export const deselectBoardTile: DeselectBoardTile = {
+    type: DESELECT_BOARD_TILE,
+    id: -1,
+};
+
 export const selectPlayerTile = (id: number): SelectPlayerTile => ({
     type: SELECT_PLAYER_TILE,
     id,
 });
 
-export const deselectBoardTile: DeselectBoardTile = {
-    type: DESELECT_BOARD_TILE,
-};
-
 export const deselectPlayerTile: DeselectPlayerTile = {
     type: DESELECT_PLAYER_TILE,
+    id: -1,
 };
 
 
@@ -55,6 +57,7 @@ export const selectTileFromForSwitch = (tile: number): SelectTileFromForSwitch =
 
 export const deselectTileFromForSwitch: DeselectTileFromForSwitch = {
     type: DESELECT_TILE_FROM_FOR_SWITCH,
+    tile: -1,
 };
 
 export const selectCasteFromForSwitch = (caste: Caste): SelectCasteFromForSwitch => ({
@@ -64,6 +67,7 @@ export const selectCasteFromForSwitch = (caste: Caste): SelectCasteFromForSwitch
 
 export const deselectCasteFromForSwitch: DeselectCasteFromForSwitch = {
     type: DESELECT_CASTE_FROM_FOR_SWITCH,
+    caste: Caste.Unknown,
 };
 
 export const selectTileToForSwitch = (tile: number): SelectTileToForSwitch => ({
@@ -73,6 +77,7 @@ export const selectTileToForSwitch = (tile: number): SelectTileToForSwitch => ({
 
 export const deselectTileToForSwitch: DeselectTileToForSwitch = {
     type: DESELECT_TILE_TO_FOR_SWITCH,
+    tile: -1,
 };
 
 export const selectCasteToForSwitch = (caste: Caste): SelectCasteToForSwitch => ({
@@ -82,6 +87,7 @@ export const selectCasteToForSwitch = (caste: Caste): SelectCasteToForSwitch => 
 
 export const deselectCasteToForSwitch: DeselectCasteToForSwitch = {
     type: DESELECT_CASTE_TO_FOR_SWITCH,
+    caste: Caste.Unknown,
 };
 
 

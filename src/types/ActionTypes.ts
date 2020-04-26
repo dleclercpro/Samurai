@@ -104,6 +104,7 @@ export interface SelectBoardTile {
 export const DESELECT_BOARD_TILE = 'DESELECT_BOARD_TILE';
 export interface DeselectBoardTile {
     type: typeof DESELECT_BOARD_TILE,
+    id: number,
 }
 
 export const SELECT_PLAYER_TILE = 'SELECT_PLAYER_TILE';
@@ -115,6 +116,7 @@ export interface SelectPlayerTile {
 export const DESELECT_PLAYER_TILE = 'DESELECT_PLAYER_TILE';
 export interface DeselectPlayerTile {
     type: typeof DESELECT_PLAYER_TILE,
+    id: number,
 }
 
 
@@ -164,6 +166,7 @@ export interface SelectTileFromForSwitch {
 export const DESELECT_TILE_FROM_FOR_SWITCH = 'DESELECT_TILE_FROM_FOR_SWITCH';
 export interface DeselectTileFromForSwitch {
     type: typeof DESELECT_TILE_FROM_FOR_SWITCH,
+    tile: number,
 }
 
 export const SELECT_CASTE_FROM_FOR_SWITCH = 'SELECT_CASTE_FROM_FOR_SWITCH';
@@ -175,6 +178,7 @@ export interface SelectCasteFromForSwitch {
 export const DESELECT_CASTE_FROM_FOR_SWITCH = 'DESELECT_CASTE_FROM_FOR_SWITCH';
 export interface DeselectCasteFromForSwitch {
     type: typeof DESELECT_CASTE_FROM_FOR_SWITCH,
+    caste: Caste,
 }
 
 export const SELECT_TILE_TO_FOR_SWITCH = 'SELECT_TILE_TO_FOR_SWITCH';
@@ -186,6 +190,7 @@ export interface SelectTileToForSwitch {
 export const DESELECT_TILE_TO_FOR_SWITCH = 'DESELECT_TILE_TO_FOR_SWITCH';
 export interface DeselectTileToForSwitch {
     type: typeof DESELECT_TILE_TO_FOR_SWITCH,
+    tile: number,
 }
 
 export const SELECT_CASTE_TO_FOR_SWITCH = 'SELECT_CASTE_TO_FOR_SWITCH';
@@ -197,4 +202,5 @@ export interface SelectCasteToForSwitch {
 export const DESELECT_CASTE_TO_FOR_SWITCH = 'DESELECT_CASTE_TO_FOR_SWITCH';
 export interface DeselectCasteToForSwitch {
     type: typeof DESELECT_CASTE_TO_FOR_SWITCH,
+    caste: Caste,
 }
