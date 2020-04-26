@@ -16,6 +16,7 @@ import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
+import { openLoadingOverlay, closeLoadingOverlay } from './OverlayActions';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
@@ -75,6 +76,8 @@ export const refreshGame = (): ThunkActionResult<void> => {
         const state = getState();
         const { game } = state;
 
+        dispatch(openLoadingOverlay);
+
         return new CallGetBoard(game.id).execute()
             .then((response: ServerResponse) => {
                 const board: BoardJSON = response.data;
@@ -95,6 +98,8 @@ export const refreshGame = (): ThunkActionResult<void> => {
                 const hand: HandJSON = response.data;
 
                 dispatch(loadHand(hand));
+            }).finally(() => {
+                dispatch(closeLoadingOverlay);
             });
     }
 }

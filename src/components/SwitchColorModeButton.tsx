@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react';
-import './SwitchColorButton.scss';
+import './SwitchColorModeButton.scss';
 import { connect } from 'react-redux';
 import { AppAction } from '../actions';
 import { ReactComponent as EyeIcon } from '../icons/eye.svg';
@@ -12,14 +12,14 @@ interface DispatchProps {
 
 type Props = DispatchProps;
 
-class SwitchColorButton extends React.Component<Props, {}> {
+class SwitchColorModeButton extends React.Component<Props, {}> {
 
     render() {
         const { switchColors } = this.props;
 
         return (
             <Button
-                id='switch-color-button'
+                id='switch-color-mode-button'
                 action={switchColors}
                 isActive
             >
@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     switchColors: () => dispatch(switchColors),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(SwitchColorButton);
+export default connect(() => ({}), mapDispatchToProps)(SwitchColorModeButton);

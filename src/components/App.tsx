@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import DialogTileChoice from './dialogs/DialogTileChoice';
-import { PlayerTileJSON } from '../types/ServerTypes';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import FULL_HAND from '../data/FullHand.json';
@@ -24,7 +23,9 @@ import Home from '../pages/Home';
 import DialogCreateGame from './dialogs/DialogCreateGame';
 import Game from './Game';
 import DialogPlayGame from './dialogs/DialogPlayGame';
-import SwitchColorButton from './SwitchColorButton';
+import SwitchColorModeButton from './SwitchColorModeButton';
+import LoadingOverlay from './LoadingOverlay';
+import { PlayerTileJSON } from '../types/ServerTypes';
 
 interface StateProps {
     isColorblind: boolean,
@@ -49,7 +50,8 @@ class App extends React.Component<Props, {}> {
 
         return (
             <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>
-                <SwitchColorButton />
+                <LoadingOverlay />
+                <SwitchColorModeButton />
                 <main id='main'>
                     <Switch>
                         <Route exact path='/'>

@@ -4,7 +4,7 @@ import './Overlay.scss';
 interface OwnProps {
     id: string,
     children: ReactNode,
-    onClick: () => void,
+    onClick?: () => void,
 }
 
 type Props = OwnProps;

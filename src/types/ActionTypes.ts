@@ -66,6 +66,19 @@ export interface LoadHand {
 
 
 
+// Overlay actions
+export const OPEN_LOADING_OVERLAY = 'OPEN_LOADING_OVERLAY';
+export interface OpenLoadingOverlay {
+    type: typeof OPEN_LOADING_OVERLAY,
+}
+
+export const CLOSE_LOADING_OVERLAY = 'CLOSE_LOADING_OVERLAY';
+export interface CloseLoadingOverlay {
+    type: typeof CLOSE_LOADING_OVERLAY,
+}
+
+
+
 // Dialog actions
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export interface OpenDialog {
