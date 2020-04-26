@@ -1,4 +1,4 @@
-import { BoardJSON, PlayerTileJSON, PlayerJSON } from './JSONTypes';
+import { BoardJSON, PlayerTileJSON, PlayerJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
 import { Caste } from './GameTypes';
 import { AppAction } from '../actions';

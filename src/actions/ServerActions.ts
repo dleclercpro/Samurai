@@ -3,7 +3,7 @@ import { CallGetHand } from '../calls/CallGetHand';
 import { loadPlayer, loadOpponents, loadHand } from './PlayerActions';
 import { setSuccessDialog, setErrorDialog, openDialog } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
-import { PlayersJSON, HandJSON, BoardJSON } from '../types/JSONTypes';
+import { PlayersJSON, HandJSON, BoardJSON } from '../types/ServerTypes';
 import { endTurn } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
 import { CallGetBoard } from '../calls/CallGetBoard';

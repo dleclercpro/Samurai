@@ -17,7 +17,8 @@ interface OwnProps {
     id: number,
     position: Coordinates2D,
     castes: Caste[],
-    isWater?: boolean,
+    isCity: boolean,
+    isWater: boolean,
 }
 
 interface StateProps {
@@ -92,11 +93,12 @@ class BoardTileComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { position, castes, isWater, isPlayable } = this.props;
+        const { position, castes, isCity, isWater, isPlayable } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
         const pieceSize = { width: width / 3, height: height / 3};
+        const hasCastes = castes.length > 0;
     
         return (
             <g
@@ -113,9 +115,10 @@ class BoardTileComponent extends React.Component<Props, State> {
                 <TileBackground
                     path={TILE_PATH_BOARD}
                     stroke={TILE_STROKE}
+                    isEmptyCity={isCity && !hasCastes}
                     isWater={isWater}
                 />
-                {castes.length > 0 &&
+                {hasCastes &&
                     <g
                         className='board-tile-component-content'
                         transform={`rotate(${-BOARD_ROTATION} ${center.x} ${center.y})`}
@@ -142,11 +145,11 @@ class BoardTileComponent extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { self} = state.player;
     const { step, selection } = state.game;
-    const { id, castes, isWater } = ownProps;
+    const { id, castes, isCity, isWater } = ownProps;
 
+    const hasCastes = castes.length > 0;
     const isSelected = ownProps.id === selection.play.boardTile;
     const isSelectedForSwitch = (id === selection.switch.from.tile) || (id === selection.switch.to.tile);
-    const isCity = castes.length > 0;
     const hasShipInHand = getHand(state).some(tile => tile.type === Figure.Ship);
     
     // Playability
@@ -158,7 +161,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
             break;
         case CasteSwitchStep.ChooseTileFrom:
         case CasteSwitchStep.ChooseTileTo:
-            isPlayable = self.isPlaying && isCity && !isSelectedForSwitch;
+            isPlayable = self.isPlaying && isCity && hasCastes && !isSelectedForSwitch;
             break;
         case TileMoveStep.ChooseBoardTile:
             isPlayable = self.isPlaying && !isCity && !isWater;

@@ -1,4 +1,4 @@
-import { PlayerJSON } from '../types/JSONTypes';
+import { PlayerJSON } from '../types/ServerTypes';
 import { LoadPlayer, LOAD_PLAYER, LoadOpponents, LOAD_OPPONENTS, LoadHand, LOAD_HAND } from '../types/ActionTypes';
 
 export const loadPlayer = (data: PlayerJSON): LoadPlayer => ({

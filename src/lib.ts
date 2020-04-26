@@ -1,6 +1,6 @@
 import { Size2D, Coordinates2D, BoardTile, BoardTileMap } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
-import { PlayerTileJSON } from './types/JSONTypes';
+import { PlayerTileJSON } from './types/ServerTypes';
 
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;

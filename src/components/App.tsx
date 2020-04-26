@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import DialogTileChoice from './dialogs/DialogTileChoice';
-import { PlayerTileJSON } from '../types/JSONTypes';
+import { PlayerTileJSON } from '../types/ServerTypes';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import FULL_HAND from '../data/FullHand.json';

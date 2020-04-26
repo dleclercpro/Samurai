@@ -1,4 +1,4 @@
-import { BoardJSON, PlayerTileJSON } from '../types/JSONTypes';
+import { BoardJSON, PlayerTileJSON } from '../types/ServerTypes';
 import { LoadBoard, LOAD_BOARD, LoadFullHand, LOAD_FULL_HAND } from '../types/ActionTypes';
 
 export const loadBoard = (data: BoardJSON): LoadBoard => ({

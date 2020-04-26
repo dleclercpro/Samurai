@@ -5,7 +5,7 @@ import { setGameId } from '../actions/GameActions';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import { refreshGame } from '../actions/ServerActions';
-import { BoardJSON } from '../types/JSONTypes';
+import { BoardJSON } from '../types/ServerTypes';
 import { loadBoard } from '../actions/DataActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../types/StateTypes';

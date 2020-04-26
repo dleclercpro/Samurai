@@ -35,6 +35,7 @@ export interface BoardTile {
     coordinates: Coordinates2D,
     neighborhood: number[],
     castes: Caste[],
+    isCity: boolean,
     isWater: boolean,
 }
 

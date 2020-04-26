@@ -1,4 +1,4 @@
-import { BoardJSON, TileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/JSONTypes';
+import { BoardJSON, TileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
 import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, PlayerTileMap } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
@@ -7,7 +7,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 
     // Build tile map
     rawTiles.forEach((rawTile: TileJSON) => {
-        const { id, coordinates, castes, isWater } = rawTile;
+        const { id, coordinates, castes, isCity, isWater } = rawTile;
         
         if (tiles.has(id)) {
             console.warn('Trying to add same tile twice.');
@@ -19,6 +19,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
             coordinates,
             neighborhood: [],
             castes: castes.map(caste => parseCaste(caste)),
+            isCity,
             isWater,
         });
     });
