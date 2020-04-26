@@ -7,14 +7,14 @@
                 "y": -10
             },
             "id": 41,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                42,
-                45,
-                2,
                 3,
                 22,
-                27
+                42,
+                45,
+                54
             ]
         },
         {
@@ -24,13 +24,13 @@
                 "y": -9
             },
             "id": 42,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 41,
                 43,
-                45,
                 54,
-                3
+                55
             ]
         },
         {
@@ -40,12 +40,13 @@
                 "y": -8
             },
             "id": 43,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 42,
                 44,
-                54,
-                55
+                55,
+                56
             ]
         },
         {
@@ -55,11 +56,12 @@
                 "y": -7
             },
             "id": 44,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 43,
-                55,
                 56,
+                57,
                 66
             ]
         },
@@ -70,14 +72,15 @@
                 "y": -10
             },
             "id": 45,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                41,
-                46,
-                54,
                 22,
                 27,
-                32
+                32,
+                41,
+                46,
+                54
             ]
         },
         {
@@ -87,14 +90,15 @@
                 "y": -10
             },
             "id": 46,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                45,
-                59,
-                27,
                 32,
-                35,
-                36
+                36,
+                45,
+                47,
+                54,
+                59
             ]
         },
         {
@@ -104,14 +108,15 @@
                 "y": -9
             },
             "id": 47,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                19,
+                36,
                 46,
                 48,
                 59,
-                63,
-                19,
-                36
+                63
             ]
         },
         {
@@ -121,12 +126,13 @@
                 "y": -9
             },
             "id": 48,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                19,
                 47,
                 49,
-                19,
-                36
+                63
             ]
         },
         {
@@ -136,12 +142,13 @@
                 "y": -8
             },
             "id": 49,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                47,
                 48,
                 50,
-                63
+                63,
+                64
             ]
         },
         {
@@ -151,12 +158,13 @@
                 "y": -7
             },
             "id": 50,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 49,
                 51,
-                63,
-                64
+                64,
+                65
             ]
         },
         {
@@ -166,11 +174,12 @@
                 "y": -6
             },
             "id": 51,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 50,
                 52,
-                64,
+                53,
                 65
             ]
         },
@@ -181,12 +190,13 @@
                 "y": -5
             },
             "id": 52,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 51,
                 53,
-                65,
-                70
+                70,
+                87
             ]
         },
         {
@@ -196,6 +206,7 @@
                 "y": -5
             },
             "id": 53,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 51,
@@ -213,6 +224,7 @@
                 "y": -9
             },
             "id": 54,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 41,
@@ -230,6 +242,7 @@
                 "y": -8
             },
             "id": 55,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 42,
@@ -247,6 +260,7 @@
                 "y": -7
             },
             "id": 56,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 43,
@@ -264,6 +278,7 @@
                 "y": -6
             },
             "id": 57,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 44,
@@ -281,6 +296,7 @@
                 "y": -5
             },
             "id": 58,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 57,
@@ -298,14 +314,15 @@
                 "y": -9
             },
             "id": 59,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                45,
                 46,
                 47,
                 54,
+                55,
                 60,
-                36
+                63
             ]
         },
         {
@@ -315,14 +332,15 @@
                 "y": -8
             },
             "id": 60,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                47,
-                54,
                 55,
+                56,
                 59,
                 61,
-                63
+                63,
+                64
             ]
         },
         {
@@ -332,14 +350,15 @@
                 "y": -7
             },
             "id": 61,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                55,
                 56,
+                57,
                 60,
                 62,
-                63,
-                64
+                64,
+                65
             ]
         },
         {
@@ -349,12 +368,13 @@
                 "y": -6
             },
             "id": 62,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                56,
+                53,
                 57,
+                58,
                 61,
-                64,
                 65,
                 84
             ]
@@ -366,6 +386,7 @@
                 "y": -8
             },
             "id": 63,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 47,
@@ -383,6 +404,7 @@
                 "y": -7
             },
             "id": 64,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 49,
@@ -400,6 +422,7 @@
                 "y": -6
             },
             "id": 65,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 50,
@@ -417,11 +440,13 @@
                 "y": -6
             },
             "id": 66,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 44,
-                56,
                 57,
+                58,
+                67,
                 77
             ]
         },
@@ -432,6 +457,7 @@
                 "y": -5
             },
             "id": 67,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 66,
@@ -447,9 +473,12 @@
                 "y": -5
             },
             "id": 68,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 67,
+                69,
+                90,
                 94
             ]
         },
@@ -460,6 +489,7 @@
                 "y": -4
             },
             "id": 69,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 68,
@@ -474,12 +504,13 @@
                 "y": -4
             },
             "id": 70,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 52,
-                53,
                 71,
-                87
+                87,
+                88
             ]
         },
         {
@@ -489,12 +520,13 @@
                 "y": -3
             },
             "id": 71,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 70,
                 72,
-                87,
-                88
+                88,
+                89
             ]
         },
         {
@@ -504,10 +536,11 @@
                 "y": -2
             },
             "id": 72,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 71,
-                88,
+                73,
                 89
             ]
         },
@@ -518,6 +551,7 @@
                 "y": -1
             },
             "id": 73,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 72,
@@ -532,12 +566,13 @@
                 "y": -2
             },
             "id": 74,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                82,
+                73,
+                75,
                 83,
                 86,
-                88,
                 89
             ]
         },
@@ -548,6 +583,7 @@
                 "y": -1
             },
             "id": 75,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 74,
@@ -563,13 +599,13 @@
                 "y": -1
             },
             "id": 76,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 75,
                 80,
-                83,
-                92,
-                93
+                93,
+                116
             ]
         },
         {
@@ -579,13 +615,15 @@
                 "y": -5
             },
             "id": 77,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                57,
                 58,
                 66,
                 67,
-                78
+                78,
+                81,
+                90
             ]
         },
         {
@@ -595,14 +633,15 @@
                 "y": -4
             },
             "id": 78,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                58,
-                67,
                 77,
                 79,
                 81,
-                90
+                82,
+                90,
+                91
             ]
         },
         {
@@ -612,14 +651,15 @@
                 "y": -3
             },
             "id": 79,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 78,
                 80,
-                81,
                 82,
-                90,
-                91
+                83,
+                91,
+                92
             ]
         },
         {
@@ -629,14 +669,15 @@
                 "y": -2
             },
             "id": 80,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
+                75,
                 76,
                 79,
-                82,
                 83,
-                91,
-                92
+                92,
+                93
             ]
         },
         {
@@ -646,6 +687,7 @@
                 "y": -4
             },
             "id": 81,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 58,
@@ -663,6 +705,7 @@
                 "y": -3
             },
             "id": 82,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 78,
@@ -680,6 +723,7 @@
                 "y": -2
             },
             "id": 83,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 74,
@@ -697,14 +741,15 @@
                 "y": -5
             },
             "id": 84,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 53,
-                57,
                 58,
                 62,
-                65,
-                85
+                81,
+                85,
+                87
             ]
         },
         {
@@ -714,14 +759,15 @@
                 "y": -4
             },
             "id": 85,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                53,
-                58,
                 81,
+                82,
                 84,
                 86,
-                87
+                87,
+                88
             ]
         },
         {
@@ -731,14 +777,15 @@
                 "y": -3
             },
             "id": 86,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 74,
-                81,
                 82,
+                83,
                 85,
-                87,
-                88
+                88,
+                89
             ]
         },
         {
@@ -748,6 +795,7 @@
                 "y": -4
             },
             "id": 87,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 52,
@@ -765,6 +813,7 @@
                 "y": -3
             },
             "id": 88,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 70,
@@ -782,6 +831,7 @@
                 "y": -2
             },
             "id": 89,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 71,
@@ -799,6 +849,7 @@
                 "y": -4
             },
             "id": 90,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 67,
@@ -816,6 +867,7 @@
                 "y": -3
             },
             "id": 91,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 78,
@@ -833,6 +885,7 @@
                 "y": -2
             },
             "id": 92,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 79,
@@ -850,6 +903,7 @@
                 "y": -1
             },
             "id": 93,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 76,
@@ -867,13 +921,15 @@
                 "y": -4
             },
             "id": 94,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                67,
                 68,
                 69,
                 90,
-                95
+                91,
+                95,
+                97
             ]
         },
         {
@@ -883,14 +939,15 @@
                 "y": -3
             },
             "id": 95,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                69,
-                90,
                 91,
+                92,
                 94,
                 96,
-                97
+                97,
+                98
             ]
         },
         {
@@ -900,14 +957,15 @@
                 "y": -2
             },
             "id": 96,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                91,
                 92,
+                93,
                 95,
-                97,
                 98,
-                117
+                117,
+                119
             ]
         },
         {
@@ -917,6 +975,7 @@
                 "y": -3
             },
             "id": 97,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 69,
@@ -933,6 +992,7 @@
                 "y": -2
             },
             "id": 98,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 95,
@@ -950,10 +1010,12 @@
                 "y": -3
             },
             "id": 99,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                69,
                 97,
+                98,
+                100,
                 122
             ]
         },
@@ -964,6 +1026,7 @@
                 "y": -2
             },
             "id": 100,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 99,
@@ -979,9 +1042,12 @@
                 "y": -2
             },
             "id": 101,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 100,
+                102,
+                124,
                 126
             ]
         },
@@ -992,6 +1058,7 @@
                 "y": -1
             },
             "id": 102,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 101,
@@ -1007,9 +1074,12 @@
                 "y": -1
             },
             "id": 103,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 102,
+                104,
+                128,
                 130
             ]
         },
@@ -1020,6 +1090,7 @@
                 "y": 0
             },
             "id": 104,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 103,
@@ -1034,6 +1105,7 @@
                 "y": 1
             },
             "id": 105,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 104,
@@ -1050,6 +1122,7 @@
                 "y": 2
             },
             "id": 106,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 105,
@@ -1067,14 +1140,15 @@
                 "y": 2
             },
             "id": 107,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                105,
                 106,
                 108,
-                129,
                 131,
-                138
+                138,
+                161,
+                162
             ]
         },
         {
@@ -1084,6 +1158,7 @@
                 "y": 2
             },
             "id": 108,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 107,
@@ -1101,13 +1176,14 @@
                 "y": 1
             },
             "id": 109,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                108,
                 110,
-                125,
                 127,
-                128,
                 129,
+                154,
                 157
             ]
         },
@@ -1118,6 +1194,7 @@
                 "y": 1
             },
             "id": 110,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 109,
@@ -1135,14 +1212,15 @@
                 "y": 1
             },
             "id": 111,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 110,
                 112,
-                120,
+                113,
                 121,
-                125,
-                152
+                152,
+                154
             ]
         },
         {
@@ -1152,13 +1230,14 @@
                 "y": 0
             },
             "id": 112,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                110,
                 111,
-                119,
                 120,
+                121,
                 123,
-                124,
                 125
             ]
         },
@@ -1169,6 +1248,7 @@
                 "y": 2
             },
             "id": 113,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 111,
@@ -1185,12 +1265,12 @@
                 "y": 1
             },
             "id": 114,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                113,
                 115,
-                116,
                 118,
-                120,
                 121
             ]
         },
@@ -1201,6 +1281,7 @@
                 "y": 1
             },
             "id": 115,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 114,
@@ -1215,6 +1296,7 @@
                 "y": 0
             },
             "id": 116,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 76,
@@ -1231,14 +1313,15 @@
                 "y": -1
             },
             "id": 117,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                92,
                 93,
                 96,
-                98,
+                116,
                 118,
-                119
+                119,
+                120
             ]
         },
         {
@@ -1248,14 +1331,15 @@
                 "y": 0
             },
             "id": 118,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                93,
                 114,
+                115,
                 116,
                 117,
-                119,
-                120
+                120,
+                121
             ]
         },
         {
@@ -1265,6 +1349,7 @@
                 "y": -1
             },
             "id": 119,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 96,
@@ -1282,6 +1367,7 @@
                 "y": 0
             },
             "id": 120,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 112,
@@ -1299,6 +1385,7 @@
                 "y": 1
             },
             "id": 121,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 111,
@@ -1316,13 +1403,15 @@
                 "y": -2
             },
             "id": 122,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                97,
                 98,
                 99,
                 100,
-                123
+                119,
+                123,
+                124
             ]
         },
         {
@@ -1332,14 +1421,15 @@
                 "y": -1
             },
             "id": 123,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                98,
-                100,
                 112,
                 119,
+                120,
                 122,
-                124
+                124,
+                125
             ]
         },
         {
@@ -1349,6 +1439,7 @@
                 "y": -1
             },
             "id": 124,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 100,
@@ -1366,6 +1457,7 @@
                 "y": 0
             },
             "id": 125,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 110,
@@ -1383,13 +1475,15 @@
                 "y": -1
             },
             "id": 126,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                100,
                 101,
                 102,
                 124,
-                127
+                125,
+                127,
+                128
             ]
         },
         {
@@ -1399,14 +1493,15 @@
                 "y": 0
             },
             "id": 127,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                102,
                 109,
-                124,
+                110,
                 125,
                 126,
-                128
+                128,
+                129
             ]
         },
         {
@@ -1416,6 +1511,7 @@
                 "y": 0
             },
             "id": 128,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 102,
@@ -1433,6 +1529,7 @@
                 "y": 1
             },
             "id": 129,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 108,
@@ -1450,12 +1547,14 @@
                 "y": 0
             },
             "id": 130,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                102,
                 103,
                 104,
+                105,
                 128,
+                129,
                 131
             ]
         },
@@ -1466,12 +1565,13 @@
                 "y": 1
             },
             "id": 131,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                104,
                 105,
+                106,
                 107,
-                128,
+                108,
                 129,
                 130
             ]
@@ -1485,6 +1585,7 @@
                 "y": -13
             },
             "id": 0,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 1,
@@ -1499,6 +1600,7 @@
                 "y": -12
             },
             "id": 1,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 0,
@@ -1514,6 +1616,7 @@
                 "y": -11
             },
             "id": 2,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 1,
@@ -1529,11 +1632,12 @@
                 "y": -10
             },
             "id": 3,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                41,
                 2,
-                22
+                22,
+                41
             ]
         },
         {
@@ -1543,10 +1647,12 @@
                 "y": -16
             },
             "id": 4,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 5,
-                7
+                7,
+                23
             ]
         },
         {
@@ -1556,12 +1662,13 @@
                 "y": -15
             },
             "id": 5,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 4,
                 6,
-                7,
-                23
+                23,
+                24
             ]
         },
         {
@@ -1571,12 +1678,14 @@
                 "y": -14
             },
             "id": 6,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                0,
                 5,
                 20,
-                23,
-                24
+                24,
+                25
             ]
         },
         {
@@ -1586,6 +1695,7 @@
                 "y": -16
             },
             "id": 7,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 4,
@@ -1600,9 +1710,12 @@
                 "y": -16
             },
             "id": 8,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 7,
+                9,
+                23,
                 28
             ]
         },
@@ -1613,6 +1726,7 @@
                 "y": -15
             },
             "id": 9,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 8,
@@ -1628,6 +1742,7 @@
                 "y": -14
             },
             "id": 10,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 9,
@@ -1645,11 +1760,14 @@
                 "y": -15
             },
             "id": 11,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 9,
+                10,
                 12,
-                37
+                37,
+                39
             ]
         },
         {
@@ -1659,6 +1777,7 @@
                 "y": -15
             },
             "id": 12,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 11,
@@ -1673,10 +1792,12 @@
                 "y": -15
             },
             "id": 13,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 12,
-                14
+                14,
+                39
             ]
         },
         {
@@ -1686,12 +1807,13 @@
                 "y": -14
             },
             "id": 14,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                12,
                 13,
                 15,
-                39
+                39,
+                40
             ]
         },
         {
@@ -1701,10 +1823,11 @@
                 "y": -13
             },
             "id": 15,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 14,
-                39,
+                16,
                 40
             ]
         },
@@ -1715,6 +1838,7 @@
                 "y": -12
             },
             "id": 16,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 15,
@@ -1730,14 +1854,14 @@
                 "y": -12
             },
             "id": 17,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 16,
                 18,
-                33,
                 34,
-                38,
-                40
+                35,
+                38
             ]
         },
         {
@@ -1747,13 +1871,13 @@
                 "y": -11
             },
             "id": 18,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                16,
                 17,
                 19,
-                34,
-                35
+                35,
+                36
             ]
         },
         {
@@ -1763,12 +1887,13 @@
                 "y": -10
             },
             "id": 19,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                48,
                 18,
-                35,
-                36
+                36,
+                47,
+                48
             ]
         },
         {
@@ -1778,13 +1903,15 @@
                 "y": -13
             },
             "id": 20,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 0,
+                1,
                 6,
                 21,
-                24,
-                25
+                25,
+                26
             ]
         },
         {
@@ -1794,14 +1921,15 @@
                 "y": -12
             },
             "id": 21,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                0,
                 1,
+                2,
                 20,
                 22,
-                25,
-                26
+                26,
+                27
             ]
         },
         {
@@ -1811,14 +1939,15 @@
                 "y": -11
             },
             "id": 22,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                41,
-                1,
                 2,
+                3,
                 21,
-                26,
-                27
+                27,
+                41,
+                45
             ]
         },
         {
@@ -1828,6 +1957,7 @@
                 "y": -15
             },
             "id": 23,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 4,
@@ -1845,6 +1975,7 @@
                 "y": -14
             },
             "id": 24,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 5,
@@ -1862,6 +1993,7 @@
                 "y": -13
             },
             "id": 25,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 6,
@@ -1879,6 +2011,7 @@
                 "y": -12
             },
             "id": 26,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 20,
@@ -1896,14 +2029,15 @@
                 "y": -11
             },
             "id": 27,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                45,
                 21,
                 22,
                 26,
                 31,
-                32
+                32,
+                45
             ]
         },
         {
@@ -1913,12 +2047,14 @@
                 "y": -15
             },
             "id": 28,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                7,
                 8,
                 9,
+                10,
                 23,
+                24,
                 29
             ]
         },
@@ -1929,14 +2065,15 @@
                 "y": -14
             },
             "id": 29,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                9,
                 10,
-                23,
                 24,
+                25,
                 28,
-                30
+                30,
+                33
             ]
         },
         {
@@ -1946,14 +2083,15 @@
                 "y": -13
             },
             "id": 30,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                10,
-                24,
                 25,
+                26,
                 29,
                 31,
-                33
+                33,
+                34
             ]
         },
         {
@@ -1963,14 +2101,15 @@
                 "y": -12
             },
             "id": 31,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                25,
                 26,
+                27,
                 30,
                 32,
-                33,
-                34
+                34,
+                35
             ]
         },
         {
@@ -1980,14 +2119,15 @@
                 "y": -11
             },
             "id": 32,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                46,
-                26,
                 27,
                 31,
-                34,
-                35
+                35,
+                36,
+                45,
+                46
             ]
         },
         {
@@ -1997,6 +2137,7 @@
                 "y": -13
             },
             "id": 33,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 10,
@@ -2014,6 +2155,7 @@
                 "y": -12
             },
             "id": 34,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 17,
@@ -2031,6 +2173,7 @@
                 "y": -11
             },
             "id": 35,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 17,
@@ -2048,14 +2191,15 @@
                 "y": -10
             },
             "id": 36,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                46,
-                47,
                 18,
                 19,
                 32,
-                35
+                35,
+                46,
+                47
             ]
         },
         {
@@ -2065,14 +2209,15 @@
                 "y": -14
             },
             "id": 37,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                9,
                 10,
                 11,
-                12,
+                33,
                 38,
-                39
+                39,
+                40
             ]
         },
         {
@@ -2082,13 +2227,14 @@
                 "y": -13
             },
             "id": 38,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                10,
+                16,
                 17,
                 33,
+                34,
                 37,
-                39,
                 40
             ]
         },
@@ -2099,6 +2245,7 @@
                 "y": -14
             },
             "id": 39,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 11,
@@ -2116,6 +2263,7 @@
                 "y": -13
             },
             "id": 40,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 14,
@@ -2135,6 +2283,7 @@
                 "y": 3
             },
             "id": 132,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 113,
@@ -2150,6 +2299,7 @@
                 "y": 4
             },
             "id": 133,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 132,
@@ -2164,12 +2314,12 @@
                 "y": 4
             },
             "id": 134,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                132,
                 133,
+                135,
                 153,
-                155,
                 156
             ]
         },
@@ -2180,6 +2330,7 @@
                 "y": 5
             },
             "id": 135,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 134,
@@ -2195,13 +2346,12 @@
                 "y": 5
             },
             "id": 136,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 135,
                 137,
-                156,
-                159,
-                160
+                159
             ]
         },
         {
@@ -2211,6 +2361,7 @@
                 "y": 5
             },
             "id": 137,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 136,
@@ -2227,27 +2378,11 @@
                 "y": 3
             },
             "id": 138,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                106,
                 107,
-                108,
                 139,
-                161,
-                162
-            ]
-        },
-        {
-            "castes": 0,
-            "coordinates": {
-                "x": 5,
-                "y": 4
-            },
-            "id": 139,
-            "isWater": true,
-            "neighbors": [
-                138,
-                140,
                 160,
                 161,
                 162,
@@ -2258,14 +2393,15 @@
             "castes": 0,
             "coordinates": {
                 "x": 5,
-                "y": 5
+                "y": 4
             },
-            "id": 140,
+            "id": 139,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 137,
-                139,
-                141,
+                138,
+                140,
                 160,
                 163,
                 164
@@ -2275,14 +2411,31 @@
             "castes": 0,
             "coordinates": {
                 "x": 5,
-                "y": 6
+                "y": 5
             },
-            "id": 141,
+            "id": 140,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 137,
-                140,
+                139,
+                141,
                 164,
+                165
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 6
+            },
+            "id": 141,
+            "isCity": false,
+            "isWater": true,
+            "neighbors": [
+                140,
+                142,
                 165
             ]
         },
@@ -2293,6 +2446,7 @@
                 "y": 7
             },
             "id": 142,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 141,
@@ -2307,13 +2461,13 @@
                 "y": 6
             },
             "id": 143,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                142,
                 144,
-                164,
                 165,
-                169,
-                172
+                169
             ]
         },
         {
@@ -2323,6 +2477,7 @@
                 "y": 6
             },
             "id": 144,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 143,
@@ -2338,11 +2493,11 @@
                 "y": 5
             },
             "id": 145,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                144,
                 146,
-                147,
-                171,
                 172
             ]
         },
@@ -2353,13 +2508,13 @@
                 "y": 4
             },
             "id": 146,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 145,
                 147,
-                148,
-                170,
                 171,
+                172,
                 173
             ]
         },
@@ -2370,6 +2525,7 @@
                 "y": 4
             },
             "id": 147,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 146,
@@ -2384,6 +2540,7 @@
                 "y": 3
             },
             "id": 148,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 147,
@@ -2398,9 +2555,12 @@
                 "y": 2
             },
             "id": 149,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
+                148,
                 150,
+                170,
                 173
             ]
         },
@@ -2411,6 +2571,7 @@
                 "y": 2
             },
             "id": 150,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
                 149,
@@ -2426,10 +2587,12 @@
                 "y": 1
             },
             "id": 151,
+            "isCity": false,
             "isWater": true,
             "neighbors": [
-                104,
                 105,
+                106,
+                150,
                 166
             ]
         },
@@ -2440,14 +2603,15 @@
                 "y": 2
             },
             "id": 152,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                110,
                 111,
                 113,
-                121,
+                132,
                 153,
-                154
+                154,
+                155
             ]
         },
         {
@@ -2457,14 +2621,15 @@
                 "y": 3
             },
             "id": 153,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                113,
                 132,
+                133,
                 134,
                 152,
-                154,
-                155
+                155,
+                156
             ]
         },
         {
@@ -2474,6 +2639,7 @@
                 "y": 2
             },
             "id": 154,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 109,
@@ -2491,6 +2657,7 @@
                 "y": 3
             },
             "id": 155,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 152,
@@ -2508,6 +2675,7 @@
                 "y": 4
             },
             "id": 156,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 134,
@@ -2525,14 +2693,15 @@
                 "y": 2
             },
             "id": 157,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 108,
                 109,
-                110,
-                129,
                 154,
-                158
+                155,
+                158,
+                161
             ]
         },
         {
@@ -2542,13 +2711,14 @@
                 "y": 3
             },
             "id": 158,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                108,
-                154,
                 155,
+                156,
                 157,
                 159,
+                160,
                 161
             ]
         },
@@ -2559,14 +2729,15 @@
                 "y": 4
             },
             "id": 159,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
+                135,
                 136,
-                155,
+                137,
                 156,
                 158,
-                160,
-                161
+                160
             ]
         },
         {
@@ -2576,6 +2747,7 @@
                 "y": 4
             },
             "id": 160,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 137,
@@ -2593,6 +2765,7 @@
                 "y": 3
             },
             "id": 161,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 107,
@@ -2610,6 +2783,7 @@
                 "y": 3
             },
             "id": 162,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 106,
@@ -2627,6 +2801,7 @@
                 "y": 4
             },
             "id": 163,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 138,
@@ -2644,6 +2819,7 @@
                 "y": 5
             },
             "id": 164,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 139,
@@ -2661,6 +2837,7 @@
                 "y": 6
             },
             "id": 165,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 140,
@@ -2678,13 +2855,15 @@
                 "y": 2
             },
             "id": 166,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
-                105,
                 106,
                 150,
                 151,
-                167
+                162,
+                167,
+                170
             ]
         },
         {
@@ -2694,14 +2873,15 @@
                 "y": 3
             },
             "id": 167,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                106,
-                150,
                 162,
+                163,
                 166,
                 168,
-                170
+                170,
+                171
             ]
         },
         {
@@ -2711,14 +2891,15 @@
                 "y": 4
             },
             "id": 168,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
-                162,
                 163,
+                164,
                 167,
                 169,
-                170,
-                171
+                171,
+                172
             ]
         },
         {
@@ -2728,13 +2909,14 @@
                 "y": 5
             },
             "id": 169,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 143,
-                163,
+                144,
                 164,
+                165,
                 168,
-                171,
                 172
             ]
         },
@@ -2745,6 +2927,7 @@
                 "y": 3
             },
             "id": 170,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 149,
@@ -2762,6 +2945,7 @@
                 "y": 4
             },
             "id": 171,
+            "isCity": false,
             "isWater": false,
             "neighbors": [
                 146,
@@ -2779,6 +2963,7 @@
                 "y": 5
             },
             "id": 172,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 144,
@@ -2796,13 +2981,15 @@
                 "y": 3
             },
             "id": 173,
+            "isCity": true,
             "isWater": false,
             "neighbors": [
                 146,
+                147,
                 148,
                 149,
-                150,
-                170
+                170,
+                171
             ]
         }
     ]
