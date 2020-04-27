@@ -3,7 +3,7 @@ import { CallGetHand } from '../calls/CallGetHand';
 import { setSuccessDialog, setErrorDialog, openDialog } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { PlayersJSON, HandJSON, BoardJSON, UserJSON } from '../types/ServerTypes';
-import { endTurn, setGameId } from './GameActions';
+import { endTurn, setGameId, resetGameId } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
 import { CallGetBoard } from '../calls/CallGetBoard';
 import { CallGetPlayers } from '../calls/CallGetPlayers';
@@ -98,9 +98,11 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
             .then((response: ServerResponse) => {
                 const id: number = response.data.id;
 
-                return dispatch(refreshGame(id));
+                dispatch(setGameId(id));
             })
             .catch((error: any) => {
+                dispatch(resetGameId);
+                
                 dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
 
@@ -109,25 +111,26 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
     };
 }
 
-export const refreshGame = (id: number): ThunkActionResult<void> => {
+export const refreshGame = (): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatchResult<void>) => {
-        dispatch(setGameId(id));
+    return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
+        const state = getState();
+        const { game } = state;
 
         let board: BoardJSON;
         let players: PlayersJSON;
         let hand: HandJSON;
 
-        return new CallGetBoard(id).execute()
+        return new CallGetBoard(game.id).execute()
             .then((response: ServerResponse) => {
                 board = response.data;
 
-                return new CallGetPlayers(id).execute();    
+                return new CallGetPlayers(game.id).execute();    
             })
             .then((response: ServerResponse) => {
                 players = response.data;
 
-                return new CallGetHand(id).execute();
+                return new CallGetHand(game.id).execute();
             })
             .then((response: ServerResponse) => {
                 hand = response.data;
@@ -143,9 +146,7 @@ export const refreshGame = (id: number): ThunkActionResult<void> => {
                 dispatch(loadHand(hand));
             })
             .catch((error: any) => {
-                dispatch(setGameId(-1));
-
-                dispatch(setErrorDialog(`There was a problem loading the game with ID: ${id}`, error.message));
+                dispatch(setErrorDialog(`There was a problem loading the game with ID: ${game.id}`, error.message));
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject();
@@ -160,9 +161,7 @@ const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, ca
         const { game } = state;
 
         return new CallPlayGame(game.id, playerTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
-            .then(() => {
-                return dispatch(refreshGame(game.id));
-            }).finally(() => {
+            .finally(() => {
                 dispatch(endTurn);
             });
     };

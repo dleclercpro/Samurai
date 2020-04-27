@@ -27,6 +27,11 @@ export interface LoadFullHand {
 
 
 // Game actions
+export const RESET_GAME_ID = 'RESET_GAME_ID';
+export interface ResetGameId {
+    type: typeof RESET_GAME_ID,
+}
+
 export const SET_GAME_ID = 'SET_GAME_ID';
 export interface SetGameId {
     type: typeof SET_GAME_ID,

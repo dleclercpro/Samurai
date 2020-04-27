@@ -8,7 +8,7 @@ import { deselectBoardTile, deselectPlayerTile } from '../../actions/GameActions
 import { DialogType } from '../../types/DialogTypes';
 import { AppState } from '../../types/StateTypes';
 import { TilePlayStep } from '../../types/GameTypes';
-import { playTile } from '../../actions/ServerActions';
+import { playTile, refreshGame } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 
 interface StateProps {
@@ -25,6 +25,7 @@ interface DispatchProps {
     deselectPlayerTile: () => void,
     
     playTile: (playerTile: number, boardTile: number) => Promise<any>,
+    refreshGame: () => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -44,6 +45,12 @@ class DialogTileChoice extends React.Component<Props, {}> {
         return playTile(playerTile, boardTile);
     }
 
+    handleClose = () => {
+        const { refreshGame } = this.props;
+
+        refreshGame();
+    }
+
     render() {
         const { hand, isActionButtonActive } = this.props;
 
@@ -53,8 +60,9 @@ class DialogTileChoice extends React.Component<Props, {}> {
                 headline='Tile Choice'
                 message='Choose which tile to place on the empty space you just clicked:'
                 actionButtonText='Choose'
-                onCancel={this.handleCancel}
                 onAction={this.handleAction}
+                onCancel={this.handleCancel}
+                onClose={this.handleClose}
                 isActionButtonActive={isActionButtonActive}
                 shouldCloseAfterAction
             >
@@ -86,6 +94,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, App
     deselectBoardTile: () => dispatch(deselectBoardTile),
     deselectPlayerTile: () => dispatch(deselectPlayerTile),
     playTile: (playerTile: number, boardTile: number) => dispatch(playTile(playerTile, boardTile)),
+    refreshGame: () => dispatch(refreshGame()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileChoice);

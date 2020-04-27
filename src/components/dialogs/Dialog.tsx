@@ -20,8 +20,9 @@ interface OwnProps {
     explanation?: string,
     cancelButtonText?: string,
     actionButtonText?: string,
-    onCancel?: () => void,
     onAction?: () => Promise<void>,
+    onCancel?: () => void,
+    onClose?: () => void,
     shouldCloseAfterAction: boolean,
     isActionButtonActive?: boolean,
 }
@@ -91,7 +92,7 @@ class Dialog extends React.Component<Props, State> {
     }
 
     handleAction = () => {
-        const { onAction, closeDialog, shouldCloseAfterAction } = this.props;
+        const { onAction, shouldCloseAfterAction } = this.props;
 
         if (onAction) {
             this.showSpinner();
@@ -99,11 +100,11 @@ class Dialog extends React.Component<Props, State> {
             onAction()
                 .then(() => {
                     if (shouldCloseAfterAction) {
-                        closeDialog();
+                        this.handleClose();
                     }
                 })
                 .catch(() => {
-                    closeDialog();
+                    this.handleClose();
                 })
                 .finally(() => {
                     this.hideSpinner();
@@ -113,12 +114,12 @@ class Dialog extends React.Component<Props, State> {
         }
 
         if (shouldCloseAfterAction) {
-            closeDialog();
+            this.handleClose();
         }
     }
 
     handleCancel = () => {
-        const { onCancel, closeDialog } = this.props;
+        const { onCancel } = this.props;
         const { canClose } = this.state;
 
         if (onCancel) {
@@ -126,7 +127,17 @@ class Dialog extends React.Component<Props, State> {
         }
         
         if (canClose) {
-            closeDialog();
+            this.handleClose();
+        }
+    }
+
+    handleClose = () => {
+        const { closeDialog, onClose } = this.props;
+
+        closeDialog();
+
+        if (onClose !== undefined) {
+            onClose();
         }
     }
 

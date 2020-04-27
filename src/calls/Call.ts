@@ -1,6 +1,6 @@
 import { getCookie } from './Cookie';
 
-export const BASE_URL = 'http://35.182.135.40:8000/';
+export const BASE_URL = 'http://35.182.135.40/';
 
 class Call {
     private url: string;

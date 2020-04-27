@@ -12,6 +12,7 @@ import { AppState } from '../../types/StateTypes';
 import { Redirect } from 'react-router-dom';
 import Dialog from '../dialogs/Dialog';
 import { refreshGame } from '../../actions/ServerActions';
+import { setGameId, resetGameId } from '../../actions/GameActions';
 
 const INIT_STATE = {
     fields: {
@@ -22,7 +23,9 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    refreshGame: (id: number) => Promise<void>,
+    resetGameId: () => void,
+    setGameId: (id: number) => void,
+    refreshGame: () => Promise<void>,
 }
 
 type Props = DispatchProps;
@@ -61,14 +64,19 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { refreshGame } = this.props;
+        const { resetGameId, setGameId, refreshGame } = this.props;
         const id = parseInt(getFormPayload(this.state.fields).id);
 
-        return refreshGame(id)
+        setGameId(id);
+
+        return refreshGame()
             .then(() => {
                 this.setState({
                     redirectToGame: true,
                 });
+            })
+            .catch(() => {
+                resetGameId();
             });
     }
     
@@ -108,7 +116,9 @@ class FormPlayGame extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    refreshGame: (id: number) => dispatch(refreshGame(id)),
+    resetGameId: () => dispatch(resetGameId),
+    setGameId: (id: number) => dispatch(setGameId(id)),
+    refreshGame: () => dispatch(refreshGame()),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(FormPlayGame);
