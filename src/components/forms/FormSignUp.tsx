@@ -18,6 +18,8 @@ const ERROR_PASSWORD = 'Your password needs at least eight characters, ' +
     'one uppercase letter, one lowercase letter, one number and ' +
     'one special character.';
 
+const ERROR_REPEATED_PASSWORD = "Your passwords don't match!";
+
 const INIT_STATE = {
     fields: {
         username: { ...INIT_FIELD_STATE },
@@ -25,6 +27,7 @@ const INIT_STATE = {
         lastName: { ...INIT_FIELD_STATE },
         email: { ...INIT_FIELD_STATE },
         password: { ...INIT_FIELD_STATE },
+        repeatedPassword: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
     hasErrors: false,
@@ -75,12 +78,18 @@ class FormSignUp extends React.Component<Props, State> {
         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
     }
 
+    isRepeatedPasswordValid = (password: string): boolean => {
+        return password === this.state.fields.password.value;
+    }
+
     getError = (field: string): string => {
         switch (field) {
             case 'email':
                 return ERROR_EMAIL;
             case 'password':
                 return ERROR_PASSWORD;
+            case 'repeatedPassword':
+                return ERROR_REPEATED_PASSWORD;
             default:
                 return 'Invalid field.';
         }
@@ -123,7 +132,7 @@ class FormSignUp extends React.Component<Props, State> {
     render() {
         const { closeSignUpDialog } = this.props;
         const { fields, isFilled, hasErrors } = this.state;
-        const { username, firstName, lastName, email, password } = fields;
+        const { username, firstName, lastName, email, password, repeatedPassword } = fields;
 
         return (
             <Form
@@ -174,6 +183,15 @@ class FormSignUp extends React.Component<Props, State> {
                     onChange={(e) => { this.handleChange(e, this.isPasswordValid) }}
                     value={password.value}
                     error={password.error}
+                />
+
+                <FormTextField
+                    type='password'
+                    name='repeatedPassword'
+                    label='Password (again)'
+                    onChange={(e) => { this.handleChange(e, this.isRepeatedPasswordValid) }}
+                    value={repeatedPassword.value}
+                    error={repeatedPassword.error}
                 />
             </Form>
         );

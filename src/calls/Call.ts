@@ -40,15 +40,20 @@ class Call {
     }
 
     prepare() {
+        const sessionId = getCookie('sessionid');
+        const csrfToken = getCookie('csrftoken');
+
+        console.log(sessionId, csrfToken);
+
         this.params = {
-            ...this.params,
             method: this.method,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Cookie': `sessionid=${sessionId}; csrftoken=${csrfToken}`,
+            },
             credentials: 'include',
             body: JSON.stringify(this.payload),
-            headers: {
-                ...this.params.headers,
-                'X-CSRFToken': getCookie('csrftoken'),
-            },
         };
     }
 
@@ -56,6 +61,7 @@ class Call {
         this.prepare();
 
         return fetch(this.url, this.params).then((response: Response) => {
+            console.log(response.headers.get('Set-Cookie'));
 
             // Raw server response
             if (response.ok) {
