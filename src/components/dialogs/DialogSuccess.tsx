@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 interface StateProps {
     message: string,
-    action?: () => void,
+    action?: () => Promise<void>,
 }
 
 type Props = StateProps;

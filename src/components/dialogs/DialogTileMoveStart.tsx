@@ -14,8 +14,15 @@ type Props = DispatchProps
 
 class DialogTileMoveStart extends React.Component<Props, {}> {
 
-    render() {
+    handleAction = () => {
         const { startTileMove } = this.props;
+
+        startTileMove();
+
+        return Promise.resolve();
+    }
+
+    render() {
 
         return (
             <Dialog
@@ -23,7 +30,7 @@ class DialogTileMoveStart extends React.Component<Props, {}> {
                 headline='Tile Move'
                 message='Do you want to move a tile you played somewhere else on the board? If so, select first the tile, then its new location.'
                 actionButtonText='Start Move'
-                onAction={startTileMove}
+                onAction={this.handleAction}
                 isActionButtonActive
             />
         );

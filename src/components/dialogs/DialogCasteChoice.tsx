@@ -52,6 +52,8 @@ class DialogCasteChoice extends React.Component<Props, {}> {
         if (hasChosenTo) {
             openCasteSwitchEndDialog();            
         }
+
+        return Promise.resolve();
     }
 
     render() {

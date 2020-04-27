@@ -1,4 +1,4 @@
-import { LoadBoard, LoadFullHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors, SetErrorDialog, SetSuccessDialog, SetGameId, OpenLoadingOverlay, CloseLoadingOverlay } from '../types/ActionTypes';
+import { LoadBoard, LoadFullHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors, SetErrorDialog, SetSuccessDialog, SetGameId, OpenSpinnerOverlay, CloseSpinnerOverlay } from '../types/ActionTypes';
 
 export type DataAction =
     LoadBoard |
@@ -42,8 +42,8 @@ export type DialogAction =
     SetErrorDialog;
 
 export type OverlayAction =
-    OpenLoadingOverlay |
-    CloseLoadingOverlay;
+    OpenSpinnerOverlay |
+    CloseSpinnerOverlay;
 
 // Root action
 export type AppAction =

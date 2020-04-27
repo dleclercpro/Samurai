@@ -16,7 +16,6 @@ import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
-import { openLoadingOverlay, closeLoadingOverlay } from './OverlayActions';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
@@ -80,8 +79,6 @@ export const refreshGame = (): ThunkActionResult<void> => {
         let players: PlayersJSON;
         let hand: HandJSON;
 
-        dispatch(openLoadingOverlay);
-
         return new CallGetBoard(game.id).execute()
             .then((response: ServerResponse) => {
                 board = response.data;
@@ -108,14 +105,15 @@ export const refreshGame = (): ThunkActionResult<void> => {
             })
             .catch((error: any) => {
                 dispatch(setErrorDialog(`There was a problem loading the game with ID: ${game.id}`, error.message,
-                    () => { document.location.replace(`/samurai/game/`) }
+                    () => {
+                        document.location.replace(`/samurai/game/`);
+
+                        return Promise.resolve();
+                    }
                 ));
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject();
-            })
-            .finally(() => {
-                dispatch(closeLoadingOverlay);
             });
     }
 }
@@ -129,7 +127,7 @@ const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, ca
         return new CallPlayGame(game.id, playerTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
             .then(() => {
                 return dispatch(refreshGame());
-            }).then(() => {
+            }).finally(() => {
                 dispatch(endTurn);
             });
     }

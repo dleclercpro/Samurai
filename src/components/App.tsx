@@ -23,7 +23,6 @@ import Home from '../pages/Home';
 import DialogCreateGame from './dialogs/DialogCreateGame';
 import Game from './Game';
 import DialogPlayGame from './dialogs/DialogPlayGame';
-import LoadingOverlay from './LoadingOverlay';
 import { PlayerTileJSON } from '../types/ServerTypes';
 
 interface StateProps {
@@ -48,9 +47,7 @@ class App extends React.Component<Props, {}> {
         const { isColorblind } = this.props;
 
         return (
-            <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>
-                <LoadingOverlay />
-           
+            <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>           
                 <main id='main'>
                     <Switch>
                         <Route exact path='/'>

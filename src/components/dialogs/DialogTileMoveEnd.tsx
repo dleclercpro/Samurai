@@ -37,7 +37,7 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
     handleAction = () => {
         const { from, to, moveTile } = this.props;
 
-        moveTile(from, to);
+        return moveTile(from, to);
     }
 
     getMovingTile = (): ReactNode => {

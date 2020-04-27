@@ -1,9 +1,9 @@
-import { OpenLoadingOverlay, OPEN_LOADING_OVERLAY, CloseLoadingOverlay, CLOSE_LOADING_OVERLAY } from "../types/ActionTypes";
+import { OpenSpinnerOverlay, OPEN_SPINNER_OVERLAY, CloseSpinnerOverlay, CLOSE_SPINNER_OVERLAY } from "../types/ActionTypes";
 
-export const openLoadingOverlay: OpenLoadingOverlay = {
-    type: OPEN_LOADING_OVERLAY,
+export const openSpinnerOverlay: OpenSpinnerOverlay = {
+    type: OPEN_SPINNER_OVERLAY,
 };
 
-export const closeLoadingOverlay: CloseLoadingOverlay = {
-    type: CLOSE_LOADING_OVERLAY,
+export const closeSpinnerOverlay: CloseSpinnerOverlay = {
+    type: CLOSE_SPINNER_OVERLAY,
 };

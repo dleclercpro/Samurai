@@ -8,7 +8,7 @@ interface OwnProps {
     headline: string,
     message: string,
     explanation?: string,
-    action?: () => void,
+    action?: () => Promise<void>,
 }
 
 type Props = OwnProps;
@@ -24,7 +24,7 @@ class DialogOK extends React.Component<Props, {}> {
                 headline={headline}
                 message={message}
                 explanation={explanation}
-                onAction={action}
+                onAction={action !== undefined ? action : () => Promise.resolve()}
                 actionButtonText='OK'
                 isActionButtonActive
             />

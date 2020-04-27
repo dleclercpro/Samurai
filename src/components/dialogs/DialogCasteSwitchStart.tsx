@@ -14,16 +14,22 @@ type Props = DispatchProps
 
 class DialogCasteSwitchStart extends React.Component<Props, {}> {
 
-    render() {
+    handleAction = () => {
         const { startCasteSwitch } = this.props;
 
+        startCasteSwitch();
+
+        return Promise.resolve();
+    }
+
+    render() {
         return (
             <Dialog
                 type={DialogType.CasteSwitchStart}
                 headline='Caste Switch'
                 message='Do you want to switch two caste figures from two different cities?'
                 actionButtonText='Start Switch'
-                onAction={startCasteSwitch}
+                onAction={this.handleAction}
                 isActionButtonActive
             />
         );

@@ -33,7 +33,7 @@ class DialogCasteSwitchEnd extends React.Component<Props, {}> {
     handleAction = () => {
         const { from, to, switchCastePieces } = this.props;
 
-        switchCastePieces(from.tile, to.tile, from.caste, to.caste);
+        return switchCastePieces(from.tile, to.tile, from.caste, to.caste);
     }
 
     render() {

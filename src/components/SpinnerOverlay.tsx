@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoadingOverlay.scss';
+import './SpinnerOverlay.scss';
 import Overlay from './Overlay';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
@@ -11,7 +11,7 @@ interface StateProps {
 
 type Props = StateProps;
 
-class LoadingOverlay extends React.Component<Props, {}> {
+class SpinnerOverlay extends React.Component<Props, {}> {
 
     render() {
         const { isOpen } = this.props;
@@ -21,7 +21,7 @@ class LoadingOverlay extends React.Component<Props, {}> {
         }
     
         return (
-            <Overlay id='loading'>
+            <Overlay id='spinner'>
                 <Spinner />
             </Overlay>
         );
@@ -32,4 +32,4 @@ const mapStateToProps = (state: AppState) => ({
     isOpen: state.overlay.loading.isOpen,
 });
 
-export default connect(mapStateToProps, () => ({}))(LoadingOverlay);
+export default connect(mapStateToProps, () => ({}))(SpinnerOverlay);

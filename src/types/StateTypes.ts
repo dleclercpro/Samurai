@@ -43,7 +43,7 @@ export interface DialogState {
         headline?: string,
         message?: string,
         explanation?: string,
-        action?: () => void,
+        action?: () => Promise<void>,
     },
 }
 

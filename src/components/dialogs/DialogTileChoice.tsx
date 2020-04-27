@@ -41,7 +41,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
     handleAction = () => {
         const { playerTile, boardTile, playTile } = this.props;
 
-        playTile(playerTile, boardTile);
+        return playTile(playerTile, boardTile);
     }
 
     render() {

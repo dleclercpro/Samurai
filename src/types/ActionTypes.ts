@@ -67,14 +67,14 @@ export interface LoadHand {
 
 
 // Overlay actions
-export const OPEN_LOADING_OVERLAY = 'OPEN_LOADING_OVERLAY';
-export interface OpenLoadingOverlay {
-    type: typeof OPEN_LOADING_OVERLAY,
+export const OPEN_SPINNER_OVERLAY = 'OPEN_SPINNER_OVERLAY';
+export interface OpenSpinnerOverlay {
+    type: typeof OPEN_SPINNER_OVERLAY,
 }
 
-export const CLOSE_LOADING_OVERLAY = 'CLOSE_LOADING_OVERLAY';
-export interface CloseLoadingOverlay {
-    type: typeof CLOSE_LOADING_OVERLAY,
+export const CLOSE_SPINNER_OVERLAY = 'CLOSE_SPINNER_OVERLAY';
+export interface CloseSpinnerOverlay {
+    type: typeof CLOSE_SPINNER_OVERLAY,
 }
 
 
@@ -96,7 +96,7 @@ export const SET_SUCCESS_DIALOG = 'SET_SUCCESS_DIALOG';
 export interface SetSuccessDialog {
     type: typeof SET_SUCCESS_DIALOG,
     message: string,
-    action?: () => void,
+    action?: () => Promise<void>,
 }
 
 export const SET_ERROR_DIALOG = 'SET_ERROR_DIALOG';
@@ -104,7 +104,7 @@ export interface SetErrorDialog {
     type: typeof SET_ERROR_DIALOG,
     message: string,
     explanation: string,
-    action?: () => void,
+    action?: () => Promise<void>,
 }
 
 

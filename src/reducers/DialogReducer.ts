@@ -23,12 +23,10 @@ const initState = {
     [DialogType.Success]: {
         ...initDialogState,
         message: '',
-        action: () => {},
     },
     [DialogType.Error]: {
         ...initDialogState,
         message: '',
-        action: () => {},
     },
 };
 
