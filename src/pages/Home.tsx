@@ -6,15 +6,15 @@ import { DialogType } from '../types/DialogTypes';
 import { connect } from 'react-redux';
 import './Home.scss';
 import { AppState } from '../types/StateTypes';
-import { logout } from '../actions/ServerActions';
+import { signOut } from '../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 
 interface StateProps {
-    isSignedIn: boolean,
+    isAuthenticated: boolean,
 }
 
 interface DispatchProps {
-    signOut: () => Promise<void>,
+    resetUser: () => Promise<void>,
     openSignUpDialog: () => void,
     openSignInDialog: () => void,
     openPlayGameDialog: () => void,
@@ -26,12 +26,12 @@ type Props = StateProps & DispatchProps;
 class Home extends React.Component<Props, {}> {
 
     render() {
-        const { isSignedIn, signOut, openSignInDialog, openSignUpDialog, openPlayGameDialog, openCreateGameDialog } = this.props;
+        const { isAuthenticated, resetUser, openSignInDialog, openSignUpDialog, openPlayGameDialog, openCreateGameDialog } = this.props;
 
         return (
             <div id='home' className='page'>
                 <div className='buttons'>
-                    {!isSignedIn &&
+                    {!isAuthenticated &&
                         <React.Fragment>
                             <Button
                                 id='button-home-sign-in'
@@ -49,11 +49,11 @@ class Home extends React.Component<Props, {}> {
                             </Button>
                         </React.Fragment>
                     }
-                    {isSignedIn &&
+                    {isAuthenticated &&
                         <React.Fragment>
                             <Button
                                 id='button-home-sign-out'
-                                action={signOut}
+                                action={resetUser}
                                 isActive
                             >
                                 Sign out
@@ -81,13 +81,13 @@ class Home extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    isSignedIn: state.user.isSignedIn,
+    isAuthenticated: state.user.isAuthenticated,
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    signOut: () => dispatch(logout()),
+    resetUser: () => dispatch(signOut()),
     openSignUpDialog: () => dispatch(openDialog(DialogType.SignUp)),
-    openSignInDialog: () => dispatch(openDialog(DialogType.SignIn)),
+    openSignInDialog: () => dispatch(openDialog(DialogType.SetUser)),
     openPlayGameDialog: () => dispatch(openDialog(DialogType.PlayGame)),
     openCreateGameDialog: () => dispatch(openDialog(DialogType.CreateGame)),
 });

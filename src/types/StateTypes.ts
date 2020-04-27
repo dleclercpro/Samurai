@@ -39,7 +39,7 @@ export interface PlayersState {
 export interface UserState {
     username: string,
     email: string,
-    isSignedIn: boolean,
+    isAuthenticated: boolean,
 }
 
 export interface DialogState {

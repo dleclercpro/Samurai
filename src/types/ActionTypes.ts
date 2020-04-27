@@ -46,16 +46,16 @@ export interface SwitchColors {
 
 
 // User actions
-export const SIGN_IN = 'SIGN_IN';
-export interface SignIn {
-    type: typeof SIGN_IN,
+export const SET_USER = 'SET_USER';
+export interface SetUser {
+    type: typeof SET_USER,
     username: string,
     email: string,
 }
 
-export const SIGN_OUT = 'SIGN_OUT';
-export interface SignOut {
-    type: typeof SIGN_OUT,
+export const RESET_USER = 'RESET_USER';
+export interface ResetUser {
+    type: typeof RESET_USER,
 }
 
 

@@ -16,10 +16,11 @@ import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
 import { loadPlayer, loadOpponents, loadHand } from './PlayerActions';
-import { signOut, signIn } from './UserActions';
+import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
+import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 
-export const login = (email: string, password: string): ThunkActionResult<void> => {
+export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>) => {
         
@@ -27,7 +28,7 @@ export const login = (email: string, password: string): ThunkActionResult<void> 
             .then((response: ServerResponse) => {
                 const user: UserJSON = response.data;
                 
-                dispatch(signIn(user.username, user.email));
+                dispatch(setUser(user.username, user.email));
 
                 dispatch(setSuccessDialog('You have successfully signed in.'));
                 dispatch(openDialog(DialogType.Success));
@@ -39,13 +40,13 @@ export const login = (email: string, password: string): ThunkActionResult<void> 
     };
 }
 
-export const logout = (): ThunkActionResult<void> => {
+export const signOut = (): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>) => {
         
         return new CallSignOut().execute()
             .then(() => {
-                dispatch(signOut);
+                dispatch(resetUser);
                 
                 dispatch(setSuccessDialog('You have successfully signed out.'));
                 dispatch(openDialog(DialogType.Success));
@@ -53,6 +54,22 @@ export const logout = (): ThunkActionResult<void> => {
             .catch((error: any) => {
                 dispatch(setErrorDialog('There was an error while signing out:', error.message));
                 dispatch(openDialog(DialogType.Error));
+            });
+    };
+}
+
+export const verifyAuthentication = (): ThunkActionResult<void> => {
+
+    return (dispatch: ThunkDispatchResult<void>) => {
+
+        return new CallVerifyAuthentication().execute()
+            .then((response: ServerResponse) => {
+                const user: UserJSON = response.data;
+                
+                dispatch(setUser(user.username, user.email));
+            })
+            .catch(() => {
+                dispatch(resetUser);
             });
     };
 }

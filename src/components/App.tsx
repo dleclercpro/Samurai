@@ -24,12 +24,14 @@ import FormSignIn from './forms/FormSignIn';
 import FormSignUp from './forms/FormSignUp';
 import FormPlayGame from './forms/FormPlayGame';
 import FormCreateGame from './forms/FormCreateGame';
+import { verifyAuthentication } from '../actions/ServerActions';
 
 interface StateProps {
     isColorblind: boolean,
 }
 
 interface DispatchProps {
+    verifyAuthentication: () => Promise<void>,
     loadFullHand: (data: PlayerTileJSON[]) => void,
 }
 
@@ -38,7 +40,9 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { loadFullHand } = this.props;
+        const { verifyAuthentication, loadFullHand } = this.props;
+
+        verifyAuthentication();
         
         loadFullHand(FULL_HAND);
     }
@@ -92,6 +96,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    verifyAuthentication: () => dispatch(verifyAuthentication()),
     loadFullHand: (data: PlayerTileJSON[]) => dispatch(loadFullHand(data)),
 });
 

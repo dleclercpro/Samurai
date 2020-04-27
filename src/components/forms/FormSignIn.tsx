@@ -9,7 +9,7 @@ import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { login } from '../../actions/ServerActions';
+import { signIn } from '../../actions/ServerActions';
 import Dialog from '../dialogs/Dialog';
 
 const INIT_STATE = {
@@ -21,7 +21,7 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    signIn: (email: string, password: string) => Promise<void>,
+    setUser: (email: string, password: string) => Promise<void>,
 }
 
 type Props = DispatchProps;
@@ -59,10 +59,10 @@ class FormSignIn extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { signIn } = this.props;
+        const { setUser } = this.props;
         const { email, password } = getFormPayload(this.state.fields);
   
-        return signIn(email, password);
+        return setUser(email, password);
     }
 
     render() {
@@ -71,7 +71,7 @@ class FormSignIn extends React.Component<Props, State> {
 
         return (
             <Dialog
-                type={DialogType.SignIn}
+                type={DialogType.SetUser}
                 headline='Sign in'
                 actionButtonText='Sign in'
                 isActionButtonActive={isFilled}
@@ -105,7 +105,7 @@ class FormSignIn extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    signIn: (email: string, password: string) => dispatch(login(email, password)),
+    setUser: (email: string, password: string) => dispatch(signIn(email, password)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(FormSignIn);

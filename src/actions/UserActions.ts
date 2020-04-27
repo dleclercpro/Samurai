@@ -1,11 +1,11 @@
-import { SignIn, SIGN_IN, SignOut, SIGN_OUT } from '../types/ActionTypes';
+import { SetUser, SET_USER, ResetUser, RESET_USER } from '../types/ActionTypes';
 
-export const signIn = (username: string, email: string): SignIn => ({
-    type: SIGN_IN,
+export const setUser = (username: string, email: string): SetUser => ({
+    type: SET_USER,
     username,
     email,
 });
 
-export const signOut: SignOut = {
-    type: SIGN_OUT,
+export const resetUser: ResetUser = {
+    type: RESET_USER,
 };

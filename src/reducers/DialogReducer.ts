@@ -8,7 +8,7 @@ const initDialogState = {
 };
 
 const initState = {
-    [DialogType.SignIn]: { ...initDialogState },
+    [DialogType.SetUser]: { ...initDialogState },
     [DialogType.SignUp]: { ...initDialogState },
     [DialogType.PlayGame]: { ...initDialogState },
     [DialogType.CreateGame]: { ...initDialogState },

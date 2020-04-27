@@ -1,23 +1,23 @@
 import { UserState } from '../types/StateTypes';
 import { UserAction } from '../actions';
-import { SIGN_IN, SIGN_OUT } from '../types/ActionTypes';
+import { SET_USER, RESET_USER } from '../types/ActionTypes';
 
 const initState = {
     username: '',
     email: '',
-    isSignedIn: false,
+    isAuthenticated: false,
 };
 
 const UserReducer = (state: UserState = initState, action: UserAction) => {
     switch (action.type) {
-        case SIGN_IN:
+        case SET_USER:
             return {
                 ...state,
                 username: action.username,
                 email: action.email,
-                isSignedIn: true,
+                isAuthenticated: true,
             };
-        case SIGN_OUT:
+        case RESET_USER:
             return { ...initState };
         default:
             return state;
