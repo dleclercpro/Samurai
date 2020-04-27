@@ -40,7 +40,7 @@ class ScoreBoard extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { self, opponents } = state.player;
+    const { self, opponents } = state.players;
 
     return {
         player: self,

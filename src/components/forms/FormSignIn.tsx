@@ -5,23 +5,22 @@ import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { signIn } from '../../actions/ServerActions';
+import { login } from '../../actions/ServerActions';
+import Dialog from '../dialogs/Dialog';
 
 const INIT_STATE = {
     fields: {
         email: { ...INIT_FIELD_STATE },
         password: { ...INIT_FIELD_STATE },
     },
-    canSubmit: false,
+    isFilled: false,
 };
 
 interface DispatchProps {
-    closeSignInDialog: () => void,
     signIn: (email: string, password: string) => Promise<void>,
 }
 
@@ -29,7 +28,7 @@ type Props = DispatchProps;
 
 interface State {
     fields: FormFields,
-    canSubmit: boolean,
+    isFilled: boolean,
 }
 
 class FormSignIn extends React.Component<Props, State> {
@@ -51,65 +50,62 @@ class FormSignIn extends React.Component<Props, State> {
             },
         };
 
-        const canSubmit = Object.values(fields).map(field => field.value).every(value => value !== '');
+        const isFilled = Object.values(fields).map(field => field.value).every(value => value !== '');
 
         this.setState({
             fields,
-            canSubmit,
+            isFilled,
         });
     }
 
-    handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        const { signIn, closeSignInDialog } = this.props;
+    handleSubmit = () => {
+        const { signIn } = this.props;
         const { email, password } = getFormPayload(this.state.fields);
   
-        e.preventDefault();
-
-        signIn(email, password)
-            .then(() => {
-                closeSignInDialog();
-            });
+        return signIn(email, password);
     }
 
     render() {
-        const { closeSignInDialog } = this.props;
-        const { fields, canSubmit } = this.state;
+        const { fields, isFilled } = this.state;
         const { email, password } = fields;
 
         return (
-            <Form
-                id='sign-in'
-                submitText='Sign in'
-                onCancel={closeSignInDialog}
-                onSubmit={this.handleSubmit}
-                canSubmit={canSubmit}
+            <Dialog
+                type={DialogType.SignIn}
+                headline='Sign in'
+                actionButtonText='Sign in'
+                isActionButtonActive={isFilled}
+                onAction={this.handleSubmit}
+                onCancel={() => {}}
+                shouldClose
             >
-                    <FormTextField
-                        type='email'
-                        name='email'
-                        label='E-mail'
-                        onChange={this.handleChange}
-                        value={email.value}
-                        error={email.error}
-                        autoFocus
-                    />
+                <Form id='sign-in'>
+                        <FormTextField
+                            type='email'
+                            name='email'
+                            label='E-mail'
+                            onChange={this.handleChange}
+                            value={email.value}
+                            error={email.error}
+                            autoFocus
+                        />
 
-                    <FormTextField
-                        type='password'
-                        name='password'
-                        label='Password'
-                        onChange={this.handleChange}
-                        value={password.value}
-                        error={password.error}
-                    />
-            </Form>
+                        <FormTextField
+                            type='password'
+                            name='password'
+                            label='Password'
+                            onChange={this.handleChange}
+                            value={password.value}
+                            error={password.error}
+                        />
+                </Form>
+            </Dialog>
         );
     }
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    closeSignInDialog: () => dispatch(closeDialog(DialogType.SignIn)),
-    signIn: (email: string, password: string) => dispatch(signIn(email, password)),
+    signIn: (email: string, password: string) => dispatch(login(email, password)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(FormSignIn);

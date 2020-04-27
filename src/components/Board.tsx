@@ -163,16 +163,15 @@ class Board extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { self, opponents } = state.player;
+    const { self, opponents } = state.players;
     const { tiles, initHand } = state.data;
-    const busyBoardTileIds = getBusyBoardTileIds(state.player);
 
     return {
         tiles,
         initHand,
         player: self,
         opponents,
-        busyBoardTileIds,
+        busyBoardTileIds: getBusyBoardTileIds(state.players),
     }
 };
 

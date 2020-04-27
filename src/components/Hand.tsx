@@ -67,14 +67,13 @@ class Hand extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { game, data, player } = state;
-    const { selection } = game;
-    const { initHand, tiles } = data;
-    const { self, hand } = player;
+    const { self } = state.players;
+    const { selection } = state.game;
+    const { initHand, tiles } = state.data;
     const { play } = selection;
 
     return {
-        hand: hand.map((id: number) => initHand.get(id)).filter(notUndefined),
+        hand: self.hand.map((id: number) => initHand.get(id)).filter(notUndefined),
         color: self.color,
         isWaterTileSelected: tiles.get(play.boardTile)?.isWater,
     };

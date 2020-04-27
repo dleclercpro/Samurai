@@ -108,11 +108,12 @@ export const parsePlayer = (data: PlayerJSON): Player => {
     return {
         id,
         username,
-        isPlaying,
         color: parseColor(color),
-        score: parseScore(score),
+        hand: [],
         playedTiles: parsePlayedTiles(playedTiles),
+        score: parseScore(score),
         hasWon,
+        isPlaying,
     }
 }
 

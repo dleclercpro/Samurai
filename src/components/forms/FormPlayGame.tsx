@@ -5,21 +5,24 @@ import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
+import { Redirect } from 'react-router-dom';
+import Dialog from '../dialogs/Dialog';
+import { refreshGame } from '../../actions/ServerActions';
 
 const INIT_STATE = {
     fields: {
         id: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
+    redirectToGame: false,
 };
 
 interface DispatchProps {
-    closePlayGameDialog: () => void,
+    refreshGame: (id: number) => Promise<void>,
 }
 
 type Props = DispatchProps;
@@ -27,6 +30,7 @@ type Props = DispatchProps;
 interface State {
     fields: FormFields,
     isFilled: boolean,
+    redirectToGame: boolean,
 }
 
 class FormPlayGame extends React.Component<Props, State> {
@@ -56,46 +60,55 @@ class FormPlayGame extends React.Component<Props, State> {
         });
     }
 
-    handleSubmit = (e: React.FormEvent) => {
-        const { closePlayGameDialog } = this.props;
-        const { id } = getFormPayload(this.state.fields);
+    handleSubmit = () => {
+        const { refreshGame } = this.props;
+        const id = parseInt(getFormPayload(this.state.fields).id);
 
-        e.preventDefault();
-
-        closePlayGameDialog();
-
-        document.location.replace(`/samurai/game/${id}/`);
+        return refreshGame(id)
+            .then(() => {
+                this.setState({
+                    redirectToGame: true,
+                });
+            });
     }
     
     render() {
-        const { closePlayGameDialog } = this.props;
-        const { fields, isFilled } = this.state;
+        const { fields, isFilled, redirectToGame } = this.state;
         const { id } = fields;
 
+        if (redirectToGame) {
+            return <Redirect to={`/samurai/game/`} />
+        }
+
         return (
-            <Form
-                id='play-game'
-                submitText='Play'
-                onCancel={closePlayGameDialog}
-                onSubmit={this.handleSubmit}
-                canSubmit={isFilled}
+            <Dialog
+                type={DialogType.PlayGame}
+                headline='Play game'
+                message='Please enter the ID of the game you want to play in:'
+                actionButtonText='Play'
+                isActionButtonActive={isFilled}
+                onAction={this.handleSubmit}
+                onCancel={() => {}}
+                shouldClose={false}
             >
-                <FormTextField
-                    type='number'
-                    name='id'
-                    label='Game ID'
-                    onChange={this.handleChange}
-                    value={id.value}
-                    error={id.error}
-                    autoFocus
-                />
-            </Form>
+                <Form id='play-game'>
+                    <FormTextField
+                        type='number'
+                        name='id'
+                        label='Game ID'
+                        onChange={this.handleChange}
+                        value={id.value}
+                        error={id.error}
+                        autoFocus
+                    />
+                </Form>
+            </Dialog>
         );
     }
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    closePlayGameDialog: () => dispatch(closeDialog(DialogType.PlayGame)),
+    refreshGame: (id: number) => dispatch(refreshGame(id)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(FormPlayGame);

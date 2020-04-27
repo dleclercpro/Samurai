@@ -5,12 +5,12 @@ import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
-import { closeDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import { signUp } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
+import Dialog from '../dialogs/Dialog';
 
 const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.';
 
@@ -34,7 +34,6 @@ const INIT_STATE = {
 };
 
 interface DispatchProps {
-    closeSignUpDialog: () => void,
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => Promise<void>,
 }
 
@@ -117,89 +116,87 @@ class FormSignUp extends React.Component<Props, State> {
         });
     }
 
-    handleSubmit = (e: React.FormEvent) => {
-        const { signUp, closeSignUpDialog } = this.props;
+    handleSubmit = () => {
+        const { signUp } = this.props;
         const { username, firstName, lastName, email, password } = getFormPayload(this.state.fields);
 
-        e.preventDefault();
-
-        signUp(username, firstName, lastName, email, password)
-            .then(() => {
-                closeSignUpDialog();
-            });
+        return signUp(username, firstName, lastName, email, password);
     }
     
     render() {
-        const { closeSignUpDialog } = this.props;
         const { fields, isFilled, hasErrors } = this.state;
         const { username, firstName, lastName, email, password, repeatedPassword } = fields;
 
         return (
-            <Form
-                id='sign-up'
-                submitText='Sign up'
-                onCancel={closeSignUpDialog}
-                onSubmit={this.handleSubmit}
-                canSubmit={isFilled && !hasErrors}
+            <Dialog
+                type={DialogType.SignUp}
+                headline='Sign up'
+                message='Provide the following information to register as a user:'
+                actionButtonText='Sign up'
+                isActionButtonActive={isFilled && !hasErrors}
+                onAction={this.handleSubmit}
+                onCancel={() => {}}
+                shouldClose
             >
-                <FormTextField
-                    name='firstName'
-                    label='First name'
-                    onChange={this.handleChange}
-                    value={firstName.value}
-                    error={firstName.error}
-                    autoFocus
-                />
+                <Form id='sign-up'>
+                    <FormTextField
+                        name='firstName'
+                        label='First name'
+                        onChange={this.handleChange}
+                        value={firstName.value}
+                        error={firstName.error}
+                        autoFocus
+                    />
 
-                <FormTextField
-                    name='lastName'
-                    label='Last name'
-                    onChange={this.handleChange}
-                    value={lastName.value}
-                    error={lastName.error}
-                />
+                    <FormTextField
+                        name='lastName'
+                        label='Last name'
+                        onChange={this.handleChange}
+                        value={lastName.value}
+                        error={lastName.error}
+                    />
 
-                <FormTextField
-                    name='username'
-                    label='Username'
-                    onChange={this.handleChange}
-                    value={username.value}
-                    error={username.error}
-                />
+                    <FormTextField
+                        name='username'
+                        label='Username'
+                        onChange={this.handleChange}
+                        value={username.value}
+                        error={username.error}
+                    />
 
-                <FormTextField
-                    type='email'
-                    name='email'
-                    label='E-mail'
-                    onChange={(e) => { this.handleChange(e, this.isEmailValid) }}
-                    value={email.value}
-                    error={email.error}
-                />
+                    <FormTextField
+                        type='email'
+                        name='email'
+                        label='E-mail'
+                        onChange={(e) => { this.handleChange(e, this.isEmailValid) }}
+                        value={email.value}
+                        error={email.error}
+                    />
 
-                <FormTextField
-                    type='password'
-                    name='password'
-                    label='Password'
-                    onChange={(e) => { this.handleChange(e, this.isPasswordValid) }}
-                    value={password.value}
-                    error={password.error}
-                />
+                    <FormTextField
+                        type='password'
+                        name='password'
+                        label='Password'
+                        onChange={(e) => { this.handleChange(e, this.isPasswordValid) }}
+                        value={password.value}
+                        error={password.error}
+                    />
 
-                <FormTextField
-                    type='password'
-                    name='repeatedPassword'
-                    label='Password (again)'
-                    onChange={(e) => { this.handleChange(e, this.isRepeatedPasswordValid) }}
-                    value={repeatedPassword.value}
-                    error={repeatedPassword.error}
-                />
-            </Form>
+                    <FormTextField
+                        type='password'
+                        name='repeatedPassword'
+                        label='Password (again)'
+                        onChange={(e) => { this.handleChange(e, this.isRepeatedPasswordValid) }}
+                        value={repeatedPassword.value}
+                        error={repeatedPassword.error}
+                    />
+                </Form>
+            </Dialog>
         );
     }
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    closeSignUpDialog: () => dispatch(closeDialog(DialogType.SignUp)),
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => dispatch(signUp(username, firstName, lastName, email, password)),
 });
 

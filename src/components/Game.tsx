@@ -1,55 +1,27 @@
 import React from 'react';
 import './Game.scss';
 import Grid from './Grid';
-import { setGameId } from '../actions/GameActions';
-import { AppAction } from '../actions';
 import { connect } from 'react-redux';
-import { refreshGame } from '../actions/ServerActions';
-import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../types/StateTypes';
 import SwitchColorModeButton from './SwitchColorModeButton';
+import { Redirect } from 'react-router-dom';
 
-interface OwnProps {
-    id: number,
-}
-
-interface DispatchProps {
-    setGameId: (id: number) => void,
-    refreshGame: () => Promise<void>,
-}
-
-type Props = OwnProps & DispatchProps;
-
-interface State {
+interface StateProps {
     isLoaded: boolean,
 }
 
-class Game extends React.Component<Props, State> {
+type Props = StateProps;
 
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            isLoaded: false,
-        };
-    }
-
-    componentDidMount() {
-        const { id, setGameId, refreshGame } = this.props;
-
-        setGameId(id);
-
-        refreshGame().then(() => {
-            this.setState({
-                isLoaded: true,
-            });
-        });
-    }
+class Game extends React.Component<Props, {}> {
 
     render() {
-        const { isLoaded } = this.state;
+        const { isLoaded } = this.props;
 
-        return isLoaded && (
+        if (!isLoaded) {
+            return <Redirect to='/samurai/' />
+        }
+
+        return (
             <React.Fragment>
                 <Grid />
                 <SwitchColorModeButton />
@@ -58,9 +30,8 @@ class Game extends React.Component<Props, State> {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    setGameId: (id: number) => dispatch(setGameId(id)),
-    refreshGame: () => dispatch(refreshGame()),
+const mapStateToProps = (state: AppState) => ({
+    isLoaded: state.game.id !== -1,
 });
 
-export default connect(() => ({}), mapDispatchToProps)(Game);
+export default connect(mapStateToProps, () => ({}))(Game);

@@ -70,9 +70,9 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { self } = state.player;
-    const { step, selection } = state.game;
     const { id, boardId, type } = ownProps;
+    const { self } = state.players;
+    const { step, selection } = state.game;
 
     const isPlaying = self.isPlaying;
     const isMine = self.playedTiles.get(boardId) === id;

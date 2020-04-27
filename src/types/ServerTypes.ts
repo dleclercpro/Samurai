@@ -6,6 +6,11 @@ export interface ServerResponse {
     data: any,
 }
 
+export interface UserJSON {
+    username: string,
+    email: string,
+}
+
 export interface TileJSON {
     id: number,
     coordinates: Coordinates2D,

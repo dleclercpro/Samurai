@@ -22,7 +22,7 @@ interface OwnProps {
     actionButtonText?: string,
     onCancel?: () => void,
     onAction?: () => Promise<void>,
-    canClose?: boolean,
+    shouldClose: boolean,
     isActionButtonActive?: boolean,
 }
 
@@ -91,37 +91,38 @@ class Dialog extends React.Component<Props, State> {
     }
 
     handleAction = () => {
-        const { onAction, closeDialog } = this.props;
+        const { onAction, closeDialog, shouldClose } = this.props;
+        const { canClose } = this.state;
 
         if (onAction) {
             this.showSpinner();
 
             onAction().then(() => {
                 this.hideSpinner();
-                closeDialog();
+
+                if (shouldClose && canClose) {
+                    closeDialog();
+                }
             });
 
             return;
         }
 
-        closeDialog();
+        if (shouldClose && canClose) {
+            closeDialog();
+        }
     }
 
     handleCancel = () => {
-        const { onCancel, closeDialog } = this.props;
+        const { onCancel, closeDialog, shouldClose } = this.props;
+        const { canClose } = this.state;
 
         if (onCancel) {
             onCancel();
         }
         
-        closeDialog();
-    }
-
-    handleClose = () => {
-        const { canClose } = this.state;
-
-        if (canClose) {
-            this.handleCancel();
+        if (shouldClose && canClose) {
+            closeDialog();
         }
     }
 
@@ -146,11 +147,10 @@ class Dialog extends React.Component<Props, State> {
     }
 
     render() {
-        const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel, onAction } = this.props;
+        const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel } = this.props;
         const hasChildren = React.Children.count(children) > 0;
         const hasMessage = message !== undefined && message !== '';
         const hasExplanation = explanation !== undefined && explanation !== '';
-        const hasButtons = onCancel !== undefined || onAction !== undefined;
         const hasCancelButton = onCancel !== undefined;
 
         if (!isOpen) {
@@ -160,7 +160,7 @@ class Dialog extends React.Component<Props, State> {
         return (
             <Overlay
                 id='dialog'
-                onClick={this.handleClose}
+                onClick={this.handleCancel}
             >
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
                     <SpinnerOverlay />
@@ -183,27 +183,25 @@ class Dialog extends React.Component<Props, State> {
                         </div>
                     }
 
-                    {hasButtons &&
-                        <div className='buttons'>
-                            {hasCancelButton &&
-                                <Button
-                                    isActive
-                                    action={this.handleCancel}
-                                >
-                                    {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
-                                </Button>
-                            }
-                        
+                    <div className='buttons'>
+                        {hasCancelButton &&
                             <Button
-                                isActive={isActionButtonActive !== undefined && isActionButtonActive}
-                                action={this.handleAction}
+                                isActive
+                                action={this.handleCancel}
                             >
-                                {actionButtonText !== undefined ? actionButtonText : 'OK'}
+                                {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
                             </Button>
-                        </div>
-                    }
+                        }
+                    
+                        <Button
+                            isActive={isActionButtonActive !== undefined && isActionButtonActive}
+                            action={this.handleAction}
+                        >
+                            {actionButtonText !== undefined ? actionButtonText : 'OK'}
+                        </Button>
+                    </div>
 
-                    <CloseIcon className='icon-close' onClick={this.handleClose} />
+                    <CloseIcon className='icon-close' onClick={this.handleCancel} />
                 </div>
             </Overlay>
         );
@@ -212,8 +210,7 @@ class Dialog extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { type } = ownProps;
-    const { dialog } = state;
-    const { isOpen } = dialog[type];
+    const { isOpen } = state.dialog[type];
     
     return {
         isOpen,

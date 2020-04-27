@@ -77,10 +77,10 @@ class CasteComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { self } = state.player;
+    const { caste } = ownProps;
+    const { self } = state.players;
     const { step, selection } = state.game;
     const { to, from } = selection.switch;
-    const { caste } = ownProps;
 
     const isChoosingFrom = step === CasteSwitchStep.ChooseCasteFrom;
     const isChoosingTo = step === CasteSwitchStep.ChooseCasteTo;

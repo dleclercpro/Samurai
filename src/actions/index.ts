@@ -1,4 +1,5 @@
-import { LoadBoard, LoadFullHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors, SetErrorDialog, SetSuccessDialog, SetGameId, OpenSpinnerOverlay, CloseSpinnerOverlay } from '../types/ActionTypes';
+import { LoadBoard, LoadFullHand, SelectBoardTile, SelectPlayerTile, DeselectBoardTile, DeselectPlayerTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors, SetErrorDialog, SetSuccessDialog, SetGameId, OpenSpinnerOverlay, CloseSpinnerOverlay, SignIn, SignOut } from '../types/ActionTypes';
+import { signOut } from './UserActions';
 
 export type DataAction =
     LoadBoard |
@@ -30,7 +31,11 @@ export type GameAction =
     SelectCasteToForSwitch |
     DeselectCasteToForSwitch;
 
-export type PlayerAction =
+export type UserAction =
+    SignIn |
+    SignOut;
+
+export type PlayersAction =
     LoadPlayer |
     LoadOpponents |
     LoadHand;
@@ -49,6 +54,7 @@ export type OverlayAction =
 export type AppAction =
     DataAction |
     GameAction |
-    PlayerAction |
+    UserAction |
+    PlayersAction |
     DialogAction |
     OverlayAction;

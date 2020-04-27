@@ -74,6 +74,7 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive
+                shouldClose
             >
                 {this.getMovingTile()}
             </Dialog>
@@ -82,10 +83,9 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { game, player, data } = state;
-    const { selection } = game;
-    const { self } = player;
-    const { initHand } = data;
+    const { self } = state.players;
+    const { selection } = state.game;
+    const { initHand } = state.data;
 
     return {
         from: selection.move.from,

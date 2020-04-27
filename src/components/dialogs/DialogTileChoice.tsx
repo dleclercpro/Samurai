@@ -56,6 +56,7 @@ class DialogTileChoice extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
+                shouldClose
             >
                 {hand && <Hand inDialog={DialogType.TileChoice} />}
             </Dialog>
@@ -64,8 +65,8 @@ class DialogTileChoice extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { game, player } = state;
-    const { step, selection } = game;
+    const { self } = state.players;
+    const { step, selection } = state.game;
 
     const isChoosing = step === TilePlayStep.ChoosePlayerTile;
     const hasChosen = step === TilePlayStep.Done;
@@ -74,7 +75,7 @@ const mapStateToProps = (state: AppState) => {
     return {
         playerTile: selection.play.playerTile,
         boardTile: selection.play.boardTile,
-        hand: player.hand,
+        hand: self.hand,
         isChoosing,
         hasChosen,
         isActionButtonActive,

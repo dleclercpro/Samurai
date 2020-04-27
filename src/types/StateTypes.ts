@@ -31,10 +31,15 @@ export interface GameState {
     colors: ColorMode,
 }
 
-export interface PlayerState {
+export interface PlayersState {
     self: Player,
     opponents: Player[],
-    hand: number[],
+}
+
+export interface UserState {
+    username: string,
+    email: string,
+    isSignedIn: boolean,
 }
 
 export interface DialogState {
@@ -61,7 +66,8 @@ export interface DataState {
 // Root state
 export interface AppState {
     game: GameState,
-    player: PlayerState,
+    user: UserState,
+    players: PlayersState,
     dialog: DialogState,
     overlay: OverlayState,
     data: DataState,

@@ -36,12 +36,27 @@ export interface SetGameId {
 export const END_TURN = 'END_TURN';
 export interface EndTurn {
     type: typeof END_TURN,
-};
+}
 
 export const SWITCH_COLORS = 'SWITCH_COLORS';
 export interface SwitchColors {
     type: typeof SWITCH_COLORS,
-};
+}
+
+
+
+// User actions
+export const SIGN_IN = 'SIGN_IN';
+export interface SignIn {
+    type: typeof SIGN_IN,
+    username: string,
+    email: string,
+}
+
+export const SIGN_OUT = 'SIGN_OUT';
+export interface SignOut {
+    type: typeof SIGN_OUT,
+}
 
 
 
@@ -140,7 +155,7 @@ export interface DeselectPlayerTile {
 export const START_TILE_MOVE = 'START_TILE_MOVE';
 export interface StartTileMove {
     type: typeof START_TILE_MOVE,
-};
+}
 
 export const SELECT_BOARD_TILE_TO_MOVE_FROM = 'SELECT_BOARD_TILE_TO_MOVE_FROM';
 export interface SelectBoardTileToMoveFrom {

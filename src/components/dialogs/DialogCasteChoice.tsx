@@ -69,6 +69,7 @@ class DialogCasteChoice extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
+                shouldClose
             >
                 <div className='icons'>
                     {castes && castes.map((caste: Caste, index: number) => (
@@ -84,8 +85,8 @@ class DialogCasteChoice extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { game, data } = state;
-    const { step, selection } = game;
+    const { step, selection } = state.game;
+    const { tiles } = state.data;
 
     const isChoosingFrom = step === CasteSwitchStep.ChooseCasteFrom;
     const isChoosingTo = step === CasteSwitchStep.ChooseCasteTo;
@@ -101,7 +102,7 @@ const mapStateToProps = (state: AppState) => {
         selectedTileId = -1;
     }
 
-    const selectedTile = data.tiles.get(selectedTileId);
+    const selectedTile = tiles.get(selectedTileId);
     const castes = selectedTile ? selectedTile.castes : [];
 
     const isActionButtonActive = hasChosenFrom || hasChosenTo;

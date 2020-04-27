@@ -49,7 +49,7 @@ class DialogGameOver extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    winners: getWinners(state.player),
+    winners: getWinners(state.players),
 });
 
 export default connect(mapStateToProps, () => ({}))(DialogGameOver);

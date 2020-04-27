@@ -1,26 +1,26 @@
-import { PlayerState } from '../types/StateTypes';
-import { PlayerAction } from '../actions';
+import { PlayersState } from '../types/StateTypes';
+import { PlayersAction } from '../actions';
 import { LOAD_PLAYER, LOAD_HAND, LOAD_OPPONENTS } from '../types/ActionTypes';
 import { parsePlayer } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
-const initPlayerState = {
+const initPlayersState = {
     id: -1,
-    color: PlayerColor.Unknown,
     username: '',
-    score: new Map(),
-    isPlaying: false,
+    color: PlayerColor.Unknown,
+    hand: [],
     playedTiles: new Map(),
+    score: new Map(),
     hasWon: false,
+    isPlaying: false,
 };
 
 const initState = {
-    self: { ...initPlayerState },
+    self: { ...initPlayersState },
     opponents: [],
-    hand: [],
 };
 
-const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => {
+const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) => {
     switch (action.type) {
         case LOAD_PLAYER:
             return {
@@ -35,11 +35,14 @@ const PlayerReducer = (state: PlayerState = initState, action: PlayerAction) => 
         case LOAD_HAND:
             return {
                 ...state,
-                hand: action.data,
+                self: {
+                    ...state.self,
+                    hand: action.data,
+                },
             };
         default:
             return state;
     }
 };
 
-export default PlayerReducer;
+export default PlayersReducer;

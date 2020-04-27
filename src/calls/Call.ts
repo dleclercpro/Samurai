@@ -1,17 +1,19 @@
 import { getCookie } from './Cookie';
 
-export const BASE_URL = 'http://127.0.0.1:8000/';
+export const BASE_URL = 'http://35.182.135.40:8000/';
 
 class Call {
     private url: string;
     private method: string;
     private payload: object | undefined;
+    private headers: HeadersInit;
     private params: RequestInit;
 
     constructor(url: string, method: string, payload?: object) {
         this.url = BASE_URL + url;
         this.method = method;
         this.payload = payload;
+        this.headers = {}
         this.params = {};
     }
 
@@ -27,33 +29,43 @@ class Call {
         return this.payload;
     }
 
-    setUrl(url: string) {
+    getHeaders = () => {
+        return this.headers;
+    }
+
+    setUrl = (url: string) => {
         this.url = url;
     }
 
-    setMethod(method: string) {
+    setMethod = (method: string) => {
         this.method = method;
     }
 
-    setPayload(payload: object) {
+    setPayload = (payload: object) => {
         this.payload = payload;
     }
 
-    prepare() {
-        const sessionId = getCookie('sessionid');
-        const csrfToken = getCookie('csrftoken');
+    setHeaders = (headers: HeadersInit) => {
+        this.headers = headers;
+    }
 
-        console.log(sessionId, csrfToken);
+    prepareHeaders() {
+        this.setHeaders({
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        });
+    }
+
+    prepare() {
+
+        // Headers not set to avoid CORS preflight
+        //this.prepareHeaders();
 
         this.params = {
             method: this.method,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Cookie': `sessionid=${sessionId}; csrftoken=${csrfToken}`,
-            },
-            credentials: 'include',
             body: JSON.stringify(this.payload),
+            credentials: 'include',
         };
     }
 
@@ -61,7 +73,6 @@ class Call {
         this.prepare();
 
         return fetch(this.url, this.params).then((response: Response) => {
-            console.log(response.headers.get('Set-Cookie'));
 
             // Raw server response
             if (response.ok) {

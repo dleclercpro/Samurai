@@ -86,11 +86,10 @@ class HandTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { game, player } = state;
-    const { self } = player;
-    const { step, selection } = game;
-    const { play } = selection;
     const { isInDialog, id, type } = ownProps;
+    const { self } = state.players;
+    const { step, selection } = state.game;
+    const { play } = selection;
     const nPlayedTiles = self.playedTiles.size;
 
     const isMove = type === Action.Move;

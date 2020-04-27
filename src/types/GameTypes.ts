@@ -52,11 +52,12 @@ export type PlayerTileMap = Map<number, PlayerTile>;
 export interface Player {
     id: number,
     username: string,
-    isPlaying: boolean,
     color: PlayerColor,
-    score: PlayerScore,
+    hand: number[],
     playedTiles: Map<number, number>,
+    score: PlayerScore,
     hasWon: boolean,
+    isPlaying: boolean,
 }
 
 export enum PlayerColor {

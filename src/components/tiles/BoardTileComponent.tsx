@@ -143,9 +143,9 @@ class BoardTileComponent extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { self} = state.player;
-    const { step, selection } = state.game;
     const { id, castes, isCity, isWater } = ownProps;
+    const { self } = state.players;
+    const { step, selection } = state.game;
 
     const hasCastes = castes.length > 0;
     const isSelected = ownProps.id === selection.play.boardTile;
