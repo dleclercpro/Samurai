@@ -7,6 +7,7 @@ import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Player, PlayerTileMap }
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 import PlayedTileComponent from './tiles/PlayedTileComponent';
 import { getBusyBoardTileIds } from '../selectors';
+import PatternEmpty from './tiles/PatternEmpty';
 
 interface StateProps {
     player: Player,
@@ -151,6 +152,7 @@ class Board extends React.Component<Props, State> {
         return (
             <div id='board-wrapper'>
                 <svg id='board' viewBox={`0 0 ${width} ${height}`}>
+                    <PatternEmpty />
                     <g id='board-tiles' transform={`rotate(${BOARD_ROTATION})`}>
                         {this.getTileNodes()}
                     </g>

@@ -22,11 +22,11 @@ $color-water: #bfefff;
 $color-blind-ground: #f9dde2;
 $color-blind-water: #b3cfd7;
 
-$color-dark-ground: darken($color: $color-ground, $amount: 15);
 $color-dark-water: darken($color: $color-water, $amount: 15);
+$color-dark-ground: darken($color: $color-ground, $amount: 15);
 
-$color-blind-dark-ground: darken($color: $color-blind-ground, $amount: 15);
 $color-blind-dark-water: darken($color: $color-blind-water, $amount: 15);
+$color-blind-dark-ground: darken($color: $color-blind-ground, $amount: 15);
 
 $color-dark-grey: darken($color: $color-grey, $amount: 15);
 $color-dark-red: darken($color: $color-red, $amount: 40);

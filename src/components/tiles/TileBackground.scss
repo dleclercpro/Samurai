@@ -11,11 +11,7 @@
     }
 
     &.is-empty-city {
-        fill: $color-dark-ground;
-
-        .is-colorblind & {
-            fill: $color-blind-dark-ground;
-        }
+        fill: url(#pattern-empty);
     }
 
     &.is-water {
