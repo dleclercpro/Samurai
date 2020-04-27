@@ -74,7 +74,7 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive
-                shouldClose
+                shouldCloseAfterAction
             >
                 {this.getMovingTile()}
             </Dialog>

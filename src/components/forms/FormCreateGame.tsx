@@ -97,7 +97,7 @@ class FormCreateGame extends React.Component<Props, State> {
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
-                shouldClose={false}
+                shouldCloseAfterAction={false}
                 >
                 <Form id='create-game'>
                     <FormTextField

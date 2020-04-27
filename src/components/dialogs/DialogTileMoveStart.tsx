@@ -32,7 +32,7 @@ class DialogTileMoveStart extends React.Component<Props, {}> {
                 actionButtonText='Start Move'
                 onAction={this.handleAction}
                 isActionButtonActive
-                shouldClose
+                shouldCloseAfterAction
             />
         );
     }

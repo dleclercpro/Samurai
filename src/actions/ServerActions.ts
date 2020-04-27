@@ -103,6 +103,8 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
             .catch((error: any) => {
                 dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
+
+                return Promise.reject();
             });
     };
 }
