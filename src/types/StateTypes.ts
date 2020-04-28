@@ -52,12 +52,6 @@ export interface DialogState {
     },
 }
 
-export interface OverlayState {
-    loading: {
-        isOpen: boolean,
-    },
-}
-
 export interface DataState {
     tiles: BoardTileMap,
     fullHand: HandTileMap,
@@ -69,6 +63,5 @@ export interface AppState {
     user: UserState,
     players: PlayersState,
     dialog: DialogState,
-    overlay: OverlayState,
     data: DataState,
 };

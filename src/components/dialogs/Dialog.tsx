@@ -10,7 +10,6 @@ import { DialogType } from '../../types/DialogTypes';
 import Overlay from '../Overlay';
 import { KEY_ENTER_ID, KEY_ESC_ID } from '../../constants';
 import SpinnerOverlay from '../SpinnerOverlay';
-import { openSpinnerOverlay, closeSpinnerOverlay } from '../../actions/OverlayActions';
 
 interface OwnProps {
     children?: ReactNode,
@@ -31,14 +30,12 @@ interface StateProps {
 
 interface DispatchProps {
     closeDialog: () => void,
-    openSpinnerOverlay: () => void,
-    closeSpinnerOverlay: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
 
 interface State {
-    canClose: boolean,
+    isLoading: boolean,
 }
 
 class Dialog extends React.Component<Props, State> {
@@ -47,7 +44,7 @@ class Dialog extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            canClose: true,
+            isLoading: false,
         };
     }
 
@@ -107,39 +104,33 @@ class Dialog extends React.Component<Props, State> {
 
     handleCancel = () => {
         const { onCancel, closeDialog } = this.props;
-        const { canClose } = this.state;
+        const { isLoading } = this.state;
 
-        if (onCancel) {
-            onCancel();
-        }
-        
-        if (canClose) {
+        // Do not close dialog when executing an action!
+        if (!isLoading) {
+            if (onCancel) {
+                onCancel();
+            }
+            
             closeDialog();
         }
     }
 
     showSpinner = () => {
-        const { openSpinnerOverlay } = this.props;
-
         this.setState({
-            canClose: false,
+            isLoading: true,
         });
-
-        openSpinnerOverlay();
     }
 
     hideSpinner = () => {
-        const { closeSpinnerOverlay } = this.props;
-
         this.setState({
-            canClose: true,
+            isLoading: false,
         });
-
-        closeSpinnerOverlay();
     }
 
     render() {
         const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel } = this.props;
+        const { isLoading } = this.state;
         const hasChildren = React.Children.count(children) > 0;
         const hasMessage = message !== undefined && message !== '';
         const hasExplanation = explanation !== undefined && explanation !== '';
@@ -155,7 +146,7 @@ class Dialog extends React.Component<Props, State> {
                 onClick={this.handleCancel}
             >
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
-                    <SpinnerOverlay />
+                    {isLoading && <SpinnerOverlay />}
 
                     <h2 className='headline'>{headline}</h2>
 
@@ -213,8 +204,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) =
     const { type } = ownProps;
 
     return {
-        openSpinnerOverlay: () => dispatch(openSpinnerOverlay),
-        closeSpinnerOverlay: () => dispatch(closeSpinnerOverlay),
         closeDialog: () => dispatch(closeDialog(type)),
     }
 };

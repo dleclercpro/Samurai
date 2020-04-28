@@ -1,17 +1,11 @@
 import React from 'react';
 import './FormPlayGame.scss';
-import { connect } from 'react-redux';
-import { AppAction } from '../../actions';
 import FormTextField from './FormTextField';
 import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
 import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
-import { ThunkDispatch } from 'redux-thunk';
-import { AppState } from '../../types/StateTypes';
 import Dialog from '../dialogs/Dialog';
-import { refreshGame } from '../../actions/ServerActions';
-import { setGameId } from '../../actions/GameActions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 const INIT_STATE = {
@@ -21,12 +15,7 @@ const INIT_STATE = {
     isFilled: false,
 };
 
-interface DispatchProps {
-    setGameId: (id: number) => void,
-    refreshGame: () => Promise<void>,
-}
-
-type Props = DispatchProps & RouteComponentProps;
+type Props = RouteComponentProps;
 
 interface State {
     fields: FormFields,
@@ -61,18 +50,12 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { setGameId, refreshGame, history } = this.props;
+        const { history } = this.props;
         const id = parseInt(getFormPayload(this.state.fields).id);
 
-        setGameId(id);
+        history.push(`/samurai/game/${id}/`);
 
-        return refreshGame()
-            .then(() => {
-                history.push(`/samurai/game/${id}/`);
-            })
-            .catch(() => {
-                    
-            });
+        return Promise.resolve();
     }
     
     render() {
@@ -105,9 +88,4 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    setGameId: (id: number) => dispatch(setGameId(id)),
-    refreshGame: () => dispatch(refreshGame()),
-});
-
-export default withRouter(connect(() => ({}), mapDispatchToProps)(FormPlayGame));
+export default withRouter(FormPlayGame);

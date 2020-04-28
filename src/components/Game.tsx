@@ -4,10 +4,11 @@ import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import SwitchColorModeButton from './SwitchColorModeButton';
-import { refreshGame } from '../actions/ServerActions';
+import { loadGameData } from '../actions/ServerActions';
 import { setGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
+import SpinnerOverlay from './SpinnerOverlay';
 
 interface OwnProps {
     routeId: number,
@@ -18,7 +19,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    refreshGame: () => Promise<void>,
+    loadGameData: () => Promise<void>,
     setGameId: (id: number) => void,
 }
 
@@ -34,18 +35,22 @@ class Game extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            isLoaded: props.id === props.routeId,
+            isLoaded: false,
         };
     }
 
     componentDidMount() {
-        const { routeId, setGameId, refreshGame } = this.props;
-        const { isLoaded } = this.state;
+        const { routeId, id, setGameId, loadGameData } = this.props;
+        
+        // Game IDs mismatch: reload
+        if (routeId !== id) {
+            this.setState({
+                isLoaded: false,
+            });
 
-        if (!isLoaded) {
             setGameId(routeId);
 
-            refreshGame().then(() => {
+            loadGameData().then(() => {
                 this.setState({
                     isLoaded: true,
                 });
@@ -55,13 +60,10 @@ class Game extends React.Component<Props, State> {
 
     render() {
         const { isLoaded } = this.state;
-        
-        if (!isLoaded) {
-            return null;
-        }
 
         return (
             <React.Fragment>
+                {!isLoaded && <SpinnerOverlay />}
                 <Grid />
                 <SwitchColorModeButton />
             </React.Fragment>
@@ -75,7 +77,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     setGameId: (id: number) => dispatch(setGameId(id)),
-    refreshGame: () => dispatch(refreshGame()),
+    loadGameData: () => dispatch(loadGameData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

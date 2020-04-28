@@ -3,7 +3,7 @@ import { CallGetHand } from '../calls/CallGetHand';
 import { setSuccessDialog, setErrorDialog, openDialog } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { PlayersJSON, HandJSON, BoardJSON, UserJSON } from '../types/ServerTypes';
-import { endTurn, setGameId, resetGameId } from './GameActions';
+import { endTurn, resetGameId } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
 import { CallGetBoard } from '../calls/CallGetBoard';
 import { CallGetPlayers } from '../calls/CallGetPlayers';
@@ -102,20 +102,18 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
             .then((response: ServerResponse) => {
                 const id: number = response.data.id;
 
-                dispatch(setGameId(id));
-
-                return Promise.resolve(id);
+                return id;
             })
             .catch((error: any) => {
                 dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
 
-                return Promise.reject(-1);
+                return -1;
             });
     };
 }
 
-export const refreshGame = (): ThunkActionResult<void> => {
+export const loadGameData = (): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
@@ -166,7 +164,7 @@ const play = (handTile: number, boardTileFrom: number, boardTileTo: number, cast
 
         return new CallPlayGame(game.id, handTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
             .then(() => {
-                return dispatch(refreshGame());
+                return dispatch(loadGameData());
             })
             .finally(() => {
                 dispatch(endTurn);

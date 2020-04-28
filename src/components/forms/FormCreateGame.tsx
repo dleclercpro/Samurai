@@ -7,7 +7,7 @@ import { FormFields, INIT_FIELD_STATE } from '../../types/FormTypes';
 import Form from './Form';
 import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
-import { createGame, refreshGame } from '../../actions/ServerActions';
+import { createGame } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -29,7 +29,6 @@ interface StateProps {
 
 interface DispatchProps {
     createGame: (name: string, self: string, opponents: string[]) => Promise<number>,
-    refreshGame: () => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -67,21 +66,14 @@ class FormCreateGame extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { self, createGame, refreshGame, history } = this.props;
+        const { self, createGame, history } = this.props;
         const { name, user1, user2, user3 } = getFormPayload(this.state.fields);
-        let gameId = -1;
 
         return createGame(name, self, [ user1, user2, user3 ])
             .then((id: number) => {
-                gameId = id;
-                
-                return refreshGame();
-            })
-            .then(() => {
-                history.push(`/samurai/game/${gameId}/`);
-            })
-            .catch(() => {
-
+                if (id !== -1) {
+                    history.push(`/samurai/game/${id}/`);
+                }
             });
     }
 
@@ -146,7 +138,6 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    refreshGame: () => dispatch(refreshGame()),
     createGame: (name: string, self: string, opponents: string[]) => dispatch(createGame(name, self, opponents)),
 });
 

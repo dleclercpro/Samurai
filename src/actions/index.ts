@@ -47,15 +47,10 @@ export type DialogAction =
     SetSuccessDialog |
     SetErrorDialog;
 
-export type OverlayAction =
-    OpenSpinnerOverlay |
-    CloseSpinnerOverlay;
-
 // Root action
 export type AppAction =
     DataAction |
     GameAction |
     UserAction |
     PlayersAction |
-    DialogAction |
-    OverlayAction;
+    DialogAction;
