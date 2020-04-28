@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import SwitchColorModeButton from './SwitchColorModeButton';
 import { loadGameData } from '../actions/ServerActions';
-import { setGameId } from '../actions/GameActions';
+import { setGameId, resetGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
 import SpinnerOverlay from './SpinnerOverlay';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 interface OwnProps {
     routeId: number,
@@ -19,14 +20,15 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    loadGameData: () => Promise<void>,
+    resetGameId: () => void,
     setGameId: (id: number) => void,
+    loadGameData: () => Promise<void>,
 }
 
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
 
 interface State {
-    isLoaded: boolean,
+    isLoading: boolean,
 }
 
 class Game extends React.Component<Props, State> {
@@ -35,35 +37,51 @@ class Game extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            isLoaded: false,
+            isLoading: true,
         };
     }
 
     componentDidMount() {
-        const { routeId, id, setGameId, loadGameData } = this.props;
+        const { routeId, id, resetGameId, setGameId, loadGameData, history } = this.props;
         
         // Game IDs mismatch: reload
         if (routeId !== id) {
-            this.setState({
-                isLoaded: false,
-            });
+            this.showSpinner();
 
             setGameId(routeId);
 
-            loadGameData().then(() => {
-                this.setState({
-                    isLoaded: true,
+            loadGameData()
+                .then(() => {
+                    this.hideSpinner();
+                })
+                .catch(() => {
+                    resetGameId();
+
+                    this.hideSpinner();
+            
+                    history.push(`/samurai/`);
                 });
-            });
         }
     }
 
+    showSpinner = () => {
+        this.setState({
+            isLoading: true,
+        });
+    }
+
+    hideSpinner = () => {
+        this.setState({
+            isLoading: false,
+        });
+    }
+
     render() {
-        const { isLoaded } = this.state;
+        const { isLoading } = this.state;
 
         return (
             <React.Fragment>
-                {!isLoaded && <SpinnerOverlay />}
+                {isLoading && <SpinnerOverlay />}
                 <Grid />
                 <SwitchColorModeButton />
             </React.Fragment>
@@ -76,8 +94,9 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    resetGameId: () => dispatch(resetGameId),
     setGameId: (id: number) => dispatch(setGameId(id)),
     loadGameData: () => dispatch(loadGameData()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));
