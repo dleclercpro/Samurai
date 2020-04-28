@@ -25,11 +25,10 @@ const INIT_STATE = {
 
 interface StateProps {
     self: string,
-    gameId: number,
 }
 
 interface DispatchProps {
-    createGame: (name: string, self: string, opponents: string[]) => Promise<void>,
+    createGame: (name: string, self: string, opponents: string[]) => Promise<number>,
     refreshGame: () => Promise<void>,
 }
 
@@ -70,13 +69,16 @@ class FormCreateGame extends React.Component<Props, State> {
     handleSubmit = () => {
         const { self, createGame, refreshGame, history } = this.props;
         const { name, user1, user2, user3 } = getFormPayload(this.state.fields);
+        let gameId = -1;
 
         return createGame(name, self, [ user1, user2, user3 ])
-            .then(() => {
+            .then((id: number) => {
+                gameId = id;
+                
                 return refreshGame();
             })
             .then(() => {
-                history.push('/samurai/game/');
+                history.push(`/samurai/game/${gameId}/`);
             })
             .catch(() => {
 
@@ -141,7 +143,6 @@ class FormCreateGame extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState) => ({
     self: state.user.email,
-    gameId: state.game.id,
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({

@@ -4,21 +4,60 @@ import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import SwitchColorModeButton from './SwitchColorModeButton';
-import { Redirect } from 'react-router-dom';
+import { refreshGame } from '../actions/ServerActions';
+import { setGameId } from '../actions/GameActions';
+import { ThunkDispatch } from 'redux-thunk';
+import { AppAction } from '../actions';
+
+interface OwnProps {
+    routeId: number,
+}
 
 interface StateProps {
+    id: number,
+}
+
+interface DispatchProps {
+    refreshGame: () => Promise<void>,
+    setGameId: (id: number) => void,
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+interface State {
     isLoaded: boolean,
 }
 
-type Props = StateProps;
+class Game extends React.Component<Props, State> {
 
-class Game extends React.Component<Props, {}> {
+    constructor(props: Props) {
+        super(props);
 
-    render() {
-        const { isLoaded } = this.props;
+        this.state = {
+            isLoaded: props.id === props.routeId,
+        };
+    }
+
+    componentDidMount() {
+        const { routeId, setGameId, refreshGame } = this.props;
+        const { isLoaded } = this.state;
 
         if (!isLoaded) {
-            return <Redirect to='/samurai/' />
+            setGameId(routeId);
+
+            refreshGame().then(() => {
+                this.setState({
+                    isLoaded: true,
+                });
+            });
+        }
+    }
+
+    render() {
+        const { isLoaded } = this.state;
+        
+        if (!isLoaded) {
+            return null;
         }
 
         return (
@@ -31,7 +70,12 @@ class Game extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    isLoaded: state.game.id !== -1,
+    id: state.game.id,
 });
 
-export default connect(mapStateToProps, () => ({}))(Game);
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
+    setGameId: (id: number) => dispatch(setGameId(id)),
+    refreshGame: () => dispatch(refreshGame()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

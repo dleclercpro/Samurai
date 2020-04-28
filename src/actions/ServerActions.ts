@@ -92,9 +92,9 @@ export const signUp = (username: string, firstName: string, lastName: string, em
     };
 }
 
-export const createGame = (name: string, self: string, opponents: string[]): ThunkActionResult<void> => {
+export const createGame = (name: string, self: string, opponents: string[]): ThunkActionResult<number> => {
 
-    return (dispatch: ThunkDispatchResult<void>) => {
+    return (dispatch: ThunkDispatchResult<number>) => {
 
         dispatch(resetGameId);
         
@@ -103,12 +103,14 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
                 const id: number = response.data.id;
 
                 dispatch(setGameId(id));
+
+                return Promise.resolve(id);
             })
             .catch((error: any) => {
                 dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
 
-                return Promise.reject();
+                return Promise.reject(-1);
             });
     };
 }

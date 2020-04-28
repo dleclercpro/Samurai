@@ -68,7 +68,7 @@ class FormPlayGame extends React.Component<Props, State> {
 
         return refreshGame()
             .then(() => {
-                history.push('/samurai/game/');
+                history.push(`/samurai/game/${id}/`);
             })
             .catch(() => {
                     
