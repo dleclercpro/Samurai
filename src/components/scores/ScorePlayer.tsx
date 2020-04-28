@@ -9,12 +9,13 @@ interface OwnProps {
     username: string,
     score: PlayerScore,
     isPlaying: boolean,
+    isPlayer?: boolean,
 }
 
 type Props = OwnProps;
 
 const ScorePlayer: React.FC<Props> = (props) => {
-    const { username, score, isPlaying } = props;
+    const { username, score, isPlaying, isPlayer } = props;
 
     return (
         <div
@@ -23,7 +24,10 @@ const ScorePlayer: React.FC<Props> = (props) => {
                 ${isPlaying ? 'is-playing' : ''}
             `}
         >
-            <h3 className='username'>{username}</h3>
+            <h3 className='username'>
+                {username}
+                {isPlayer && <span>(YOU)</span>}
+            </h3>
             <table className='score'>
                 <thead>
                     <tr>

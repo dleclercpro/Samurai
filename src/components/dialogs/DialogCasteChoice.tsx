@@ -30,7 +30,31 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class DialogCasteChoice extends React.Component<Props, {}> {
+interface State {
+    castes: Caste[],
+}
+
+class DialogCasteChoice extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            castes: [],
+        };
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        const { castes } = this.props;
+
+        // We store the dialog content locally, so global state
+        // changes do not alter it
+        if (prevProps.castes.length === 0 && castes.length > 0) {
+            this.setState({
+                castes,
+            });
+        }
+    }
 
     handleCancel = () => {
         const { isChoosingFrom, isChoosingTo, hasChosenFrom, hasChosenTo, deselectTileFromForSwitch, deselectTileToForSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } = this.props;
@@ -57,7 +81,8 @@ class DialogCasteChoice extends React.Component<Props, {}> {
     }
 
     render() {
-        const { castes, isActionButtonActive } = this.props;
+        const { isActionButtonActive } = this.props;
+        const { castes } = this.state;
 
         return (
             <Dialog

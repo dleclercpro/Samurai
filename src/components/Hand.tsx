@@ -4,15 +4,14 @@ import './Hand.scss';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
 import HandTileComponent from './tiles/HandTileComponent';
-import { notUndefined } from '../types/FunctionTypes';
 import { DialogType } from '../types/DialogTypes';
 
 interface OwnProps {
+    tiles: PlayerTile[],
     inDialog?: DialogType,
 }
 
 interface StateProps {
-    hand: PlayerTile[],
     color: PlayerColor,
     isWaterTileSelected?: boolean,
 }
@@ -21,10 +20,10 @@ type Props = OwnProps & StateProps;
 
 class Hand extends React.Component<Props, {}> {
 
-    getFilteredForDialog = (dialog : DialogType): PlayerTile[] => {
-        const { hand, isWaterTileSelected } = this.props;
+    getFilteredTilesForDialog = (dialog : DialogType): PlayerTile[] => {
+        const { tiles, isWaterTileSelected } = this.props;
 
-        return hand.filter((tile: PlayerTile) => {
+        return tiles.filter((tile: PlayerTile) => {
             const { type } = tile;
 
             const isMove = type === Action.Move;
@@ -41,12 +40,11 @@ class Hand extends React.Component<Props, {}> {
     }
 
     render() {
-        const { hand, color, inDialog } = this.props;
-        const tiles = inDialog ? this.getFilteredForDialog(inDialog) : hand;
+        const { tiles, color, inDialog } = this.props;
 
         return (
             <div className='hand'>
-                {tiles.map((tile: PlayerTile) => {
+                {(inDialog ? this.getFilteredTilesForDialog(inDialog) : tiles).map((tile: PlayerTile) => {
                     const { id, type, strength, canReplay } = tile;
 
                     return (
@@ -69,11 +67,10 @@ class Hand extends React.Component<Props, {}> {
 const mapStateToProps = (state: AppState) => {
     const { self } = state.players;
     const { selection } = state.game;
-    const { initHand, tiles } = state.data;
+    const { tiles } = state.data;
     const { play } = selection;
 
     return {
-        hand: self.hand.map((id: number) => initHand.get(id)).filter(notUndefined),
         color: self.color,
         isWaterTileSelected: tiles.get(play.boardTile)?.isWater,
     };

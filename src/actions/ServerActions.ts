@@ -165,6 +165,9 @@ const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, ca
         const { game } = state;
 
         return new CallPlayGame(game.id, playerTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
+            .then(() => {
+                return dispatch(refreshGame());
+            })
             .finally(() => {
                 dispatch(endTurn);
             });

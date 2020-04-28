@@ -2,7 +2,7 @@ import { AppState, PlayersState } from '../types/StateTypes';
 import { Player, PlayerTile } from '../types/GameTypes';
 import { notUndefined } from '../types/FunctionTypes';
 
-export const getHand = (state: AppState): PlayerTile[] => {
+export const getHandTiles = (state: AppState): PlayerTile[] => {
     const { data, players } = state;
     const { self } = players;
 

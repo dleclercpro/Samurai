@@ -7,7 +7,7 @@ import { AppAction } from '../../actions';
 import { AppState } from '../../types/StateTypes';
 import HandTileComponent from '../tiles/HandTileComponent';
 import { PlayerColor, PlayerTileMap } from '../../types/GameTypes';
-import { moveTile, refreshGame } from '../../actions/ServerActions';
+import { moveTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { endTurn } from '../../actions/GameActions';
 
@@ -20,9 +20,7 @@ interface StateProps {
 
 interface DispatchProps {
     endTurn: () => void,
-
     moveTile: (boardTileFrom: number, boardTileTo: number) => Promise<any>,
-    refreshGame: () => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -39,12 +37,6 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
         const { from, to, moveTile } = this.props;
 
         return moveTile(from, to);
-    }
-
-    handleClose = () => {
-        const { refreshGame } = this.props;
-
-        refreshGame();
     }
 
     getMovingTile = (): ReactNode => {
@@ -80,7 +72,6 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
                 cancelButtonText='Cancel Move'
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
-                onClose={this.handleClose}
                 isActionButtonActive
             >
                 {this.getMovingTile()}
@@ -105,7 +96,6 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     endTurn: () => dispatch(endTurn),
     moveTile: (boardTileFrom: number, boardTileTo: number) => dispatch(moveTile(boardTileFrom, boardTileTo)),
-    refreshGame: () => dispatch(refreshGame()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileMoveEnd);

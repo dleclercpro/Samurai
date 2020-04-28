@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
 import { endTurn } from '../../actions/GameActions';
 import { AppState, SwitchPartialState } from '../../types/StateTypes';
-import { switchCastePieces, refreshGame } from '../../actions/ServerActions';
+import { switchCastePieces } from '../../actions/ServerActions';
 import { Caste } from '../../types/GameTypes';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -18,7 +18,6 @@ interface StateProps {
 interface DispatchProps {
     endTurn: () => void,
     switchCastePieces: (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste) => Promise<void>,
-    refreshGame: () => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -37,12 +36,6 @@ class DialogCasteSwitchEnd extends React.Component<Props, {}> {
         return switchCastePieces(from.tile, to.tile, from.caste, to.caste);
     }
 
-    handleClose = () => {
-        const { refreshGame } = this.props;
-
-        refreshGame();
-    }
-
     render() {
         return (
             <Dialog
@@ -53,7 +46,6 @@ class DialogCasteSwitchEnd extends React.Component<Props, {}> {
                 cancelButtonText='Cancel Switch'
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
-                onClose={this.handleClose}
                 isActionButtonActive
             />
         );
@@ -72,7 +64,6 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     endTurn: () => dispatch(endTurn),
     switchCastePieces: (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste) => dispatch(switchCastePieces(boardTileFrom, boardTileTo, casteFrom, casteTo)),
-    refreshGame: () => dispatch(refreshGame()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogCasteSwitchEnd);

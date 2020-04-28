@@ -23,9 +23,10 @@ class ScoreBoard extends React.Component<Props, {}> {
             <section id='score-board'>
                 {hasPlayer &&
                     <ScorePlayer
-                        username={`${username} (YOU)`}
+                        username={username}
                         score={score}
                         isPlaying={isPlaying}
+                        isPlayer
                     />
                 }
                 {opponents.map((opponent: Player, index: number) => {

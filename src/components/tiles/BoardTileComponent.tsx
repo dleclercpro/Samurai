@@ -9,7 +9,7 @@ import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION, TILE_SIZE } from '../../c
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 import { selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileToMoveTo } from '../../actions/GameActions';
-import { getHand } from '../../selectors';
+import { getHandTiles } from '../../selectors';
 import { getPositionInHexagon } from '../../lib';
 import TileIcon from './TileIcon';
 
@@ -150,7 +150,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const hasCastes = castes.length > 0;
     const isSelected = ownProps.id === selection.play.boardTile;
     const isSelectedForSwitch = (id === selection.switch.from.tile) || (id === selection.switch.to.tile);
-    const hasShipInHand = getHand(state).some(tile => tile.type === Figure.Ship);
+    const hasShipInHand = getHandTiles(state).some(tile => tile.type === Figure.Ship);
     
     // Playability
     let isPlayable = false;
