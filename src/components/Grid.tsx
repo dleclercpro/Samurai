@@ -5,11 +5,11 @@ import Hand from './Hand';
 import ScoreBoard from './scores/ScoreBoard';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { PlayerTile } from '../types/GameTypes';
+import { HandTile } from '../types/GameTypes';
 import { getHandTiles } from '../selectors';
 
 interface StateProps {
-    tiles: PlayerTile[],
+    tiles: HandTile[],
 }
 
 type Props = StateProps;

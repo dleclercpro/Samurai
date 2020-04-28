@@ -1,8 +1,8 @@
-import { BoardTileMap, Player, PlayerTileMap, Caste, GameStep, ColorMode } from './GameTypes';
+import { BoardTileMap, Player, HandTileMap, Caste, GameStep, ColorMode } from './GameTypes';
 
 interface PlayState {
     boardTile: number,
-    playerTile: number,
+    handTile: number,
 }
 
 interface MoveState {
@@ -60,7 +60,7 @@ export interface OverlayState {
 
 export interface DataState {
     tiles: BoardTileMap,
-    initHand: PlayerTileMap,
+    fullHand: HandTileMap,
 }
 
 // Root state

@@ -158,13 +158,13 @@ export const refreshGame = (): ThunkActionResult<void> => {
     };
 }
 
-const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, casteFrom: string, casteTo: string): ThunkActionResult<void> => {
+const play = (handTile: number, boardTileFrom: number, boardTileTo: number, casteFrom: string, casteTo: string): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
         const { game } = state;
 
-        return new CallPlayGame(game.id, playerTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
+        return new CallPlayGame(game.id, handTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
             .then(() => {
                 return dispatch(refreshGame());
             })
@@ -174,11 +174,11 @@ const play = (playerTile: number, boardTileFrom: number, boardTileTo: number, ca
     };
 }
 
-export const playTile = (playerTile: number, boardTile: number): ThunkActionResult<void> => {
+export const playTile = (handTile: number, boardTile: number): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>) => {
 
-        return dispatch(play(playerTile, -1, boardTile, '', ''))
+        return dispatch(play(handTile, -1, boardTile, '', ''))
             .catch((error: any) => {
                 dispatch(setErrorDialog('Tile placement was unsuccessful.', error.message));
                 dispatch(openDialog(DialogType.Error));

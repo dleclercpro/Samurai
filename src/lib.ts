@@ -1,6 +1,6 @@
 import { Size2D, Coordinates2D, BoardTile, BoardTileMap } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
-import { PlayerTileJSON } from './types/ServerTypes';
+import { HandTileJSON } from './types/ServerTypes';
 
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
@@ -115,7 +115,7 @@ export const getFormPayload = (fields: FormFields): FormPayload => {
     }, {});
 }
 
-export const getRandomHand = (fullHand: PlayerTileJSON[]) => {
+export const getRandomHand = (fullHand: HandTileJSON[]) => {
     const randomIndexes = new Set<number>();
     const handSize = 5;
 

@@ -1,13 +1,13 @@
 import { AppState, PlayersState } from '../types/StateTypes';
-import { Player, PlayerTile } from '../types/GameTypes';
+import { Player, HandTile } from '../types/GameTypes';
 import { notUndefined } from '../types/FunctionTypes';
 
-export const getHandTiles = (state: AppState): PlayerTile[] => {
+export const getHandTiles = (state: AppState): HandTile[] => {
     const { data, players } = state;
     const { self } = players;
 
     return self.hand.map((id: number) => (
-        data.initHand.get(id)
+        data.fullHand.get(id)
     )).filter(notUndefined);
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TileType, Action, Caste, PlayerColor, Figure } from '../../types/GameTypes';
-import './PlayerTileContent.scss';
+import './HandTileContent.scss';
 import TileIcon from './TileIcon';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
 import { getPositionInHexagon } from '../../lib';
@@ -22,7 +22,7 @@ interface State {
     isHovered: boolean,
 }
 
-class PlayerTileContent extends React.Component<Props, State> {
+class HandTileContent extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -110,7 +110,7 @@ class PlayerTileContent extends React.Component<Props, State> {
         return (
             <g
                 className={`
-                    player-tile-content
+                    hand-tile-content
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
@@ -130,4 +130,4 @@ class PlayerTileContent extends React.Component<Props, State> {
     }
 }
 
-export default PlayerTileContent;
+export default HandTileContent;

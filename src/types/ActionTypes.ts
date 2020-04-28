@@ -1,4 +1,4 @@
-import { BoardJSON, PlayerTileJSON, PlayerJSON } from './ServerTypes';
+import { BoardJSON, HandTileJSON, PlayerJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
 import { Caste } from './GameTypes';
 import { AppAction } from '../actions';
@@ -21,7 +21,7 @@ export interface LoadBoard {
 export const LOAD_FULL_HAND = 'LOAD_FULL_HAND';
 export interface LoadFullHand {
     type: typeof LOAD_FULL_HAND,
-    data: PlayerTileJSON[],
+    data: HandTileJSON[],
 }
 
 
@@ -142,15 +142,15 @@ export interface DeselectBoardTile {
     id: number,
 }
 
-export const SELECT_PLAYER_TILE = 'SELECT_PLAYER_TILE';
-export interface SelectPlayerTile {
-    type: typeof SELECT_PLAYER_TILE,
+export const SELECT_HAND_TILE = 'SELECT_HAND_TILE';
+export interface SelectHandTile {
+    type: typeof SELECT_HAND_TILE,
     id: number,
 }
 
-export const DESELECT_PLAYER_TILE = 'DESELECT_PLAYER_TILE';
-export interface DeselectPlayerTile {
-    type: typeof DESELECT_PLAYER_TILE,
+export const DESELECT_HAND_TILE = 'DESELECT_HAND_TILE';
+export interface DeselectHandTile {
+    type: typeof DESELECT_HAND_TILE,
     id: number,
 }
 

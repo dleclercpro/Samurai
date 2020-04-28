@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerColor, PlayerTile, Figure, Action } from '../types/GameTypes';
+import { PlayerColor, HandTile, Figure, Action } from '../types/GameTypes';
 import './Hand.scss';
 import { AppState } from '../types/StateTypes';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import HandTileComponent from './tiles/HandTileComponent';
 import { DialogType } from '../types/DialogTypes';
 
 interface OwnProps {
-    tiles: PlayerTile[],
+    tiles: HandTile[],
     inDialog?: DialogType,
 }
 
@@ -20,10 +20,10 @@ type Props = OwnProps & StateProps;
 
 class Hand extends React.Component<Props, {}> {
 
-    getFilteredTilesForDialog = (dialog : DialogType): PlayerTile[] => {
+    getFilteredTilesForDialog = (dialog : DialogType): HandTile[] => {
         const { tiles, isWaterTileSelected } = this.props;
 
-        return tiles.filter((tile: PlayerTile) => {
+        return tiles.filter((tile: HandTile) => {
             const { type } = tile;
 
             const isMove = type === Action.Move;
@@ -44,7 +44,7 @@ class Hand extends React.Component<Props, {}> {
 
         return (
             <div className='hand'>
-                {(inDialog ? this.getFilteredTilesForDialog(inDialog) : tiles).map((tile: PlayerTile) => {
+                {(inDialog ? this.getFilteredTilesForDialog(inDialog) : tiles).map((tile: HandTile) => {
                     const { id, type, strength, canReplay } = tile;
 
                     return (

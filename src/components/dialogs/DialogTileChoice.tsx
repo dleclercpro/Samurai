@@ -4,18 +4,18 @@ import Dialog from './Dialog';
 import Hand from '../Hand';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { deselectBoardTile, deselectPlayerTile } from '../../actions/GameActions';
+import { deselectBoardTile, deselectHandTile } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
 import { AppState } from '../../types/StateTypes';
-import { TilePlayStep, PlayerTile } from '../../types/GameTypes';
+import { TilePlayStep, HandTile } from '../../types/GameTypes';
 import { playTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { getHandTiles } from '../../selectors';
 
 interface StateProps {
-    playerTile: number,
+    handTile: number,
     boardTile: number,
-    tiles: PlayerTile[],
+    tiles: HandTile[],
     isChoosing: boolean,
     hasChosen: boolean,
     isActionButtonActive: boolean,
@@ -23,14 +23,14 @@ interface StateProps {
 
 interface DispatchProps {
     deselectBoardTile: () => void,
-    deselectPlayerTile: () => void,
-    playTile: (playerTile: number, boardTile: number) => Promise<any>,
+    deselectHandTile: () => void,
+    playTile: (handTile: number, boardTile: number) => Promise<any>,
 }
 
 type Props = StateProps & DispatchProps;
 
 interface State {
-    tiles: PlayerTile[],
+    tiles: HandTile[],
 }
 
 class DialogTileChoice extends React.Component<Props, State> {
@@ -56,16 +56,16 @@ class DialogTileChoice extends React.Component<Props, State> {
     }
 
     handleCancel = () => {
-        const { isChoosing, hasChosen, deselectBoardTile, deselectPlayerTile } = this.props;
+        const { isChoosing, hasChosen, deselectBoardTile, deselectHandTile } = this.props;
 
-        hasChosen && deselectPlayerTile() && deselectBoardTile();
+        hasChosen && deselectHandTile() && deselectBoardTile();
         isChoosing && deselectBoardTile();
     }
 
     handleAction = () => {
-        const { playerTile, boardTile, playTile } = this.props;
+        const { handTile, boardTile, playTile } = this.props;
 
-        return playTile(playerTile, boardTile);
+        return playTile(handTile, boardTile);
     }
 
     render() {
@@ -96,12 +96,12 @@ class DialogTileChoice extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState) => {
     const { step, selection } = state.game;
 
-    const isChoosing = step === TilePlayStep.ChoosePlayerTile;
+    const isChoosing = step === TilePlayStep.ChooseHandTile;
     const hasChosen = step === TilePlayStep.Done;
     const isActionButtonActive = step === TilePlayStep.Done;
 
     return {
-        playerTile: selection.play.playerTile,
+        handTile: selection.play.handTile,
         boardTile: selection.play.boardTile,
         tiles: getHandTiles(state),
         isChoosing,
@@ -112,8 +112,8 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     deselectBoardTile: () => dispatch(deselectBoardTile),
-    deselectPlayerTile: () => dispatch(deselectPlayerTile),
-    playTile: (playerTile: number, boardTile: number) => dispatch(playTile(playerTile, boardTile)),
+    deselectHandTile: () => dispatch(deselectHandTile),
+    playTile: (handTile: number, boardTile: number) => dispatch(playTile(handTile, boardTile)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogTileChoice);

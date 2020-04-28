@@ -39,7 +39,7 @@ export interface BoardTile {
     isWater: boolean,
 }
 
-export interface PlayerTile {
+export interface HandTile {
     id: number,
     type: TileType,
     strength: number,
@@ -47,14 +47,14 @@ export interface PlayerTile {
 }
 
 export type BoardTileMap = Map<number, BoardTile>;
-export type PlayerTileMap = Map<number, PlayerTile>;
+export type HandTileMap = Map<number, HandTile>;
 
 export interface Player {
     id: number,
     username: string,
     color: PlayerColor,
     hand: number[],
-    playedTiles: Map<number, number>,
+    playedTiles: Map<number, number>, // Board tile ID to hand tile ID
     score: PlayerScore,
     hasWon: boolean,
     isPlaying: boolean,
@@ -93,12 +93,12 @@ export interface TileMove {
 
 export enum TilePlayStep {
     ChooseBoardTile = 'TilePlay | ChooseBoardTile',
-    ChoosePlayerTile = 'TilePlay | ChoosePlayerTile',
+    ChooseHandTile = 'TilePlay | ChooseHandTile',
     Done = 'TilePlay | Done',
 }
 
 export enum TileMoveStep {
-    ChoosePlayerTile = 'TileMove | ChoosePlayerTile',
+    ChooseHandTile = 'TileMove | ChooseHandTile',
     ChooseBoardTile = 'TileMove | ChooseBoardTile',
     Done = 'TileMove | Done',
 }

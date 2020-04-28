@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import BoardTileComponent from './tiles/BoardTileComponent';
 import './Board.scss';
-import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Player, PlayerTileMap } from '../types/GameTypes';
+import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Player, HandTileMap } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 import PlayedTileComponent from './tiles/PlayedTileComponent';
 import { getBusyBoardTileIds } from '../selectors';
@@ -13,7 +13,7 @@ interface StateProps {
     player: Player,
     opponents: Player[],
     tiles: BoardTileMap,
-    initHand: PlayerTileMap,
+    fullHand: HandTileMap,
     busyBoardTileIds: number[],
 }
 
@@ -64,7 +64,7 @@ class Board extends React.Component<Props, State> {
     }
 
     getPlayedTileNodes = (): ReactNode[] => {
-        const { player, opponents, initHand, tiles } = this.props;
+        const { player, opponents, fullHand, tiles } = this.props;
 
         return opponents.concat(player).map((person: Player) => {
             const { playedTiles, color } = person;
@@ -75,7 +75,7 @@ class Board extends React.Component<Props, State> {
                     return null;
                 }
 
-                const playedTile = initHand.get(playedTileId);
+                const playedTile = fullHand.get(playedTileId);
                 if (playedTile === undefined) {
                     return null;
                 }
@@ -164,11 +164,11 @@ class Board extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState) => {
     const { self, opponents } = state.players;
-    const { tiles, initHand } = state.data;
+    const { tiles, fullHand } = state.data;
 
     return {
         tiles,
-        initHand,
+        fullHand,
         player: self,
         opponents,
         busyBoardTileIds: getBusyBoardTileIds(state.players),

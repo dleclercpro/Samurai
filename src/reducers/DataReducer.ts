@@ -1,12 +1,12 @@
 import { DataAction } from '../actions';
 import { LOAD_BOARD, LOAD_FULL_HAND } from '../types/ActionTypes';
-import { parseBoard, parseInitHand } from '../parse';
+import { parseBoard, parseFullHand } from '../parse';
 import { getTileNeighborhood } from '../lib';
 import { DataState } from '../types/StateTypes';
 
 const initState = {
     tiles: new Map(),
-    initHand: new Map(),
+    fullHand: new Map(),
 };
 
 const DataReducer = (state: DataState = initState, action: DataAction) => {
@@ -28,7 +28,7 @@ const DataReducer = (state: DataState = initState, action: DataAction) => {
         case LOAD_FULL_HAND:
             return {
                 ...state,
-                initHand: parseInitHand(action.data),
+                fullHand: parseFullHand(action.data),
             };
         default:
             return state;

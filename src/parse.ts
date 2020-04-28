@@ -1,5 +1,5 @@
-import { BoardJSON, TileJSON, PlayerTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
-import { BoardTileMap, PlayerTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, PlayerTileMap } from './types/GameTypes';
+import { BoardJSON, TileJSON, HandTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
+import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
@@ -117,7 +117,7 @@ export const parsePlayer = (data: PlayerJSON): Player => {
     }
 }
 
-export const parsePlayerTile = (data: PlayerTileJSON): PlayerTile => {
+export const parseHandTile = (data: HandTileJSON): HandTile => {
     const { id, type, strength, canReplay } = data;
     
     return {
@@ -140,11 +140,11 @@ export const parsePlayedTiles = (data: PlayedTilesJSON): Map<number, number> => 
     return playedTiles;
 }
 
-export const parseInitHand = (data: PlayerTileJSON[]): PlayerTileMap => {
-    const hand = new Map<number, PlayerTile>();
+export const parseFullHand = (data: HandTileJSON[]): HandTileMap => {
+    const hand = new Map<number, HandTile>();
 
     data.forEach(tile => {
-        hand.set(tile.id, parsePlayerTile(tile));
+        hand.set(tile.id, parseHandTile(tile));
     });
 
     return hand;

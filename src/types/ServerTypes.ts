@@ -29,7 +29,7 @@ export type PlayedTilesJSON = {
     [id: string]: number | undefined,
 };
 
-export interface PlayerTileJSON {
+export interface HandTileJSON {
     id: number,
     type: string,
     strength: number,

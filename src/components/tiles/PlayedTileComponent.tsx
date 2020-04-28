@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { AppAction } from '../../actions';
 import { selectBoardTileToMoveFrom } from '../../actions/GameActions';
-import PlayerTileContent from './PlayerTileContent';
+import HandTileContent from './HandTileContent';
 
 interface OwnProps {
     id: number,
@@ -35,7 +35,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 
         if (isPlayable) {
             switch (step) {
-                case TileMoveStep.ChoosePlayerTile:
+                case TileMoveStep.ChooseHandTile:
                     selectBoardTileToMoveFrom(boardId);
                     break;
             }
@@ -56,7 +56,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
-                <PlayerTileContent
+                <HandTileContent
                     color={color}
                     type={type}
                     strength={strength}
@@ -77,7 +77,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const isPlaying = self.isPlaying;
     const isMine = self.playedTiles.get(boardId) === id;
     const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
-    const isPlayable = isMine && isPlaying && isMovable && (step === TileMoveStep.ChoosePlayerTile);
+    const isPlayable = isMine && isPlaying && isMovable && (step === TileMoveStep.ChooseHandTile);
     const isSelected = isMine && id === selection.move.from;
 
     return {

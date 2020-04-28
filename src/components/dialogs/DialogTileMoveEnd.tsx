@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import './DialogTileMoveEnd.scss';
 import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
 import { AppState } from '../../types/StateTypes';
 import HandTileComponent from '../tiles/HandTileComponent';
-import { PlayerColor, PlayerTileMap } from '../../types/GameTypes';
+import { PlayerColor, HandTile } from '../../types/GameTypes';
 import { moveTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { endTurn } from '../../actions/GameActions';
@@ -14,8 +14,8 @@ import { endTurn } from '../../actions/GameActions';
 interface StateProps {
     from: number,
     to: number,
+    tile: HandTile | undefined,
     color: PlayerColor,
-    initHand: PlayerTileMap,
 }
 
 interface DispatchProps {
@@ -25,7 +25,31 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class DialogTileMoveEnd extends React.Component<Props, {}> {
+interface State {
+    tile: HandTile | undefined,
+}
+
+class DialogTileMoveEnd extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            tile: undefined,
+        };
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        const { tile } = this.props;
+
+        // We store the dialog content locally, so global state
+        // changes do not alter it
+        if (prevProps.tile === undefined && tile !== undefined) {
+            this.setState({
+                tile,
+            });
+        }
+    }
 
     handleCancel = () => {
         const { endTurn } = this.props;
@@ -39,30 +63,10 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
         return moveTile(from, to);
     }
 
-    getMovingTile = (): ReactNode => {
-        const { color, initHand, from } = this.props;
-        const movingTile = initHand.get(from);
-
-        if (movingTile === undefined) {
-            return null;
-        }
-
-        const { id, type, strength, canReplay } = movingTile;
-
-        return (
-            <HandTileComponent
-                key={`hand-tile-component-${id}--dialog-tile-move-end`}
-                id={id}
-                color={color}
-                type={type}
-                strength={strength}
-                canReplay={canReplay}
-                isInDialog
-            />
-        );
-    }
-
     render() {
+        const { tile } = this.state;
+        const { color } = this.props;
+
         return (
             <Dialog
                 type={DialogType.TileMoveEnd}
@@ -74,7 +78,17 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 isActionButtonActive
             >
-                {this.getMovingTile()}
+                {tile !== undefined &&
+                    <HandTileComponent
+                        key={`hand-tile-component-${tile.id}--dialog-tile-move-end`}
+                        id={tile.id}
+                        color={color}
+                        type={tile.type}
+                        strength={tile.strength}
+                        canReplay={tile.canReplay}
+                        isInDialog
+                    />
+                }
             </Dialog>
         );
     }
@@ -82,14 +96,19 @@ class DialogTileMoveEnd extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { self } = state.players;
-    const { selection } = state.game;
-    const { initHand } = state.data;
+    const { move } = state.game.selection;
+    const { from, to } = move;
+    const { fullHand } = state.data;
+
+    // Get hand tile to move
+    const tileId = self.playedTiles.get(from);
+    const tile = tileId !== undefined ? fullHand.get(tileId) : undefined;
 
     return {
-        from: selection.move.from,
-        to: selection.move.to,
+        from,
+        to,
+        tile,
         color: self.color,
-        initHand,
     }
 };
 
