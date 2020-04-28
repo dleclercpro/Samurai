@@ -50,8 +50,6 @@ class App extends React.Component<Props, {}> {
     render() {
         const { isColorblind } = this.props;
 
-        console.log(document.cookie);
-
         return (
             <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>           
                 <main id='main'>

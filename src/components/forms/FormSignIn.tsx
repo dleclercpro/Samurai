@@ -77,7 +77,6 @@ class FormSignIn extends React.Component<Props, State> {
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
-                shouldCloseAfterAction
             >
                 <Form id='sign-in'>
                         <FormTextField

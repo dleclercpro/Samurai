@@ -69,7 +69,6 @@ class DialogCasteChoice extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
-                shouldCloseAfterAction
             >
                 <div className='icons'>
                     {castes && castes.map((caste: Caste, index: number) => (

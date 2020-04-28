@@ -27,7 +27,6 @@ class DialogOK extends React.Component<Props, {}> {
                 onAction={action !== undefined ? action : () => Promise.resolve()}
                 actionButtonText='OK'
                 isActionButtonActive
-                shouldCloseAfterAction
             />
         );
     }

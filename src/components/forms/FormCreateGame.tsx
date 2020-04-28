@@ -10,7 +10,7 @@ import { getFormPayload } from '../../lib';
 import { createGame, refreshGame } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { Redirect } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Dialog from '../dialogs/Dialog';
 
 const INIT_STATE = {
@@ -21,7 +21,6 @@ const INIT_STATE = {
         user3: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
-    redirectToGame: false,
 };
 
 interface StateProps {
@@ -34,12 +33,11 @@ interface DispatchProps {
     refreshGame: () => Promise<void>,
 }
 
-type Props = StateProps &  DispatchProps;
+type Props = StateProps & DispatchProps & RouteComponentProps;
 
 interface State {
     fields: FormFields,
     isFilled: boolean,
-    redirectToGame: boolean,
 }
 
 class FormCreateGame extends React.Component<Props, State> {
@@ -70,7 +68,7 @@ class FormCreateGame extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { self, createGame, refreshGame } = this.props;
+        const { self, createGame, refreshGame, history } = this.props;
         const { name, user1, user2, user3 } = getFormPayload(this.state.fields);
 
         return createGame(name, self, [ user1, user2, user3 ])
@@ -78,19 +76,16 @@ class FormCreateGame extends React.Component<Props, State> {
                 return refreshGame();
             })
             .then(() => {
-                this.setState({
-                    redirectToGame: true,
-                });
+                history.push('/samurai/game/');
+            })
+            .catch(() => {
+
             });
     }
-    
-    render() {
-        const { fields, isFilled, redirectToGame } = this.state;
-        const { name, user1, user2, user3 } = fields;
 
-        if (redirectToGame) {
-            return <Redirect to={`/samurai/game/`} />
-        }
+    render() {
+        const { fields, isFilled } = this.state;
+        const { name, user1, user2, user3 } = fields;
 
         return (
             <Dialog
@@ -101,8 +96,7 @@ class FormCreateGame extends React.Component<Props, State> {
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
-                shouldCloseAfterAction={false}
-                >
+            >
                 <Form id='create-game'>
                     <FormTextField
                         name='name'
@@ -155,4 +149,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, App
     createGame: (name: string, self: string, opponents: string[]) => dispatch(createGame(name, self, opponents)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormCreateGame);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormCreateGame));

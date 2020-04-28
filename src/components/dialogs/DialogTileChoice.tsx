@@ -64,7 +64,6 @@ class DialogTileChoice extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 onClose={this.handleClose}
                 isActionButtonActive={isActionButtonActive}
-                shouldCloseAfterAction
             >
                 {hand && <Hand inDialog={DialogType.TileChoice} />}
             </Dialog>

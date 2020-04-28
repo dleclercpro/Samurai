@@ -55,7 +55,6 @@ class DialogCasteSwitchEnd extends React.Component<Props, {}> {
                 onCancel={this.handleCancel}
                 onClose={this.handleClose}
                 isActionButtonActive
-                shouldCloseAfterAction
             />
         );
     }

@@ -136,7 +136,6 @@ class FormSignUp extends React.Component<Props, State> {
                 isActionButtonActive={isFilled && !hasErrors}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
-                shouldCloseAfterAction
             >
                 <Form id='sign-up'>
                     <FormTextField

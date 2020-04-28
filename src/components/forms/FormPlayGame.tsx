@@ -9,31 +9,28 @@ import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { Redirect } from 'react-router-dom';
 import Dialog from '../dialogs/Dialog';
 import { refreshGame } from '../../actions/ServerActions';
-import { setGameId, resetGameId } from '../../actions/GameActions';
+import { setGameId } from '../../actions/GameActions';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 const INIT_STATE = {
     fields: {
         id: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
-    redirectToGame: false,
 };
 
 interface DispatchProps {
-    resetGameId: () => void,
     setGameId: (id: number) => void,
     refreshGame: () => Promise<void>,
 }
 
-type Props = DispatchProps;
+type Props = DispatchProps & RouteComponentProps;
 
 interface State {
     fields: FormFields,
     isFilled: boolean,
-    redirectToGame: boolean,
 }
 
 class FormPlayGame extends React.Component<Props, State> {
@@ -64,29 +61,23 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { resetGameId, setGameId, refreshGame } = this.props;
+        const { setGameId, refreshGame, history } = this.props;
         const id = parseInt(getFormPayload(this.state.fields).id);
 
         setGameId(id);
 
         return refreshGame()
             .then(() => {
-                this.setState({
-                    redirectToGame: true,
-                });
+                history.push('/samurai/game/');
             })
             .catch(() => {
-                resetGameId();
+                    
             });
     }
     
     render() {
-        const { fields, isFilled, redirectToGame } = this.state;
+        const { fields, isFilled } = this.state;
         const { id } = fields;
-
-        if (redirectToGame) {
-            return <Redirect to={`/samurai/game/`} />
-        }
 
         return (
             <Dialog
@@ -97,7 +88,6 @@ class FormPlayGame extends React.Component<Props, State> {
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
-                shouldCloseAfterAction={false}
             >
                 <Form id='play-game'>
                     <FormTextField
@@ -116,9 +106,8 @@ class FormPlayGame extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    resetGameId: () => dispatch(resetGameId),
     setGameId: (id: number) => dispatch(setGameId(id)),
     refreshGame: () => dispatch(refreshGame()),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(FormPlayGame);
+export default withRouter(connect(() => ({}), mapDispatchToProps)(FormPlayGame));

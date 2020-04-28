@@ -31,7 +31,6 @@ class DialogCasteSwitchStart extends React.Component<Props, {}> {
                 actionButtonText='Start Switch'
                 onAction={this.handleAction}
                 isActionButtonActive
-                shouldCloseAfterAction
             />
         );
     }

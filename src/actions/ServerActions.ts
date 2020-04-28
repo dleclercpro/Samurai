@@ -47,6 +47,7 @@ export const signOut = (): ThunkActionResult<void> => {
         return new CallSignOut().execute()
             .then(() => {
                 dispatch(resetUser);
+                dispatch(resetGameId);
                 
                 dispatch(setSuccessDialog('You have successfully signed out.'));
                 dispatch(openDialog(DialogType.Success));
@@ -70,6 +71,7 @@ export const verifyAuthentication = (): ThunkActionResult<void> => {
             })
             .catch(() => {
                 dispatch(resetUser);
+                dispatch(resetGameId);
             });
     };
 }
@@ -93,6 +95,8 @@ export const signUp = (username: string, firstName: string, lastName: string, em
 export const createGame = (name: string, self: string, opponents: string[]): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>) => {
+
+        dispatch(resetGameId);
         
         return new CallCreateGame(name, self, opponents).execute()
             .then((response: ServerResponse) => {
@@ -101,8 +105,6 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
                 dispatch(setGameId(id));
             })
             .catch((error: any) => {
-                dispatch(resetGameId);
-                
                 dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
                 dispatch(openDialog(DialogType.Error));
 
