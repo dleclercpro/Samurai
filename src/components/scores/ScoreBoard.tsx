@@ -16,14 +16,20 @@ class ScoreBoard extends React.Component<Props, {}> {
 
     render() {
         const { player, opponents } = this.props;
-        const { id, username, score } = player;
+        const { id, username, score, isPlaying } = player;
         const hasPlayer = id !== -1;
 
         return (
             <section id='score-board'>
-                {hasPlayer && <ScorePlayer username={username} score={score} />}
+                {hasPlayer &&
+                    <ScorePlayer
+                        username={`${username} (YOU)`}
+                        score={score}
+                        isPlaying={isPlaying}
+                    />
+                }
                 {opponents.map((opponent: Player, index: number) => {
-                    const { id, username, score } = opponent;
+                    const { id, username, score, isPlaying } = opponent;
                     const hasPlayer = id !== -1;
                     
                     return hasPlayer && (
@@ -31,6 +37,7 @@ class ScoreBoard extends React.Component<Props, {}> {
                             key={`player-${index}`}
                             username={username}
                             score={score}
+                            isPlaying={isPlaying}
                         />
                     );
                 })}

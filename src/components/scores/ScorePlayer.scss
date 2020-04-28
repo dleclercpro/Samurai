@@ -5,6 +5,11 @@
     flex-direction: column;
     align-items: center;
     max-width: 100px;
+    opacity: 0.25;
+
+    &.is-playing {
+        opacity: 1;
+    }
 
     &:not(:last-child) {
         margin-right: 30px;

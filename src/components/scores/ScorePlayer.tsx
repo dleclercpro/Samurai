@@ -8,15 +8,21 @@ import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
 interface OwnProps {
     username: string,
     score: PlayerScore,
+    isPlaying: boolean,
 }
 
 type Props = OwnProps;
 
 const ScorePlayer: React.FC<Props> = (props) => {
-    const { username, score } = props;
+    const { username, score, isPlaying } = props;
 
     return (
-        <div className='score-player'>
+        <div
+            className={`
+                score-player
+                ${isPlaying ? 'is-playing' : ''}
+            `}
+        >
             <h3 className='username'>{username}</h3>
             <table className='score'>
                 <thead>
