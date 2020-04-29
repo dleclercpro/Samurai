@@ -96,10 +96,10 @@ class HandTileContent extends React.Component<Props, State> {
             <g
                 className={`
                     hand-tile-content
+                    ${color ? getColor(color) : ''}
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
-                    ${color ? getColor(color) : ''}
                     ${isMove ? 'is-move' : ''}
                     ${isSwitch ? 'is-switch' : ''}
                     ${isShip ? 'is-ship' : ''}
