@@ -18,7 +18,7 @@ class ScoreBoard extends React.Component<Props, {}> {
 
     render() {
         const { player, opponents, highestScores } = this.props;
-        const { id, username, score, isPlaying } = player;
+        const { id, username, score, color, isPlaying } = player;
         const hasPlayer = id !== -1;
 
         return (
@@ -26,19 +26,21 @@ class ScoreBoard extends React.Component<Props, {}> {
                 {hasPlayer &&
                     <ScorePlayer
                         username={username}
+                        color={color}
                         score={score}
                         highestScores={highestScores}
                         isPlaying={isPlaying}
                     />
                 }
                 {opponents.map((opponent: Player, index: number) => {
-                    const { id, username, score, isPlaying } = opponent;
+                    const { id, username, score, color, isPlaying } = opponent;
                     const hasPlayer = id !== -1;
                     
                     return hasPlayer && (
                         <ScorePlayer
                             key={`player-${index}`}
                             username={username}
+                            color={color}
                             score={score}
                             highestScores={highestScores}
                             isPlaying={isPlaying}

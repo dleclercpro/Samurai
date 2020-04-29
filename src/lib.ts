@@ -1,4 +1,4 @@
-import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile } from './types/GameTypes';
+import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile, PlayerColor } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
 import { HandTileJSON } from './types/ServerTypes';
 
@@ -139,5 +139,20 @@ export const isGroundHandTile = (tile: HandTile) => {
             return true;
         default:
             return false;
+    }
+}
+
+export const getColor = (color: PlayerColor): string => {
+    switch (color) {
+        case PlayerColor.Red:
+            return 'is-red';
+        case PlayerColor.Purple:
+            return 'is-purple';
+        case PlayerColor.Orange:
+            return 'is-orange';
+        case PlayerColor.Green:
+            return 'is-green';
+        default:
+            return '';
     }
 }

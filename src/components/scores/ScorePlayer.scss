@@ -17,6 +17,38 @@
         }
     }
 
+    &.is-red > .username {
+        color: $color-dark-red;
+
+        .is-colorblind & {
+            color: $color-blind-dark-red;
+        }
+    }
+
+    &.is-purple > .username {
+        color: $color-dark-purple;
+
+        .is-colorblind & {
+            color: $color-blind-dark-purple;
+        }
+    }
+
+    &.is-orange > .username {
+        color: $color-dark-orange;
+
+        .is-colorblind & {
+            color: $color-blind-dark-orange;
+        }
+    }
+
+    &.is-green > .username {
+        color: $color-dark-green;
+
+        .is-colorblind & {
+            color: $color-blind-dark-green;
+        }
+    }
+
     > .username {
         width: 100%;
         font-size: 16px;
@@ -25,10 +57,7 @@
         user-select: none;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        > span {
-            display: block;
-        }
+        //text-decoration: underline;
     }
 
     > .score {

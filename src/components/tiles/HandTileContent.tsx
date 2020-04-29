@@ -3,7 +3,7 @@ import { TileType, Action, Caste, PlayerColor, Figure } from '../../types/GameTy
 import './HandTileContent.scss';
 import TileIcon from './TileIcon';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
-import { getPositionInHexagon } from '../../lib';
+import { getPositionInHexagon, getColor } from '../../lib';
 import TileBackground from './TileBackground';
 import TileText from './TileText';
 
@@ -42,21 +42,6 @@ class HandTileContent extends React.Component<Props, State> {
         this.setState({
             isHovered: false,
         });
-    }
-
-    getColor = (color: PlayerColor): string => {
-        switch (color) {
-            case PlayerColor.Red:
-                return 'is-red';
-            case PlayerColor.Purple:
-                return 'is-purple';
-            case PlayerColor.Orange:
-                return 'is-orange';
-            case PlayerColor.Green:
-                return 'is-green';
-            default:
-                return '';
-        }
     }
     
     getNormal = () => {
@@ -114,7 +99,7 @@ class HandTileContent extends React.Component<Props, State> {
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
-                    ${color ? this.getColor(color) : ''}
+                    ${color ? getColor(color) : ''}
                     ${isMove ? 'is-move' : ''}
                     ${isSwitch ? 'is-switch' : ''}
                     ${isShip ? 'is-ship' : ''}
