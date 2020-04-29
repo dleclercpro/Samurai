@@ -10,6 +10,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
 import SpinnerOverlay from './SpinnerOverlay';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { MIN_IN_MS } from '../constants';
 
 interface OwnProps {
     routeId: number,
@@ -29,6 +30,7 @@ type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
 
 interface State {
     isLoading: boolean,
+    timer: NodeJS.Timeout | undefined,
 }
 
 class Game extends React.Component<Props, State> {
@@ -38,6 +40,7 @@ class Game extends React.Component<Props, State> {
 
         this.state = {
             isLoading: true,
+            timer: undefined,
         };
     }
 
@@ -52,6 +55,7 @@ class Game extends React.Component<Props, State> {
 
             loadGameData()
                 .then(() => {
+                    this.startPolling();
                     this.hideSpinner();
                 })
                 .catch(() => {
@@ -62,6 +66,38 @@ class Game extends React.Component<Props, State> {
                     history.push(`/samurai/`);
                 });
         }
+    }
+
+    componentWillUnmount() {
+        this.stopPolling();
+    }
+
+    startPolling = () => {
+        const { loadGameData } = this.props;
+
+        // Poll new game data every minute
+        this.setState({
+            timer: setInterval(() => {
+                console.log('Polling...');
+                
+                loadGameData()
+                    .catch(() => {
+                        this.stopPolling();
+                    });
+            }, MIN_IN_MS),
+        });
+    }
+
+    stopPolling = () => {
+        const { timer } = this.state;
+
+        if (timer !== undefined) {
+            clearInterval(timer);
+        }
+
+        this.setState({
+            timer: undefined,
+        });
     }
 
     showSpinner = () => {

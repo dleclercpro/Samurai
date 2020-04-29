@@ -148,7 +148,7 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 dispatch(loadHand(hand));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog(`There was a problem loading the game with ID: ${game.id}`, error.message));
+                dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message));
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject();
