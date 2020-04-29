@@ -8,9 +8,9 @@ import { loadGameData } from '../actions/ServerActions';
 import { setGameId, resetGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
-import SpinnerOverlay from './SpinnerOverlay';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { MIN_IN_MS } from '../constants';
+import SpinnerOverlay from './overlays/SpinnerOverlay';
 
 interface OwnProps {
     routeId: number,

@@ -7,9 +7,9 @@ import Button from '../Button';
 import { ReactComponent as CloseIcon } from '../../icons/close.svg';
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
-import Overlay from '../Overlay';
 import { KEY_ENTER_ID, KEY_ESC_ID } from '../../constants';
-import SpinnerOverlay from '../SpinnerOverlay';
+import Overlay from '../overlays/Overlay';
+import SpinnerOverlay from '../overlays/SpinnerOverlay';
 
 interface OwnProps {
     children?: ReactNode,
@@ -146,45 +146,47 @@ class Dialog extends React.Component<Props, State> {
                 onClick={this.handleCancel}
             >
                 <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
-                    {isLoading && <SpinnerOverlay />}
+                    <div className='wrapper'>
+                        {isLoading && <SpinnerOverlay />}
 
-                    <h2 className='headline'>{headline}</h2>
+                        <h2 className='headline'>{headline}</h2>
 
-                    {hasMessage &&                
-                        <section className='text'>
-                            <p className='message'>{message}</p>
+                        {hasMessage &&                
+                            <section className='text'>
+                                <p className='message'>{message}</p>
 
-                            {hasExplanation &&
-                                <p className='explanation'>{explanation}</p>
-                            }
-                        </section>
-                    }
-
-                    {hasChildren &&
-                        <div className='content'>
-                            {children}
-                        </div>
-                    }
-
-                    <div className='buttons'>
-                        {hasCancelButton &&
-                            <Button
-                                isActive
-                                action={this.handleCancel}
-                            >
-                                {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
-                            </Button>
+                                {hasExplanation &&
+                                    <p className='explanation'>{explanation}</p>
+                                }
+                            </section>
                         }
-                    
-                        <Button
-                            isActive={isActionButtonActive !== undefined && isActionButtonActive}
-                            action={this.handleAction}
-                        >
-                            {actionButtonText !== undefined ? actionButtonText : 'OK'}
-                        </Button>
-                    </div>
 
-                    <CloseIcon className='icon-close' onClick={this.handleCancel} />
+                        {hasChildren &&
+                            <div className='content'>
+                                {children}
+                            </div>
+                        }
+
+                        <div className='buttons'>
+                            {hasCancelButton &&
+                                <Button
+                                    isActive
+                                    action={this.handleCancel}
+                                >
+                                    {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
+                                </Button>
+                            }
+                        
+                            <Button
+                                isActive={isActionButtonActive !== undefined && isActionButtonActive}
+                                action={this.handleAction}
+                            >
+                                {actionButtonText !== undefined ? actionButtonText : 'OK'}
+                            </Button>
+                        </div>
+
+                        <CloseIcon className='icon-close' onClick={this.handleCancel} />
+                    </div>
                 </div>
             </Overlay>
         );

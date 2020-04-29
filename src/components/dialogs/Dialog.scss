@@ -4,8 +4,6 @@ $padding-vertical: 20px;
 $padding-horizontal: 24px;
 
 .dialog {
-    display: flex;
-    flex-direction: column;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -14,64 +12,70 @@ $padding-horizontal: 24px;
     max-width: calc(100% - 20px);
     min-width: 300px;
     max-height: calc(100% - 20px);
-    overflow: auto;
-    padding: $padding-vertical $padding-horizontal;
     background: $color-white;
     border-radius: 4px;
+    overflow: auto;
     @extend %box-shadow;
 
     @include mq(width, desktop) {
         width: auto;
     }
 
-    > .headline {
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 30px;
-        margin-right: 30px;
-    }
-
-    > .text {
-
-        > p {
-            font-size: 18px;
-
-            &:not(:last-of-type) {
-                margin-bottom: 1em;
-            }
-        }
-    }
-
-    > .content {
+    > .wrapper {
         display: flex;
         flex-direction: column;
-        flex: 1;
-        //overflow: auto;
-        margin-top: 30px;
-    }
+        position: relative;
+        padding: $padding-vertical $padding-horizontal;
 
-    > .buttons {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 30px;
-
-        > .button:not(:first-child) {
-            margin-left: 8px;
+        > .headline {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            margin-right: 30px;
         }
-    }
-
-    > .icon-close {
-        position: absolute;
-        top: $padding-vertical;
-        right: $padding-horizontal;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        fill: $color-black;
-
-        @media (hover: hover) {
-            &:hover {
-                fill: $color-grey;
+    
+        > .text {
+    
+            > p {
+                font-size: 18px;
+    
+                &:not(:last-of-type) {
+                    margin-bottom: 1em;
+                }
+            }
+        }
+    
+        > .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            //overflow: auto;
+            margin-top: 30px;
+        }
+    
+        > .buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+    
+            > .button:not(:first-child) {
+                margin-left: 8px;
+            }
+        }
+    
+        > .icon-close {
+            position: absolute;
+            top: $padding-vertical;
+            right: $padding-horizontal;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            fill: $color-black;
+    
+            @media (hover: hover) {
+                &:hover {
+                    fill: $color-grey;
+                }
             }
         }
     }
