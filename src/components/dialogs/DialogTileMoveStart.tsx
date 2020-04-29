@@ -31,6 +31,7 @@ class DialogTileMoveStart extends React.Component<Props, {}> {
                 message='Do you want to move a tile you played somewhere else on the board? If so, select first the tile, then its new location.'
                 actionButtonText='Start Move'
                 onAction={this.handleAction}
+                onCancel={() => {}}
                 isActionButtonActive
             />
         );
