@@ -78,13 +78,11 @@ class Game extends React.Component<Props, State> {
         // Poll new game data every minute
         this.setState({
             timer: setInterval(() => {
-                console.log('Polling...');
-                
                 loadGameData()
                     .catch(() => {
                         this.stopPolling();
                     });
-            }, MIN_IN_MS),
+            }, MIN_IN_MS / 2),
         });
     }
 
