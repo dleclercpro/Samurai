@@ -5,7 +5,6 @@
     > .fields {
         display: flex;
         flex-direction: column;
-        overflow: auto;
 
         @include mq(width, tablet) {
             flex-direction: row;
