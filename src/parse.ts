@@ -135,9 +135,9 @@ export const parseHandTile = (data: HandTileJSON): HandTile => {
 export const parsePlayedTiles = (data: PlayedTilesJSON): Map<number, number> => {
     const playedTiles = new Map<number, number>();
 
-    Object.entries(data).forEach(([boardId, handId]) => {
-        if (handId !== undefined) {
-            playedTiles.set(parseInt(boardId), handId);
+    Object.entries(data).forEach(([boardTileId, handTileId]) => {
+        if (handTileId !== undefined) {
+            playedTiles.set(parseInt(boardTileId), handTileId);
         }
     });
 

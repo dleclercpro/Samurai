@@ -41,6 +41,11 @@
         }
     }
 
+    .played-tile-component.is-selected &,
+    .board-tile-component.is-selected & {
+        animation: pulse 1s infinite;
+    }
+
     .is-red & {
         fill: $color-red;
         stroke: $color-dark-red;
@@ -147,5 +152,15 @@
         .is-colorblind & {
             fill: $color-blind-dark-blue;
         }
+    }
+}
+
+@keyframes pulse {
+    0% {
+    }
+    50% {
+        fill: rgba(0, 0, 0, 0.4);
+    }
+    100% {
     }
 }

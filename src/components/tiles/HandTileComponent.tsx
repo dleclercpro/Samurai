@@ -68,7 +68,10 @@ class HandTileComponent extends React.Component<Props, {}> {
 
         return (
             <svg
-                className='hand-tile-component'
+                className={`
+                    hand-tile-component
+                    ${isSelected ? 'is-selected' : ''}
+                `}
                 viewBox={`0 0 ${width} ${height}`}
                 onClick={this.handleClick}
             >
@@ -89,25 +92,32 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { isInDialog, id, type } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
-    const { play } = selection;
-    const nPlayedTiles = self.playedTiles.size;
 
     const isMove = type === Action.Move;
     const isSwitch = type === Action.Switch;
-    const isPlayable = self.isPlaying && (
-        (isInDialog && (step === TilePlayStep.ChooseHandTile || step === TilePlayStep.Done)) ||
-        (isSwitch && step === TilePlayStep.ChooseBoardTile) ||
-        (isMove && step === TilePlayStep.ChooseBoardTile && nPlayedTiles > 0)
-    );
 
-    const isSelected = id === play.handTile;    
+    // Playability
+    let isPlayable = false;
+    const nPlayedTiles = self.playedTiles.size;
+
+    switch (step) {
+        case TilePlayStep.ChooseHandTile:
+        case TilePlayStep.Done:
+            isPlayable = self.isPlaying && isInDialog;
+            break;
+        case TilePlayStep.ChooseBoardTile:
+            isPlayable = self.isPlaying && !isInDialog && ((isMove && nPlayedTiles > 0) || isSwitch);
+            break;
+    }
+
+    const isSelectedForPlay = id === selection.play.handTile;
 
     return {
         step,
         isPlayable,
-        isSelected,
         isMove,
         isSwitch,
+        isSelected: isSelectedForPlay,
     }
 };
 

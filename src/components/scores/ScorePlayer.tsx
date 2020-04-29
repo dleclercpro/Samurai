@@ -5,6 +5,7 @@ import { ReactComponent as HouseIcon } from '../../icons/house.svg';
 import { ReactComponent as MonkIcon } from '../../icons/monk.svg';
 import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
 import { getColor } from '../../lib';
+import { CASTES } from '../../constants';
 
 interface OwnProps {
     username: string,
@@ -40,11 +41,11 @@ const ScorePlayer: React.FC<Props> = (props) => {
                 </thead>
                 <tbody>
                     <tr>
-                        {[Caste.Military, Caste.Religion, Caste.Commerce].map((caste: Caste) => {
+                        {CASTES.map((caste: Caste, index: number) => {
                             const hasHighest = highestScores.get(caste) === score.get(caste);
                             
                             return (
-                                <td>
+                                <td key={`score-player-cell-${index}`}>
                                     <p className={`value ${hasHighest ? 'is-highest' : ''}`}>
                                         {score.get(caste)}
                                     </p>

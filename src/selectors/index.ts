@@ -1,6 +1,7 @@
 import { AppState, PlayersState } from '../types/StateTypes';
 import { Player, HandTile, PlayerScore, Caste } from '../types/GameTypes';
 import { notUndefined } from '../types/FunctionTypes';
+import { CASTES } from '../constants';
 
 export const getHandTiles = (state: AppState): HandTile[] => {
     const { data, players } = state;
@@ -35,7 +36,7 @@ export const getHighestScores = (state: PlayersState): PlayerScore => {
     const { self, opponents } = state;
     const highestScores = new Map();
 
-    [Caste.Military, Caste.Religion, Caste.Commerce].forEach((caste: Caste) => {
+    CASTES.forEach((caste: Caste) => {
         let highestScore = -1;
 
         opponents.concat(self).forEach((player: Player) => {

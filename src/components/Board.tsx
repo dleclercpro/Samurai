@@ -70,13 +70,13 @@ class Board extends React.Component<Props, State> {
             const { playedTiles, color } = person;
 
             return Array.from(playedTiles.keys()).map((boardTileId: number) => {
-                const playedTileId = playedTiles.get(boardTileId);
-                if (playedTileId === undefined) {
+                const handTileId = playedTiles.get(boardTileId);
+                if (handTileId === undefined) {
                     return null;
                 }
 
-                const playedTile = fullHand.get(playedTileId);
-                if (playedTile === undefined) {
+                const handTile = fullHand.get(handTileId);
+                if (handTile === undefined) {
                     return null;
                 }
 
@@ -85,15 +85,15 @@ class Board extends React.Component<Props, State> {
                     return null;
                 }
                 
-                const { type, strength, canReplay } = playedTile;
+                const { type, strength, canReplay } = handTile;
                 const { coordinates } = boardTile;
                 const position = this.getTilePosition(coordinates);
 
                 return (
                     <PlayedTileComponent
-                        key={`played-tile-component-${playedTileId}`}
-                        id={playedTileId}
-                        boardId={boardTileId}
+                        key={`played-tile-component-${boardTileId}-${handTileId}`}
+                        handTileId={handTileId}
+                        boardTileId={boardTileId}
                         type={type}
                         color={color}
                         strength={strength}

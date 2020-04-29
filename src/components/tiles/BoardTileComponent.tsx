@@ -93,7 +93,7 @@ class BoardTileComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { position, castes, isCity, isWater, isPlayable } = this.props;
+        const { position, castes, isCity, isWater, isPlayable, isSelected } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
@@ -106,6 +106,7 @@ class BoardTileComponent extends React.Component<Props, State> {
                     board-tile-component
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
+                    ${isSelected ? 'is-selected' : ''}
                 `}
                 transform={`translate(${position.x},${position.y})`}
                 onClick={this.handleClick}
@@ -146,33 +147,35 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { id, castes, isCity, isWater } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
-
-    const hasCastes = castes.length > 0;
-    const isSelected = ownProps.id === selection.play.boardTile;
-    const isSelectedForSwitch = (id === selection.switch.from.tile) || (id === selection.switch.to.tile);
-    const hasShipInHand = getHandTiles(state).some(tile => tile.type === Figure.Ship);
-    const hasGroundTileInHand = getHandTiles(state).some(tile => isGroundHandTile(tile));
     
     // Playability
     let isPlayable = false;
 
+    const hasCastes = castes.length > 0;
+    const hasShipInHand = getHandTiles(state).some(tile => tile.type === Figure.Ship);
+    const hasGroundTileInHand = getHandTiles(state).some(tile => isGroundHandTile(tile));
+
+    const isSelectedForPlay = id === selection.play.boardTile;
+    const isSelectedForMove = id === selection.move.to;
+    const isSelectedForSwitch = (id === selection.switch.from.tile) || (id === selection.switch.to.tile);
+
     switch (step) {
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
+            isPlayable = self.isPlaying && !isSelectedForPlay && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
             break;
         case CasteSwitchStep.ChooseTileFrom:
         case CasteSwitchStep.ChooseTileTo:
-            isPlayable = self.isPlaying && isCity && hasCastes && !isSelectedForSwitch;
+            isPlayable = self.isPlaying && !isSelectedForSwitch && isCity && hasCastes;
             break;
         case TileMoveStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isCity && !isWater;
+            isPlayable = self.isPlaying && !isSelectedForMove && !isCity && !isWater;
             break;
     }
 
     return {
         step,
-        isSelected,
         isPlayable,
+        isSelected: isSelectedForPlay || isSelectedForMove || isSelectedForSwitch,
     };
 };
 

@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react';
-import { PlayerColor, TileType, Coordinates2D, Caste, Figure, TileMoveStep, GameStep } from '../../types/GameTypes';
+import { PlayerColor, TileType, Coordinates2D, TileMoveStep, GameStep } from '../../types/GameTypes';
 import './PlayedTileComponent.scss';
 import { TILE_SIZE } from '../../config';
 import { connect } from 'react-redux';
@@ -7,10 +7,11 @@ import { AppState } from '../../types/StateTypes';
 import { AppAction } from '../../actions';
 import { selectBoardTileToMoveFrom } from '../../actions/GameActions';
 import HandTileContent from './HandTileContent';
+import { MOVABLE_CASTES } from '../../constants';
 
 interface OwnProps {
-    id: number,
-    boardId: number,
+    handTileId: number,
+    boardTileId: number,
     position: Coordinates2D,
     rotation: number,
     color: PlayerColor,
@@ -31,12 +32,12 @@ type Props = OwnProps & StateProps;
 class PlayedTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { boardId, step, isPlayable, selectBoardTileToMoveFrom } = this.props;
+        const { boardTileId, step, isPlayable, selectBoardTileToMoveFrom } = this.props;
 
         if (isPlayable) {
             switch (step) {
                 case TileMoveStep.ChooseHandTile:
-                    selectBoardTileToMoveFrom(boardId);
+                    selectBoardTileToMoveFrom(boardTileId);
                     break;
             }
         }
@@ -49,7 +50,10 @@ class PlayedTileComponent extends React.Component<Props, {}> {
         
         return (
             <g
-                className='played-tile-component'
+                className={`
+                    played-tile-component
+                    ${isSelected ? 'is-selected' : ''}
+                `}
                 transform={`translate(${position.x},${position.y}) rotate(${rotation} ${center.x} ${center.y})`}
                 width={width}
                 height={height}
@@ -70,20 +74,28 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { id, boardId, type } = ownProps;
+    const { handTileId, boardTileId, type } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
 
-    const isPlaying = self.isPlaying;
-    const isMine = self.playedTiles.get(boardId) === id;
-    const isMovable = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ].some(tileType => type === tileType);
-    const isPlayable = isMine && isPlaying && isMovable && (step === TileMoveStep.ChooseHandTile);
-    const isSelected = isMine && id === selection.move.from;
+    const isMine = self.playedTiles.get(boardTileId) === handTileId;
+    const isMovable = MOVABLE_CASTES.some(tileType => type === tileType);
+
+    // Playability
+    let isPlayable = false;
+
+    switch (step) {
+        case TileMoveStep.ChooseHandTile:
+            isPlayable = self.isPlaying && isMine && isMovable;
+            break;
+    }
+
+    const isSelectedForMove = boardTileId === selection.move.from;
 
     return {
         step,
         isPlayable,
-        isSelected,
+        isSelected: isSelectedForMove,
     };
 }
 
