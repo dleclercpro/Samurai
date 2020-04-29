@@ -10,7 +10,7 @@ import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 import { selectBoardTile, selectTileFromForSwitch, selectTileToForSwitch, selectBoardTileToMoveTo } from '../../actions/GameActions';
 import { getHandTiles } from '../../selectors';
-import { getPositionInHexagon } from '../../lib';
+import { getPositionInHexagon, isGroundHandTile } from '../../lib';
 import TileIcon from './TileIcon';
 
 interface OwnProps {
@@ -151,13 +151,14 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const isSelected = ownProps.id === selection.play.boardTile;
     const isSelectedForSwitch = (id === selection.switch.from.tile) || (id === selection.switch.to.tile);
     const hasShipInHand = getHandTiles(state).some(tile => tile.type === Figure.Ship);
+    const hasGroundTileInHand = getHandTiles(state).some(tile => isGroundHandTile(tile));
     
     // Playability
     let isPlayable = false;
 
     switch (step) {
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isCity && (!isWater || hasShipInHand);
+            isPlayable = self.isPlaying && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
             break;
         case CasteSwitchStep.ChooseTileFrom:
         case CasteSwitchStep.ChooseTileTo:

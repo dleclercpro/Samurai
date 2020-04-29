@@ -8,14 +8,14 @@ import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
 interface OwnProps {
     username: string,
     score: PlayerScore,
+    highestScores: PlayerScore,
     isPlaying: boolean,
-    isPlayer?: boolean,
 }
 
 type Props = OwnProps;
 
 const ScorePlayer: React.FC<Props> = (props) => {
-    const { username, score, isPlaying, isPlayer } = props;
+    const { username, score, highestScores, isPlaying } = props;
 
     return (
         <div
@@ -26,7 +26,6 @@ const ScorePlayer: React.FC<Props> = (props) => {
         >
             <h3 className='username'>
                 {username}
-                {isPlayer && <span>(YOU)</span>}
             </h3>
             <table className='score'>
                 <thead>
@@ -38,9 +37,17 @@ const ScorePlayer: React.FC<Props> = (props) => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><p className='value'>{score.get(Caste.Military)}</p></td>
-                        <td><p className='value'>{score.get(Caste.Religion)}</p></td>
-                        <td><p className='value'>{score.get(Caste.Commerce)}</p></td>
+                        {[Caste.Military, Caste.Religion, Caste.Commerce].map((caste: Caste) => {
+                            const hasHighest = highestScores.get(caste) === score.get(caste);
+                            
+                            return (
+                                <td>
+                                    <p className={`value ${hasHighest ? 'is-highest' : ''}`}>
+                                        {score.get(caste)}
+                                    </p>
+                                </td>
+                            );
+                        })}
                     </tr>
                 </tbody>
             </table>

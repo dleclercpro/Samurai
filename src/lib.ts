@@ -1,4 +1,4 @@
-import { Size2D, Coordinates2D, BoardTile, BoardTileMap } from './types/GameTypes';
+import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
 import { HandTileJSON } from './types/ServerTypes';
 
@@ -128,4 +128,16 @@ export const getRandomHand = (fullHand: HandTileJSON[]) => {
     }
 
     return [ ...randomIndexes ];
+}
+
+export const isGroundHandTile = (tile: HandTile) => {
+    switch (tile.type) {
+        case Caste.Military:
+        case Caste.Religion:
+        case Caste.Commerce:
+        case Figure.Samurai:
+            return true;
+        default:
+            return false;
+    }
 }

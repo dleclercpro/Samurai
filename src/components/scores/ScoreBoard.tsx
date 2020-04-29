@@ -2,12 +2,14 @@ import React from 'react';
 import './ScoreBoard.scss';
 import { connect } from 'react-redux';
 import ScorePlayer from './ScorePlayer';
-import { Player } from '../../types/GameTypes';
+import { Player, PlayerScore } from '../../types/GameTypes';
 import { AppState } from '../../types/StateTypes';
+import { getHighestScores } from '../../selectors';
 
 interface StateProps {
     player: Player,
     opponents: Player[],
+    highestScores: PlayerScore,
 }
 
 type Props = StateProps;
@@ -15,7 +17,7 @@ type Props = StateProps;
 class ScoreBoard extends React.Component<Props, {}> {
 
     render() {
-        const { player, opponents } = this.props;
+        const { player, opponents, highestScores } = this.props;
         const { id, username, score, isPlaying } = player;
         const hasPlayer = id !== -1;
 
@@ -25,8 +27,8 @@ class ScoreBoard extends React.Component<Props, {}> {
                     <ScorePlayer
                         username={username}
                         score={score}
+                        highestScores={highestScores}
                         isPlaying={isPlaying}
-                        isPlayer
                     />
                 }
                 {opponents.map((opponent: Player, index: number) => {
@@ -38,6 +40,7 @@ class ScoreBoard extends React.Component<Props, {}> {
                             key={`player-${index}`}
                             username={username}
                             score={score}
+                            highestScores={highestScores}
                             isPlaying={isPlaying}
                         />
                     );
@@ -53,6 +56,7 @@ const mapStateToProps = (state: AppState) => {
     return {
         player: self,
         opponents: opponents,
+        highestScores: getHighestScores(state.players),
     }
 };
 
