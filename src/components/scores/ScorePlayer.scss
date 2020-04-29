@@ -18,34 +18,34 @@
     }
 
     &.is-red > .username {
-        color: $color-dark-red;
+        color: $color-red;
 
         .is-colorblind & {
-            color: $color-blind-dark-red;
+            color: $color-blind-red;
         }
     }
 
     &.is-purple > .username {
-        color: $color-dark-purple;
+        color: $color-purple;
 
         .is-colorblind & {
-            color: $color-blind-dark-purple;
+            color: $color-blind-purple;
         }
     }
 
     &.is-orange > .username {
-        color: $color-dark-orange;
+        color: $color-orange;
 
         .is-colorblind & {
-            color: $color-blind-dark-orange;
+            color: $color-blind-orange;
         }
     }
 
     &.is-green > .username {
-        color: $color-dark-green;
+        color: $color-green;
 
         .is-colorblind & {
-            color: $color-blind-dark-green;
+            color: $color-blind-green;
         }
     }
 
