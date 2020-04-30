@@ -13,6 +13,7 @@ const initState = {
     [DialogType.PlayGame]: { ...initDialogState },
     [DialogType.CreateGame]: { ...initDialogState },
     [DialogType.GameOver]: { ...initDialogState },
+    [DialogType.NewTurn]: { ...initDialogState },
     [DialogType.TileChoice]: { ...initDialogState },
     [DialogType.CasteChoice]: { ...initDialogState },
     [DialogType.TileMoveStart]: { ...initDialogState },

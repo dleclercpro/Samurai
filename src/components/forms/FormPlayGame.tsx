@@ -66,7 +66,7 @@ class FormPlayGame extends React.Component<Props, State> {
             <Dialog
                 type={DialogType.PlayGame}
                 headline='Play game'
-                message='Please enter the ID of the game you want to play in:'
+                message='Please enter the ID of the game you want to play:'
                 actionButtonText='Play'
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}

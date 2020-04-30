@@ -56,3 +56,9 @@ export const getHighestScores = (state: PlayersState): PlayerScore => {
 
     return highestScores;
 }
+
+export const isGameOver = (state: PlayersState) => {
+    const { self, opponents } = state;
+
+    return opponents.concat(self).some(player => player.hasWon);
+}

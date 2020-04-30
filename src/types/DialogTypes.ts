@@ -6,6 +6,7 @@ export enum DialogType {
     PlayGame = 'play-game',
     CreateGame = 'create-game',
     GameOver = 'game-over',
+    NewTurn = 'new-turn',
     TileChoice = 'tile-choice',
     CasteChoice = 'caste-choice',
     TileMoveStart = 'tile-move-start',

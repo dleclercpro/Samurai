@@ -25,6 +25,7 @@ import FormSignUp from './forms/FormSignUp';
 import FormPlayGame from './forms/FormPlayGame';
 import FormCreateGame from './forms/FormCreateGame';
 import { verifyAuthentication } from '../actions/ServerActions';
+import DialogNewTurn from './dialogs/DialogNewTurn';
 
 interface StateProps {
     isColorblind: boolean,
@@ -70,6 +71,7 @@ class App extends React.Component<Props, {}> {
                     <DialogSuccess />
                     <DialogError />
                     <DialogGameOver />
+                    <DialogNewTurn />
                     <DialogTileChoice />
                     <DialogCasteChoice />
                     <DialogTileMoveStart />

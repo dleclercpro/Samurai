@@ -19,6 +19,7 @@ import { loadPlayer, loadOpponents, loadHand } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
+import { isGameOver } from '../selectors';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
@@ -146,6 +147,18 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 dispatch(loadPlayer(players.self));
                 dispatch(loadOpponents(players.opponents));
                 dispatch(loadHand(hand));
+
+                // Game over?
+                if (isGameOver(state.players)) {
+                    dispatch(openDialog(DialogType.GameOver));
+                    return;
+                }
+
+                // New turn for player
+                if (!state.players.self.isPlaying && players.self.isPlaying) {
+                    dispatch(openDialog(DialogType.NewTurn));
+                    return;
+                }
             })
             .catch((error: any) => {
                 dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message));
