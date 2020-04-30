@@ -69,6 +69,8 @@ class Call {
     }
 
     execute() {
+        console.log(`Executing call: ${this.constructor.name}`);
+
         this.prepare();
 
         return fetch(this.url, this.params).then((response: Response) => {

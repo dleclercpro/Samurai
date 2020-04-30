@@ -1,0 +1,31 @@
+@import 'styles';
+
+#dash {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+
+    .button {
+        width: 50px;
+        height: 30px;
+        padding: 5px;
+        background: $color-black-transparent;
+
+        &:not(:last-of-type) {
+            margin-bottom: 5px;
+        }
+    
+        @media (hover: hover) {
+            &:hover {
+                background: $color-black;
+            }
+        }
+    
+        .icon {
+            width: auto;
+            height: 100%;
+            fill: $color-white;
+        }
+    }
+}

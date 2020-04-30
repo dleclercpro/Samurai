@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../components/Button';
 import { AppAction } from '../actions';
 import { openDialog } from '../actions/DialogActions';
 import { DialogType } from '../types/DialogTypes';
@@ -8,6 +7,7 @@ import './Home.scss';
 import { AppState } from '../types/StateTypes';
 import { signOut } from '../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
+import Button from '../components/buttons/Button';
 
 interface StateProps {
     isAuthenticated: boolean,

@@ -3,7 +3,6 @@ import './Game.scss';
 import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import SwitchColorModeButton from './SwitchColorModeButton';
 import { loadGameData } from '../actions/ServerActions';
 import { setGameId, resetGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
@@ -11,6 +10,7 @@ import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { MIN_IN_MS } from '../constants';
 import SpinnerOverlay from './overlays/SpinnerOverlay';
+import Dash from './buttons/Dash';
 
 interface OwnProps {
     routeId: number,
@@ -56,15 +56,17 @@ class Game extends React.Component<Props, State> {
             loadGameData()
                 .then(() => {
                     this.startPolling();
-                    this.hideSpinner();
                 })
                 .catch(() => {
                     resetGameId();
-
-                    this.hideSpinner();
             
                     history.push(`/samurai/`);
+                })
+                .finally(() => {
+                    this.hideSpinner();
                 });
+        } else {
+            this.hideSpinner();
         }
     }
 
@@ -116,8 +118,8 @@ class Game extends React.Component<Props, State> {
         return (
             <React.Fragment>
                 {isLoading && <SpinnerOverlay />}
+                <Dash />
                 <Grid />
-                <SwitchColorModeButton />
             </React.Fragment>
         );
     }

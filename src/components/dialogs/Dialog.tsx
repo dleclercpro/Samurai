@@ -3,13 +3,13 @@ import './Dialog.scss';
 import { closeDialog } from '../../actions/DialogActions';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import Button from '../Button';
 import { ReactComponent as CloseIcon } from '../../icons/close.svg';
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 import { KEY_ENTER_ID, KEY_ESC_ID } from '../../constants';
 import Overlay from '../overlays/Overlay';
 import SpinnerOverlay from '../overlays/SpinnerOverlay';
+import Button from '../buttons/Button';
 
 interface OwnProps {
     children?: ReactNode,
