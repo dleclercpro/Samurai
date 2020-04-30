@@ -39,7 +39,7 @@
     .is-playable.is-hovered.is-red &,
     .is-selected.is-red &,
     .is-move.is-red &,
-    .hand-tile-content.is-switch.is-red & {
+    .hand-tile-content.is-swap.is-red & {
         fill: $color-red;
 
         .is-colorblind & {
@@ -58,7 +58,7 @@
     .is-playable.is-hovered.is-purple &,
     .is-selected.is-purple &,
     .is-move.is-purple &,
-    .hand-tile-content.is-switch.is-purple & {
+    .hand-tile-content.is-swap.is-purple & {
         fill: $color-purple;
 
         .is-colorblind & {
@@ -77,7 +77,7 @@
     .is-playable.is-hovered.is-orange &,
     .is-selected.is-orange &,
     .is-move.is-orange &,
-    .hand-tile-content.is-switch.is-orange & {
+    .hand-tile-content.is-swap.is-orange & {
         fill: $color-orange;
 
         .is-colorblind & {
@@ -96,7 +96,7 @@
     .is-playable.is-hovered.is-green &,
     .is-selected.is-green &,
     .is-move.is-green &,
-    .hand-tile-content.is-switch.is-green & {
+    .hand-tile-content.is-swap.is-green & {
         fill: $color-green;
 
         .is-colorblind & {

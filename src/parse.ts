@@ -7,7 +7,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 
     // Build tile map
     rawTiles.forEach((rawTile: BoardTileJSON) => {
-        const { id, coordinates, castes, isCity, isWater, isSwitch } = rawTile;
+        const { id, coordinates, castes, isCity, isWater, isSwap } = rawTile;
         
         if (tiles.has(id)) {
             console.warn('Trying to add same tile twice.');
@@ -21,7 +21,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
             castes: castes.map(caste => parseCaste(caste)),
             isCity,
             isWater,
-            isSwitch,
+            isSwap,
         });
     });
 
@@ -38,7 +38,7 @@ export const parseTileType = (data: String): TileType => {
         case 'Ship':
             return parseFigure(data);
         case 'Move':
-        case 'Switch':
+        case 'Swap':
             return parseAction(data);
     }
 }
@@ -71,8 +71,8 @@ export const parseAction = (data: String) : Action => {
     switch (data) {
         case 'Move':
             return Action.Move;
-        case 'Switch':
-            return Action.Switch;
+        case 'Swap':
+            return Action.Swap;
         default:
             return Action.Unknown;
     }

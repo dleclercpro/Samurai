@@ -87,12 +87,12 @@
     }
 
     .is-move &,
-    .hand-tile-content.is-switch & {
+    .hand-tile-content.is-swap & {
         fill: $color-dark-grey !important;
         stroke: $color-black !important;
     }
 
-    .board-tile-component.is-switch & {
+    .board-tile-component.is-swap & {
         fill: $color-white !important;
         stroke: $color-light-grey !important;
     }
@@ -145,8 +145,8 @@
 
     .is-playable.is-hovered.is-move &,
     .is-selected.is-move &,
-    .hand-tile-component .is-playable.is-hovered.is-switch &,
-    .hand-tile-component .is-selected.is-switch & {
+    .hand-tile-component .is-playable.is-hovered.is-swap &,
+    .hand-tile-component .is-selected.is-swap & {
         fill: $color-grey !important;
     }
 

@@ -1,4 +1,4 @@
-import { LoadBoard, LoadFullHand, SelectBoardTile, SelectHandTile, DeselectBoardTile, DeselectHandTile, SelectTileFromForSwitch, SelectCasteFromForSwitch, SelectTileToForSwitch, SelectCasteToForSwitch, DeselectTileFromForSwitch, DeselectTileToForSwitch, DeselectCasteToForSwitch, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwitch, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwitch, FinishCasteSwitch, SwitchColors, SetErrorDialog, SetSuccessDialog, SetGameId, SetUser, ResetUser, ResetGameId } from '../types/ActionTypes';
+import { LoadBoard, LoadFullHand, SelectBoardTile, SelectHandTile, DeselectBoardTile, DeselectHandTile, SelectTileFromForSwap, SelectCasteFromForSwap, SelectTileToForSwap, SelectCasteToForSwap, DeselectTileFromForSwap, DeselectTileToForSwap, DeselectCasteToForSwap, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwap, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwap, FinishCasteSwap, SwitchColorMode, SetErrorDialog, SetSuccessDialog, SetGameId, SetUser, ResetUser, ResetGameId } from '../types/ActionTypes';
 import { resetUser } from './UserActions';
 
 export type DataAction =
@@ -9,11 +9,11 @@ export type GameAction =
     ResetGameId |
     SetGameId |
     EndTurn |
-    SwitchColors |
+    SwitchColorMode |
 
     StartTileMove |
-    StartCasteSwitch |
-    FinishCasteSwitch |
+    StartCasteSwap |
+    FinishCasteSwap |
 
     SelectBoardTile |
     DeselectBoardTile |
@@ -23,14 +23,14 @@ export type GameAction =
     SelectBoardTileToMoveFrom |
     SelectBoardTileToMoveTo |
 
-    SelectTileFromForSwitch |
-    DeselectTileFromForSwitch |
-    SelectCasteFromForSwitch |
-    DeselectCasteFromForSwitch |
-    SelectTileToForSwitch |
-    DeselectTileToForSwitch |
-    SelectCasteToForSwitch |
-    DeselectCasteToForSwitch;
+    SelectTileFromForSwap |
+    DeselectTileFromForSwap |
+    SelectCasteFromForSwap |
+    DeselectCasteFromForSwap |
+    SelectTileToForSwap |
+    DeselectTileToForSwap |
+    SelectCasteToForSwap |
+    DeselectCasteToForSwap;
 
 export type UserAction =
     SetUser |

@@ -24,14 +24,14 @@ interface StateProps {
     isSelected: boolean,
     isPlayable: boolean,
     isMove: boolean,
-    isSwitch: boolean,
+    isSwap: boolean,
 }
 
 interface DispatchProps {
     selectHandTile: (id: number) => void,
     deselectHandTile: () => void,
     openTileMoveStartDialog: () => void,
-    openCasteSwitchStartDialog: () => void,
+    openCasteSwapStartDialog: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -39,7 +39,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 class HandTileComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { id, step, isMove, isSwitch, isPlayable, isSelected, selectHandTile, deselectHandTile, openTileMoveStartDialog, openCasteSwitchStartDialog } = this.props;
+        const { id, step, isMove, isSwap, isPlayable, isSelected, selectHandTile, deselectHandTile, openTileMoveStartDialog, openCasteSwapStartDialog } = this.props;
         
         e.stopPropagation();
 
@@ -48,8 +48,8 @@ class HandTileComponent extends React.Component<Props, {}> {
                 case TilePlayStep.ChooseBoardTile:
                     if (isMove) {
                         openTileMoveStartDialog();
-                    } else if (isSwitch) {
-                        openCasteSwitchStartDialog();
+                    } else if (isSwap) {
+                        openCasteSwapStartDialog();
                     }
                     return;
                 case TilePlayStep.ChooseHandTile:
@@ -94,7 +94,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { step, selection } = state.game;
 
     const isMove = type === Action.Move;
-    const isSwitch = type === Action.Switch;
+    const isSwap = type === Action.Swap;
 
     // Playability
     let isPlayable = false;
@@ -106,7 +106,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
             isPlayable = self.isPlaying && isInDialog;
             break;
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isInDialog && ((isMove && nPlayedTiles > 0) || isSwitch);
+            isPlayable = self.isPlaying && !isInDialog && ((isMove && nPlayedTiles > 0) || isSwap);
             break;
     }
 
@@ -116,7 +116,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
         step,
         isPlayable,
         isMove,
-        isSwitch,
+        isSwap,
         isSelected: isSelectedForPlay,
     }
 };
@@ -125,7 +125,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     selectHandTile: (id: number) => dispatch(selectHandTile(id)),
     deselectHandTile: () => dispatch(deselectHandTile),
     openTileMoveStartDialog: () => dispatch(openDialog(DialogType.TileMoveStart)),
-    openCasteSwitchStartDialog: () => dispatch(openDialog(DialogType.CasteSwitchStart)),
+    openCasteSwapStartDialog: () => dispatch(openDialog(DialogType.CasteSwapStart)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HandTileComponent);

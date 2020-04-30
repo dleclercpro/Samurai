@@ -17,7 +17,7 @@ export interface BoardTileJSON {
     castes: string[],
     isCity: boolean,
     isWater: boolean,
-    isSwitch: boolean,
+    isSwap: boolean,
 }
 
 export interface BoardJSON {

@@ -9,7 +9,7 @@ import { CallGetBoard } from '../calls/CallGetBoard';
 import { CallGetPlayers } from '../calls/CallGetPlayers';
 import { loadBoard } from './DataActions';
 import { AppState } from '../types/StateTypes';
-import { TILE_MOVE_ID, TILE_SWITCH_ID } from '../constants';
+import { TILE_MOVE_ID, TILE_SWAP_ID } from '../constants';
 import { Caste } from '../types/GameTypes';
 import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
@@ -209,13 +209,13 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActio
     };
 }
 
-export const switchCastePieces = (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste): ThunkActionResult<void> => {
+export const swapCastePieces = (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>) => {
 
-        return dispatch(play(TILE_SWITCH_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
+        return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
             .catch((error: any) => {
-                dispatch(setErrorDialog('Caste pieces switch was unsuccessful.', error.message));
+                dispatch(setErrorDialog('Caste pieces swap was unsuccessful.', error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };

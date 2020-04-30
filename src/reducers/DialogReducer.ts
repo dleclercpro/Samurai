@@ -18,8 +18,8 @@ const initState = {
     [DialogType.CasteChoice]: { ...initDialogState },
     [DialogType.TileMoveStart]: { ...initDialogState },
     [DialogType.TileMoveEnd]: { ...initDialogState },
-    [DialogType.CasteSwitchStart]: { ...initDialogState },
-    [DialogType.CasteSwitchEnd]: { ...initDialogState },
+    [DialogType.CasteSwapStart]: { ...initDialogState },
+    [DialogType.CasteSwapEnd]: { ...initDialogState },
 
     [DialogType.Success]: {
         ...initDialogState,

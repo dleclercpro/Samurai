@@ -1,10 +1,10 @@
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { GameStep, Caste, CasteSwitchStep } from '../types/GameTypes';
+import { GameStep, Caste, CasteSwapStep } from '../types/GameTypes';
 import './CasteComponent.scss';
 import { AppAction } from '../actions';
-import { selectCasteFromForSwitch, selectCasteToForSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } from '../actions/GameActions';
+import { selectCasteFromForSwap, selectCasteToForSwap, deselectCasteFromForSwap, deselectCasteToForSwap } from '../actions/GameActions';
 import { ReactComponent as HouseIcon } from '../icons/house.svg';
 import { ReactComponent as MonkIcon } from '../icons/monk.svg';
 import { ReactComponent as RiceIcon } from '../icons/rice.svg';
@@ -20,10 +20,10 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    selectCasteFromForSwitch: (caste: Caste) => void,
-    selectCasteToForSwitch: (caste: Caste) => void,
-    deselectCasteFromForSwitch: () => void,
-    deselectCasteToForSwitch: () => void,
+    selectCasteFromForSwap: (caste: Caste) => void,
+    selectCasteToForSwap: (caste: Caste) => void,
+    deselectCasteFromForSwap: () => void,
+    deselectCasteToForSwap: () => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -31,23 +31,23 @@ type Props = OwnProps & StateProps & DispatchProps;
 class CasteComponent extends React.Component<Props, {}> {
 
     handleClick = (e: React.MouseEvent) => {
-        const { step, caste, isPlayable, isSelected, selectCasteFromForSwitch, selectCasteToForSwitch, deselectCasteFromForSwitch, deselectCasteToForSwitch } = this.props;
+        const { step, caste, isPlayable, isSelected, selectCasteFromForSwap, selectCasteToForSwap, deselectCasteFromForSwap, deselectCasteToForSwap } = this.props;
         
         e.stopPropagation();
 
         if (isPlayable) {
             switch (step) {
-                case CasteSwitchStep.ChooseCasteFrom:
-                    selectCasteFromForSwitch(caste);
+                case CasteSwapStep.ChooseCasteFrom:
+                    selectCasteFromForSwap(caste);
                     return;
-                case CasteSwitchStep.ChooseFromDone:
-                    isSelected ? deselectCasteFromForSwitch() : selectCasteFromForSwitch(caste);
+                case CasteSwapStep.ChooseFromDone:
+                    isSelected ? deselectCasteFromForSwap() : selectCasteFromForSwap(caste);
                     return;
-                case CasteSwitchStep.ChooseCasteTo:
-                    selectCasteToForSwitch(caste);
+                case CasteSwapStep.ChooseCasteTo:
+                    selectCasteToForSwap(caste);
                     return;
-                case CasteSwitchStep.ChooseToDone:
-                    isSelected ? deselectCasteToForSwitch() : selectCasteToForSwitch(caste);
+                case CasteSwapStep.ChooseToDone:
+                    isSelected ? deselectCasteToForSwap() : selectCasteToForSwap(caste);
                     return;
             }
         }
@@ -80,12 +80,12 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { caste } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
-    const { to, from } = selection.switch;
+    const { to, from } = selection.swap;
 
-    const isChoosingFrom = step === CasteSwitchStep.ChooseCasteFrom;
-    const isChoosingTo = step === CasteSwitchStep.ChooseCasteTo;
-    const hasChosenFrom = step === CasteSwitchStep.ChooseFromDone;
-    const hasChosenTo = step === CasteSwitchStep.ChooseToDone;
+    const isChoosingFrom = step === CasteSwapStep.ChooseCasteFrom;
+    const isChoosingTo = step === CasteSwapStep.ChooseCasteTo;
+    const hasChosenFrom = step === CasteSwapStep.ChooseFromDone;
+    const hasChosenTo = step === CasteSwapStep.ChooseToDone;
 
     const isSelected = (hasChosenFrom && caste === from.caste) || (hasChosenTo && caste === to.caste);    
     const isPlayable = self.isPlaying && (isChoosingFrom || hasChosenFrom || isChoosingTo || hasChosenTo);
@@ -101,10 +101,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) =
     const { caste } = ownProps;
     
     return {
-        selectCasteFromForSwitch: () => dispatch(selectCasteFromForSwitch(caste)),
-        selectCasteToForSwitch: () => dispatch(selectCasteToForSwitch(caste)),
-        deselectCasteFromForSwitch: () => dispatch(deselectCasteFromForSwitch),
-        deselectCasteToForSwitch: () => dispatch(deselectCasteToForSwitch),
+        selectCasteFromForSwap: () => dispatch(selectCasteFromForSwap(caste)),
+        selectCasteToForSwap: () => dispatch(selectCasteToForSwap(caste)),
+        deselectCasteFromForSwap: () => dispatch(deselectCasteFromForSwap),
+        deselectCasteToForSwap: () => dispatch(deselectCasteToForSwap),
     };
 };
 

@@ -11,6 +11,6 @@ export enum DialogType {
     CasteChoice = 'caste-choice',
     TileMoveStart = 'tile-move-start',
     TileMoveEnd = 'tile-move-end',
-    CasteSwitchStart = 'caste-switch-start',
-    CasteSwitchEnd = 'caste-switch-confirm',
+    CasteSwapStart = 'caste-swap-start',
+    CasteSwapEnd = 'caste-swap-confirm',
 }

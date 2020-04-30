@@ -1,7 +1,7 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH, SWITCH_COLORS, SET_GAME_ID, RESET_GAME_ID } from '../types/ActionTypes';
-import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SWITCH_COLOR_MODE, SET_GAME_ID, RESET_GAME_ID } from '../types/ActionTypes';
+import { Caste, TilePlayStep, CasteSwapStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
 import { localStorageGet, localStorageSet } from '../lib';
 
 const initPlayState = {
@@ -14,20 +14,20 @@ const initMoveState = {
     to: -1,
 };
 
-const initSwitchInnerState = {
+const initSwapInnerState = {
     tile: -1,
     caste: Caste.Unknown,
 }
 
-const initSwitchState = {
-    from: { ...initSwitchInnerState },
-    to: { ...initSwitchInnerState },
+const initSwapState = {
+    from: { ...initSwapInnerState },
+    to: { ...initSwapInnerState },
 };
 
 const initSelectionState = {
     play: { ...initPlayState },
     move: { ...initMoveState },
-    switch: { ...initSwitchState },
+    swap: { ...initSwapState },
 }
 
 const initState = {
@@ -46,8 +46,8 @@ const getNextGameStep = (step: GameStep, action: string): GameStep => {
             switch (action) {
                 case SELECT_BOARD_TILE:
                     return TilePlayStep.ChooseHandTile;
-                case START_CASTE_SWITCH:
-                    return CasteSwitchStep.ChooseTileFrom;
+                case START_CASTE_SWAP:
+                    return CasteSwapStep.ChooseTileFrom;
                 case START_TILE_MOVE:
                     return TileMoveStep.ChooseHandTile;
             }
@@ -69,50 +69,50 @@ const getNextGameStep = (step: GameStep, action: string): GameStep => {
             }
             break;
 
-        // Caste piece switch
-        case CasteSwitchStep.ChooseTileFrom:
+        // Caste piece swap
+        case CasteSwapStep.ChooseTileFrom:
             switch (action) {
-                case SELECT_TILE_FROM_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseCasteFrom;
+                case SELECT_TILE_FROM_FOR_SWAP:
+                    return CasteSwapStep.ChooseCasteFrom;
             }
             break;
-        case CasteSwitchStep.ChooseCasteFrom:
+        case CasteSwapStep.ChooseCasteFrom:
             switch (action) {
-                case DESELECT_TILE_FROM_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseTileFrom;
-                case SELECT_CASTE_FROM_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseFromDone;
+                case DESELECT_TILE_FROM_FOR_SWAP:
+                    return CasteSwapStep.ChooseTileFrom;
+                case SELECT_CASTE_FROM_FOR_SWAP:
+                    return CasteSwapStep.ChooseFromDone;
             }
             break;
-        case CasteSwitchStep.ChooseFromDone:
+        case CasteSwapStep.ChooseFromDone:
             switch (action) {
-                case FINISH_CASTE_SWITCH:
-                    return CasteSwitchStep.ChooseTileTo;
-                case DESELECT_CASTE_FROM_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseCasteFrom;
-                case SELECT_CASTE_FROM_FOR_SWITCH:
+                case FINISH_CASTE_SWAP:
+                    return CasteSwapStep.ChooseTileTo;
+                case DESELECT_CASTE_FROM_FOR_SWAP:
+                    return CasteSwapStep.ChooseCasteFrom;
+                case SELECT_CASTE_FROM_FOR_SWAP:
                     return step;
             }
             break;
-        case CasteSwitchStep.ChooseTileTo:
+        case CasteSwapStep.ChooseTileTo:
             switch (action) {
-                case SELECT_TILE_TO_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseCasteTo;
+                case SELECT_TILE_TO_FOR_SWAP:
+                    return CasteSwapStep.ChooseCasteTo;
             }
             break;
-        case CasteSwitchStep.ChooseCasteTo:
+        case CasteSwapStep.ChooseCasteTo:
             switch (action) {
-                case DESELECT_TILE_TO_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseTileTo;
-                case SELECT_CASTE_TO_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseToDone;
+                case DESELECT_TILE_TO_FOR_SWAP:
+                    return CasteSwapStep.ChooseTileTo;
+                case SELECT_CASTE_TO_FOR_SWAP:
+                    return CasteSwapStep.ChooseToDone;
             }
             break;
-        case CasteSwitchStep.ChooseToDone:
+        case CasteSwapStep.ChooseToDone:
             switch (action) {
-                case DESELECT_CASTE_TO_FOR_SWITCH:
-                    return CasteSwitchStep.ChooseCasteTo;
-                case SELECT_CASTE_TO_FOR_SWITCH:
+                case DESELECT_CASTE_TO_FOR_SWAP:
+                    return CasteSwapStep.ChooseCasteTo;
+                case SELECT_CASTE_TO_FOR_SWAP:
                     return step;
             }
             break;
@@ -151,7 +151,7 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
                 id: action.id,
             }
 
-        case SWITCH_COLORS:
+        case SWITCH_COLOR_MODE:
             const newColors = state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal;
             localStorageSet('colors', newColors);
 
@@ -168,8 +168,8 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             };
 
         case START_TILE_MOVE:
-        case START_CASTE_SWITCH:
-        case FINISH_CASTE_SWITCH:
+        case START_CASTE_SWAP:
+        case FINISH_CASTE_SWAP:
             return {
                 ...state,
                 step: getNextGameStep(state.step, action.type),
@@ -228,66 +228,66 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
                 },
             };
 
-        // Switch steps
-        case SELECT_TILE_FROM_FOR_SWITCH:
-        case DESELECT_TILE_FROM_FOR_SWITCH:
+        // Swap steps
+        case SELECT_TILE_FROM_FOR_SWAP:
+        case DESELECT_TILE_FROM_FOR_SWAP:
                 return {
                 ...state,
                 step: getNextGameStep(state.step, action.type),
                 selection: {
                     ...state.selection,
-                    switch: {
-                        ...state.selection.switch,
+                    swap: {
+                        ...state.selection.swap,
                         from: {
-                            ...state.selection.switch.from,
+                            ...state.selection.swap.from,
                             tile: action.tile,
                         },
                     },
                 },
             };
-        case SELECT_CASTE_FROM_FOR_SWITCH:
-        case DESELECT_CASTE_FROM_FOR_SWITCH:
+        case SELECT_CASTE_FROM_FOR_SWAP:
+        case DESELECT_CASTE_FROM_FOR_SWAP:
                 return {
                 ...state,
                 step: getNextGameStep(state.step, action.type),
                 selection: {
                     ...state.selection,
-                    switch: {
-                        ...state.selection.switch,
+                    swap: {
+                        ...state.selection.swap,
                         from: {
-                            ...state.selection.switch.from,
+                            ...state.selection.swap.from,
                             caste: action.caste,
                         },
                     },
                 },
             };
-        case SELECT_TILE_TO_FOR_SWITCH:
-        case DESELECT_TILE_TO_FOR_SWITCH:
+        case SELECT_TILE_TO_FOR_SWAP:
+        case DESELECT_TILE_TO_FOR_SWAP:
             return {
                 ...state,
                 step: getNextGameStep(state.step, action.type),
                 selection: {
                     ...state.selection,
-                    switch: {
-                        ...state.selection.switch,
+                    swap: {
+                        ...state.selection.swap,
                         to: {
-                            ...state.selection.switch.to,
+                            ...state.selection.swap.to,
                             tile: action.tile,
                         },
                     },
                 },
             };
-        case SELECT_CASTE_TO_FOR_SWITCH:
-        case DESELECT_CASTE_TO_FOR_SWITCH:
+        case SELECT_CASTE_TO_FOR_SWAP:
+        case DESELECT_CASTE_TO_FOR_SWAP:
                 return {
                 ...state,
                 step: getNextGameStep(state.step, action.type),
                 selection: {
                     ...state.selection,
-                    switch: {
-                        ...state.selection.switch,
+                    swap: {
+                        ...state.selection.swap,
                         to: {
-                            ...state.selection.switch.to,
+                            ...state.selection.swap.to,
                             caste: action.caste,
                         },
                     },

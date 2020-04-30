@@ -1,4 +1,4 @@
-import { SelectBoardTile, SELECT_BOARD_TILE, SelectHandTile, SELECT_HAND_TILE, DeselectBoardTile, DESELECT_BOARD_TILE, DeselectHandTile, DESELECT_HAND_TILE, StartCasteSwitch, START_CASTE_SWITCH, SelectTileFromForSwitch, SELECT_TILE_FROM_FOR_SWITCH, SelectCasteFromForSwitch, SELECT_CASTE_FROM_FOR_SWITCH, SelectTileToForSwitch, SELECT_TILE_TO_FOR_SWITCH, SelectCasteToForSwitch, SELECT_CASTE_TO_FOR_SWITCH, DeselectTileFromForSwitch, DESELECT_TILE_FROM_FOR_SWITCH, DeselectTileToForSwitch, DESELECT_TILE_TO_FOR_SWITCH, DeselectCasteToForSwitch, DESELECT_CASTE_TO_FOR_SWITCH, SelectBoardTileToMoveTo, SELECT_BOARD_TILE_TO_MOVE_TO, SelectBoardTileToMoveFrom, SELECT_BOARD_TILE_TO_MOVE_FROM, DeselectCasteFromForSwitch, DESELECT_CASTE_FROM_FOR_SWITCH, END_TURN, EndTurn, FINISH_CASTE_SWITCH, FinishCasteSwitch, StartTileMove, START_TILE_MOVE, SwitchColors, SWITCH_COLORS, SetGameId, SET_GAME_ID, ResetGameId, RESET_GAME_ID } from '../types/ActionTypes';
+import { SelectBoardTile, SELECT_BOARD_TILE, SelectHandTile, SELECT_HAND_TILE, DeselectBoardTile, DESELECT_BOARD_TILE, DeselectHandTile, DESELECT_HAND_TILE, StartCasteSwap, START_CASTE_SWAP, SelectTileFromForSwap, SELECT_TILE_FROM_FOR_SWAP, SelectCasteFromForSwap, SELECT_CASTE_FROM_FOR_SWAP, SelectTileToForSwap, SELECT_TILE_TO_FOR_SWAP, SelectCasteToForSwap, SELECT_CASTE_TO_FOR_SWAP, DeselectTileFromForSwap, DESELECT_TILE_FROM_FOR_SWAP, DeselectTileToForSwap, DESELECT_TILE_TO_FOR_SWAP, DeselectCasteToForSwap, DESELECT_CASTE_TO_FOR_SWAP, SelectBoardTileToMoveTo, SELECT_BOARD_TILE_TO_MOVE_TO, SelectBoardTileToMoveFrom, SELECT_BOARD_TILE_TO_MOVE_FROM, DeselectCasteFromForSwap, DESELECT_CASTE_FROM_FOR_SWAP, END_TURN, EndTurn, FINISH_CASTE_SWAP, FinishCasteSwap, StartTileMove, START_TILE_MOVE, SwitchColorMode, SWITCH_COLOR_MODE, SetGameId, SET_GAME_ID, ResetGameId, RESET_GAME_ID } from '../types/ActionTypes';
 import { Caste } from '../types/GameTypes';
 
 
@@ -16,8 +16,8 @@ export const endTurn: EndTurn = {
     type: END_TURN,
 };
 
-export const switchColors: SwitchColors = {
-    type: SWITCH_COLORS,
+export const switchColorMode: SwitchColorMode = {
+    type: SWITCH_COLOR_MODE,
 };
 
 
@@ -45,52 +45,52 @@ export const deselectHandTile: DeselectHandTile = {
 
 
 
-// Caste switch
-export const startCasteSwitch: StartCasteSwitch = {
-    type: START_CASTE_SWITCH,
+// Caste swap
+export const startCasteSwap: StartCasteSwap = {
+    type: START_CASTE_SWAP,
 };
 
-export const finishCasteSwitch: FinishCasteSwitch = {
-    type: FINISH_CASTE_SWITCH,
+export const finishCasteSwap: FinishCasteSwap = {
+    type: FINISH_CASTE_SWAP,
 };
 
-export const selectTileFromForSwitch = (tile: number): SelectTileFromForSwitch => ({
-    type: SELECT_TILE_FROM_FOR_SWITCH,
+export const selectTileFromForSwap = (tile: number): SelectTileFromForSwap => ({
+    type: SELECT_TILE_FROM_FOR_SWAP,
     tile,
 });
 
-export const deselectTileFromForSwitch: DeselectTileFromForSwitch = {
-    type: DESELECT_TILE_FROM_FOR_SWITCH,
+export const deselectTileFromForSwap: DeselectTileFromForSwap = {
+    type: DESELECT_TILE_FROM_FOR_SWAP,
     tile: -1,
 };
 
-export const selectCasteFromForSwitch = (caste: Caste): SelectCasteFromForSwitch => ({
-    type: SELECT_CASTE_FROM_FOR_SWITCH,
+export const selectCasteFromForSwap = (caste: Caste): SelectCasteFromForSwap => ({
+    type: SELECT_CASTE_FROM_FOR_SWAP,
     caste,
 });
 
-export const deselectCasteFromForSwitch: DeselectCasteFromForSwitch = {
-    type: DESELECT_CASTE_FROM_FOR_SWITCH,
+export const deselectCasteFromForSwap: DeselectCasteFromForSwap = {
+    type: DESELECT_CASTE_FROM_FOR_SWAP,
     caste: Caste.Unknown,
 };
 
-export const selectTileToForSwitch = (tile: number): SelectTileToForSwitch => ({
-    type: SELECT_TILE_TO_FOR_SWITCH,
+export const selectTileToForSwap = (tile: number): SelectTileToForSwap => ({
+    type: SELECT_TILE_TO_FOR_SWAP,
     tile,
 });
 
-export const deselectTileToForSwitch: DeselectTileToForSwitch = {
-    type: DESELECT_TILE_TO_FOR_SWITCH,
+export const deselectTileToForSwap: DeselectTileToForSwap = {
+    type: DESELECT_TILE_TO_FOR_SWAP,
     tile: -1,
 };
 
-export const selectCasteToForSwitch = (caste: Caste): SelectCasteToForSwitch => ({
-    type: SELECT_CASTE_TO_FOR_SWITCH,
+export const selectCasteToForSwap = (caste: Caste): SelectCasteToForSwap => ({
+    type: SELECT_CASTE_TO_FOR_SWAP,
     caste,
 });
 
-export const deselectCasteToForSwitch: DeselectCasteToForSwitch = {
-    type: DESELECT_CASTE_TO_FOR_SWITCH,
+export const deselectCasteToForSwap: DeselectCasteToForSwap = {
+    type: DESELECT_CASTE_TO_FOR_SWAP,
     caste: Caste.Unknown,
 };
 

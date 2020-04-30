@@ -39,7 +39,7 @@ const TileIcon: React.FC<Props> = (props) => {
             return (<HorseIcon {...iconProps} />);
         case Figure.Ship:
             return (<ShipIcon {...iconProps} />);
-        case Action.Switch:
+        case Action.Swap:
             return (<ExchangeIcon {...iconProps} />);
         case Action.Move:
             return (<ExchangeIcon {...iconProps} />);

@@ -27,12 +27,12 @@ class Hand extends React.Component<Props, {}> {
             const { type } = tile;
 
             const isMove = type === Action.Move;
-            const isSwitch = type === Action.Switch;
+            const isSwap = type === Action.Swap;
             const isShip = type === Figure.Ship;
 
             switch (dialog) {
                 case DialogType.TileChoice:
-                    return !isMove && !isSwitch && (isWaterTileSelected === isShip);
+                    return !isMove && !isSwap && (isWaterTileSelected === isShip);
                 default:
                     return false;
         }

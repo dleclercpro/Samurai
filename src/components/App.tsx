@@ -5,10 +5,10 @@ import { AppAction } from '../actions';
 import { connect } from 'react-redux';
 import FULL_HAND from '../data/FullHand.json';
 import DialogGameOver from './dialogs/DialogGameOver';
-import DialogCasteSwitchStart from './dialogs/DialogCasteSwitchStart';
+import DialogCasteSwapStart from './dialogs/DialogCasteSwapStart';
 import { loadFullHand } from '../actions/DataActions';
 import DialogCasteChoice from './dialogs/DialogCasteChoice';
-import DialogCasteSwitchEnd from './dialogs/DialogCasteSwitchEnd';
+import DialogCasteSwapEnd from './dialogs/DialogCasteSwapEnd';
 import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
 import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
 import { AppState } from '../types/StateTypes';
@@ -76,8 +76,8 @@ class App extends React.Component<Props, {}> {
                     <DialogCasteChoice />
                     <DialogTileMoveStart />
                     <DialogTileMoveEnd />
-                    <DialogCasteSwitchStart />
-                    <DialogCasteSwitchEnd />
+                    <DialogCasteSwapStart />
+                    <DialogCasteSwapEnd />
                 </section>
 
                 <section id='forms'>

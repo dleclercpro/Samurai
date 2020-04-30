@@ -7,7 +7,7 @@ import { AppState } from '../../types/StateTypes';
 import { AppAction } from '../../actions';
 import { selectBoardTileToMoveFrom } from '../../actions/GameActions';
 import HandTileContent from './HandTileContent';
-import { SWITCHABLE_CASTES } from '../../constants';
+import { SWAPABLE_CASTES } from '../../constants';
 
 interface OwnProps {
     handTileId: number,
@@ -79,7 +79,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { step, selection } = state.game;
 
     const isMine = self.playedTiles.get(boardTileId) === handTileId;
-    const isMovable = SWITCHABLE_CASTES.some(tileType => type === tileType);
+    const isMovable = SWAPABLE_CASTES.some(tileType => type === tileType);
 
     // Playability
     let isPlayable = false;

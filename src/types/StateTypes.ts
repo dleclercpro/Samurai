@@ -10,12 +10,12 @@ interface MoveState {
     to: number,
 }
 
-interface SwitchState {
-    from: SwitchPartialState,
-    to: SwitchPartialState,
+interface SwapState {
+    from: SwapPartialState,
+    to: SwapPartialState,
 }
 
-export interface SwitchPartialState {
+export interface SwapPartialState {
     tile: number,
     caste: Caste,
 }
@@ -26,7 +26,7 @@ export interface GameState {
     selection: {
         play: PlayState,
         move: MoveState,
-        switch: SwitchState,
+        swap: SwapState,
     },
     colors: ColorMode,
 }

@@ -22,7 +22,7 @@ export enum Figure {
 }
 
 export enum Action {
-    Switch = 'Switch',
+    Swap = 'Swap',
     Move = 'Move',
     Replay = 'Replay',
     Unknown = 'Unknown',
@@ -37,7 +37,7 @@ export interface BoardTile {
     castes: Caste[],
     isCity: boolean,
     isWater: boolean,
-    isSwitch: boolean,
+    isSwap: boolean,
 }
 
 export interface HandTile {
@@ -76,7 +76,7 @@ export enum ColorMode {
 
 export type PlayerScore = Map<Caste, number>;
 
-export interface CasteSwitch {
+export interface CasteSwap {
     from: {
         tile: number,
         caste: Caste,
@@ -104,16 +104,16 @@ export enum TileMoveStep {
     Done = 'TileMove | Done',
 }
 
-export enum CasteSwitchStep {
-    ChooseTileFrom = 'CasteSwitch | ChooseTileFrom',
-    ChooseCasteFrom = 'CasteSwitch | ChooseCasteFrom',
-    ChooseFromDone = 'CasteSwitch | ChooseFromDone',
-    ChooseTileTo = 'CasteSwitch | ChooseTileTo',
-    ChooseCasteTo = 'CasteSwitch | ChooseCasteTo',
-    ChooseToDone = 'CasteSwitch | ChooseToDone',
+export enum CasteSwapStep {
+    ChooseTileFrom = 'CasteSwap | ChooseTileFrom',
+    ChooseCasteFrom = 'CasteSwap | ChooseCasteFrom',
+    ChooseFromDone = 'CasteSwap | ChooseFromDone',
+    ChooseTileTo = 'CasteSwap | ChooseTileTo',
+    ChooseCasteTo = 'CasteSwap | ChooseCasteTo',
+    ChooseToDone = 'CasteSwap | ChooseToDone',
 }
 
 export type GameStep =
     TilePlayStep |
     TileMoveStep |
-    CasteSwitchStep;
+    CasteSwapStep;

@@ -61,13 +61,13 @@ class HandTileContent extends React.Component<Props, State> {
         );
     }
 
-    getSwitch = () => {
+    getSwap = () => {
         const { width, height } = TILE_SIZE;
         
         const iconSize = { width: width / 4, height: height / 4 };
         
-        const switchIconPosition = getPositionInHexagon(0, 1, TILE_SIZE);
-        switchIconPosition.y += iconSize.height / 4;
+        const swapIconPosition = getPositionInHexagon(0, 1, TILE_SIZE);
+        swapIconPosition.y += iconSize.height / 4;
     
         return (
             <React.Fragment>
@@ -75,7 +75,7 @@ class HandTileContent extends React.Component<Props, State> {
                 <TileIcon position={getPositionInHexagon(0, 4, TILE_SIZE)} size={iconSize} type={Caste.Military} />
                 <TileIcon position={getPositionInHexagon(1, 4, TILE_SIZE)} size={iconSize} type={Caste.Religion} />
                 <TileIcon position={getPositionInHexagon(2, 4, TILE_SIZE)} size={iconSize} type={Caste.Commerce} />
-                <TileIcon position={switchIconPosition} size={iconSize} type={Action.Move} />
+                <TileIcon position={swapIconPosition} size={iconSize} type={Action.Move} />
             </React.Fragment>
         );
     }
@@ -89,7 +89,7 @@ class HandTileContent extends React.Component<Props, State> {
         const replayIconSize = { width: width / 8, height: height / 8 };
     
         const isMove = type === Action.Move;
-        const isSwitch = type === Action.Switch;
+        const isSwap = type === Action.Swap;
         const isShip = type === Figure.Ship;
 
         return (
@@ -101,14 +101,14 @@ class HandTileContent extends React.Component<Props, State> {
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
                     ${isMove ? 'is-move' : ''}
-                    ${isSwitch ? 'is-switch' : ''}
+                    ${isSwap ? 'is-swap' : ''}
                     ${isShip ? 'is-ship' : ''}
                 `}
                 viewBox={`0 0 ${width} ${height}`}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
-                {isSwitch ? this.getSwitch() : this.getNormal()}
+                {isSwap ? this.getSwap() : this.getNormal()}
                 {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
             </g>
         );
