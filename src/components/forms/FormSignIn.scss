@@ -1,10 +1,10 @@
-@import 'config';
+@import 'styles';
 
 #form-sign-in {
 
     > .fields {
 
-        @include mq(width, desktop) {
+        @include mq(width, tabletXL) {
             width: 500px;
         }
 

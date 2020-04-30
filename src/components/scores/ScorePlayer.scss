@@ -1,51 +1,78 @@
-@import 'config';
+@import 'styles';
 
 .score-player {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 25%; // FIXME: when less than 4 players in game
-    opacity: 0.25;
+    position: relative;
+
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
 
     &.is-playing {
-        opacity: 1;
+
+        &:after {
+            animation: flash 1s infinite;
+        }
+    }
+
+    &.is-red {
+
+        &:after {
+            background: $color-red;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-red;
+        }
+    }
+
+    &.is-purple {
+
+        &:after {
+            background: $color-purple;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-purple;
+        }
+    }
+
+    &.is-orange {
+
+        &:after {
+            background: $color-orange;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-orange;
+        }
+    }
+
+    &.is-green {
+
+        &:after {
+            background: $color-green;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-green;
+        }
     }
 
     &:not(:last-child) {
         @include mq(width, tablet) {
             margin-right: 30px;
-        }
-    }
-
-    &.is-red > .username {
-        color: $color-red;
-
-        .is-colorblind & {
-            color: $color-blind-red;
-        }
-    }
-
-    &.is-purple > .username {
-        color: $color-purple;
-
-        .is-colorblind & {
-            color: $color-blind-purple;
-        }
-    }
-
-    &.is-orange > .username {
-        color: $color-orange;
-
-        .is-colorblind & {
-            color: $color-blind-orange;
-        }
-    }
-
-    &.is-green > .username {
-        color: $color-green;
-
-        .is-colorblind & {
-            color: $color-blind-green;
         }
     }
 
@@ -81,5 +108,15 @@
                 }
             }
         }
+    }
+}
+
+@keyframes flash {
+    0% {
+    }
+    50% {
+        background: $color-white;
+    }
+    100% {
     }
 }

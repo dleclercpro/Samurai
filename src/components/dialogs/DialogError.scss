@@ -1,8 +1,8 @@
-@import 'config';
+@import 'styles';
 
 #dialog--error {
 
-    > .text {
+    .text {
 
         > .explanation {
             color: $color-dark-red;
