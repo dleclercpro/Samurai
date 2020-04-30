@@ -84,7 +84,7 @@ class Game extends React.Component<Props, State> {
                     .catch(() => {
                         this.stopPolling();
                     });
-            }, REFRESH_RATE * 100),
+            }, REFRESH_RATE),
         });
     }
 
