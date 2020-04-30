@@ -1,7 +1,5 @@
 import { Caste, Figure } from "./types/GameTypes";
 
-export const MIN_IN_MS = 60 * 1000;
-
 export const KEY_ENTER_ID = 13;
 export const KEY_ESC_ID = 27;
 

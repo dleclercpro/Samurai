@@ -8,9 +8,9 @@ import { setGameId, resetGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { MIN_IN_MS } from '../constants';
 import SpinnerOverlay from './overlays/SpinnerOverlay';
 import Dash from './buttons/Dash';
+import { REFRESH_RATE } from '../config';
 
 interface OwnProps {
     routeId: number,
@@ -84,7 +84,7 @@ class Game extends React.Component<Props, State> {
                     .catch(() => {
                         this.stopPolling();
                     });
-            }, MIN_IN_MS / 2),
+            }, REFRESH_RATE),
         });
     }
 
