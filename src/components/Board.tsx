@@ -6,15 +6,15 @@ import './Board.scss';
 import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Player, HandTileMap } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 import PlayedTileComponent from './tiles/PlayedTileComponent';
-import { getBusyBoardTileIds } from '../selectors';
-import PatternEmpty from './tiles/PatternEmpty';
+import { getTakenBoardTileIds } from '../selectors';
+import TileEmptyPattern from './tiles/TileEmptyPattern';
 
 interface StateProps {
     player: Player,
     opponents: Player[],
     tiles: BoardTileMap,
     fullHand: HandTileMap,
-    busyTileIds: number[],
+    takenTileIds: number[],
 }
 
 type Props = StateProps;
@@ -105,14 +105,14 @@ class Board extends React.Component<Props, State> {
     }
 
     getBoardTileNodes = (): ReactNode[] => {
-        const { tiles, busyTileIds } = this.props;
+        const { tiles, takenTileIds } = this.props;
         
         let waterTiles: BoardTile[] = [];
         let groundTiles: BoardTile[] = [];
 
         // Remove board tiles on which a tile was played
         const freeBoardTiles = Array.from(tiles.values()).filter((tile: BoardTile) => {
-            return !busyTileIds.includes(tile.id)
+            return !takenTileIds.includes(tile.id)
         });
 
         // Differenciation between ground and water tiles
@@ -123,7 +123,7 @@ class Board extends React.Component<Props, State> {
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
         return waterTiles.concat(groundTiles).map((tile: BoardTile) => {
-            const { id, coordinates, castes, isCity, isWater } = tile;
+            const { id, coordinates, castes, isCity, isWater, isSwitch } = tile;
             const position = this.getTilePosition(coordinates);
 
             return (
@@ -134,6 +134,7 @@ class Board extends React.Component<Props, State> {
                     castes={castes}
                     isCity={isCity}
                     isWater={isWater}
+                    isSwitch={isSwitch}
                 />
             );
         });
@@ -145,8 +146,8 @@ class Board extends React.Component<Props, State> {
         return (
             <div id='board-wrapper'>
                 <svg id='board' viewBox={`0 0 ${width} ${height}`}>
-                    <PatternEmpty />
-                    <g id='board-tiles' transform={`rotate(${BOARD_ROTATION})`}>
+                    <TileEmptyPattern />
+                    <g id='tiles' transform={`rotate(${BOARD_ROTATION})`}>
                         {this.getBoardTileNodes()}
                         {this.getPlayedTileNodes()}
                     </g>
@@ -165,7 +166,7 @@ const mapStateToProps = (state: AppState) => {
         fullHand,
         player: self,
         opponents,
-        busyTileIds: getBusyBoardTileIds(state.players),
+        takenTileIds: getTakenBoardTileIds(state.players),
     };
 };
 

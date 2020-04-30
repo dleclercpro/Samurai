@@ -65,19 +65,21 @@ class Dialog extends React.Component<Props, State> {
 
     handleEnterPress = (e: KeyboardEvent) => {
         const { isActionButtonActive } = this.props;
+        const { isLoading } = this.state;
         
         // Pressing on enter inside dialog is the same as
         // pressing on action button
-        if (e.keyCode === KEY_ENTER_ID && isActionButtonActive) {
+        if (!isLoading && e.keyCode === KEY_ENTER_ID && isActionButtonActive) {
             this.handleAction();
         }
     }
 
     handleEscPress = (e: KeyboardEvent) => {
+        const { isLoading } = this.state;
         
         // Pressing on escape inside dialog is the same as
         // pressing on cancel button
-        if (e.keyCode === KEY_ESC_ID) {
+        if (!isLoading && e.keyCode === KEY_ESC_ID) {
             this.handleCancel();
         }
     }

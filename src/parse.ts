@@ -1,4 +1,4 @@
-import { BoardJSON, TileJSON, HandTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
+import { BoardJSON, BoardTileJSON, HandBoardTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
 import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
@@ -6,8 +6,8 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const tiles: BoardTileMap = new Map();
 
     // Build tile map
-    rawTiles.forEach((rawTile: TileJSON) => {
-        const { id, coordinates, castes, isCity, isWater } = rawTile;
+    rawTiles.forEach((rawTile: BoardTileJSON) => {
+        const { id, coordinates, castes, isCity, isWater, isSwitch } = rawTile;
         
         if (tiles.has(id)) {
             console.warn('Trying to add same tile twice.');
@@ -21,6 +21,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
             castes: castes.map(caste => parseCaste(caste)),
             isCity,
             isWater,
+            isSwitch,
         });
     });
 
@@ -121,7 +122,7 @@ export const parsePlayer = (data: PlayerJSON): Player => {
     }
 }
 
-export const parseHandTile = (data: HandTileJSON): HandTile => {
+export const parseHandTile = (data: HandBoardTileJSON): HandTile => {
     const { id, type, strength, canReplay } = data;
     
     return {
@@ -144,7 +145,7 @@ export const parsePlayedTiles = (data: PlayedTilesJSON): Map<number, number> => 
     return playedTiles;
 }
 
-export const parseFullHand = (data: HandTileJSON[]): HandTileMap => {
+export const parseFullHand = (data: HandBoardTileJSON[]): HandTileMap => {
     const hand = new Map<number, HandTile>();
 
     data.forEach(tile => {

@@ -1,4 +1,4 @@
-import { BoardJSON, HandTileJSON } from '../types/ServerTypes';
+import { BoardJSON, HandBoardTileJSON } from '../types/ServerTypes';
 import { LoadBoard, LOAD_BOARD, LoadFullHand, LOAD_FULL_HAND } from '../types/ActionTypes';
 
 export const loadBoard = (data: BoardJSON): LoadBoard => ({
@@ -6,7 +6,7 @@ export const loadBoard = (data: BoardJSON): LoadBoard => ({
     data,
 });
 
-export const loadFullHand = (data: HandTileJSON[]): LoadFullHand => ({
+export const loadFullHand = (data: HandBoardTileJSON[]): LoadFullHand => ({
     type: LOAD_FULL_HAND,
     data,
 });

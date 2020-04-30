@@ -11,16 +11,17 @@ export interface UserJSON {
     email: string,
 }
 
-export interface TileJSON {
+export interface BoardTileJSON {
     id: number,
     coordinates: Coordinates2D,
     castes: string[],
     isCity: boolean,
     isWater: boolean,
+    isSwitch: boolean,
 }
 
 export interface BoardJSON {
-    [section: string]: TileJSON[],
+    [section: string]: BoardTileJSON[],
 }
 
 export type HandJSON = number[];
@@ -29,7 +30,7 @@ export type PlayedTilesJSON = {
     [id: string]: number | undefined,
 };
 
-export interface HandTileJSON {
+export interface HandBoardTileJSON {
     id: number,
     type: string,
     strength: number,

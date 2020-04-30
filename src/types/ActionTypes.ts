@@ -1,4 +1,4 @@
-import { BoardJSON, HandTileJSON, PlayerJSON } from './ServerTypes';
+import { BoardJSON, HandBoardTileJSON, PlayerJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
 import { Caste } from './GameTypes';
 import { AppAction } from '../actions';
@@ -21,7 +21,7 @@ export interface LoadBoard {
 export const LOAD_FULL_HAND = 'LOAD_FULL_HAND';
 export interface LoadFullHand {
     type: typeof LOAD_FULL_HAND,
-    data: HandTileJSON[],
+    data: HandBoardTileJSON[],
 }
 
 

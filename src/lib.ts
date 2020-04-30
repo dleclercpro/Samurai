@@ -1,6 +1,6 @@
 import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile, PlayerColor } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
-import { HandTileJSON } from './types/ServerTypes';
+import { HandBoardTileJSON } from './types/ServerTypes';
 
 export const hasLocalStore = () => {
     return typeof(Storage) !== 'undefined';
@@ -15,7 +15,7 @@ export const localStorageSet = (key: string, value: string) => {
 export const localStorageGet = (key: string): string => {
     if (hasLocalStore()) {
         const value = localStorage.getItem(key);
-        
+
         return value !== null ? value : '';
     }
     
@@ -135,7 +135,7 @@ export const getFormPayload = (fields: FormFields): FormPayload => {
     }, {});
 }
 
-export const getRandomHand = (fullHand: HandTileJSON[]) => {
+export const getRandomHand = (fullHand: HandBoardTileJSON[]) => {
     const randomIndexes = new Set<number>();
     const handSize = 5;
 

@@ -11,7 +11,7 @@
     }
 
     &.is-empty-city {
-        fill: url(#pattern-empty);
+        fill: url(#tile-empty-pattern);
     }
 
     &.is-water {
@@ -86,10 +86,15 @@
         }
     }
 
-    .is-switch &,
-    .is-move & {
+    .is-move &,
+    .hand-tile-content.is-switch & {
         fill: $color-dark-grey !important;
         stroke: $color-black !important;
+    }
+
+    .board-tile-component.is-switch & {
+        fill: $color-white !important;
+        stroke: $color-light-grey !important;
     }
 
     .is-ship & {
@@ -138,10 +143,10 @@
         }
     }
 
-    .is-playable.is-hovered.is-switch &,
     .is-playable.is-hovered.is-move &,
-    .is-selected.is-switch &,
-    .is-selected.is-move & {
+    .is-selected.is-move &,
+    .hand-tile-component .is-playable.is-hovered.is-switch &,
+    .hand-tile-component .is-selected.is-switch & {
         fill: $color-grey !important;
     }
 

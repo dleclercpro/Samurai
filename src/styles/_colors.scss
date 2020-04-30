@@ -28,7 +28,6 @@ $color-dark-ground: darken($color: $color-ground, $amount: 15);
 $color-blind-dark-water: darken($color: $color-blind-water, $amount: 15);
 $color-blind-dark-ground: darken($color: $color-blind-ground, $amount: 15);
 
-$color-dark-grey: darken($color: $color-grey, $amount: 15);
 $color-dark-red: darken($color: $color-red, $amount: 40);
 $color-dark-purple: darken($color: $color-purple, $amount: 40);
 $color-dark-orange: darken($color: $color-orange, $amount: 40);
@@ -41,4 +40,5 @@ $color-blind-dark-orange: darken($color: $color-blind-orange, $amount: 30);
 $color-blind-dark-green: darken($color: $color-blind-green, $amount: 30);
 $color-blind-dark-blue: darken($color: $color-blind-blue, $amount: 30);
 
+$color-dark-grey: darken($color: $color-grey, $amount: 15);
 $color-light-grey: lighten($color: $color-grey, $amount: 60);

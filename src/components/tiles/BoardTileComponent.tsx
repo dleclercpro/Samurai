@@ -19,6 +19,7 @@ interface OwnProps {
     castes: Caste[],
     isCity: boolean,
     isWater: boolean,
+    isSwitch: boolean,
 }
 
 interface StateProps {
@@ -93,7 +94,7 @@ class BoardTileComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { position, castes, isCity, isWater, isPlayable, isSelected } = this.props;
+        const { position, castes, isCity, isWater, isPlayable, isSelected, isSwitch } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
@@ -107,6 +108,7 @@ class BoardTileComponent extends React.Component<Props, State> {
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
+                    ${isSwitch ? 'is-switch' : ''}
                 `}
                 transform={`translate(${position.x},${position.y})`}
                 onClick={this.handleClick}
@@ -144,7 +146,7 @@ class BoardTileComponent extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { id, castes, isCity, isWater } = ownProps;
+    const { id, castes, isCity, isWater, isSwitch } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
     
@@ -161,14 +163,14 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 
     switch (step) {
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isSelectedForPlay && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
+            isPlayable = self.isPlaying && !isSelectedForPlay && !isSwitch && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
             break;
         case CasteSwitchStep.ChooseTileFrom:
         case CasteSwitchStep.ChooseTileTo:
-            isPlayable = self.isPlaying && !isSelectedForSwitch && isCity && hasCastes;
+            isPlayable = self.isPlaying && !isSelectedForSwitch && !isSwitch && isCity && hasCastes;
             break;
         case TileMoveStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isSelectedForMove && !isCity && !isWater;
+            isPlayable = self.isPlaying && !isSelectedForMove && !isSwitch && !isCity && !isWater;
             break;
     }
 

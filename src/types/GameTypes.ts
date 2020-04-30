@@ -37,6 +37,7 @@ export interface BoardTile {
     castes: Caste[],
     isCity: boolean,
     isWater: boolean,
+    isSwitch: boolean,
 }
 
 export interface HandTile {

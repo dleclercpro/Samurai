@@ -19,7 +19,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../pages/Home';
 import Game from './Game';
-import { HandTileJSON } from '../types/ServerTypes';
+import { HandBoardTileJSON } from '../types/ServerTypes';
 import FormSignIn from './forms/FormSignIn';
 import FormSignUp from './forms/FormSignUp';
 import FormPlayGame from './forms/FormPlayGame';
@@ -33,7 +33,7 @@ interface StateProps {
 
 interface DispatchProps {
     verifyAuthentication: () => Promise<void>,
-    loadFullHand: (data: HandTileJSON[]) => void,
+    loadFullHand: (data: HandBoardTileJSON[]) => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -97,7 +97,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     verifyAuthentication: () => dispatch(verifyAuthentication()),
-    loadFullHand: (data: HandTileJSON[]) => dispatch(loadFullHand(data)),
+    loadFullHand: (data: HandBoardTileJSON[]) => dispatch(loadFullHand(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

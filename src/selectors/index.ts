@@ -12,7 +12,7 @@ export const getHandTiles = (state: AppState): HandTile[] => {
     )).filter(notUndefined);
 }
 
-export const getBusyBoardTileIds = (state: PlayersState): number[] => {
+export const getTakenBoardTileIds = (state: PlayersState): number[] => {
     const { self, opponents } = state;
     const players = opponents.concat(self);
     
