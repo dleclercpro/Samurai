@@ -2,6 +2,26 @@ import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile
 import { FormFields, FormPayload } from './types/FormTypes';
 import { HandTileJSON } from './types/ServerTypes';
 
+export const hasLocalStore = () => {
+    return typeof(Storage) !== 'undefined';
+}
+
+export const localStorageSet = (key: string, value: string) => {
+    if (hasLocalStore()) {
+        localStorage.setItem(key, value);
+    }
+}
+
+export const localStorageGet = (key: string): string => {
+    if (hasLocalStore()) {
+        const value = localStorage.getItem(key);
+        
+        return value !== null ? value : '';
+    }
+    
+    return '';
+}
+
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
     const innerWidth = width - stroke;

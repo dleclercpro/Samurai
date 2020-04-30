@@ -2,6 +2,7 @@ import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
 import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWITCH, DESELECT_TILE_FROM_FOR_SWITCH, SELECT_CASTE_FROM_FOR_SWITCH, SELECT_TILE_TO_FOR_SWITCH, DESELECT_TILE_TO_FOR_SWITCH, SELECT_CASTE_TO_FOR_SWITCH, DESELECT_CASTE_TO_FOR_SWITCH, END_TURN, START_CASTE_SWITCH, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWITCH, FINISH_CASTE_SWITCH, SWITCH_COLORS, SET_GAME_ID, RESET_GAME_ID } from '../types/ActionTypes';
 import { Caste, TilePlayStep, CasteSwitchStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
+import { localStorageGet, localStorageSet } from '../lib';
 
 const initPlayState = {
     boardTile: -1,
@@ -33,7 +34,7 @@ const initState = {
     id: -1,
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
-    colors: ColorMode.Normal,
+    colors: localStorageGet('colors') as ColorMode || ColorMode.Normal,
 };
 
 const getNextGameStep = (step: GameStep, action: string): GameStep => {
@@ -151,9 +152,12 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             }
 
         case SWITCH_COLORS:
+            const newColors = state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal;
+            localStorageSet('colors', newColors);
+
             return {
                 ...state,
-                colors: state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal,
+                colors: newColors,
             };
 
         case END_TURN:
