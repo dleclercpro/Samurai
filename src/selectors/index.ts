@@ -37,17 +37,19 @@ export const getHighestScores = (state: PlayersState): PlayerScore => {
     const highestScores = new Map();
 
     CASTES.forEach((caste: Caste) => {
-        let highestScore = -1;
+        let highestScore = 0;
 
         opponents.concat(self).forEach((player: Player) => {
             const score = player.score.get(caste);
 
-            if (score !== undefined && score > 0) {
-                if (score > highestScore) {
-                    highestScore = score;
-                } else if (score === highestScore) {
-                    highestScore = -1;
-                }
+            if (score === undefined) {
+                return;
+            }
+
+            if (score > highestScore) {
+                highestScore = score;
+            } else if (score === highestScore) {
+                highestScore += 1;
             }
         });
 
