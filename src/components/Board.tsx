@@ -172,7 +172,7 @@ const mapStateToProps = (state: AppState) => {
         player: self,
         opponents,
         busyBoardTileIds: getBusyBoardTileIds(state.players),
-    }
+    };
 };
 
 export default connect(mapStateToProps, () => ({}))(Board);

@@ -38,7 +38,7 @@ class Grid extends React.Component<Props, {}> {
 const mapStateToProps = (state: AppState) => {
     return {
         tiles: getHandTiles(state),
-    }
+    };
 };
 
 export default connect(mapStateToProps, () => ({}))(Grid);

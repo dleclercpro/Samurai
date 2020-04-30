@@ -105,7 +105,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppAction>, ownProps: OwnProps) =
         selectCasteToForSwitch: () => dispatch(selectCasteToForSwitch(caste)),
         deselectCasteFromForSwitch: () => dispatch(deselectCasteFromForSwitch),
         deselectCasteToForSwitch: () => dispatch(deselectCasteToForSwitch),
-    }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CasteComponent);
