@@ -16,7 +16,7 @@ const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.'
 
 const ERROR_PASSWORD = 'Your password needs at least eight characters, ' +
     'one uppercase letter, one lowercase letter, one number and ' +
-    'one special character.';
+    'one special character (@$!%*?&).';
 
 const ERROR_REPEATED_PASSWORD = "Your passwords don't match!";
 
