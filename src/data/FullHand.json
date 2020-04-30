@@ -109,7 +109,7 @@
     },
     {
         "id": 18,
-        "type": "Switch",
+        "type": "Swap",
         "strength": 0,
         "canReplay": true
     },

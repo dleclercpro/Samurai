@@ -75,7 +75,7 @@ class HandTileContent extends React.Component<Props, State> {
                 <TileIcon position={getPositionInHexagon(0, 4, TILE_SIZE)} size={iconSize} type={Caste.Military} />
                 <TileIcon position={getPositionInHexagon(1, 4, TILE_SIZE)} size={iconSize} type={Caste.Religion} />
                 <TileIcon position={getPositionInHexagon(2, 4, TILE_SIZE)} size={iconSize} type={Caste.Commerce} />
-                <TileIcon position={swapIconPosition} size={iconSize} type={Action.Move} />
+                <TileIcon position={swapIconPosition} size={iconSize} type={Action.Swap} />
             </React.Fragment>
         );
     }
