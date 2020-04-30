@@ -13,11 +13,6 @@ import { AppState } from '../../types/StateTypes';
 import Dialog from '../dialogs/Dialog';
 
 const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.';
-
-const ERROR_PASSWORD = 'Your password needs at least eight characters, ' +
-    'one uppercase letter, one lowercase letter, one number and ' +
-    'one special character (@$!%*?&).';
-
 const ERROR_REPEATED_PASSWORD = "Your passwords don't match!";
 
 const INIT_STATE = {
@@ -64,18 +59,6 @@ class FormSignUp extends React.Component<Props, State> {
     isEmailValid = (email: string): boolean => {
         return /\S+@\S+\.\S+/.test(email);
     }
-    
-    /**
-     * Password has to have at least:
-     * - 8 characters
-     * - 1 uppercase letter
-     * - 1 lowercase letter
-     * - 1 number
-     * - 1 special character
-     */
-    isPasswordValid = (password: string): boolean => {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
-    }
 
     isRepeatedPasswordValid = (password: string): boolean => {
         return password === this.state.fields.password.value;
@@ -85,8 +68,6 @@ class FormSignUp extends React.Component<Props, State> {
         switch (field) {
             case 'email':
                 return ERROR_EMAIL;
-            case 'password':
-                return ERROR_PASSWORD;
             case 'repeatedPassword':
                 return ERROR_REPEATED_PASSWORD;
             default:
@@ -176,7 +157,7 @@ class FormSignUp extends React.Component<Props, State> {
                         type='password'
                         name='password'
                         label='Password'
-                        onChange={(e) => { this.handleChange(e, this.isPasswordValid) }}
+                        onChange={(e) => { this.handleChange(e) }}
                         value={password.value}
                         error={password.error}
                     />
