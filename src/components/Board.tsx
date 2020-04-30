@@ -14,7 +14,7 @@ interface StateProps {
     opponents: Player[],
     tiles: BoardTileMap,
     fullHand: HandTileMap,
-    busyBoardTileIds: number[],
+    busyTileIds: number[],
 }
 
 type Props = StateProps;
@@ -71,17 +71,15 @@ class Board extends React.Component<Props, State> {
 
             return Array.from(playedTiles.keys()).map((boardTileId: number) => {
                 const handTileId = playedTiles.get(boardTileId);
+
                 if (handTileId === undefined) {
                     return null;
                 }
 
                 const handTile = fullHand.get(handTileId);
-                if (handTile === undefined) {
-                    return null;
-                }
-
                 const boardTile = tiles.get(boardTileId);
-                if (boardTile === undefined) {
+
+                if (handTile === undefined || boardTile === undefined) {
                     return null;
                 }
                 
@@ -106,15 +104,15 @@ class Board extends React.Component<Props, State> {
         });
     }
 
-    getTileNodes = (): ReactNode[] => {
-        const { tiles, busyBoardTileIds } = this.props;
+    getBoardTileNodes = (): ReactNode[] => {
+        const { tiles, busyTileIds } = this.props;
+        
         let waterTiles: BoardTile[] = [];
         let groundTiles: BoardTile[] = [];
-        let tileNodes: ReactNode[] = [];
 
         // Remove board tiles on which a tile was played
         const freeBoardTiles = Array.from(tiles.values()).filter((tile: BoardTile) => {
-            return !busyBoardTileIds.includes(tile.id)
+            return !busyTileIds.includes(tile.id)
         });
 
         // Differenciation between ground and water tiles
@@ -124,7 +122,7 @@ class Board extends React.Component<Props, State> {
 
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
-        tileNodes.push(...waterTiles.concat(groundTiles).map((tile: BoardTile) => {
+        return waterTiles.concat(groundTiles).map((tile: BoardTile) => {
             const { id, coordinates, castes, isCity, isWater } = tile;
             const position = this.getTilePosition(coordinates);
 
@@ -138,12 +136,7 @@ class Board extends React.Component<Props, State> {
                     isWater={isWater}
                 />
             );
-        }));
-
-        // We place played tiles on board
-        tileNodes.push(...this.getPlayedTileNodes());
-
-        return tileNodes;
+        });
     }
 
     render() {
@@ -154,7 +147,8 @@ class Board extends React.Component<Props, State> {
                 <svg id='board' viewBox={`0 0 ${width} ${height}`}>
                     <PatternEmpty />
                     <g id='board-tiles' transform={`rotate(${BOARD_ROTATION})`}>
-                        {this.getTileNodes()}
+                        {this.getBoardTileNodes()}
+                        {this.getPlayedTileNodes()}
                     </g>
                 </svg>
             </div>
@@ -171,7 +165,7 @@ const mapStateToProps = (state: AppState) => {
         fullHand,
         player: self,
         opponents,
-        busyBoardTileIds: getBusyBoardTileIds(state.players),
+        busyTileIds: getBusyBoardTileIds(state.players),
     };
 };
 
