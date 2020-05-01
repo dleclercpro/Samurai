@@ -34,6 +34,8 @@ export interface GameState {
 export interface PlayersState {
     self: Player,
     opponents: Player[],
+    lastPlayedTileIds: number[],
+    playedTileIds: number[],
 }
 
 export interface UserState {

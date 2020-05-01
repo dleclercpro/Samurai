@@ -16,6 +16,7 @@ interface StateProps {
     to: number,
     tile: HandTile | undefined,
     color: PlayerColor,
+    isOpen: boolean,
 }
 
 interface DispatchProps {
@@ -27,6 +28,7 @@ type Props = StateProps & DispatchProps;
 
 interface State {
     tile: HandTile | undefined,
+    color: PlayerColor,
 }
 
 class DialogTileMoveEnd extends React.Component<Props, State> {
@@ -36,17 +38,19 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
 
         this.state = {
             tile: undefined,
+            color: PlayerColor.Unknown,
         };
     }
 
     componentDidUpdate(prevProps: Props) {
-        const { tile } = this.props;
+        const { isOpen, tile, color } = this.props;
 
-        // We store the dialog content locally, so global state
+        // We set its content when opening dialog, so store
         // changes do not alter it
-        if (prevProps.tile === undefined && tile !== undefined) {
+        if (!prevProps.isOpen && isOpen) {
             this.setState({
                 tile,
+                color,
             });
         }
     }
@@ -64,8 +68,7 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
     }
 
     render() {
-        const { tile } = this.state;
-        const { color } = this.props;
+        const { tile, color } = this.state;
 
         return (
             <Dialog
@@ -109,6 +112,7 @@ const mapStateToProps = (state: AppState) => {
         to,
         tile,
         color: self.color,
+        isOpen: state.dialog[DialogType.TileMoveEnd].isOpen,
     }
 };
 

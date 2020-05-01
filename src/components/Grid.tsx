@@ -5,11 +5,12 @@ import Hand from './Hand';
 import ScoreBoard from './scores/ScoreBoard';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { HandTile } from '../types/GameTypes';
+import { HandTile, PlayerColor } from '../types/GameTypes';
 import { getHandTiles } from '../selectors';
 
 interface StateProps {
     tiles: HandTile[],
+    color: PlayerColor,
 }
 
 type Props = StateProps;
@@ -17,7 +18,7 @@ type Props = StateProps;
 class Grid extends React.Component<Props, {}> {
     
     render() {
-        const { tiles } = this.props;
+        const { tiles, color } = this.props;
 
         return (
             <div id='grid'>
@@ -27,7 +28,10 @@ class Grid extends React.Component<Props, {}> {
                     <Board />
                 </section>
                 <section id='bottom'>
-                    <Hand tiles={tiles} />
+                    <Hand
+                        tiles={tiles}
+                        color={color}
+                    />
                     <ScoreBoard />
                 </section>
             </div>
@@ -36,8 +40,11 @@ class Grid extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
+    const { self } = state.players;
+
     return {
         tiles: getHandTiles(state),
+        color: self.color,
     };
 };
 

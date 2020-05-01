@@ -7,7 +7,7 @@ import { AppAction } from '../../actions';
 import { deselectBoardTile, deselectHandTile } from '../../actions/GameActions';
 import { DialogType } from '../../types/DialogTypes';
 import { AppState } from '../../types/StateTypes';
-import { TilePlayStep, HandTile } from '../../types/GameTypes';
+import { TilePlayStep, HandTile, PlayerColor } from '../../types/GameTypes';
 import { playTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { getHandTiles } from '../../selectors';
@@ -16,9 +16,11 @@ interface StateProps {
     handTile: number,
     boardTile: number,
     tiles: HandTile[],
+    color: PlayerColor,
     isChoosing: boolean,
     hasChosen: boolean,
     isActionButtonActive: boolean,
+    isOpen: boolean,
 }
 
 interface DispatchProps {
@@ -31,6 +33,7 @@ type Props = StateProps & DispatchProps;
 
 interface State {
     tiles: HandTile[],
+    color: PlayerColor,
 }
 
 class DialogTileChoice extends React.Component<Props, State> {
@@ -40,17 +43,19 @@ class DialogTileChoice extends React.Component<Props, State> {
 
         this.state = {
             tiles: [],
+            color: PlayerColor.Unknown,
         };
     }
 
     componentDidUpdate(prevProps: Props) {
-        const { tiles } = this.props;
+        const { isOpen, tiles, color } = this.props;
 
-        // We store the dialog content locally, so global state
+        // We set its content when opening dialog, so store
         // changes do not alter it
-        if (prevProps.tiles.length === 0 && tiles.length > 0) {
+        if (!prevProps.isOpen && isOpen) {
             this.setState({
                 tiles,
+                color,
             });
         }
     }
@@ -70,7 +75,7 @@ class DialogTileChoice extends React.Component<Props, State> {
 
     render() {
         const { isActionButtonActive } = this.props;
-        const { tiles } = this.state;
+        const { tiles, color } = this.state;
 
         return (
             <Dialog
@@ -85,6 +90,7 @@ class DialogTileChoice extends React.Component<Props, State> {
                 {tiles &&
                     <Hand
                         tiles={tiles}
+                        color={color}
                         inDialog={DialogType.TileChoice}
                     />
                 }
@@ -95,6 +101,7 @@ class DialogTileChoice extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState) => {
     const { step, selection } = state.game;
+    const { self } = state.players;
 
     const isChoosing = step === TilePlayStep.ChooseHandTile;
     const hasChosen = step === TilePlayStep.Done;
@@ -104,9 +111,11 @@ const mapStateToProps = (state: AppState) => {
         handTile: selection.play.handTile,
         boardTile: selection.play.boardTile,
         tiles: getHandTiles(state),
+        color: self.color,
         isChoosing,
         hasChosen,
         isActionButtonActive,
+        isOpen: state.dialog[DialogType.TileChoice].isOpen,
     }
 };
 

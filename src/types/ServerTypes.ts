@@ -27,7 +27,7 @@ export interface BoardJSON {
 export type HandJSON = number[];
 
 export type PlayedTilesJSON = {
-    [id: string]: number | undefined,
+    [id: string]: number,
 };
 
 export interface HandBoardTileJSON {

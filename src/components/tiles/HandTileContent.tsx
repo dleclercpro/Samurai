@@ -14,6 +14,7 @@ interface OwnProps {
     canReplay: boolean,
     isPlayable?: boolean,
     isSelected?: boolean,
+    wasPlayed?: boolean,
 }
 
 type Props = OwnProps;
@@ -81,7 +82,7 @@ class HandTileContent extends React.Component<Props, State> {
     }
 
     render() {
-        const { type, color, isPlayable, isSelected, canReplay } = this.props;
+        const { type, color, isPlayable, isSelected, wasPlayed, canReplay } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
 
@@ -103,6 +104,7 @@ class HandTileContent extends React.Component<Props, State> {
                     ${isMove ? 'is-move' : ''}
                     ${isSwap ? 'is-swap' : ''}
                     ${isShip ? 'is-ship' : ''}
+                    ${wasPlayed ? 'was-played' : ''}
                 `}
                 viewBox={`0 0 ${width} ${height}`}
                 onMouseEnter={this.handleMouseEnter}

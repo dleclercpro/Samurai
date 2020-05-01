@@ -1,4 +1,4 @@
-import { LoadBoard, LoadFullHand, SelectBoardTile, SelectHandTile, DeselectBoardTile, DeselectHandTile, SelectTileFromForSwap, SelectCasteFromForSwap, SelectTileToForSwap, SelectCasteToForSwap, DeselectTileFromForSwap, DeselectTileToForSwap, DeselectCasteToForSwap, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwap, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwap, FinishCasteSwap, SwitchColorMode, SetErrorDialog, SetSuccessDialog, SetGameId, SetUser, ResetUser, ResetGameId } from '../types/ActionTypes';
+import { LoadBoard, LoadFullHand, SelectBoardTile, SelectHandTile, DeselectBoardTile, DeselectHandTile, SelectTileFromForSwap, SelectCasteFromForSwap, SelectTileToForSwap, SelectCasteToForSwap, DeselectTileFromForSwap, DeselectTileToForSwap, DeselectCasteToForSwap, LoadPlayer, LoadOpponents, LoadHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwap, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwap, FinishCasteSwap, SwitchColorMode, SetErrorDialog, SetSuccessDialog, SetGameId, SetUser, ResetUser, ResetGameId, SetLastPlayedTiles, ResetLastPlayedTiles, SetPlayedTiles, ResetPlayedTiles } from '../types/ActionTypes';
 import { resetUser } from './UserActions';
 
 export type DataAction =
@@ -39,7 +39,11 @@ export type UserAction =
 export type PlayersAction =
     LoadPlayer |
     LoadOpponents |
-    LoadHand;
+    LoadHand |
+    SetLastPlayedTiles |
+    ResetLastPlayedTiles |
+    SetPlayedTiles |
+    ResetPlayedTiles;
 
 export type DialogAction =
     OpenDialog |

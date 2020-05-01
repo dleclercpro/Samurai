@@ -17,6 +17,7 @@ interface StateProps {
     hasChosenTo: boolean,
     isActionButtonActive: boolean,
     castes: Caste[],
+    isOpen: boolean,
 }
 
 interface DispatchProps {
@@ -45,11 +46,11 @@ class DialogCasteChoice extends React.Component<Props, State> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        const { castes } = this.props;
+        const { isOpen, castes } = this.props;
 
-        // We store the dialog content locally, so global state
+        // We set its content when opening dialog, so store
         // changes do not alter it
-        if (prevProps.castes.length === 0 && castes.length > 0) {
+        if (!prevProps.isOpen && isOpen) {
             this.setState({
                 castes,
             });
@@ -138,6 +139,7 @@ const mapStateToProps = (state: AppState) => {
         hasChosenTo,
         isActionButtonActive,
         castes,
+        isOpen: state.dialog[DialogType.CasteChoice].isOpen,
     };
 };
 

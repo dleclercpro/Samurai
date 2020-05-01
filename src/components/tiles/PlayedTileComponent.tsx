@@ -24,6 +24,7 @@ interface StateProps {
     step: GameStep,
     isPlayable: boolean,
     isSelected: boolean,
+    wasPlayed: boolean,
     selectBoardTileToMoveFrom: (id: number) => void,
 }
 
@@ -44,7 +45,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { position, rotation, color, type, strength, canReplay, isPlayable, isSelected } = this.props;
+        const { position, rotation, color, type, strength, canReplay, isPlayable, isSelected, wasPlayed } = this.props;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
         
@@ -67,6 +68,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
                     canReplay={canReplay}
                     isPlayable={isPlayable}
                     isSelected={isSelected}
+                    wasPlayed={wasPlayed}
                 />
             </g>
         );
@@ -96,6 +98,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
         step,
         isPlayable,
         isSelected: isSelectedForMove,
+        wasPlayed: false, // FIXME
     };
 }
 

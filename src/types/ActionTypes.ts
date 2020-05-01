@@ -84,6 +84,28 @@ export interface LoadHand {
     data: number[],
 }
 
+export const RESET_LAST_PLAYED_TILES = 'RESET_LAST_PLAYED_TILES';
+export interface ResetLastPlayedTiles {
+    type: typeof RESET_LAST_PLAYED_TILES,
+}
+
+export const SET_LAST_PLAYED_TILES = 'SET_LAST_PLAYED_TILES';
+export interface SetLastPlayedTiles {
+    type: typeof SET_LAST_PLAYED_TILES,
+    ids: number[],
+}
+
+export const RESET_PLAYED_TILES = 'RESET_PLAYED_TILES';
+export interface ResetPlayedTiles {
+    type: typeof RESET_PLAYED_TILES,
+}
+
+export const SET_PLAYED_TILES = 'SET_PLAYED_TILES';
+export interface SetPlayedTiles {
+    type: typeof SET_PLAYED_TILES,
+    ids: number[],
+}
+
 
 
 // Overlay actions

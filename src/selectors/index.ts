@@ -70,3 +70,13 @@ export const getHighestScores = (state: PlayersState): PlayerScore => {
 
     return highestScores;
 }
+
+export const isGameOver = (state: PlayersState) => {
+    const players = getAllPlayers(state);
+
+    return players.some(player => player.hasWon);
+}
+
+export const isCurrentPlayer = (state: PlayersState) => {
+    return getCurrentPlayer(state) === state.self;
+}

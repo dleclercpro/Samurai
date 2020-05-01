@@ -6,12 +6,11 @@ import './Board.scss';
 import { Coordinates2D, Size2D, BoardTile, BoardTileMap, Player, HandTileMap } from '../types/GameTypes';
 import { BOARD_SIZE, TILE_SIZE, BOARD_ORIGIN, BOARD_ROTATION } from '../config';
 import PlayedTileComponent from './tiles/PlayedTileComponent';
-import { getTakenBoardTileIds } from '../selectors';
+import { getTakenBoardTileIds, getAllPlayers } from '../selectors';
 import TileEmptyPattern from './tiles/TileEmptyPattern';
 
 interface StateProps {
-    player: Player,
-    opponents: Player[],
+    players: Player[],
     tiles: BoardTileMap,
     fullHand: HandTileMap,
     takenTileIds: number[],
@@ -64,9 +63,9 @@ class Board extends React.Component<Props, State> {
     }
 
     getPlayedTileNodes = (): ReactNode[] => {
-        const { player, opponents, fullHand, tiles } = this.props;
+        const { players, fullHand, tiles } = this.props;
 
-        return opponents.concat(player).map((person: Player) => {
+        return players.map((person: Player) => {
             const { playedTiles, color } = person;
 
             return Array.from(playedTiles.keys()).map((boardTileId: number) => {
@@ -158,14 +157,12 @@ class Board extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { self, opponents } = state.players;
     const { tiles, fullHand } = state.data;
 
     return {
         tiles,
         fullHand,
-        player: self,
-        opponents,
+        players: getAllPlayers(state.players),
         takenTileIds: getTakenBoardTileIds(state.players),
     };
 };

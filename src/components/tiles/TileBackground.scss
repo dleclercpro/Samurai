@@ -42,6 +42,7 @@
     }
 
     .played-tile-component.is-selected &,
+    .played-tile-component.was-played &,
     .board-tile-component.is-selected & {
         animation: pulse 1s infinite;
     }

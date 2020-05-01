@@ -1,6 +1,6 @@
 import { PlayersState } from '../types/StateTypes';
 import { PlayersAction } from '../actions';
-import { LOAD_PLAYER, LOAD_HAND, LOAD_OPPONENTS } from '../types/ActionTypes';
+import { LOAD_PLAYER, LOAD_HAND, LOAD_OPPONENTS, RESET_LAST_PLAYED_TILES, SET_LAST_PLAYED_TILES, RESET_PLAYED_TILES, SET_PLAYED_TILES } from '../types/ActionTypes';
 import { parsePlayer } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
@@ -18,6 +18,8 @@ const initPlayersState = {
 const initState = {
     self: { ...initPlayersState },
     opponents: [],
+    lastPlayedTileIds: [],
+    playedTileIds: [],
 };
 
 const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) => {
@@ -39,6 +41,26 @@ const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) 
                     ...state.self,
                     hand: action.data,
                 },
+            };
+        case RESET_LAST_PLAYED_TILES:
+            return {
+                ...state,
+                lastPlayedTileIds: [ ],
+            };
+        case SET_LAST_PLAYED_TILES:
+            return {
+                ...state,
+                lastPlayedTileIds: action.ids,
+            };
+        case RESET_PLAYED_TILES:
+            return {
+                ...state,
+                playedTileIds: [ ],
+            };
+        case SET_PLAYED_TILES:
+            return {
+                ...state,
+                playedTileIds: action.ids,
             };
         default:
             return state;

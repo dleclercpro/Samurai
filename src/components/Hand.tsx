@@ -8,11 +8,11 @@ import { DialogType } from '../types/DialogTypes';
 
 interface OwnProps {
     tiles: HandTile[],
+    color: PlayerColor,
     inDialog?: DialogType,
 }
 
 interface StateProps {
-    color: PlayerColor,
     isWaterTileSelected?: boolean,
 }
 
@@ -35,7 +35,7 @@ class Hand extends React.Component<Props, {}> {
                     return !isMove && !isSwap && (isWaterTileSelected === isShip);
                 default:
                     return false;
-        }
+            }
         });
     }
 
@@ -65,13 +65,11 @@ class Hand extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { self } = state.players;
     const { selection } = state.game;
     const { tiles } = state.data;
     const { play } = selection;
 
     return {
-        color: self.color,
         isWaterTileSelected: tiles.get(play.boardTile)?.isWater,
     };
 };
