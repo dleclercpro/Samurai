@@ -2,6 +2,10 @@ import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile
 import { FormFields, FormPayload } from './types/FormTypes';
 import { HandBoardTileJSON } from './types/ServerTypes';
 
+export const hasMultiple = <T> (element: T, list: T[]) => {
+    return (list.filter(el => el === element)).length > 1;
+}
+
 export const hasLocalStore = () => {
     return typeof(Storage) !== 'undefined';
 }
