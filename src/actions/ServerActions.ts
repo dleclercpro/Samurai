@@ -19,7 +19,6 @@ import { loadPlayer, loadOpponents, loadHand } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
-import { isGameOver } from '../selectors';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
@@ -149,7 +148,7 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 dispatch(loadHand(hand));
 
                 // Game over?
-                if (isGameOver(state.players)) {
+                if (players.opponents.concat(players.self).some(player => player.hasWon)) {
                     dispatch(openDialog(DialogType.GameOver));
                     return;
                 }

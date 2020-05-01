@@ -26,10 +26,7 @@ export const getTakenBoardTileIds = (state: PlayersState): number[] => {
 export const getWinners = (state: PlayersState): Player[] => {
     const { self, opponents } = state;
     
-    const winners = opponents.concat(self).filter((person: Player) => person.hasWon);
-
-    // If everyone wins, everyone lost
-    return winners.length === opponents.length + 1 ? [] : winners;
+    return opponents.concat(self).filter((person: Player) => person.hasWon);
 }
 
 export const getHighestScores = (state: PlayersState): PlayerScore => {
@@ -57,10 +54,4 @@ export const getHighestScores = (state: PlayersState): PlayerScore => {
     });
 
     return highestScores;
-}
-
-export const isGameOver = (state: PlayersState) => {
-    const { self, opponents } = state;
-
-    return opponents.concat(self).some(player => player.hasWon);
 }

@@ -15,34 +15,30 @@ type Props = StateProps;
 
 class DialogGameOver extends React.Component<Props, {}> {
 
-    render() {
+    getMessage = () => {
         const { winners } = this.props;
-        let message;
 
         switch (winners.length) {
             case 0:
-                message = 'There is no winner.'
-                break;
+                return 'There is no winner.';
             case 1:
-                message = 'The winner is:'
-                break;
+                return `The winner is: ${winners[0].username}`;
             default:
-                message = 'The winners are:'
-                break;
-        }
+                return `The winners are: ${winners.reduce((result, winner, i) => {
+                    const { username } = winner;
 
+                    return result + ((i + 1 === winners.length) ? username : username + ', ');
+                }, '')}`;
+        }
+    }
+
+    render() {
         return (
             <DialogOK
                 type={DialogType.GameOver}
                 headline='Game Over'
-                message={message}
+                message={this.getMessage()}
             >
-                {winners.map((winner: Player) => (
-                    <React.Fragment>
-                        <strong>{winner.username}</strong>
-                        <br/>
-                    </React.Fragment>
-                ))}
             </DialogOK>
         );
     }
