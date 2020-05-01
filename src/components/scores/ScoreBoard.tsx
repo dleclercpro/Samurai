@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import ScorePlayer from './ScorePlayer';
 import { Player, PlayerScore } from '../../types/GameTypes';
 import { AppState } from '../../types/StateTypes';
-import { getHighestScores } from '../../selectors';
+import { getHighestScores, isGameOver } from '../../selectors';
 
 interface StateProps {
+    isGameOver: boolean,
     player: Player,
     opponents: Player[],
     highestScores: PlayerScore,
@@ -17,7 +18,7 @@ type Props = StateProps;
 class ScoreBoard extends React.Component<Props, {}> {
 
     render() {
-        const { player, opponents, highestScores } = this.props;
+        const { player, opponents, highestScores, isGameOver } = this.props;
         const { id, username, score, color, isPlaying } = player;
         const hasPlayer = id !== -1;
 
@@ -29,7 +30,7 @@ class ScoreBoard extends React.Component<Props, {}> {
                         color={color}
                         score={score}
                         highestScores={highestScores}
-                        isPlaying={isPlaying}
+                        isPlaying={isPlaying && !isGameOver}
                     />
                 }
                 {opponents.map((opponent: Player, index: number) => {
@@ -43,7 +44,7 @@ class ScoreBoard extends React.Component<Props, {}> {
                             color={color}
                             score={score}
                             highestScores={highestScores}
-                            isPlaying={isPlaying}
+                            isPlaying={isPlaying && !isGameOver}
                         />
                     );
                 })}
@@ -56,6 +57,7 @@ const mapStateToProps = (state: AppState) => {
     const { self, opponents } = state.players;
 
     return {
+        isGameOver: isGameOver(state.players),
         player: self,
         opponents: opponents,
         highestScores: getHighestScores(state.players),
