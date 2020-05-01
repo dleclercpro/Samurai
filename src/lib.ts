@@ -26,6 +26,12 @@ export const localStorageGet = (key: string): string => {
     return '';
 }
 
+export const redirectHome = (): Promise<void> => {
+    document.location.replace(`/samurai/`);
+
+    return Promise.resolve();
+}
+
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
     const innerWidth = width - stroke;

@@ -1,5 +1,5 @@
 import { BoardJSON, BoardTileJSON, HandBoardTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
-import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap } from './types/GameTypes';
+import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap, PlayedTileMap } from './types/GameTypes';
 
 export const parseBoard = (data: BoardJSON): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
@@ -133,8 +133,8 @@ export const parseHandTile = (data: HandBoardTileJSON): HandTile => {
     };
 }
 
-export const parsePlayedTiles = (data: PlayedTilesJSON): Map<number, number> => {
-    const playedTiles = new Map<number, number>();
+export const parsePlayedTiles = (data: PlayedTilesJSON): PlayedTileMap => {
+    const playedTiles = new Map();
 
     Object.entries(data).forEach(([boardTileId, handTileId]) => {
         if (handTileId !== undefined) {
@@ -146,7 +146,7 @@ export const parsePlayedTiles = (data: PlayedTilesJSON): Map<number, number> => 
 }
 
 export const parseFullHand = (data: HandBoardTileJSON[]): HandTileMap => {
-    const hand = new Map<number, HandTile>();
+    const hand = new Map();
 
     data.forEach(tile => {
         hand.set(tile.id, parseHandTile(tile));

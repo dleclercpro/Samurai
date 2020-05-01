@@ -49,13 +49,15 @@ export interface HandTile {
 
 export type BoardTileMap = Map<number, BoardTile>;
 export type HandTileMap = Map<number, HandTile>;
+export type PlayedTileMap = Map<number, number>; // Board tile ID -> Hand tile ID
+export type PlayerScore = Map<Caste, number>;
 
 export interface Player {
     id: number,
     username: string,
     color: PlayerColor,
     hand: number[],
-    playedTiles: Map<number, number>, // Board tile ID to hand tile ID
+    playedTiles: PlayedTileMap,
     score: PlayerScore,
     hasWon: boolean,
     isPlaying: boolean,
@@ -73,8 +75,6 @@ export enum ColorMode {
     Normal = 'Normal',
     Blind = 'Blind',
 }
-
-export type PlayerScore = Map<Caste, number>;
 
 export interface CasteSwap {
     from: {

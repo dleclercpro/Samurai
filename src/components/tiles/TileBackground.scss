@@ -42,9 +42,14 @@
     }
 
     .played-tile-component.is-selected &,
-    .played-tile-component.was-played &,
     .board-tile-component.is-selected & {
         animation: pulse 1s infinite;
+    }
+    
+    .was-played & {
+        animation-name: pulse;
+        animation-duration: 0.5s;
+        animation-iteration-count: 1000;
     }
 
     .is-red & {
@@ -162,11 +167,7 @@
 }
 
 @keyframes pulse {
-    0% {
-    }
     50% {
-        fill: rgba(0, 0, 0, 0.4);
-    }
-    100% {
+        opacity: 0.5;
     }
 }

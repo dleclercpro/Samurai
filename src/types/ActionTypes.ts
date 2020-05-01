@@ -1,6 +1,6 @@
 import { BoardJSON, HandBoardTileJSON, PlayerJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
-import { Caste } from './GameTypes';
+import { Caste, PlayedTileMap } from './GameTypes';
 import { AppAction } from '../actions';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AppState } from './StateTypes';
@@ -92,7 +92,7 @@ export interface ResetLastPlayedTiles {
 export const SET_LAST_PLAYED_TILES = 'SET_LAST_PLAYED_TILES';
 export interface SetLastPlayedTiles {
     type: typeof SET_LAST_PLAYED_TILES,
-    ids: number[],
+    playedTiles: PlayedTileMap,
 }
 
 export const RESET_PLAYED_TILES = 'RESET_PLAYED_TILES';
@@ -103,7 +103,7 @@ export interface ResetPlayedTiles {
 export const SET_PLAYED_TILES = 'SET_PLAYED_TILES';
 export interface SetPlayedTiles {
     type: typeof SET_PLAYED_TILES,
-    ids: number[],
+    playedTiles: PlayedTileMap,
 }
 
 

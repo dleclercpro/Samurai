@@ -1,5 +1,5 @@
 import { AppState, PlayersState } from '../types/StateTypes';
-import { Player, HandTile, PlayerScore, Caste } from '../types/GameTypes';
+import { Player, HandTile, PlayerScore, Caste, PlayedTileMap } from '../types/GameTypes';
 import { notUndefined } from '../types/FunctionTypes';
 import { CASTES } from '../constants';
 import { hasMultiple } from '../lib';
@@ -23,16 +23,20 @@ export const getTakenBoardTileIds = (state: PlayersState): number[] => {
     }, []);
 }
 
-export const getPlayedTileIdsByPlayerId = (state: PlayersState, id: number): number[] => {
-    const players = getAllPlayers(state);
+export const getPlayedTilesByPlayer = (state: PlayersState, player: Player): PlayedTileMap => {
+    let playedTiles = new Map();
 
-    return players.reduce((tileIds: number[], player: Player) => {
-        if (player.id === id) {
-            return tileIds.concat(Array.from(player.playedTiles.values()));
-        }
+    if (player !== undefined) {
+        const allPlayers = getAllPlayers(state);
 
-        return tileIds;
-    }, []);
+        allPlayers.forEach(person => {
+            if (person.id === player.id) {
+                playedTiles = person.playedTiles;
+            }
+        });
+    }
+
+    return playedTiles;
 }
 
 export const getAllPlayers = (state: PlayersState): Player[] => {

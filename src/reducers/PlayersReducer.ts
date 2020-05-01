@@ -18,8 +18,8 @@ const initPlayersState = {
 const initState = {
     self: { ...initPlayersState },
     opponents: [],
-    lastPlayedTileIds: [],
-    playedTileIds: [],
+    lastPlayedTiles: new Map(),
+    playedTiles: new Map(),
 };
 
 const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) => {
@@ -45,22 +45,22 @@ const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) 
         case RESET_LAST_PLAYED_TILES:
             return {
                 ...state,
-                lastPlayedTileIds: [ ],
+                lastPlayedTiles: new Map(),
             };
         case SET_LAST_PLAYED_TILES:
             return {
                 ...state,
-                lastPlayedTileIds: action.ids,
+                lastPlayedTiles: action.playedTiles,
             };
         case RESET_PLAYED_TILES:
             return {
                 ...state,
-                playedTileIds: [ ],
+                playedTiles: new Map(),
             };
         case SET_PLAYED_TILES:
             return {
                 ...state,
-                playedTileIds: action.ids,
+                playedTiles: action.playedTiles,
             };
         default:
             return state;

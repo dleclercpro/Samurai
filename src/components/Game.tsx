@@ -47,7 +47,7 @@ class Game extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { routeId, id, resetGameId, setGameId, loadGameData, history } = this.props;
+        const { routeId, id, resetGameId, setGameId, loadGameData } = this.props;
         
         // Game IDs mismatch: reload
         if (routeId !== id) {
@@ -61,8 +61,6 @@ class Game extends React.Component<Props, State> {
                 })
                 .catch(() => {
                     resetGameId();
-            
-                    history.push(`/samurai/`);
                 })
                 .finally(() => {
                     this.hideSpinner();

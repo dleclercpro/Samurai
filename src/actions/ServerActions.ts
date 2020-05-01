@@ -10,16 +10,17 @@ import { CallGetPlayers } from '../calls/CallGetPlayers';
 import { loadBoard } from './DataActions';
 import { AppState } from '../types/StateTypes';
 import { TILE_MOVE_ID, TILE_SWAP_ID } from '../constants';
-import { Caste, Player } from '../types/GameTypes';
+import { Caste, Player, PlayedTileMap } from '../types/GameTypes';
 import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
-import { loadPlayer, loadOpponents, loadHand, setLastPlayedTiles, resetPlayedTiles, setPlayedTiles } from './PlayerActions';
+import { loadPlayer, loadOpponents, loadHand, resetPlayedTiles, setPlayedTiles } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
-import { getCurrentPlayer, getPlayedTileIdsByPlayerId, isGameOver, isCurrentPlayer } from '../selectors';
+import { getCurrentPlayer, getPlayedTilesByPlayer, isGameOver, isCurrentPlayer } from '../selectors';
+import { redirectHome } from '../lib';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
@@ -143,11 +144,7 @@ export const loadGameData = (): ThunkActionResult<void> => {
             .then(() => {
                 const wasPlaying = isCurrentPlayer(state.players);
                 const lastPlayer = getCurrentPlayer(state.players);
-
-                // Use raw data to find out which tiles were already played by the upcoming
-                // player before loading new data into state
-                const currentPlayer = players.opponents.concat(players.self).filter(player => player.isPlaying)[0];
-                const lastPlayedByCurrentPlayerTileIds = getPlayedTileIdsByPlayerId(state.players, currentPlayer.id);
+                const lastPlayedTiles = getPlayedTilesByPlayer(state.players, lastPlayer);
 
                 // Loaded everything
                 dispatch(loadBoard(board));
@@ -157,7 +154,8 @@ export const loadGameData = (): ThunkActionResult<void> => {
 
                 // Re-pull state
                 state = getState();
-                
+                const isPlaying = isCurrentPlayer(state.players);
+
                 // Game over?                
                 if (isGameOver(state.players)) {
                     dispatch(openDialog(DialogType.GameOver));
@@ -165,17 +163,15 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 }
 
                 // New turn for player
-                const isPlaying = isCurrentPlayer(state.players);
-                
                 if (!wasPlaying && isPlaying) {
                     dispatch(openDialog(DialogType.NewTurn));
                 }
 
                 // Store last played tiles
-                //return dispatch(updateLastPlayedTiles(lastPlayer, lastPlayedByCurrentPlayerTileIds));
+                return dispatch(updateLastPlayedTiles(lastPlayer, lastPlayedTiles));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message));
+                dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message, redirectHome));
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject();
@@ -184,25 +180,34 @@ export const loadGameData = (): ThunkActionResult<void> => {
 }
 
 // FIXME: does not work so far...
-export const updateLastPlayedTiles = (lastPlayer: Player, lastPlayedByCurrentPlayerTileIds: number[]): ThunkActionResult<void> => {
+export const updateLastPlayedTiles = (lastPlayer: Player, lastPlayedTiles: PlayedTileMap): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
-        const state = getState();
-        const currentPlayer = getCurrentPlayer(state.players);
-        const playedTileIds = getPlayedTileIdsByPlayerId(state.players, currentPlayer.id);
+        let state = getState();
 
-        // Current player just changed
-        if (lastPlayer !== undefined && lastPlayer.id !== currentPlayer.id) {
-            dispatch(setLastPlayedTiles(state.players.playedTileIds));
+        // Do not show last tiles played by own self
+        if (lastPlayer === undefined || lastPlayer.id === state.players.self.id) {
             dispatch(resetPlayedTiles);
+            
+            return Promise.resolve();
         }
+        
+        // Determine newly played tiles
+        const playedTiles = getPlayedTilesByPlayer(state.players, lastPlayer);
+        const newlyPlayedTiles: PlayedTileMap = new Map();
 
-        const newPlayedTileIds = playedTileIds.filter(playedTileId => {
-            return !lastPlayedByCurrentPlayerTileIds.includes(playedTileId);
+        playedTiles.forEach((handTileId, boardTileId) => {
+            if (!lastPlayedTiles.has(boardTileId)) {
+                newlyPlayedTiles.set(boardTileId, handTileId);
+            }
         });
 
-        // Update tiles that were played by active player
-        dispatch(setPlayedTiles(state.players.playedTileIds.concat(newPlayedTileIds)));
+        // Add them to the ones that were played since own self's last turn
+        state.players.playedTiles.forEach((handTileId, boardTileId) => {
+            newlyPlayedTiles.set(boardTileId, handTileId);
+        });
+
+        dispatch(setPlayedTiles(newlyPlayedTiles));
         
         return Promise.resolve();
     };
