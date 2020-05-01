@@ -179,7 +179,6 @@ export const loadGameData = (): ThunkActionResult<void> => {
     };
 }
 
-// FIXME: does not work so far...
 export const updateLastPlayedTiles = (lastPlayer: Player, lastPlayedTiles: PlayedTileMap): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
