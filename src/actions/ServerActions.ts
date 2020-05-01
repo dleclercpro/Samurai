@@ -156,7 +156,7 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 state = getState();
                 const isPlaying = isCurrentPlayer(state.players);
 
-                // Game over?                
+                // Game ended?
                 if (isGameOver(state.players)) {
                     dispatch(openDialog(DialogType.GameOver));
                     return;
@@ -167,7 +167,6 @@ export const loadGameData = (): ThunkActionResult<void> => {
                     dispatch(openDialog(DialogType.NewTurn));
                 }
 
-                // Store last played tiles
                 return dispatch(updateLastPlayedTiles(lastPlayer, lastPlayedTiles));
             })
             .catch((error: any) => {
