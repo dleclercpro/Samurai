@@ -11,6 +11,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import SpinnerOverlay from './overlays/SpinnerOverlay';
 import Dash from './buttons/Dash';
 import { REFRESH_RATE } from '../config';
+import { isGameOver } from '../selectors';
 
 interface OwnProps {
     routeId: number,
@@ -18,6 +19,7 @@ interface OwnProps {
 
 interface StateProps {
     id: number,
+    isOver: boolean,
 }
 
 interface DispatchProps {
@@ -74,18 +76,31 @@ class Game extends React.Component<Props, State> {
         this.stopPolling();
     }
 
-    startPolling = () => {
+    poll = () => {
         const { loadGameData } = this.props;
+ 
+        loadGameData()
+            .catch(() => {
+                this.stopPolling();
+            });
+    }
 
-        // Poll new game data every minute
+    startPolling = () => {
         this.setState({
             timer: setInterval(() => {
-                loadGameData()
-                    .catch(() => {
-                        this.stopPolling();
-                    });
+                const { isOver } = this.props;
+
+                // No need to poll data from server once the game is over
+                if (isOver) {
+                    this.stopPolling();
+                    return;
+                }
+
+                this.poll();
             }, REFRESH_RATE),
         });
+
+        console.log('Started polling.');
     }
 
     stopPolling = () => {
@@ -98,6 +113,8 @@ class Game extends React.Component<Props, State> {
         this.setState({
             timer: undefined,
         });
+
+        console.log('Stopped polling.');        
     }
 
     showSpinner = () => {
@@ -127,6 +144,7 @@ class Game extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState) => ({
     id: state.game.id,
+    isOver: isGameOver(state.players),
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
