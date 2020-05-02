@@ -34,8 +34,7 @@ export interface GameState {
 export interface PlayersState {
     self: Player,
     opponents: Player[],
-    lastPlayedTiles: PlayedTileMap,
-    playedTiles: PlayedTileMap,
+    playedTilesSinceLastTurn: PlayedTileMap,
 }
 
 export interface UserState {

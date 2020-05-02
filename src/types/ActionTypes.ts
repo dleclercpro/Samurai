@@ -1,6 +1,6 @@
-import { BoardJSON, HandBoardTileJSON, PlayerJSON } from './ServerTypes';
+import { BoardJSON, HandBoardTileJSON, PlayerJSON, PlayedTilesJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
-import { Caste, PlayedTileMap } from './GameTypes';
+import { Caste } from './GameTypes';
 import { AppAction } from '../actions';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AppState } from './StateTypes';
@@ -84,26 +84,10 @@ export interface LoadHand {
     data: number[],
 }
 
-export const RESET_LAST_PLAYED_TILES = 'RESET_LAST_PLAYED_TILES';
-export interface ResetLastPlayedTiles {
-    type: typeof RESET_LAST_PLAYED_TILES,
-}
-
-export const SET_LAST_PLAYED_TILES = 'SET_LAST_PLAYED_TILES';
-export interface SetLastPlayedTiles {
-    type: typeof SET_LAST_PLAYED_TILES,
-    playedTiles: PlayedTileMap,
-}
-
-export const RESET_PLAYED_TILES = 'RESET_PLAYED_TILES';
-export interface ResetPlayedTiles {
-    type: typeof RESET_PLAYED_TILES,
-}
-
-export const SET_PLAYED_TILES = 'SET_PLAYED_TILES';
-export interface SetPlayedTiles {
-    type: typeof SET_PLAYED_TILES,
-    playedTiles: PlayedTileMap,
+export const LOAD_PLAYED_TILES_SINCE_LAST_TURN = 'LOAD_PLAYED_TILES_SINCE_LAST_TURN';
+export interface LoadPlayedTilesSinceLastTurn {
+    type: typeof LOAD_PLAYED_TILES_SINCE_LAST_TURN,
+    playedTiles: PlayedTilesJSON,
 }
 
 

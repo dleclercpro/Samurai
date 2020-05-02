@@ -1,7 +1,7 @@
 import { PlayersState } from '../types/StateTypes';
 import { PlayersAction } from '../actions';
-import { LOAD_PLAYER, LOAD_HAND, LOAD_OPPONENTS, RESET_LAST_PLAYED_TILES, SET_LAST_PLAYED_TILES, RESET_PLAYED_TILES, SET_PLAYED_TILES } from '../types/ActionTypes';
-import { parsePlayer } from '../parse';
+import { LOAD_PLAYER, LOAD_HAND, LOAD_OPPONENTS, LOAD_PLAYED_TILES_SINCE_LAST_TURN } from '../types/ActionTypes';
+import { parsePlayer, parsePlayedTiles } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
 const initPlayersState = {
@@ -18,8 +18,7 @@ const initPlayersState = {
 const initState = {
     self: { ...initPlayersState },
     opponents: [],
-    lastPlayedTiles: new Map(),
-    playedTiles: new Map(),
+    playedTilesSinceLastTurn: new Map(),
 };
 
 const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) => {
@@ -42,25 +41,10 @@ const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) 
                     hand: action.data,
                 },
             };
-        case RESET_LAST_PLAYED_TILES:
+        case LOAD_PLAYED_TILES_SINCE_LAST_TURN:
             return {
                 ...state,
-                lastPlayedTiles: new Map(),
-            };
-        case SET_LAST_PLAYED_TILES:
-            return {
-                ...state,
-                lastPlayedTiles: action.playedTiles,
-            };
-        case RESET_PLAYED_TILES:
-            return {
-                ...state,
-                playedTiles: new Map(),
-            };
-        case SET_PLAYED_TILES:
-            return {
-                ...state,
-                playedTiles: action.playedTiles,
+                playedTilesSinceLastTurn: parsePlayedTiles(action.playedTiles),
             };
         default:
             return state;

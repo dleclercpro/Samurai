@@ -16,4 +16,4 @@ export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superi
 export const REMOTE_URL = 'http://35.182.135.40/';
 export const LOCAL_URL = 'http://localhost:8000/';
 export const BASE_URL = REMOTE_URL;
-export const REFRESH_RATE = 5 * 1000 * 1000; // ms
+export const REFRESH_RATE = 5 * 1000; // ms

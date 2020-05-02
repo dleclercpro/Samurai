@@ -41,15 +41,13 @@
         }
     }
 
-    .played-tile-component.is-selected &,
+    .played-tile-component .is-selected &,
     .board-tile-component.is-selected & {
-        animation: pulse 1s infinite;
+        animation: pulseDark 0.6s infinite;
     }
     
     .was-played & {
-        animation-name: pulse;
-        animation-duration: 0.5s;
-        animation-iteration-count: 1000;
+        animation: pulse 1.2s infinite;
     }
 
     .is-red & {
@@ -114,7 +112,7 @@
     }
 
     .is-playable.is-hovered.is-red &,
-    .is-selected.is-red & {
+    .hand-tile-component .is-selected.is-red & {
         fill: $color-dark-red;
 
         .is-colorblind & {
@@ -123,7 +121,7 @@
     }
 
     .is-playable.is-hovered.is-purple &,
-    .is-selected.is-purple & {
+    .hand-tile-component .is-selected.is-purple & {
         fill: $color-dark-purple;
 
         .is-colorblind & {
@@ -132,7 +130,7 @@
     }
 
     .is-playable.is-hovered.is-orange &,
-    .is-selected.is-orange & {
+    .hand-tile-component .is-selected.is-orange & {
         fill: $color-dark-orange;
 
         .is-colorblind & {
@@ -141,7 +139,7 @@
     }
 
     .is-playable.is-hovered.is-green &,
-    .is-selected.is-green & {
+    .hand-tile-component .is-selected.is-green & {
         fill: $color-dark-green;
 
         .is-colorblind & {
@@ -150,14 +148,14 @@
     }
 
     .is-playable.is-hovered.is-move &,
-    .is-selected.is-move &,
-    .hand-tile-component .is-playable.is-hovered.is-swap &,
+    .is-playable.is-hovered.is-swap &,
+    .hand-tile-component .is-selected.is-move &,
     .hand-tile-component .is-selected.is-swap & {
         fill: $color-grey !important;
     }
 
     .is-playable.is-hovered.is-ship &,
-    .is-selected.is-ship & {
+    .hand-tile-component .is-selected.is-ship & {
         fill: $color-dark-blue;
 
         .is-colorblind & {
@@ -169,5 +167,11 @@
 @keyframes pulse {
     50% {
         opacity: 0.5;
+    }
+}
+
+@keyframes pulseDark {
+    50% {
+        fill: rgba(0, 0, 0, 0.5);
     }
 }

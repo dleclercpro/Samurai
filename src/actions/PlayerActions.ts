@@ -1,6 +1,5 @@
-import { PlayerJSON } from '../types/ServerTypes';
-import { LoadPlayer, LOAD_PLAYER, LoadOpponents, LOAD_OPPONENTS, LoadHand, LOAD_HAND, RESET_LAST_PLAYED_TILES, SET_LAST_PLAYED_TILES, ResetLastPlayedTiles, SetLastPlayedTiles, ResetPlayedTiles, RESET_PLAYED_TILES, SetPlayedTiles, SET_PLAYED_TILES } from '../types/ActionTypes';
-import { PlayedTileMap } from '../types/GameTypes';
+import { PlayerJSON, PlayedTilesJSON } from '../types/ServerTypes';
+import { LoadPlayer, LOAD_PLAYER, LoadOpponents, LOAD_OPPONENTS, LoadHand, LOAD_HAND, LoadPlayedTilesSinceLastTurn, LOAD_PLAYED_TILES_SINCE_LAST_TURN } from '../types/ActionTypes';
 
 export const loadPlayer = (data: PlayerJSON): LoadPlayer => ({
     type: LOAD_PLAYER,
@@ -17,20 +16,7 @@ export const loadHand = (data: number[]): LoadHand => ({
     data,
 });
 
-export const resetLastPlayedTiles: ResetLastPlayedTiles = {
-    type: RESET_LAST_PLAYED_TILES,
-};
-
-export const setLastPlayedTiles = (playedTiles: PlayedTileMap): SetLastPlayedTiles => ({
-    type: SET_LAST_PLAYED_TILES,
-    playedTiles,
-});
-
-export const resetPlayedTiles: ResetPlayedTiles = {
-    type: RESET_PLAYED_TILES,
-};
-
-export const setPlayedTiles = (playedTiles: PlayedTileMap): SetPlayedTiles => ({
-    type: SET_PLAYED_TILES,
+export const loadPlayedTilesSinceLastTurn = (playedTiles: PlayedTilesJSON): LoadPlayedTilesSinceLastTurn => ({
+    type: LOAD_PLAYED_TILES_SINCE_LAST_TURN,
     playedTiles,
 });

@@ -51,10 +51,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
         
         return (
             <g
-                className={`
-                    played-tile-component
-                    ${isSelected ? 'is-selected' : ''}
-                `}
+                className='played-tile-component'
                 transform={`translate(${position.x},${position.y}) rotate(${rotation} ${center.x} ${center.y})`}
                 width={width}
                 height={height}
@@ -77,7 +74,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { handTileId, boardTileId, type } = ownProps;
-    const { self, playedTiles } = state.players;
+    const { self, playedTilesSinceLastTurn } = state.players;
     const { step, selection } = state.game;
 
     const isMine = self.playedTiles.get(boardTileId) === handTileId;
@@ -98,7 +95,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
         step,
         isPlayable,
         isSelected: isSelectedForMove,
-        wasPlayed: playedTiles.get(boardTileId) === handTileId,
+        wasPlayed: playedTilesSinceLastTurn.get(boardTileId) === handTileId,
     };
 }
 

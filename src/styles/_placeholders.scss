@@ -21,7 +21,7 @@
     fill: $color-black;
     
     .is-playable.is-hovered &,
-    .is-selected & {
+    .hand-tile-component .is-selected & {
 
         .is-colorblind & {
             fill: $color-white !important;
@@ -37,7 +37,7 @@
     }
 
     .is-playable.is-hovered.is-red &,
-    .is-selected.is-red &,
+    .hand-tile-component .is-selected.is-red &,
     .is-move.is-red &,
     .hand-tile-content.is-swap.is-red & {
         fill: $color-red;
@@ -56,7 +56,7 @@
     }
 
     .is-playable.is-hovered.is-purple &,
-    .is-selected.is-purple &,
+    .hand-tile-component .is-selected.is-purple &,
     .is-move.is-purple &,
     .hand-tile-content.is-swap.is-purple & {
         fill: $color-purple;
@@ -75,7 +75,7 @@
     }
 
     .is-playable.is-hovered.is-orange &,
-    .is-selected.is-orange &,
+    .hand-tile-component .is-selected.is-orange &,
     .is-move.is-orange &,
     .hand-tile-content.is-swap.is-orange & {
         fill: $color-orange;
@@ -94,7 +94,7 @@
     }
 
     .is-playable.is-hovered.is-green &,
-    .is-selected.is-green &,
+    .hand-tile-component .is-selected.is-green &,
     .is-move.is-green &,
     .hand-tile-content.is-swap.is-green & {
         fill: $color-green;
