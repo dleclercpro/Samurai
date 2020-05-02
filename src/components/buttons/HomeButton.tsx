@@ -9,7 +9,7 @@ type Props = RouteComponentProps;
 const HomeButton: React.FC<Props> = (props) => (
     <Button
         id='home-button'
-        action={() => { props.history.push('/samurai/') }}
+        action={() => { props.history.push('/') }}
         isActive
     >
         <HomeIcon className='icon' />

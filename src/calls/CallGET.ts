@@ -3,8 +3,8 @@ import { CallType } from '../types/CallTypes';
 
 class CallGET extends Call {
 
-    constructor(url: string) {
-        super(url, CallType.GET);
+    constructor(name: string, url: string) {
+        super(name, url, CallType.GET);
     }
 }
 

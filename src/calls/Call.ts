@@ -2,13 +2,15 @@ import { getCookie } from './Cookie';
 import { BASE_URL } from '../config';
 
 class Call {
+    private name: string;
     private url: string;
     private method: string;
     private payload: object | undefined;
     private headers: HeadersInit;
     private params: RequestInit;
 
-    constructor(url: string, method: string, payload?: object) {
+    constructor(name: string, url: string, method: string, payload?: object) {
+        this.name = name;
         this.url = BASE_URL + url;
         this.method = method;
         this.payload = payload;
@@ -69,7 +71,7 @@ class Call {
     }
 
     execute() {
-        console.log(`Executing call: ${this.constructor.name}`);
+        console.log(`Executing call: ${this.name}`);
 
         this.prepare();
 

@@ -3,7 +3,7 @@ import CallPOST from './CallPOST';
 export class CallPlayGame extends CallPOST {
 
     constructor(gameId: number, handTileId: number, boardTileFromId: number, boardTileToId: number, casteFrom: string, casteTo: string) {
-        super(`game/${gameId}/play/`, {
+        super('PlayGame', `game/${gameId}/play/`, {
             handTileId,
             boardTileFromId,
             boardTileToId,

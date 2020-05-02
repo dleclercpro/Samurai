@@ -72,7 +72,7 @@ class FormCreateGame extends React.Component<Props, State> {
         return createGame(name, self, [ user1, user2, user3 ])
             .then((id: number) => {
                 if (id !== -1) {
-                    history.push(`/samurai/game/${id}/`);
+                    history.push(`/game/${id}/`);
                 }
             });
     }

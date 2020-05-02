@@ -3,8 +3,8 @@ import { CallType } from '../types/CallTypes';
 
 class CallDELETE extends Call {
 
-    constructor(url: string, payload: object) {
-        super(url, CallType.DELETE, payload);
+    constructor(name: string, url: string, payload: object) {
+        super(name, url, CallType.DELETE, payload);
     }
 }
 

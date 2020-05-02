@@ -172,7 +172,6 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 if (!wasPlaying && isPlaying) {
                     dispatch(openDialog(DialogType.NewTurn));
                 }
-
             })
             .catch((error: any) => {
                 dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message, redirectHome));

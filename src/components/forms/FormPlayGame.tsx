@@ -53,7 +53,7 @@ class FormPlayGame extends React.Component<Props, State> {
         const { history } = this.props;
         const id = parseInt(getFormPayload(this.state.fields).id);
 
-        history.push(`/samurai/game/${id}/`);
+        history.push(`/game/${id}/`);
 
         return Promise.resolve();
     }

@@ -55,14 +55,14 @@ class App extends React.Component<Props, {}> {
             <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>           
                 <main id='main'>
                     <Switch>
-                        <Route exact path='/samurai/'>
+                        <Route exact path='/'>
                             <Home />
                         </Route>
-                        <Route exact path='/samurai/game/:id/' render={({ match }) => (
+                        <Route exact path='/game/:id/' render={({ match }) => (
                             <Game routeId={parseInt(match.params.id)} />
                         )}/>
                         <Route>
-                            <Redirect to='/samurai/' />
+                            <Redirect to='/' />
                         </Route>
                     </Switch>
                 </main>

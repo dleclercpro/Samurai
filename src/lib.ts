@@ -27,7 +27,7 @@ export const localStorageGet = (key: string): string => {
 }
 
 export const redirectHome = (): Promise<void> => {
-    document.location.replace(`/samurai/`);
+    document.location.replace(`/`);
 
     return Promise.resolve();
 }

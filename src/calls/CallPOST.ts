@@ -3,8 +3,8 @@ import { CallType } from '../types/CallTypes';
 
 class CallPOST extends Call {
 
-    constructor(url: string, payload: object) {
-        super(url, CallType.POST, payload);
+    constructor(name: string, url: string, payload: object) {
+        super(name, url, CallType.POST, payload);
     }
 }
 
