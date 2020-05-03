@@ -1,22 +1,17 @@
-import { PlayerJSON, PlayedTilesJSON } from '../types/ServerTypes';
-import { LoadPlayer, LOAD_PLAYER, LoadOpponents, LOAD_OPPONENTS, LoadHand, LOAD_HAND, LoadPlayedTilesSinceLastTurn, LOAD_PLAYED_TILES_SINCE_LAST_TURN } from '../types/ActionTypes';
+import { PlayerJSON } from '../types/ServerTypes';
+import { SetPlayer, SET_PLAYER, SetOpponents, SET_OPPONENTS, SetHand, SET_HAND } from '../types/ActionTypes';
 
-export const loadPlayer = (data: PlayerJSON): LoadPlayer => ({
-    type: LOAD_PLAYER,
+export const setPlayer = (data: PlayerJSON): SetPlayer => ({
+    type: SET_PLAYER,
     data,
 });
 
-export const loadOpponents = (data: PlayerJSON[]): LoadOpponents => ({
-    type: LOAD_OPPONENTS,
+export const setOpponents = (data: PlayerJSON[]): SetOpponents => ({
+    type: SET_OPPONENTS,
     data,
 });
 
-export const loadHand = (data: number[]): LoadHand => ({
-    type: LOAD_HAND,
+export const setHand = (data: number[]): SetHand => ({
+    type: SET_HAND,
     data,
-});
-
-export const loadPlayedTilesSinceLastTurn = (playedTiles: PlayedTilesJSON): LoadPlayedTilesSinceLastTurn => ({
-    type: LOAD_PLAYED_TILES_SINCE_LAST_TURN,
-    playedTiles,
 });

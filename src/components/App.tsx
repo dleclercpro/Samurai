@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import FULL_HAND from '../data/FullHand.json';
 import DialogGameOver from './dialogs/DialogGameOver';
 import DialogCasteSwapStart from './dialogs/DialogCasteSwapStart';
-import { loadFullHand } from '../actions/DataActions';
+import { setFullHand } from '../actions/DataActions';
 import DialogCasteChoice from './dialogs/DialogCasteChoice';
 import DialogCasteSwapEnd from './dialogs/DialogCasteSwapEnd';
 import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
@@ -33,7 +33,7 @@ interface StateProps {
 
 interface DispatchProps {
     verifyAuthentication: () => Promise<void>,
-    loadFullHand: (data: HandBoardTileJSON[]) => void,
+    setFullHand: (data: HandBoardTileJSON[]) => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -41,11 +41,11 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { verifyAuthentication, loadFullHand } = this.props;
+        const { verifyAuthentication, setFullHand } = this.props;
 
         verifyAuthentication();
         
-        loadFullHand(FULL_HAND);
+        setFullHand(FULL_HAND);
     }
 
     render() {
@@ -97,7 +97,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     verifyAuthentication: () => dispatch(verifyAuthentication()),
-    loadFullHand: (data: HandBoardTileJSON[]) => dispatch(loadFullHand(data)),
+    setFullHand: (data: HandBoardTileJSON[]) => dispatch(setFullHand(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

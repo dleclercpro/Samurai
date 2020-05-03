@@ -1,8 +1,9 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SWITCH_COLOR_MODE, SET_GAME_ID, RESET_GAME_ID } from '../types/ActionTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SWITCH_COLOR_MODE, SET_GAME_ID, RESET_GAME_ID, SET_GAME_VERSION, RESET_GAME_VERSION, SET_PLAYED_TILES_SINCE_LAST_TURN } from '../types/ActionTypes';
 import { Caste, TilePlayStep, CasteSwapStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
 import { localStorageGet, localStorageSet } from '../lib';
+import { parsePlayedTiles } from '../parse';
 
 const initPlayState = {
     boardTile: -1,
@@ -32,9 +33,11 @@ const initSelectionState = {
 
 const initState = {
     id: -1,
+    version: -1,
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
     colors: localStorageGet('colors') as ColorMode || ColorMode.Normal,
+    playedTilesSinceLastTurn: new Map(),
 };
 
 const getNextGameStep = (step: GameStep, action: string): GameStep => {
@@ -144,12 +147,22 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             return {
                 ...state,
                 id: -1,
-            }
+            };
         case SET_GAME_ID:
             return {
                 ...state,
                 id: action.id,
-            }
+            };
+        case RESET_GAME_VERSION:
+            return {
+                ...state,
+                version: -1,
+            };
+        case SET_GAME_VERSION:
+            return {
+                ...state,
+                version: action.version,
+            };
 
         case SWITCH_COLOR_MODE:
             const newColors = state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal;
@@ -158,6 +171,12 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             return {
                 ...state,
                 colors: newColors,
+            };
+
+        case SET_PLAYED_TILES_SINCE_LAST_TURN:
+            return {
+                ...state,
+                playedTilesSinceLastTurn: parsePlayedTiles(action.playedTiles),
             };
 
         case END_TURN:

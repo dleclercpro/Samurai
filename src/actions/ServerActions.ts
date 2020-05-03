@@ -1,13 +1,10 @@
 import { CallPlayGame } from '../calls/CallPlayGame';
-import { CallGetHand } from '../calls/CallGetHand';
 import { setSuccessDialog, setErrorDialog, openDialog } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
-import { PlayersJSON, HandJSON, BoardJSON, UserJSON, PlayedTilesJSON } from '../types/ServerTypes';
-import { endTurn, resetGameId } from './GameActions';
+import { UserJSON, GameData } from '../types/ServerTypes';
+import { endTurn, resetGameId, setGameVersion, resetGameVersion, setPlayedTilesSinceLastTurn } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
-import { CallGetBoard } from '../calls/CallGetBoard';
-import { CallGetPlayers } from '../calls/CallGetPlayers';
-import { loadBoard } from './DataActions';
+import { setBoard } from './DataActions';
 import { AppState } from '../types/StateTypes';
 import { TILE_MOVE_ID, TILE_SWAP_ID } from '../constants';
 import { Caste } from '../types/GameTypes';
@@ -15,23 +12,23 @@ import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
-import { loadPlayer, loadOpponents, loadHand, loadPlayedTilesSinceLastTurn } from './PlayerActions';
+import { setPlayer, setOpponents, setHand } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { redirectHome } from '../lib';
-import { CallGetRecentlyPlayed } from '../calls/CallGetRecentlyPlayed';
+import { CallGetData } from '../calls/CallGetData';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>) => {
         
         return new CallSignIn(email, password).execute()
-            .then((response: ServerResponse) => {
-                const user: UserJSON = response.data;
+            .then((response: ServerResponse<UserJSON>) => {
+                const { username, email } = response.data;
                 
-                dispatch(setUser(user.username, user.email));
+                dispatch(setUser(username, email));
 
                 dispatch(setSuccessDialog('You have successfully signed in.'));
                 dispatch(openDialog(DialogType.Success));
@@ -67,10 +64,10 @@ export const verifyAuthentication = (): ThunkActionResult<void> => {
     return (dispatch: ThunkDispatchResult<void>) => {
 
         return new CallVerifyAuthentication().execute()
-            .then((response: ServerResponse) => {
-                const user: UserJSON = response.data;
+            .then((response: ServerResponse<UserJSON>) => {
+                const { username, email } = response.data;
                 
-                dispatch(setUser(user.username, user.email));
+                dispatch(setUser(username, email));
             })
             .catch(() => {
                 dispatch(resetUser);
@@ -102,8 +99,8 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
         dispatch(resetGameId);
         
         return new CallCreateGame(name, self, opponents).execute()
-            .then((response: ServerResponse) => {
-                const id: number = response.data.id;
+            .then((response: ServerResponse<{ id: number }>) => {
+                const { id } = response.data;
 
                 return id;
             })
@@ -116,47 +113,31 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
     };
 }
 
-export const loadGameData = (): ThunkActionResult<void> => {
+export const getData = (): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         let state = getState();
         const { game } = state;
 
-        let board: BoardJSON;
-        let players: PlayersJSON;
-        let hand: HandJSON;
-        let lastPlayedTiles: PlayedTilesJSON;
+        return new CallGetData(game.id, game.version).execute()
+            .then((response: ServerResponse<GameData>) => {
+                const { version } = response.data;
 
-        return new CallGetBoard(game.id).execute()
-            .then((response: ServerResponse) => {
-                board = response.data;
+                // No new data on server
+                if (version === undefined || version <= game.version) {
+                    return;
+                }
 
-                return new CallGetPlayers(game.id).execute();    
-            })
-            .then((response: ServerResponse) => {
-                players = response.data;
-
-                return new CallGetHand(game.id).execute();
-            })
-            .then((response: ServerResponse) => {
-                hand = response.data;
-
-                return new CallGetRecentlyPlayed(game.id).execute();
-            })
-            .then((response: ServerResponse) => {
-                lastPlayedTiles = response.data;
-
-                return;
-            })
-            .then(() => {
+                const { hand, board, players, lastPlayedTiles } = response.data;
                 const wasPlaying = isCurrentPlayer(state.players);
 
-                // Loaded everything
-                dispatch(loadBoard(board));
-                dispatch(loadPlayer(players.self));
-                dispatch(loadOpponents(players.opponents));
-                dispatch(loadHand(hand));
-                dispatch(loadPlayedTilesSinceLastTurn(lastPlayedTiles));
+                // Load everything
+                dispatch(setGameVersion(version));
+                dispatch(setBoard(board));
+                dispatch(setPlayer(players.self));
+                dispatch(setOpponents(players.opponents));
+                dispatch(setHand(hand));
+                dispatch(setPlayedTilesSinceLastTurn(lastPlayedTiles));
 
                 // Re-pull state
                 state = getState();
@@ -174,6 +155,8 @@ export const loadGameData = (): ThunkActionResult<void> => {
                 }
             })
             .catch((error: any) => {
+                dispatch(resetGameVersion);
+
                 dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message, redirectHome));
                 dispatch(openDialog(DialogType.Error));
 
@@ -190,7 +173,7 @@ const play = (handTile: number, boardTileFrom: number, boardTileTo: number, cast
 
         return new CallPlayGame(game.id, handTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
             .then(() => {
-                return dispatch(loadGameData());
+                return dispatch(getData());
             })
             .finally(() => {
                 dispatch(endTurn);

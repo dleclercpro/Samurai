@@ -22,6 +22,7 @@ export interface SwapPartialState {
 
 export interface GameState {
     id: number,
+    version: number,
     step: GameStep,
     selection: {
         play: PlayState,
@@ -29,12 +30,12 @@ export interface GameState {
         swap: SwapState,
     },
     colors: ColorMode,
+    playedTilesSinceLastTurn: PlayedTileMap,
 }
 
 export interface PlayersState {
     self: Player,
     opponents: Player[],
-    playedTilesSinceLastTurn: PlayedTileMap,
 }
 
 export interface UserState {

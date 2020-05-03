@@ -1,9 +1,17 @@
 import { Coordinates2D } from './GameTypes';
 
-export interface ServerResponse {
+export interface ServerResponse<T> {
     status: number,
     message: string,
-    data: any,
+    data: T,
+}
+
+export interface GameData {
+    version: number,
+    hand: HandJSON,
+    board: BoardJSON,
+    players: PlayersJSON,
+    lastPlayedTiles: PlayedTilesJSON,
 }
 
 export interface UserJSON {

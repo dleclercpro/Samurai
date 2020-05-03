@@ -1,5 +1,5 @@
 import { DataAction } from '../actions';
-import { LOAD_BOARD, LOAD_FULL_HAND } from '../types/ActionTypes';
+import { SET_BOARD, SET_FULL_HAND } from '../types/ActionTypes';
 import { parseBoard, parseFullHand } from '../parse';
 import { getTileNeighborhood } from '../lib';
 import { DataState } from '../types/StateTypes';
@@ -11,7 +11,7 @@ const initState = {
 
 const DataReducer = (state: DataState = initState, action: DataAction) => {
     switch (action.type) {
-        case LOAD_BOARD:
+        case SET_BOARD:
             const tiles = parseBoard(action.data);
 
             // Build tile neighborhoods
@@ -25,7 +25,7 @@ const DataReducer = (state: DataState = initState, action: DataAction) => {
                 ...state,
                 tiles,
             };
-        case LOAD_FULL_HAND:
+        case SET_FULL_HAND:
             return {
                 ...state,
                 fullHand: parseFullHand(action.data),

@@ -12,15 +12,15 @@ export type ThunkActionResult<R> = ThunkAction<Promise<R>, AppState, {}, AppActi
 
 
 // Data actions
-export const LOAD_BOARD = 'LOAD_BOARD';
-export interface LoadBoard {
-    type: typeof LOAD_BOARD,
+export const SET_BOARD = 'SET_BOARD';
+export interface SetBoard {
+    type: typeof SET_BOARD,
     data: BoardJSON,
 }
 
-export const LOAD_FULL_HAND = 'LOAD_FULL_HAND';
-export interface LoadFullHand {
-    type: typeof LOAD_FULL_HAND,
+export const SET_FULL_HAND = 'SET_FULL_HAND';
+export interface SetFullHand {
+    type: typeof SET_FULL_HAND,
     data: HandBoardTileJSON[],
 }
 
@@ -36,6 +36,17 @@ export const SET_GAME_ID = 'SET_GAME_ID';
 export interface SetGameId {
     type: typeof SET_GAME_ID,
     id: number,
+}
+
+export const RESET_GAME_VERSION = 'RESET_GAME_VERSION';
+export interface ResetGameVersion {
+    type: typeof RESET_GAME_VERSION,
+}
+
+export const SET_GAME_VERSION = 'SET_GAME_VERSION';
+export interface SetGameVersion {
+    type: typeof SET_GAME_VERSION,
+    version: number,
 }
 
 export const END_TURN = 'END_TURN';
@@ -66,27 +77,27 @@ export interface ResetUser {
 
 
 // Player actions
-export const LOAD_PLAYER = 'LOAD_PLAYER';
-export interface LoadPlayer {
-    type: typeof LOAD_PLAYER,
+export const SET_PLAYER = 'SET_PLAYER';
+export interface SetPlayer {
+    type: typeof SET_PLAYER,
     data: PlayerJSON,
 }
 
-export const LOAD_OPPONENTS = 'LOAD_OPPONENTS';
-export interface LoadOpponents {
-    type: typeof LOAD_OPPONENTS,
+export const SET_OPPONENTS = 'SET_OPPONENTS';
+export interface SetOpponents {
+    type: typeof SET_OPPONENTS,
     data: PlayerJSON[],
 }
 
-export const LOAD_HAND = 'LOAD_HAND';
-export interface LoadHand {
-    type: typeof LOAD_HAND,
+export const SET_HAND = 'SET_HAND';
+export interface SetHand {
+    type: typeof SET_HAND,
     data: number[],
 }
 
-export const LOAD_PLAYED_TILES_SINCE_LAST_TURN = 'LOAD_PLAYED_TILES_SINCE_LAST_TURN';
-export interface LoadPlayedTilesSinceLastTurn {
-    type: typeof LOAD_PLAYED_TILES_SINCE_LAST_TURN,
+export const SET_PLAYED_TILES_SINCE_LAST_TURN = 'SET_PLAYED_TILES_SINCE_LAST_TURN';
+export interface SetPlayedTilesSinceLastTurn {
+    type: typeof SET_PLAYED_TILES_SINCE_LAST_TURN,
     playedTiles: PlayedTilesJSON,
 }
 

@@ -3,7 +3,7 @@ import './Game.scss';
 import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { loadGameData } from '../actions/ServerActions';
+import { getData } from '../actions/ServerActions';
 import { setGameId, resetGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
@@ -25,7 +25,7 @@ interface StateProps {
 interface DispatchProps {
     resetGameId: () => void,
     setGameId: (id: number) => void,
-    loadGameData: () => Promise<void>,
+    getData: () => Promise<void>,
 }
 
 type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
@@ -47,7 +47,7 @@ class Game extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { routeId, id, resetGameId, setGameId, loadGameData } = this.props;
+        const { routeId, id, resetGameId, setGameId, getData } = this.props;
         
         // Game IDs mismatch: reload
         if (routeId !== id) {
@@ -55,7 +55,7 @@ class Game extends React.Component<Props, State> {
 
             setGameId(routeId);
 
-            loadGameData()
+            getData()
                 .then(() => {
                     this.startPolling();
                 })
@@ -75,9 +75,9 @@ class Game extends React.Component<Props, State> {
     }
 
     poll = () => {
-        const { loadGameData } = this.props;
+        const { getData } = this.props;
  
-        loadGameData()
+        getData()
             .catch(() => {
                 this.stopPolling();
             });
@@ -148,7 +148,7 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     resetGameId: () => dispatch(resetGameId),
     setGameId: (id: number) => dispatch(setGameId(id)),
-    loadGameData: () => dispatch(loadGameData()),
+    getData: () => dispatch(getData()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));

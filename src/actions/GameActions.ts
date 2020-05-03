@@ -1,5 +1,6 @@
-import { SelectBoardTile, SELECT_BOARD_TILE, SelectHandTile, SELECT_HAND_TILE, DeselectBoardTile, DESELECT_BOARD_TILE, DeselectHandTile, DESELECT_HAND_TILE, StartCasteSwap, START_CASTE_SWAP, SelectTileFromForSwap, SELECT_TILE_FROM_FOR_SWAP, SelectCasteFromForSwap, SELECT_CASTE_FROM_FOR_SWAP, SelectTileToForSwap, SELECT_TILE_TO_FOR_SWAP, SelectCasteToForSwap, SELECT_CASTE_TO_FOR_SWAP, DeselectTileFromForSwap, DESELECT_TILE_FROM_FOR_SWAP, DeselectTileToForSwap, DESELECT_TILE_TO_FOR_SWAP, DeselectCasteToForSwap, DESELECT_CASTE_TO_FOR_SWAP, SelectBoardTileToMoveTo, SELECT_BOARD_TILE_TO_MOVE_TO, SelectBoardTileToMoveFrom, SELECT_BOARD_TILE_TO_MOVE_FROM, DeselectCasteFromForSwap, DESELECT_CASTE_FROM_FOR_SWAP, END_TURN, EndTurn, FINISH_CASTE_SWAP, FinishCasteSwap, StartTileMove, START_TILE_MOVE, SwitchColorMode, SWITCH_COLOR_MODE, SetGameId, SET_GAME_ID, ResetGameId, RESET_GAME_ID } from '../types/ActionTypes';
+import { SelectBoardTile, SELECT_BOARD_TILE, SelectHandTile, SELECT_HAND_TILE, DeselectBoardTile, DESELECT_BOARD_TILE, DeselectHandTile, DESELECT_HAND_TILE, StartCasteSwap, START_CASTE_SWAP, SelectTileFromForSwap, SELECT_TILE_FROM_FOR_SWAP, SelectCasteFromForSwap, SELECT_CASTE_FROM_FOR_SWAP, SelectTileToForSwap, SELECT_TILE_TO_FOR_SWAP, SelectCasteToForSwap, SELECT_CASTE_TO_FOR_SWAP, DeselectTileFromForSwap, DESELECT_TILE_FROM_FOR_SWAP, DeselectTileToForSwap, DESELECT_TILE_TO_FOR_SWAP, DeselectCasteToForSwap, DESELECT_CASTE_TO_FOR_SWAP, SelectBoardTileToMoveTo, SELECT_BOARD_TILE_TO_MOVE_TO, SelectBoardTileToMoveFrom, SELECT_BOARD_TILE_TO_MOVE_FROM, DeselectCasteFromForSwap, DESELECT_CASTE_FROM_FOR_SWAP, END_TURN, EndTurn, FINISH_CASTE_SWAP, FinishCasteSwap, StartTileMove, START_TILE_MOVE, SwitchColorMode, SWITCH_COLOR_MODE, SetGameId, SET_GAME_ID, ResetGameId, RESET_GAME_ID, SetGameVersion, SET_GAME_VERSION, RESET_GAME_VERSION, ResetGameVersion, SetPlayedTilesSinceLastTurn, SET_PLAYED_TILES_SINCE_LAST_TURN } from '../types/ActionTypes';
 import { Caste } from '../types/GameTypes';
+import { PlayedTilesJSON } from '../types/ServerTypes';
 
 
 // Game actions
@@ -12,6 +13,15 @@ export const setGameId = (id: number): SetGameId => ({
     id,
 });
 
+export const resetGameVersion: ResetGameVersion = {
+    type: RESET_GAME_VERSION,
+};
+
+export const setGameVersion = (version: number): SetGameVersion => ({
+    type: SET_GAME_VERSION,
+    version,
+});
+
 export const endTurn: EndTurn = {
     type: END_TURN,
 };
@@ -19,6 +29,11 @@ export const endTurn: EndTurn = {
 export const switchColorMode: SwitchColorMode = {
     type: SWITCH_COLOR_MODE,
 };
+
+export const setPlayedTilesSinceLastTurn = (playedTiles: PlayedTilesJSON): SetPlayedTilesSinceLastTurn => ({
+    type: SET_PLAYED_TILES_SINCE_LAST_TURN,
+    playedTiles,
+});
 
 
 
