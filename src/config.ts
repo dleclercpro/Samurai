@@ -13,7 +13,7 @@ export const TILE_PATH: string = getHexagonalPath(TILE_SIZE, TILE_STROKE);
 export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superimposing tiles on their contours
 
 // Server
-export const REMOTE_URL = 'http://35.182.135.40/';
-export const LOCAL_URL = 'http://localhost:8000/';
+export const REMOTE_URL = 'https://samurai.api.dleclerc.me/';
+export const LOCAL_URL = 'https://localhost:8000/';
 export const BASE_URL = REMOTE_URL;
 export const REFRESH_RATE = 5 * 1000; // ms
