@@ -59,7 +59,7 @@ class App extends React.Component<Props, {}> {
                             <Home />
                         </Route>
                         <Route exact path='/game/:id/' render={({ match }) => (
-                            <Game routeId={parseInt(match.params.id)} />
+                            <Game id={parseInt(match.params.id)} />
                         )}/>
                         <Route>
                             <Redirect to='/' />

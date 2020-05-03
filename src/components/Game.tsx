@@ -4,7 +4,7 @@ import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import { getData } from '../actions/ServerActions';
-import { setGameId, resetGameId } from '../actions/GameActions';
+import { setGameId, resetGameId, resetGameVersion } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -14,17 +14,17 @@ import { REFRESH_RATE } from '../config';
 import { isGameOver } from '../selectors';
 
 interface OwnProps {
-    routeId: number,
+    id: number,
 }
 
 interface StateProps {
-    id: number,
     isOver: boolean,
 }
 
 interface DispatchProps {
-    resetGameId: () => void,
     setGameId: (id: number) => void,
+    resetGameId: () => void,
+    resetGameVersion: () => void,
     getData: () => Promise<void>,
 }
 
@@ -47,36 +47,37 @@ class Game extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { routeId, id, resetGameId, setGameId, getData } = this.props;
-        
-        // Game IDs mismatch: reload
-        if (routeId !== id) {
-            this.showSpinner();
+        const { id, setGameId, resetGameId, resetGameVersion, getData } = this.props;
 
-            setGameId(routeId);
+        this.showSpinner();
 
-            getData()
-                .then(() => {
-                    this.startPolling();
-                })
-                .catch(() => {
-                    resetGameId();
-                })
-                .finally(() => {
-                    this.hideSpinner();
-                });
-        } else {
-            this.hideSpinner();
-        }
+        setGameId(id);
+
+        getData()
+            .then(() => {
+                this.startPolling();
+            })
+            .catch(() => {
+                resetGameId();
+                resetGameVersion();
+            })
+            .finally(() => {
+                this.hideSpinner();
+            });
     }
 
     componentWillUnmount() {
+        const { resetGameId, resetGameVersion } = this.props;
+
         this.stopPolling();
+
+        resetGameId();
+        resetGameVersion();
     }
 
     poll = () => {
         const { getData } = this.props;
- 
+        
         getData()
             .catch(() => {
                 this.stopPolling();
@@ -141,13 +142,13 @@ class Game extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    id: state.game.id,
     isOver: isGameOver(state.players),
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    resetGameId: () => dispatch(resetGameId),
     setGameId: (id: number) => dispatch(setGameId(id)),
+    resetGameId: () => dispatch(resetGameId),
+    resetGameVersion: () => dispatch(resetGameVersion),
     getData: () => dispatch(getData()),
 });
 
