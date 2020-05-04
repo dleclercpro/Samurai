@@ -10,6 +10,7 @@ import { Language } from '../../types/GameTypes';
 
 interface OwnProps {
     language: Language,
+    isSelected: boolean,
 }
 
 interface DispatchProps {
@@ -40,12 +41,15 @@ class LanguageButton extends React.Component<Props, {}> {
     }
 
     render() {
-        const { language } = this.props;
+        const { language, isSelected } = this.props;
     
         return (
             <button
                 id={`language-button--${language}`}
-                className='language-button'
+                className={`
+                    language-button
+                    ${isSelected ? 'is-selected' : ''}
+                `}
                 onClick={this.handleClick}
             >
                 {this.getIcon(language)}

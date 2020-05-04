@@ -11,7 +11,12 @@
     padding: 0;
     outline: 0;
     overflow: hidden;
+    opacity: 0.25;
     cursor: pointer;
+
+    &.is-selected {
+        opacity: 1;
+    }
 
     &:not(:last-of-type) {
         margin-right: 15px;
