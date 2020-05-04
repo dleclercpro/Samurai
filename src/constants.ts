@@ -1,4 +1,4 @@
-import { Caste, Figure } from "./types/GameTypes";
+import { Caste, Figure } from './types/GameTypes';
 
 export const KEY_ENTER_ID = 13;
 export const KEY_ESC_ID = 27;

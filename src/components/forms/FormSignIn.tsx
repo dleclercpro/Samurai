@@ -11,6 +11,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import { signIn } from '../../actions/ServerActions';
 import Dialog from '../dialogs/Dialog';
+import i18n from '../../translator';
 
 const INIT_STATE = {
     fields: {
@@ -72,8 +73,8 @@ class FormSignIn extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.SetUser}
-                headline='Sign in'
-                actionButtonText='Sign in'
+                headline={i18n.getText('SIGN_IN')}
+                actionButtonText={i18n.getText('SIGN_IN')}
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -82,7 +83,7 @@ class FormSignIn extends React.Component<Props, State> {
                         <FormTextField
                             type='email'
                             name='email'
-                            label='E-mail'
+                            label={i18n.getText('E_MAIL')}
                             onChange={this.handleChange}
                             value={email.value}
                             error={email.error}
@@ -92,7 +93,7 @@ class FormSignIn extends React.Component<Props, State> {
                         <FormTextField
                             type='password'
                             name='password'
-                            label='Password'
+                            label={i18n.getText('PASSWORD')}
                             onChange={this.handleChange}
                             value={password.value}
                             error={password.error}

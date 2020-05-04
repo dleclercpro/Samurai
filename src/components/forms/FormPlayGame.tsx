@@ -7,6 +7,7 @@ import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import Dialog from '../dialogs/Dialog';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import i18n from '../../translator';
 
 const INIT_STATE = {
     fields: {
@@ -65,9 +66,9 @@ class FormPlayGame extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.PlayGame}
-                headline='Play game'
-                message='Please enter the ID of the game you want to play:'
-                actionButtonText='Play'
+                headline={i18n.getText('PLAY_GAME')}
+                message={i18n.getText('PLAY_GAME_MESSAGE')}
+                actionButtonText={i18n.getText('PLAY')}
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -76,7 +77,7 @@ class FormPlayGame extends React.Component<Props, State> {
                     <FormTextField
                         type='number'
                         name='id'
-                        label='Game ID'
+                        label={i18n.getText('GAME_ID')}
                         onChange={this.handleChange}
                         value={id.value}
                         error={id.error}

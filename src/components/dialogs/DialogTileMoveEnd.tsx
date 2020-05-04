@@ -10,6 +10,7 @@ import { PlayerColor, HandTile } from '../../types/GameTypes';
 import { moveTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { endTurn } from '../../actions/GameActions';
+import i18n from '../../translator';
 
 interface StateProps {
     from: number,
@@ -73,10 +74,10 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.TileMoveEnd}
-                headline='Tile Move Confirmation'
-                message='Are you sure you want to move the following tile?'
-                actionButtonText='Confirm'
-                cancelButtonText='Cancel Move'
+                headline={i18n.getText('TILE_MOVE_CONFIRMATION')}
+                message={i18n.getText('TILE_MOVE_CONFIRMATION_MESSAGE')}
+                actionButtonText={i18n.getText('CONFIRM')}
+                cancelButtonText={i18n.getText('CANCEL_MOVE')}
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive

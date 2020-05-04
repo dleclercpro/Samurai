@@ -11,6 +11,7 @@ import { TilePlayStep, HandTile, PlayerColor } from '../../types/GameTypes';
 import { playTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { getHandTiles } from '../../selectors';
+import i18n from '../../translator';
 
 interface StateProps {
     handTile: number,
@@ -80,9 +81,9 @@ class DialogTileChoice extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.TileChoice}
-                headline='Tile Choice'
-                message='Choose which tile to place on the empty space you just clicked:'
-                actionButtonText='Choose'
+                headline={i18n.getText('TILE_CHOICE')}
+                message={i18n.getText('TILE_CHOICE_MESSAGE')}
+                actionButtonText={i18n.getText('CHOOSE')}
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive={isActionButtonActive}

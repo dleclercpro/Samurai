@@ -26,6 +26,7 @@ import FormPlayGame from './forms/FormPlayGame';
 import FormCreateGame from './forms/FormCreateGame';
 import { verifyAuthentication } from '../actions/ServerActions';
 import DialogNewTurn from './dialogs/DialogNewTurn';
+import i18n from '../translator';
 
 interface StateProps {
     isColorblind: boolean,
@@ -39,12 +40,18 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 class App extends React.Component<Props, {}> {
+
+    constructor(props: Props) {
+        super(props);
+
+        i18n.init('fr');
+    }
     
     componentDidMount() {
         const { verifyAuthentication, setFullHand } = this.props;
 
         verifyAuthentication();
-        
+
         setFullHand(FULL_HAND);
     }
 

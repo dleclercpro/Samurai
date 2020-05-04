@@ -2,6 +2,7 @@ import React from 'react';
 import './DialogOK.scss';
 import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
+import i18n from '../../translator';
 
 interface OwnProps {
     type: DialogType,
@@ -25,7 +26,7 @@ class DialogOK extends React.Component<Props, {}> {
                 message={message}
                 explanation={explanation}
                 onAction={action !== undefined ? action : () => Promise.resolve()}
-                actionButtonText='OK'
+                actionButtonText={i18n.getText('OK')}
                 isActionButtonActive
             />
         );

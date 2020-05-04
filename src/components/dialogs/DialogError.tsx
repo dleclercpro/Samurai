@@ -4,6 +4,7 @@ import { DialogType } from '../../types/DialogTypes';
 import DialogOK from './DialogOK';
 import { AppState } from '../../types/StateTypes';
 import { connect } from 'react-redux';
+import i18n from '../../translator';
 
 interface StateProps {
     message: string,
@@ -21,7 +22,7 @@ class DialogError extends React.Component<Props, {}> {
         return (
             <DialogOK
                 type={DialogType.Error}
-                headline='Error'
+                headline={i18n.getText('ERROR')}
                 message={message}
                 explanation={explanation}
                 action={action}

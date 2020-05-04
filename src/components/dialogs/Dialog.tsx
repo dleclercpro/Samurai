@@ -10,6 +10,7 @@ import { KEY_ENTER_ID, KEY_ESC_ID } from '../../constants';
 import Overlay from '../overlays/Overlay';
 import SpinnerOverlay from '../overlays/SpinnerOverlay';
 import Button from '../buttons/Button';
+import i18n from '../../translator';
 
 interface OwnProps {
     children?: ReactNode,
@@ -175,7 +176,7 @@ class Dialog extends React.Component<Props, State> {
                                     isActive
                                     action={this.handleCancel}
                                 >
-                                    {cancelButtonText !== undefined ? cancelButtonText : 'Cancel'}
+                                    {cancelButtonText !== undefined ? cancelButtonText : i18n.getText('CANCEL')}
                                 </Button>
                             }
                         
@@ -183,7 +184,7 @@ class Dialog extends React.Component<Props, State> {
                                 isActive={isActionButtonActive !== undefined && isActionButtonActive}
                                 action={this.handleAction}
                             >
-                                {actionButtonText !== undefined ? actionButtonText : 'OK'}
+                                {actionButtonText !== undefined ? actionButtonText : i18n.getText('OK')}
                             </Button>
                         </div>
 

@@ -9,6 +9,7 @@ import { openDialog } from '../../actions/DialogActions';
 import { Caste, CasteSwapStep } from '../../types/GameTypes';
 import { deselectTileFromForSwap, deselectTileToForSwap, finishCasteSwap, deselectCasteFromForSwap, deselectCasteToForSwap } from '../../actions/GameActions';
 import CasteComponent from '../CasteComponent';
+import i18n from '../../translator';
 
 interface StateProps {
     isChoosingFrom: boolean,
@@ -88,10 +89,10 @@ class DialogCasteChoice extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.CasteChoice}
-                headline='Caste Choice'
-                message='Choose the caste figure you want to swap from the following:'
-                actionButtonText='Choose'
-                cancelButtonText='Back'
+                headline={i18n.getText('CASTE_CHOICE')}
+                message={i18n.getText('CASTE_CHOICE_MESSAGE')}
+                actionButtonText={i18n.getText('CHOOSE')}
+                cancelButtonText={i18n.getText('BACK')}
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}

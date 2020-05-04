@@ -12,6 +12,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Dialog from '../dialogs/Dialog';
+import i18n from '../../translator';
 
 const INIT_STATE = {
     fields: {
@@ -84,9 +85,9 @@ class FormCreateGame extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.CreateGame}
-                headline='Create game'
-                message='Provide the following information to create a new game:'
-                actionButtonText='Create'
+                headline={i18n.getText('CREATE_GAME')}
+                message={i18n.getText('CREATE_GAME_MESSAGE')}
+                actionButtonText={i18n.getText('CREATE')}
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -94,7 +95,7 @@ class FormCreateGame extends React.Component<Props, State> {
                 <Form id='create-game'>
                     <FormTextField
                         name='name'
-                        label='Game name'
+                        label={i18n.getText('GAME_NAME')}
                         onChange={this.handleChange}
                         value={name.value}
                         error={name.error}
@@ -104,7 +105,7 @@ class FormCreateGame extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='user1'
-                        label='Player 1 (E-mail)'
+                        label={`${i18n.getText('PLAYER')} 1 (${i18n.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user1.value}
                         error={user1.error}
@@ -113,7 +114,7 @@ class FormCreateGame extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='user2'
-                        label='Player 2 (E-mail)'
+                        label={`${i18n.getText('PLAYER')} 2 (${i18n.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user2.value}
                         error={user2.error}
@@ -122,7 +123,7 @@ class FormCreateGame extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='user3'
-                        label='Player 3 (E-mail)'
+                        label={`${i18n.getText('PLAYER')} 3 (${i18n.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user3.value}
                         error={user3.error}

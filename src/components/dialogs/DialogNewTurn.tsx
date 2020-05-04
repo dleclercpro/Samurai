@@ -5,6 +5,7 @@ import DialogOK from './DialogOK';
 import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { FULL_HAND_SIZE } from '../../constants';
+import i18n from '../../translator';
 
 interface StateProps {
     nTilesLeft: number,
@@ -20,8 +21,8 @@ class DialogNewTurn extends React.Component<Props> {
         return (
             <DialogOK
                 type={DialogType.NewTurn}
-                headline='New turn'
-                message={`It's your turn to play! You have ${nTilesLeft} tiles left to play.`}
+                headline={i18n.getText('NEW_TURN')}
+                message={i18n.getText('NEW_TURN_MESSAGE', { nTilesLeft })}
             />
         );
     }

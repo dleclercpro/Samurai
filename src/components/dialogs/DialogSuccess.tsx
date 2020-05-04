@@ -4,6 +4,7 @@ import { DialogType } from '../../types/DialogTypes';
 import DialogOK from './DialogOK';
 import { AppState } from '../../types/StateTypes';
 import { connect } from 'react-redux';
+import i18n from '../../translator';
 
 interface StateProps {
     message: string,
@@ -20,7 +21,7 @@ class DialogSuccess extends React.Component<Props, {}> {
         return (
             <DialogOK
                 type={DialogType.Success}
-                headline='Success'
+                headline={i18n.getText('SUCCESS')}
                 message={message}
                 action={action}
             />

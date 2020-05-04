@@ -5,6 +5,7 @@ import { DialogType } from '../../types/DialogTypes';
 import { AppAction } from '../../actions';
 import { startTileMove } from '../../actions/GameActions';
 import { connect } from 'react-redux';
+import i18n from '../../translator';
 
 interface DispatchProps {
     startTileMove: () => void,
@@ -27,9 +28,9 @@ class DialogTileMoveStart extends React.Component<Props, {}> {
         return (
             <Dialog
                 type={DialogType.TileMoveStart}
-                headline='Tile Move'
-                message='Do you want to move a tile you played somewhere else on the board? If so, select first the tile, then its new location.'
-                actionButtonText='Start Move'
+                headline={i18n.getText('TILE_MOVE')}
+                message={i18n.getText('TILE_MOVE_MESSAGE')}
+                actionButtonText={i18n.getText('START_MOVE')}
                 onAction={this.handleAction}
                 onCancel={() => {}}
                 isActionButtonActive

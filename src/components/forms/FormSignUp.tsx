@@ -11,9 +11,7 @@ import { signUp } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import Dialog from '../dialogs/Dialog';
-
-const ERROR_EMAIL = 'The e-mail address you typed in does not seem to be valid.';
-const ERROR_REPEATED_PASSWORD = "Your passwords don't match!";
+import i18n from '../../translator';
 
 const INIT_STATE = {
     fields: {
@@ -67,11 +65,11 @@ class FormSignUp extends React.Component<Props, State> {
     getError = (field: string): string => {
         switch (field) {
             case 'email':
-                return ERROR_EMAIL;
+                return i18n.getText('EMAIL_ERROR');
             case 'repeatedPassword':
-                return ERROR_REPEATED_PASSWORD;
+                return i18n.getText('REPEATED_PASSWORD_ERROR');
             default:
-                return 'Invalid field.';
+                return i18n.getText('INVALID_FIELD');
         }
     }
 
@@ -111,9 +109,9 @@ class FormSignUp extends React.Component<Props, State> {
         return (
             <Dialog
                 type={DialogType.SignUp}
-                headline='Sign up'
-                message='Provide the following information to register as a user:'
-                actionButtonText='Sign up'
+                headline={i18n.getText('SIGN_UP')}
+                message={i18n.getText('SIGN_UP_MESSAGE')}
+                actionButtonText={i18n.getText('SIGN_UP')}
                 isActionButtonActive={isFilled && !hasErrors}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -121,7 +119,7 @@ class FormSignUp extends React.Component<Props, State> {
                 <Form id='sign-up'>
                     <FormTextField
                         name='firstName'
-                        label='First name'
+                        label={i18n.getText('FIRST_NAME')}
                         onChange={this.handleChange}
                         value={firstName.value}
                         error={firstName.error}
@@ -130,7 +128,7 @@ class FormSignUp extends React.Component<Props, State> {
 
                     <FormTextField
                         name='lastName'
-                        label='Last name'
+                        label={i18n.getText('LAST_NAME')}
                         onChange={this.handleChange}
                         value={lastName.value}
                         error={lastName.error}
@@ -138,7 +136,7 @@ class FormSignUp extends React.Component<Props, State> {
 
                     <FormTextField
                         name='username'
-                        label='Username'
+                        label={i18n.getText('USERNAME')}
                         onChange={this.handleChange}
                         value={username.value}
                         error={username.error}
@@ -147,7 +145,7 @@ class FormSignUp extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='email'
-                        label='E-mail'
+                        label={i18n.getText('E_MAIL')}
                         onChange={(e) => { this.handleChange(e, this.isEmailValid) }}
                         value={email.value}
                         error={email.error}
@@ -156,7 +154,7 @@ class FormSignUp extends React.Component<Props, State> {
                     <FormTextField
                         type='password'
                         name='password'
-                        label='Password'
+                        label={i18n.getText('PASSWORD')}
                         onChange={(e) => { this.handleChange(e) }}
                         value={password.value}
                         error={password.error}
@@ -165,7 +163,7 @@ class FormSignUp extends React.Component<Props, State> {
                     <FormTextField
                         type='password'
                         name='repeatedPassword'
-                        label='Password (again)'
+                        label={i18n.getText('PASSWORD_AGAIN')}
                         onChange={(e) => { this.handleChange(e, this.isRepeatedPasswordValid) }}
                         value={repeatedPassword.value}
                         error={repeatedPassword.error}

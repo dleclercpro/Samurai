@@ -6,6 +6,7 @@ import { Player } from '../../types/GameTypes';
 import { getWinners } from '../../selectors';
 import { DialogType } from '../../types/DialogTypes';
 import DialogOK from './DialogOK';
+import i18n from '../../translator';
 
 interface StateProps {
     winners: Player[],
@@ -20,15 +21,15 @@ class DialogGameOver extends React.Component<Props, {}> {
 
         switch (winners.length) {
             case 0:
-                return 'There is no winner.';
+                return i18n.getText('NO_WINNER');
             case 1:
-                return `The winner is: ${winners[0].username}`;
+                return i18n.getText('WINNER_IS', {
+                    winner: winners[0].username
+                });
             default:
-                return `The winners are: ${winners.reduce((result, winner, i) => {
-                    const { username } = winner;
-
-                    return result + ((i + 1 === winners.length) ? username : username + ', ');
-                }, '')}`;
+                return i18n.getText('WINNERS_ARE', {
+                    winners: winners.map(winner => winner.username).join(', ')
+                });
         }
     }
 
@@ -36,7 +37,7 @@ class DialogGameOver extends React.Component<Props, {}> {
         return (
             <DialogOK
                 type={DialogType.GameOver}
-                headline='Game Over'
+                headline={i18n.getText('GAME_OVER')}
                 message={this.getMessage()}
             >
             </DialogOK>

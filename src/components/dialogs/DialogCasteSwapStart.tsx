@@ -5,6 +5,7 @@ import { DialogType } from '../../types/DialogTypes';
 import { AppAction } from '../../actions';
 import { startCasteSwap } from '../../actions/GameActions';
 import { connect } from 'react-redux';
+import i18n from '../../translator';
 
 interface DispatchProps {
     startCasteSwap: () => void,
@@ -26,9 +27,9 @@ class DialogCasteSwapStart extends React.Component<Props, {}> {
         return (
             <Dialog
                 type={DialogType.CasteSwapStart}
-                headline='Caste Swap'
-                message='Do you want to swap two caste figures from two different cities?'
-                actionButtonText='Start Swap'
+                headline={i18n.getText('CASTE_SWAP')}
+                message={i18n.getText('CASTE_SWAP_MESSAGE')}
+                actionButtonText={i18n.getText('START_SWAP')}
                 onAction={this.handleAction}
                 onCancel={() => {}}
                 isActionButtonActive

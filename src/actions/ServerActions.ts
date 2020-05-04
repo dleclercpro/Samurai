@@ -19,6 +19,7 @@ import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { redirectHome } from '../lib';
 import { CallGetData } from '../calls/CallGetData';
+import i18n from '../translator';
 
 export const signIn = (email: string, password: string): ThunkActionResult<void> => {
 
@@ -30,11 +31,11 @@ export const signIn = (email: string, password: string): ThunkActionResult<void>
                 
                 dispatch(setUser(username, email));
 
-                dispatch(setSuccessDialog('You have successfully signed in.'));
+                dispatch(setSuccessDialog(i18n.getText('SIGN_IN_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog('There was an error while signing in:', error.message));
+                dispatch(setErrorDialog(i18n.getText('SIGN_IN_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -49,11 +50,11 @@ export const signOut = (): ThunkActionResult<void> => {
                 dispatch(resetUser);
                 dispatch(resetGameId);
                 
-                dispatch(setSuccessDialog('You have successfully signed out.'));
+                dispatch(setSuccessDialog(i18n.getText('SIGN_OUT_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog('There was an error while signing out:', error.message));
+                dispatch(setErrorDialog(i18n.getText('SIGN_OUT_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -82,11 +83,11 @@ export const signUp = (username: string, firstName: string, lastName: string, em
         
         return new CallSignUp(username, firstName, lastName, email, password).execute()
             .then(() => {
-                dispatch(setSuccessDialog('You have successfully signed up.'));
+                dispatch(setSuccessDialog(i18n.getText('SIGN_UP_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog('There was an error while signing up:', error.message));
+                dispatch(setErrorDialog(i18n.getText('SIGN_UP_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -105,7 +106,7 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
                 return id;
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog('There was an error while creating a new game:', error.message));
+                dispatch(setErrorDialog(i18n.getText('CREATE_GAME_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
 
                 return -1;
@@ -157,7 +158,7 @@ export const getData = (): ThunkActionResult<void> => {
             .catch((error: any) => {
                 dispatch(resetGameVersion);
 
-                dispatch(setErrorDialog(`There was a problem loading the data of game. [ID = ${game.id}]`, error.message, redirectHome));
+                dispatch(setErrorDialog(i18n.getText('GET_DATA_ERROR', { id: game.id }), error.message, redirectHome));
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject();
@@ -187,7 +188,7 @@ export const playTile = (handTile: number, boardTile: number): ThunkActionResult
 
         return dispatch(play(handTile, -1, boardTile, '', ''))
             .catch((error: any) => {
-                dispatch(setErrorDialog('Tile placement was unsuccessful.', error.message));
+                dispatch(setErrorDialog(i18n.getText('PLAY_TILE_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -199,7 +200,7 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActio
 
         return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
             .catch((error: any) => {
-                dispatch(setErrorDialog('Tile move was unsuccessful.', error.message));
+                dispatch(setErrorDialog(i18n.getText('MOVE_TILE_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -211,7 +212,7 @@ export const swapCastePieces = (boardTileFrom: number, boardTileTo: number, cast
 
         return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
             .catch((error: any) => {
-                dispatch(setErrorDialog('Caste pieces swap was unsuccessful.', error.message));
+                dispatch(setErrorDialog(i18n.getText('CASTE_SWAP_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };

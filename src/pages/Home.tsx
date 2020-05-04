@@ -8,6 +8,8 @@ import { AppState } from '../types/StateTypes';
 import { signOut } from '../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import Button from '../components/buttons/Button';
+import i18n from '../translator';
+import DashHome from '../components/buttons/DashHome';
 
 interface StateProps {
     isAuthenticated: boolean,
@@ -30,6 +32,8 @@ class Home extends React.Component<Props, {}> {
 
         return (
             <div id='home' className='page'>
+                <DashHome />
+                
                 <div className='buttons'>
                     {!isAuthenticated &&
                         <React.Fragment>
@@ -38,14 +42,14 @@ class Home extends React.Component<Props, {}> {
                                 action={openSignInDialog}
                                 isActive
                             >
-                                Sign in
+                                {i18n.getText('SIGN_IN')}
                             </Button>
                             <Button
                                 id='button-home-sign-up'
                                 action={openSignUpDialog}
                                 isActive
                             >
-                                Sign up
+                                {i18n.getText('SIGN_UP')}
                             </Button>
                         </React.Fragment>
                     }
@@ -56,21 +60,21 @@ class Home extends React.Component<Props, {}> {
                                 action={resetUser}
                                 isActive
                             >
-                                Sign out
+                                {i18n.getText('SIGN_OUT')}
                             </Button>
                             <Button
                                 id='button-home-play-game'
                                 action={openPlayGameDialog}
                                 isActive
                             >
-                                Play game
+                                {i18n.getText('PLAY_GAME')}
                             </Button>
                             <Button
                                 id='button-home-create-game'
                                 action={openCreateGameDialog}
                                 isActive
                             >
-                                Create game
+                                {i18n.getText('CREATE_GAME')}
                             </Button>
                         </React.Fragment>
                     }

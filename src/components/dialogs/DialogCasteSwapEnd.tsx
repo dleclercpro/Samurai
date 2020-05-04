@@ -9,6 +9,7 @@ import { AppState, SwapPartialState } from '../../types/StateTypes';
 import { swapCastePieces } from '../../actions/ServerActions';
 import { Caste } from '../../types/GameTypes';
 import { ThunkDispatch } from 'redux-thunk';
+import i18n from '../../translator';
 
 interface StateProps {
     from: SwapPartialState,
@@ -40,10 +41,10 @@ class DialogCasteSwapEnd extends React.Component<Props, {}> {
         return (
             <Dialog
                 type={DialogType.CasteSwapEnd}
-                headline='Caste Swap Confirmation'
-                message='Are you sure you want to swap those two caste figures?'
-                actionButtonText='Confirm'
-                cancelButtonText='Cancel Swap'
+                headline={i18n.getText('CASTE_SWAP_CONFIRMATION')}
+                message={i18n.getText('CASTE_SWAP_CONFIRMATION_MESSAGE')}
+                actionButtonText={i18n.getText('CONFIRM')}
+                cancelButtonText={i18n.getText('CANCEL_SWAP')}
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive
