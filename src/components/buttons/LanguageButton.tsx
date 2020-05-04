@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
 import './LanguageButton.scss';
 import { ReactComponent as GermanyIcon } from '../../icons/germany.svg';
-import { ReactComponent as BritainIcon } from '../../icons/britain.svg';
+import { ReactComponent as UKIcon } from '../../icons/uk.svg';
 import { ReactComponent as FranceIcon } from '../../icons/france.svg';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
@@ -29,7 +29,7 @@ class LanguageButton extends React.Component<Props, {}> {
     getIcon = (language: Language): React.ReactNode => {
         switch (language) {
             case Language.EN:
-                return <BritainIcon className='icon' />;
+                return <UKIcon className='icon' />;
             case Language.DE:
                 return <GermanyIcon className='icon' />;
             case Language.FR:
