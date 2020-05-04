@@ -9,11 +9,12 @@ import { AppState, SwapPartialState } from '../../types/StateTypes';
 import { swapCastePieces } from '../../actions/ServerActions';
 import { Caste } from '../../types/GameTypes';
 import { ThunkDispatch } from 'redux-thunk';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     from: SwapPartialState,
     to: SwapPartialState,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -38,13 +39,15 @@ class DialogCasteSwapEnd extends React.Component<Props, {}> {
     }
 
     render() {
+        const { language } = this.props;
+
         return (
             <Dialog
                 type={DialogType.CasteSwapEnd}
-                headline={i18n.getText('CASTE_SWAP_CONFIRMATION')}
-                message={i18n.getText('CASTE_SWAP_CONFIRMATION_MESSAGE')}
-                actionButtonText={i18n.getText('CONFIRM')}
-                cancelButtonText={i18n.getText('CANCEL_SWAP')}
+                headline={language.getText('CASTE_SWAP_CONFIRMATION')}
+                message={language.getText('CASTE_SWAP_CONFIRMATION_MESSAGE')}
+                actionButtonText={language.getText('CONFIRM')}
+                cancelButtonText={language.getText('CANCEL_SWAP')}
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive
@@ -55,10 +58,12 @@ class DialogCasteSwapEnd extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { selection } = state.game;
+    const { language } = state.user;
 
     return {
         from: selection.swap.from,
         to: selection.swap.to,
+        language,
     }
 };
 

@@ -7,7 +7,9 @@ import { DialogType } from '../../types/DialogTypes';
 import { getFormPayload } from '../../lib';
 import Dialog from '../dialogs/Dialog';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import i18n from '../../translator';
+import i18n from '../../i18n';
+import { AppState } from '../../types/StateTypes';
+import { connect } from 'react-redux';
 
 const INIT_STATE = {
     fields: {
@@ -16,7 +18,11 @@ const INIT_STATE = {
     isFilled: false,
 };
 
-type Props = RouteComponentProps;
+interface StateProps {
+    language: i18n,
+}
+
+type Props = StateProps & RouteComponentProps;
 
 interface State {
     fields: FormFields,
@@ -54,21 +60,24 @@ class FormPlayGame extends React.Component<Props, State> {
         const { history } = this.props;
         const id = parseInt(getFormPayload(this.state.fields).id);
 
+        this.setState({ ...INIT_STATE });
+
         history.push(`/game/${id}/`);
 
         return Promise.resolve();
     }
     
     render() {
+        const { language } = this.props;
         const { fields, isFilled } = this.state;
         const { id } = fields;
 
         return (
             <Dialog
                 type={DialogType.PlayGame}
-                headline={i18n.getText('PLAY_GAME')}
-                message={i18n.getText('PLAY_GAME_MESSAGE')}
-                actionButtonText={i18n.getText('PLAY')}
+                headline={language.getText('PLAY_GAME')}
+                message={language.getText('PLAY_GAME_MESSAGE')}
+                actionButtonText={language.getText('PLAY')}
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -77,7 +86,7 @@ class FormPlayGame extends React.Component<Props, State> {
                     <FormTextField
                         type='number'
                         name='id'
-                        label={i18n.getText('GAME_ID')}
+                        label={language.getText('GAME_ID')}
                         onChange={this.handleChange}
                         value={id.value}
                         error={id.error}
@@ -89,4 +98,12 @@ class FormPlayGame extends React.Component<Props, State> {
     }
 }
 
-export default withRouter(FormPlayGame);
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+
+    return {
+        language,
+    };
+}
+
+export default withRouter(connect(mapStateToProps, () => ({}))(FormPlayGame));

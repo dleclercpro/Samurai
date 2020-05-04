@@ -26,9 +26,10 @@ import FormPlayGame from './forms/FormPlayGame';
 import FormCreateGame from './forms/FormCreateGame';
 import { verifyAuthentication } from '../actions/ServerActions';
 import DialogNewTurn from './dialogs/DialogNewTurn';
-import i18n from '../translator';
+import i18n from '../i18n';
 
 interface StateProps {
+    language: i18n,
     isColorblind: boolean,
 }
 
@@ -40,12 +41,6 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 class App extends React.Component<Props, {}> {
-
-    constructor(props: Props) {
-        super(props);
-
-        i18n.init('fr');
-    }
     
     componentDidMount() {
         const { verifyAuthentication, setFullHand } = this.props;
@@ -98,9 +93,15 @@ class App extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    isColorblind: state.game.colors === ColorMode.Blind,
-});
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+    const { colors } = state.game;
+    
+    return {
+        language,
+        isColorblind: colors === ColorMode.Blind,
+    }
+}
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     verifyAuthentication: () => dispatch(verifyAuthentication()),

@@ -31,6 +31,17 @@
     "CREATE_GAME_MESSAGE": "Provide the following information to create a new game:",
     "GAME_NAME": "Game name",
 
+    "NEW_TURN": "New Turn",
+    "NEW_TURN_MESSAGE": "It's your turn to play! You have {{nTilesLeft}} tiles left.",
+
+    "GAME_OVER": "Game Over",
+    "NO_WINNER": "There is no winner.",
+    "WINNER_IS": "The winner is: {{winner}}",
+    "WINNERS_ARE": "The winners are: {{winners}}",
+    
+    "TILE_CHOICE": "Tile Choice",
+    "TILE_CHOICE_MESSAGE": "Choose which tile to place on the empty space you just clicked:",
+
     "TILE_MOVE": "Tile Move",
     "TILE_MOVE_MESSAGE": "Do you want to move a tile you played somewhere else on the board? If so, select first the tile, then its new location.",
     "START_MOVE": "Start move",
@@ -38,17 +49,6 @@
     "TILE_MOVE_CONFIRMATION": "Tile Move Confirmation",
     "TILE_MOVE_CONFIRMATION_MESSAGE": "Are you sure you want to move the following tile?",
     "CANCEL_MOVE": "Cancel move",
-
-    "TILE_CHOICE": "Tile Choice",
-    "TILE_CHOICE_MESSAGE": "Choose which tile to place on the empty space you just clicked:",
-
-    "NEW_TURN": "New Turn",
-    "NEW_TURN_MESSAGE": "It's your turn to play! You have {{nTilesLeft}} tiles left to play.",
-
-    "GAME_OVER": "Game Over",
-    "NO_WINNER": "There is no winner.",
-    "WINNER_IS": "The winner is: {{winner}}",
-    "WINNERS_ARE": "The winners are: {{winners}}",
 
     "CASTE_SWAP": "Caste Swap",
     "CASTE_SWAP_MESSAGE": "Do you want to swap two caste figures from two different cities?",

@@ -8,11 +8,12 @@ import { AppState } from '../types/StateTypes';
 import { signOut } from '../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import Button from '../components/buttons/Button';
-import i18n from '../translator';
+import i18n from '../i18n';
 import DashHome from '../components/buttons/DashHome';
 
 interface StateProps {
     isAuthenticated: boolean,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -28,12 +29,12 @@ type Props = StateProps & DispatchProps;
 class Home extends React.Component<Props, {}> {
 
     render() {
-        const { isAuthenticated, resetUser, openSignInDialog, openSignUpDialog, openPlayGameDialog, openCreateGameDialog } = this.props;
+        const { isAuthenticated, language, resetUser, openSignInDialog, openSignUpDialog, openPlayGameDialog, openCreateGameDialog } = this.props;
 
         return (
             <div id='home' className='page'>
                 <DashHome />
-                
+
                 <div className='buttons'>
                     {!isAuthenticated &&
                         <React.Fragment>
@@ -42,14 +43,14 @@ class Home extends React.Component<Props, {}> {
                                 action={openSignInDialog}
                                 isActive
                             >
-                                {i18n.getText('SIGN_IN')}
+                                {language.getText('SIGN_IN')}
                             </Button>
                             <Button
                                 id='button-home-sign-up'
                                 action={openSignUpDialog}
                                 isActive
                             >
-                                {i18n.getText('SIGN_UP')}
+                                {language.getText('SIGN_UP')}
                             </Button>
                         </React.Fragment>
                     }
@@ -60,21 +61,21 @@ class Home extends React.Component<Props, {}> {
                                 action={resetUser}
                                 isActive
                             >
-                                {i18n.getText('SIGN_OUT')}
+                                {language.getText('SIGN_OUT')}
                             </Button>
                             <Button
                                 id='button-home-play-game'
                                 action={openPlayGameDialog}
                                 isActive
                             >
-                                {i18n.getText('PLAY_GAME')}
+                                {language.getText('PLAY_GAME')}
                             </Button>
                             <Button
                                 id='button-home-create-game'
                                 action={openCreateGameDialog}
                                 isActive
                             >
-                                {i18n.getText('CREATE_GAME')}
+                                {language.getText('CREATE_GAME')}
                             </Button>
                         </React.Fragment>
                     }
@@ -84,9 +85,14 @@ class Home extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    isAuthenticated: state.user.isAuthenticated,
-});
+const mapStateToProps = (state: AppState) => {
+    const { isAuthenticated, language } = state.user;
+    
+    return {
+        isAuthenticated,
+        language,
+    };
+}
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     resetUser: () => dispatch(signOut()),

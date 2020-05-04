@@ -11,7 +11,7 @@ import { TilePlayStep, HandTile, PlayerColor } from '../../types/GameTypes';
 import { playTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { getHandTiles } from '../../selectors';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     handTile: number,
@@ -22,6 +22,7 @@ interface StateProps {
     hasChosen: boolean,
     isActionButtonActive: boolean,
     isOpen: boolean,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -75,15 +76,15 @@ class DialogTileChoice extends React.Component<Props, State> {
     }
 
     render() {
-        const { isActionButtonActive } = this.props;
+        const { isActionButtonActive, language } = this.props;
         const { tiles, color } = this.state;
 
         return (
             <Dialog
                 type={DialogType.TileChoice}
-                headline={i18n.getText('TILE_CHOICE')}
-                message={i18n.getText('TILE_CHOICE_MESSAGE')}
-                actionButtonText={i18n.getText('CHOOSE')}
+                headline={language.getText('TILE_CHOICE')}
+                message={language.getText('TILE_CHOICE_MESSAGE')}
+                actionButtonText={language.getText('CHOOSE')}
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive={isActionButtonActive}
@@ -103,6 +104,7 @@ class DialogTileChoice extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState) => {
     const { step, selection } = state.game;
     const { self } = state.players;
+    const { language } = state.user;
 
     const isChoosing = step === TilePlayStep.ChooseHandTile;
     const hasChosen = step === TilePlayStep.Done;
@@ -117,6 +119,7 @@ const mapStateToProps = (state: AppState) => {
         hasChosen,
         isActionButtonActive,
         isOpen: state.dialog[DialogType.TileChoice].isOpen,
+        language,
     }
 };
 

@@ -8,6 +8,12 @@ export interface Coordinates2D {
     y: number,
 }
 
+export enum Language {
+    EN = 'en',
+    DE = 'de',
+    FR = 'fr',
+}
+
 export enum Caste {
     Military = 'Military',
     Religion = 'Religion',

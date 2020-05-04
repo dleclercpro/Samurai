@@ -12,7 +12,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Dialog from '../dialogs/Dialog';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 const INIT_STATE = {
     fields: {
@@ -26,6 +26,7 @@ const INIT_STATE = {
 
 interface StateProps {
     self: string,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -72,22 +73,26 @@ class FormCreateGame extends React.Component<Props, State> {
 
         return createGame(name, self, [ user1, user2, user3 ])
             .then((id: number) => {
-                if (id !== -1) {
-                    history.push(`/game/${id}/`);
-                }
+                this.setState({ ...INIT_STATE });
+
+                history.push(`/game/${id}/`);
+            })
+            .catch(() => {
+                
             });
     }
 
     render() {
+        const { language } = this.props;
         const { fields, isFilled } = this.state;
         const { name, user1, user2, user3 } = fields;
 
         return (
             <Dialog
                 type={DialogType.CreateGame}
-                headline={i18n.getText('CREATE_GAME')}
-                message={i18n.getText('CREATE_GAME_MESSAGE')}
-                actionButtonText={i18n.getText('CREATE')}
+                headline={language.getText('CREATE_GAME')}
+                message={language.getText('CREATE_GAME_MESSAGE')}
+                actionButtonText={language.getText('CREATE')}
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -95,7 +100,7 @@ class FormCreateGame extends React.Component<Props, State> {
                 <Form id='create-game'>
                     <FormTextField
                         name='name'
-                        label={i18n.getText('GAME_NAME')}
+                        label={language.getText('GAME_NAME')}
                         onChange={this.handleChange}
                         value={name.value}
                         error={name.error}
@@ -105,7 +110,7 @@ class FormCreateGame extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='user1'
-                        label={`${i18n.getText('PLAYER')} 1 (${i18n.getText('E_MAIL')})`}
+                        label={`${language.getText('PLAYER')} 1 (${language.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user1.value}
                         error={user1.error}
@@ -114,7 +119,7 @@ class FormCreateGame extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='user2'
-                        label={`${i18n.getText('PLAYER')} 2 (${i18n.getText('E_MAIL')})`}
+                        label={`${language.getText('PLAYER')} 2 (${language.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user2.value}
                         error={user2.error}
@@ -123,7 +128,7 @@ class FormCreateGame extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='user3'
-                        label={`${i18n.getText('PLAYER')} 3 (${i18n.getText('E_MAIL')})`}
+                        label={`${language.getText('PLAYER')} 3 (${language.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user3.value}
                         error={user3.error}
@@ -134,9 +139,14 @@ class FormCreateGame extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    self: state.user.email,
-});
+const mapStateToProps = (state: AppState) => {
+    const { language, email } = state.user;
+    
+    return {
+        self: email,
+        language,
+    };
+}
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     createGame: (name: string, self: string, opponents: string[]) => dispatch(createGame(name, self, opponents)),

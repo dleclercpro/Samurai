@@ -10,7 +10,7 @@ import { PlayerColor, HandTile } from '../../types/GameTypes';
 import { moveTile } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { endTurn } from '../../actions/GameActions';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     from: number,
@@ -18,6 +18,7 @@ interface StateProps {
     tile: HandTile | undefined,
     color: PlayerColor,
     isOpen: boolean,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -69,15 +70,16 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
     }
 
     render() {
+        const { language } = this.props;
         const { tile, color } = this.state;
 
         return (
             <Dialog
                 type={DialogType.TileMoveEnd}
-                headline={i18n.getText('TILE_MOVE_CONFIRMATION')}
-                message={i18n.getText('TILE_MOVE_CONFIRMATION_MESSAGE')}
-                actionButtonText={i18n.getText('CONFIRM')}
-                cancelButtonText={i18n.getText('CANCEL_MOVE')}
+                headline={language.getText('TILE_MOVE_CONFIRMATION')}
+                message={language.getText('TILE_MOVE_CONFIRMATION_MESSAGE')}
+                actionButtonText={language.getText('CONFIRM')}
+                cancelButtonText={language.getText('CANCEL_MOVE')}
                 onAction={this.handleAction}
                 onCancel={this.handleCancel}
                 isActionButtonActive
@@ -101,19 +103,20 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState) => {
     const { self } = state.players;
     const { move } = state.game.selection;
-    const { from, to } = move;
     const { fullHand } = state.data;
+    const { language } = state.user;
 
     // Get hand tile to move
-    const tileId = self.playedTiles.get(from);
+    const tileId = self.playedTiles.get(move.from);
     const tile = tileId !== undefined ? fullHand.get(tileId) : undefined;
 
     return {
-        from,
-        to,
         tile,
+        from: move.from,
+        to: move.to,
         color: self.color,
         isOpen: state.dialog[DialogType.TileMoveEnd].isOpen,
+        language,
     }
 };
 

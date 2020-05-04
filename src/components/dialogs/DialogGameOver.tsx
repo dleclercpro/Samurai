@@ -6,10 +6,11 @@ import { Player } from '../../types/GameTypes';
 import { getWinners } from '../../selectors';
 import { DialogType } from '../../types/DialogTypes';
 import DialogOK from './DialogOK';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     winners: Player[],
+    language: i18n,
 }
 
 type Props = StateProps;
@@ -17,36 +18,42 @@ type Props = StateProps;
 class DialogGameOver extends React.Component<Props, {}> {
 
     getMessage = () => {
-        const { winners } = this.props;
+        const { winners, language } = this.props;
 
         switch (winners.length) {
             case 0:
-                return i18n.getText('NO_WINNER');
+                return language.getText('NO_WINNER');
             case 1:
-                return i18n.getText('WINNER_IS', {
+                return language.getText('WINNER_IS', {
                     winner: winners[0].username
                 });
             default:
-                return i18n.getText('WINNERS_ARE', {
+                return language.getText('WINNERS_ARE', {
                     winners: winners.map(winner => winner.username).join(', ')
                 });
         }
     }
 
     render() {
+        const { language } = this.props;
+
         return (
             <DialogOK
                 type={DialogType.GameOver}
-                headline={i18n.getText('GAME_OVER')}
+                headline={language.getText('GAME_OVER')}
                 message={this.getMessage()}
-            >
-            </DialogOK>
+            />
         );
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    winners: getWinners(state.players),
-});
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+
+    return {
+        winners: getWinners(state.players),
+        language,
+    };
+}
 
 export default connect(mapStateToProps, () => ({}))(DialogGameOver);

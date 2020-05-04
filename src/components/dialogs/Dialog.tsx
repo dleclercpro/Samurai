@@ -10,7 +10,7 @@ import { KEY_ENTER_ID, KEY_ESC_ID } from '../../constants';
 import Overlay from '../overlays/Overlay';
 import SpinnerOverlay from '../overlays/SpinnerOverlay';
 import Button from '../buttons/Button';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface OwnProps {
     children?: ReactNode,
@@ -27,6 +27,7 @@ interface OwnProps {
 
 interface StateProps {
     isOpen: boolean,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -85,7 +86,7 @@ class Dialog extends React.Component<Props, State> {
         }
     }
 
-    handleClick = (e: React.MouseEvent) => {
+    handleMouseDown = (e: React.MouseEvent) => {
         e.stopPropagation();
     }
 
@@ -132,7 +133,7 @@ class Dialog extends React.Component<Props, State> {
     }
 
     render() {
-        const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, onCancel } = this.props;
+        const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, language, onCancel } = this.props;
         const { isLoading } = this.state;
         const hasChildren = React.Children.count(children) > 0;
         const hasMessage = message !== undefined && message !== '';
@@ -146,9 +147,9 @@ class Dialog extends React.Component<Props, State> {
         return (
             <Overlay
                 id='dialog'
-                onClick={this.handleCancel}
+                onMouseDown={this.handleCancel}
             >
-                <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onClick={this.handleClick}>
+                <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onMouseDown={this.handleMouseDown}>
                     <div className='wrapper'>
                         {isLoading && <SpinnerOverlay />}
 
@@ -176,7 +177,7 @@ class Dialog extends React.Component<Props, State> {
                                     isActive
                                     action={this.handleCancel}
                                 >
-                                    {cancelButtonText !== undefined ? cancelButtonText : i18n.getText('CANCEL')}
+                                    {cancelButtonText !== undefined ? cancelButtonText : language.getText('CANCEL')}
                                 </Button>
                             }
                         
@@ -184,7 +185,7 @@ class Dialog extends React.Component<Props, State> {
                                 isActive={isActionButtonActive !== undefined && isActionButtonActive}
                                 action={this.handleAction}
                             >
-                                {actionButtonText !== undefined ? actionButtonText : i18n.getText('OK')}
+                                {actionButtonText !== undefined ? actionButtonText : language.getText('OK')}
                             </Button>
                         </div>
 
@@ -198,10 +199,12 @@ class Dialog extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { type } = ownProps;
+    const { language } = state.user;
     const { isOpen } = state.dialog[type];
     
     return {
         isOpen,
+        language,
     };
 };
 

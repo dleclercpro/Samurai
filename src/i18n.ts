@@ -3,16 +3,12 @@ import { initReactI18next } from 'react-i18next';
 import en from './locales/translation_en.json';
 import de from './locales/translation_de.json';
 import fr from './locales/translation_fr.json';
+import { Language } from './types/GameTypes';
 
-class Translator {
-
+class i18n {
     private language: string;
 
-    constructor() {
-        this.language = '';
-    }
-    
-    init = (language: string) => {
+    constructor(language: Language) {
         this.language = language;
 
         i18next.use(initReactI18next)
@@ -23,18 +19,12 @@ class Translator {
                     fr: { translation: fr },
                 },
                 lng: language,
-                fallbackLng: 'en',
+                fallbackLng: Language.EN,
                 debug: true,
                 interpolation: {
                     escapeValue: false,
                 },
             });
-    }
-
-    setLanguage = (language: string) => {
-        this.language = language;
-
-        i18next.changeLanguage(language);
     }
 
     getLanguage = () => {
@@ -47,7 +37,7 @@ class Translator {
         if (text === '') {
             text = i18next.t(key, {
                 ...values,
-                lng: 'en',
+                lng: Language.EN,
             });
         }
 
@@ -55,4 +45,4 @@ class Translator {
     }
 }
 
-export default new Translator();
+export default i18n;

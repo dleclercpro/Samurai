@@ -1,31 +1,38 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import './LanguageButton.scss';
 import { ReactComponent as GermanyIcon } from '../../icons/germany.svg';
 import { ReactComponent as BritainIcon } from '../../icons/britain.svg';
 import { ReactComponent as FranceIcon } from '../../icons/france.svg';
-import i18n from '../../translator';
+import { connect } from 'react-redux';
+import { AppAction } from '../../actions';
+import { setLanguage } from '../../actions/UserActions';
+import { Language } from '../../types/GameTypes';
 
 interface OwnProps {
-    language: string,
+    language: Language,
 }
 
-type Props = OwnProps;
+interface DispatchProps {
+    setLanguage: (language: Language) => void,
+}
+
+type Props = OwnProps & DispatchProps;
 
 class LanguageButton extends React.Component<Props, {}> {
 
     handleClick = () => {
-        const { language } = this.props;
+        const { language, setLanguage } = this.props;
 
-        i18n.setLanguage(language);
+        setLanguage(language);
     }
 
-    getIcon = (language: string): React.ReactNode => {
+    getIcon = (language: Language): React.ReactNode => {
         switch (language) {
-            case 'de':
-                return <GermanyIcon className='icon' />;
-            case 'en':
+            case Language.EN:
                 return <BritainIcon className='icon' />;
-            case 'fr':
+            case Language.DE:
+                return <GermanyIcon className='icon' />;
+            case Language.FR:
                 return <FranceIcon className='icon' />;
             default:
                 return null;
@@ -47,4 +54,8 @@ class LanguageButton extends React.Component<Props, {}> {
     }
 }
 
-export default LanguageButton;
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
+    setLanguage: (language: Language) => dispatch(setLanguage(language)),
+});
+
+export default connect(() => ({}), mapDispatchToProps)(LanguageButton);

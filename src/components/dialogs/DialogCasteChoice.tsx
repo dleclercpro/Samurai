@@ -9,7 +9,7 @@ import { openDialog } from '../../actions/DialogActions';
 import { Caste, CasteSwapStep } from '../../types/GameTypes';
 import { deselectTileFromForSwap, deselectTileToForSwap, finishCasteSwap, deselectCasteFromForSwap, deselectCasteToForSwap } from '../../actions/GameActions';
 import CasteComponent from '../CasteComponent';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     isChoosingFrom: boolean,
@@ -19,6 +19,7 @@ interface StateProps {
     isActionButtonActive: boolean,
     castes: Caste[],
     isOpen: boolean,
+    language: i18n,
 }
 
 interface DispatchProps {
@@ -83,16 +84,16 @@ class DialogCasteChoice extends React.Component<Props, State> {
     }
 
     render() {
-        const { isActionButtonActive } = this.props;
+        const { isActionButtonActive, language } = this.props;
         const { castes } = this.state;
 
         return (
             <Dialog
                 type={DialogType.CasteChoice}
-                headline={i18n.getText('CASTE_CHOICE')}
-                message={i18n.getText('CASTE_CHOICE_MESSAGE')}
-                actionButtonText={i18n.getText('CHOOSE')}
-                cancelButtonText={i18n.getText('BACK')}
+                headline={language.getText('CASTE_CHOICE')}
+                message={language.getText('CASTE_CHOICE_MESSAGE')}
+                actionButtonText={language.getText('CHOOSE')}
+                cancelButtonText={language.getText('BACK')}
                 onCancel={this.handleCancel}
                 onAction={this.handleAction}
                 isActionButtonActive={isActionButtonActive}
@@ -113,6 +114,7 @@ class DialogCasteChoice extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState) => {
     const { step, selection } = state.game;
     const { tiles } = state.data;
+    const { language } = state.user;
 
     const isChoosingFrom = step === CasteSwapStep.ChooseCasteFrom;
     const isChoosingTo = step === CasteSwapStep.ChooseCasteTo;
@@ -141,6 +143,7 @@ const mapStateToProps = (state: AppState) => {
         isActionButtonActive,
         castes,
         isOpen: state.dialog[DialogType.CasteChoice].isOpen,
+        language,
     };
 };
 

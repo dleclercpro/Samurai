@@ -1,4 +1,5 @@
 import { BoardTileMap, Player, HandTileMap, Caste, GameStep, ColorMode, PlayedTileMap } from './GameTypes';
+import i18n from '../i18n';
 
 interface PlayState {
     boardTile: number,
@@ -41,6 +42,7 @@ export interface PlayersState {
 export interface UserState {
     username: string,
     email: string,
+    language: i18n,
     isAuthenticated: boolean,
 }
 

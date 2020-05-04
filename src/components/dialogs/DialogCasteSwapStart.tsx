@@ -5,13 +5,18 @@ import { DialogType } from '../../types/DialogTypes';
 import { AppAction } from '../../actions';
 import { startCasteSwap } from '../../actions/GameActions';
 import { connect } from 'react-redux';
-import i18n from '../../translator';
+import i18n from '../../i18n';
+import { AppState } from '../../types/StateTypes';
+
+interface StateProps {
+    language: i18n,
+}
 
 interface DispatchProps {
     startCasteSwap: () => void,
 }
 
-type Props = DispatchProps
+type Props = StateProps & DispatchProps
 
 class DialogCasteSwapStart extends React.Component<Props, {}> {
 
@@ -24,12 +29,14 @@ class DialogCasteSwapStart extends React.Component<Props, {}> {
     }
 
     render() {
+        const { language } = this.props;
+
         return (
             <Dialog
                 type={DialogType.CasteSwapStart}
-                headline={i18n.getText('CASTE_SWAP')}
-                message={i18n.getText('CASTE_SWAP_MESSAGE')}
-                actionButtonText={i18n.getText('START_SWAP')}
+                headline={language.getText('CASTE_SWAP')}
+                message={language.getText('CASTE_SWAP_MESSAGE')}
+                actionButtonText={language.getText('START_SWAP')}
                 onAction={this.handleAction}
                 onCancel={() => {}}
                 isActionButtonActive
@@ -38,8 +45,16 @@ class DialogCasteSwapStart extends React.Component<Props, {}> {
     }
 }
 
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+
+    return {
+        language,
+    };
+}
+
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
     startCasteSwap: () => dispatch(startCasteSwap),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(DialogCasteSwapStart);
+export default connect(mapStateToProps, mapDispatchToProps)(DialogCasteSwapStart);

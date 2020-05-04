@@ -1,6 +1,6 @@
 import { BoardJSON, HandBoardTileJSON, PlayerJSON, PlayedTilesJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
-import { Caste } from './GameTypes';
+import { Caste, Language } from './GameTypes';
 import { AppAction } from '../actions';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AppState } from './StateTypes';
@@ -72,6 +72,12 @@ export interface SetUser {
 export const RESET_USER = 'RESET_USER';
 export interface ResetUser {
     type: typeof RESET_USER,
+}
+
+export const SET_LANGUAGE = 'SET_LANGUAGE';
+export interface SetLanguage {
+    type: typeof SET_LANGUAGE,
+    language: Language,
 }
 
 

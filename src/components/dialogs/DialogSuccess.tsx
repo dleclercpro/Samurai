@@ -4,11 +4,12 @@ import { DialogType } from '../../types/DialogTypes';
 import DialogOK from './DialogOK';
 import { AppState } from '../../types/StateTypes';
 import { connect } from 'react-redux';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     message: string,
     action?: () => Promise<void>,
+    language: i18n,
 }
 
 type Props = StateProps;
@@ -16,12 +17,12 @@ type Props = StateProps;
 class DialogSuccess extends React.Component<Props, {}> {
 
     render() {
-        const { message, action } = this.props;
+        const { message, action, language } = this.props;
 
         return (
             <DialogOK
                 type={DialogType.Success}
-                headline={i18n.getText('SUCCESS')}
+                headline={language.getText('SUCCESS')}
                 message={message}
                 action={action}
             />
@@ -31,10 +32,12 @@ class DialogSuccess extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { message, action } = state.dialog.success;
+    const { language } = state.user;
 
     return {
         message: message !== undefined ? message : '',
         action,
+        language,
     };
 };
 

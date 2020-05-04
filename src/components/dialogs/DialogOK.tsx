@@ -2,7 +2,9 @@ import React from 'react';
 import './DialogOK.scss';
 import Dialog from './Dialog';
 import { DialogType } from '../../types/DialogTypes';
-import i18n from '../../translator';
+import i18n from '../../i18n';
+import { AppState } from '../../types/StateTypes';
+import { connect } from 'react-redux';
 
 interface OwnProps {
     type: DialogType,
@@ -12,12 +14,16 @@ interface OwnProps {
     action?: () => Promise<void>,
 }
 
-type Props = OwnProps;
+interface StateProps {
+    language: i18n,
+}
+
+type Props = OwnProps & StateProps;
 
 class DialogOK extends React.Component<Props, {}> {
 
     render() {
-        const { type, headline, message, explanation, action } = this.props;
+        const { type, headline, message, explanation, action, language } = this.props;
 
         return (
             <Dialog
@@ -26,11 +32,19 @@ class DialogOK extends React.Component<Props, {}> {
                 message={message}
                 explanation={explanation}
                 onAction={action !== undefined ? action : () => Promise.resolve()}
-                actionButtonText={i18n.getText('OK')}
+                actionButtonText={language.getText('OK')}
                 isActionButtonActive
             />
         );
     }
 }
 
-export default DialogOK;
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+
+    return {
+        language,
+    };
+}
+
+export default connect(mapStateToProps, () => ({}))(DialogOK);

@@ -6,18 +6,18 @@ export const hasMultiple = <T> (element: T, list: T[]) => {
     return (list.filter(el => el === element)).length > 1;
 }
 
-export const hasLocalStore = () => {
+export const hasLocalStorage = () => {
     return typeof(Storage) !== 'undefined';
 }
 
 export const localStorageSet = (key: string, value: string) => {
-    if (hasLocalStore()) {
+    if (hasLocalStorage()) {
         localStorage.setItem(key, value);
     }
 }
 
 export const localStorageGet = (key: string): string => {
-    if (hasLocalStore()) {
+    if (hasLocalStorage()) {
         const value = localStorage.getItem(key);
 
         return value !== null ? value : '';

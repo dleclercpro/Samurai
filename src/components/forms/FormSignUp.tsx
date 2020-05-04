@@ -11,7 +11,7 @@ import { signUp } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import Dialog from '../dialogs/Dialog';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 const INIT_STATE = {
     fields: {
@@ -26,11 +26,15 @@ const INIT_STATE = {
     hasErrors: false,
 };
 
+interface StateProps {
+    language: i18n,
+}
+
 interface DispatchProps {
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => Promise<void>,
 }
 
-type Props = DispatchProps;
+type Props = StateProps & DispatchProps;
 
 interface State {
     fields: FormFields,
@@ -63,13 +67,15 @@ class FormSignUp extends React.Component<Props, State> {
     }
 
     getError = (field: string): string => {
+        const { language } = this.props;
+
         switch (field) {
             case 'email':
-                return i18n.getText('EMAIL_ERROR');
+                return language.getText('EMAIL_ERROR');
             case 'repeatedPassword':
-                return i18n.getText('REPEATED_PASSWORD_ERROR');
+                return language.getText('REPEATED_PASSWORD_ERROR');
             default:
-                return i18n.getText('INVALID_FIELD');
+                return language.getText('INVALID_FIELD');
         }
     }
 
@@ -99,19 +105,26 @@ class FormSignUp extends React.Component<Props, State> {
         const { signUp } = this.props;
         const { username, firstName, lastName, email, password } = getFormPayload(this.state.fields);
 
-        return signUp(username, firstName, lastName, email, password);
+        return signUp(username, firstName, lastName, email, password)
+            .then(() => {
+                this.setState({ ...INIT_STATE });
+            })
+            .catch(() => {
+                
+            });
     }
     
     render() {
+        const { language } = this.props;
         const { fields, isFilled, hasErrors } = this.state;
         const { username, firstName, lastName, email, password, repeatedPassword } = fields;
 
         return (
             <Dialog
                 type={DialogType.SignUp}
-                headline={i18n.getText('SIGN_UP')}
-                message={i18n.getText('SIGN_UP_MESSAGE')}
-                actionButtonText={i18n.getText('SIGN_UP')}
+                headline={language.getText('SIGN_UP')}
+                message={language.getText('SIGN_UP_MESSAGE')}
+                actionButtonText={language.getText('SIGN_UP')}
                 isActionButtonActive={isFilled && !hasErrors}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -119,7 +132,7 @@ class FormSignUp extends React.Component<Props, State> {
                 <Form id='sign-up'>
                     <FormTextField
                         name='firstName'
-                        label={i18n.getText('FIRST_NAME')}
+                        label={language.getText('FIRST_NAME')}
                         onChange={this.handleChange}
                         value={firstName.value}
                         error={firstName.error}
@@ -128,7 +141,7 @@ class FormSignUp extends React.Component<Props, State> {
 
                     <FormTextField
                         name='lastName'
-                        label={i18n.getText('LAST_NAME')}
+                        label={language.getText('LAST_NAME')}
                         onChange={this.handleChange}
                         value={lastName.value}
                         error={lastName.error}
@@ -136,7 +149,7 @@ class FormSignUp extends React.Component<Props, State> {
 
                     <FormTextField
                         name='username'
-                        label={i18n.getText('USERNAME')}
+                        label={language.getText('USERNAME')}
                         onChange={this.handleChange}
                         value={username.value}
                         error={username.error}
@@ -145,7 +158,7 @@ class FormSignUp extends React.Component<Props, State> {
                     <FormTextField
                         type='email'
                         name='email'
-                        label={i18n.getText('E_MAIL')}
+                        label={language.getText('E_MAIL')}
                         onChange={(e) => { this.handleChange(e, this.isEmailValid) }}
                         value={email.value}
                         error={email.error}
@@ -154,7 +167,7 @@ class FormSignUp extends React.Component<Props, State> {
                     <FormTextField
                         type='password'
                         name='password'
-                        label={i18n.getText('PASSWORD')}
+                        label={language.getText('PASSWORD')}
                         onChange={(e) => { this.handleChange(e) }}
                         value={password.value}
                         error={password.error}
@@ -163,7 +176,7 @@ class FormSignUp extends React.Component<Props, State> {
                     <FormTextField
                         type='password'
                         name='repeatedPassword'
-                        label={i18n.getText('PASSWORD_AGAIN')}
+                        label={language.getText('PASSWORD_AGAIN')}
                         onChange={(e) => { this.handleChange(e, this.isRepeatedPasswordValid) }}
                         value={repeatedPassword.value}
                         error={repeatedPassword.error}
@@ -174,8 +187,16 @@ class FormSignUp extends React.Component<Props, State> {
     }
 }
 
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+
+    return {
+        language,
+    };
+}
+
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => dispatch(signUp(username, firstName, lastName, email, password)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(FormSignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(FormSignUp);

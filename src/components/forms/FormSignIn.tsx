@@ -11,7 +11,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
 import { signIn } from '../../actions/ServerActions';
 import Dialog from '../dialogs/Dialog';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 const INIT_STATE = {
     fields: {
@@ -21,11 +21,15 @@ const INIT_STATE = {
     isFilled: false,
 };
 
-interface DispatchProps {
-    setUser: (email: string, password: string) => Promise<void>,
+interface StateProps {
+    language: i18n,
 }
 
-type Props = DispatchProps;
+interface DispatchProps {
+    signIn: (email: string, password: string) => Promise<void>,
+}
+
+type Props = StateProps & DispatchProps;
 
 interface State {
     fields: FormFields,
@@ -60,21 +64,28 @@ class FormSignIn extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { setUser } = this.props;
+        const { signIn } = this.props;
         const { email, password } = getFormPayload(this.state.fields);
   
-        return setUser(email, password);
+        return signIn(email, password)
+            .then(() => {
+                this.setState({ ...INIT_STATE });
+            })
+            .catch(() => {
+
+            });
     }
 
     render() {
+        const { language } = this.props;
         const { fields, isFilled } = this.state;
         const { email, password } = fields;
 
         return (
             <Dialog
                 type={DialogType.SetUser}
-                headline={i18n.getText('SIGN_IN')}
-                actionButtonText={i18n.getText('SIGN_IN')}
+                headline={language.getText('SIGN_IN')}
+                actionButtonText={language.getText('SIGN_IN')}
                 isActionButtonActive={isFilled}
                 onAction={this.handleSubmit}
                 onCancel={() => {}}
@@ -83,7 +94,7 @@ class FormSignIn extends React.Component<Props, State> {
                         <FormTextField
                             type='email'
                             name='email'
-                            label={i18n.getText('E_MAIL')}
+                            label={language.getText('E_MAIL')}
                             onChange={this.handleChange}
                             value={email.value}
                             error={email.error}
@@ -93,7 +104,7 @@ class FormSignIn extends React.Component<Props, State> {
                         <FormTextField
                             type='password'
                             name='password'
-                            label={i18n.getText('PASSWORD')}
+                            label={language.getText('PASSWORD')}
                             onChange={this.handleChange}
                             value={password.value}
                             error={password.error}
@@ -104,8 +115,16 @@ class FormSignIn extends React.Component<Props, State> {
     }
 }
 
+const mapStateToProps = (state: AppState) => {
+    const { language } = state.user;
+
+    return {
+        language,
+    };
+}
+
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    setUser: (email: string, password: string) => dispatch(signIn(email, password)),
+    signIn: (email: string, password: string) => dispatch(signIn(email, password)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(FormSignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(FormSignIn);

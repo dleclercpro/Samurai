@@ -5,10 +5,11 @@ import DialogOK from './DialogOK';
 import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { FULL_HAND_SIZE } from '../../constants';
-import i18n from '../../translator';
+import i18n from '../../i18n';
 
 interface StateProps {
     nTilesLeft: number,
+    language: i18n,
 }
 
 type Props = StateProps;
@@ -16,13 +17,13 @@ type Props = StateProps;
 class DialogNewTurn extends React.Component<Props> {
     
     render() {
-        const { nTilesLeft } = this.props;
+        const { nTilesLeft, language } = this.props;
 
         return (
             <DialogOK
                 type={DialogType.NewTurn}
-                headline={i18n.getText('NEW_TURN')}
-                message={i18n.getText('NEW_TURN_MESSAGE', { nTilesLeft })}
+                headline={language.getText('NEW_TURN')}
+                message={language.getText('NEW_TURN_MESSAGE', { nTilesLeft })}
             />
         );
     }
@@ -30,9 +31,11 @@ class DialogNewTurn extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState) => {
     const nPlayedTiles = state.players.self.playedTiles.size;
+    const { language } = state.user;
     
     return {
         nTilesLeft: FULL_HAND_SIZE - nPlayedTiles,
+        language,
     };
 };
 

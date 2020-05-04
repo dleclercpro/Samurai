@@ -4,19 +4,19 @@ import './Overlay.scss';
 interface OwnProps {
     id: string,
     children: ReactNode,
-    onClick?: () => void,
+    onMouseDown?: () => void,
 }
 
 type Props = OwnProps;
 
 const Overlay: React.FC<Props> = (props) => {
-    const { id, children, onClick } = props;
+    const { id, children, onMouseDown } = props;
 
     return (
         <div
             id={`overlay-${id}`}
             className='overlay'
-            onClick={onClick}
+            onMouseDown={onMouseDown}
         >
             {children}
         </div>
