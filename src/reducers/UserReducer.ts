@@ -3,9 +3,9 @@ import { UserAction } from '../actions';
 import { SET_USER, RESET_USER, SET_LANGUAGE } from '../types/ActionTypes';
 import { Language } from '../types/GameTypes';
 import i18n from '../i18n';
-import { localStorageGet, localStorageSet } from '../lib';
+import { getLocalStorage, setLocalStorage } from '../lib';
 
-const language = localStorageGet('language') as Language;
+const language = getLocalStorage('language') as Language;
 
 const initState = {
     username: '',
@@ -26,7 +26,7 @@ const UserReducer = (state: UserState = initState, action: UserAction) => {
                 isAuthenticated: true,
             };
         case SET_LANGUAGE:
-            localStorageSet('language', action.language);
+            setLocalStorage('language', action.language);
 
             return {
                 ...state,

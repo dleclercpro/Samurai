@@ -10,13 +10,13 @@ export const hasLocalStorage = () => {
     return typeof(Storage) !== 'undefined';
 }
 
-export const localStorageSet = (key: string, value: string) => {
+export const setLocalStorage = (key: string, value: string) => {
     if (hasLocalStorage()) {
         localStorage.setItem(key, value);
     }
 }
 
-export const localStorageGet = (key: string): string => {
+export const getLocalStorage = (key: string): string => {
     if (hasLocalStorage()) {
         const value = localStorage.getItem(key);
 
