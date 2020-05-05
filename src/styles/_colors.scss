@@ -19,19 +19,15 @@ $color-blind-green: #007040;
 
 $color-ground: #faf1ed;
 $color-water: #bfefff;
-$color-ship: $color-blue;
 
 $color-blind-ground: #f9dde2;
 $color-blind-water: #b3cfd7;
-$color-blind-ship: $color-light-grey;
 
 $color-dark-ground: darken($color: $color-ground, $amount: 15);
 $color-dark-water: darken($color: $color-water, $amount: 15);
-$color-dark-ship: darken($color: $color-ship, $amount: 40);
 
 $color-blind-dark-ground: darken($color: $color-blind-ground, $amount: 15);
 $color-blind-dark-water: darken($color: $color-blind-water, $amount: 15);
-$color-blind-dark-ship: $color-blind-dark-water;
 
 $color-dark-red: darken($color: $color-red, $amount: 40);
 $color-dark-purple: darken($color: $color-purple, $amount: 40);
@@ -42,3 +38,8 @@ $color-blind-dark-red: darken($color: $color-blind-red, $amount: 30);
 $color-blind-dark-purple: darken($color: $color-blind-purple, $amount: 20);
 $color-blind-dark-orange: darken($color: $color-blind-orange, $amount: 30);
 $color-blind-dark-green: darken($color: $color-blind-green, $amount: 30);
+
+$color-ship: $color-blue;
+$color-dark-ship: darken($color: $color-ship, $amount: 40);
+$color-blind-ship: $color-white;
+$color-blind-dark-ship: $color-blind-dark-water;
