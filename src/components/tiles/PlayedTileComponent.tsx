@@ -8,6 +8,7 @@ import { AppAction } from '../../actions';
 import { selectBoardTileToMoveFrom } from '../../actions/GameActions';
 import HandTileContent from './HandTileContent';
 import { SWAPABLE_CASTES } from '../../constants';
+import { isGameOver } from '../../selectors';
 
 interface OwnProps {
     handTileId: number,
@@ -85,7 +86,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 
     switch (step) {
         case TileMoveStep.ChooseHandTile:
-            isPlayable = self.isPlaying && isMine && isMovable;
+            isPlayable = !isGameOver(state.players) && self.isPlaying && isMine && isMovable;
             break;
     }
 

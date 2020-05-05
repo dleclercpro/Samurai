@@ -9,7 +9,7 @@ import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION, TILE_SIZE } from '../../c
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 import { selectBoardTile, selectTileFromForSwap, selectTileToForSwap, selectBoardTileToMoveTo } from '../../actions/GameActions';
-import { getHandTiles } from '../../selectors';
+import { getHandTiles, isGameOver } from '../../selectors';
 import { getPositionInHexagon, isGroundHandTile } from '../../lib';
 import TileIcon from './TileIcon';
 
@@ -151,6 +151,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { step, selection } = state.game;
     
     // Playability
+    const isOver = isGameOver(state.players);
     let isPlayable = false;
 
     const hasCastes = castes.length > 0;
@@ -163,14 +164,14 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 
     switch (step) {
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isSelectedForPlay && !isSwap && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
+            isPlayable = !isOver && self.isPlaying && !isSelectedForPlay && !isSwap && !isCity && ((isWater && hasShipInHand) || (!isWater && hasGroundTileInHand));
             break;
         case CasteSwapStep.ChooseTileFrom:
         case CasteSwapStep.ChooseTileTo:
-            isPlayable = self.isPlaying && !isSelectedForSwap && !isSwap && isCity && hasCastes;
+            isPlayable = !isOver && self.isPlaying && !isSelectedForSwap && !isSwap && isCity && hasCastes;
             break;
         case TileMoveStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isSelectedForMove && !isSwap && !isCity && !isWater;
+            isPlayable = !isOver && self.isPlaying && !isSelectedForMove && !isSwap && !isCity && !isWater;
             break;
     }
 

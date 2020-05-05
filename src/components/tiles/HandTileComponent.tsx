@@ -9,6 +9,7 @@ import { TILE_SIZE } from '../../config';
 import { openDialog } from '../../actions/DialogActions';
 import { DialogType } from '../../types/DialogTypes';
 import HandTileContent from './HandTileContent';
+import { isGameOver } from '../../selectors';
 
 interface OwnProps {
     id: number,
@@ -98,15 +99,16 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 
     // Playability
     let isPlayable = false;
+    const isOver = isGameOver(state.players);
     const nPlayedTiles = self.playedTiles.size;
 
     switch (step) {
         case TilePlayStep.ChooseHandTile:
         case TilePlayStep.Done:
-            isPlayable = self.isPlaying && isInDialog;
+            isPlayable = !isOver && self.isPlaying && isInDialog;
             break;
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = self.isPlaying && !isInDialog && ((isMove && nPlayedTiles > 0) || isSwap);
+            isPlayable = !isOver && self.isPlaying && !isInDialog && ((isMove && nPlayedTiles > 0) || isSwap);
             break;
     }
 
