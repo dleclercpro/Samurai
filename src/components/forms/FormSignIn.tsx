@@ -94,7 +94,7 @@ class FormSignIn extends React.Component<Props, State> {
                         <FormTextField
                             type='email'
                             name='email'
-                            label={language.getText('E_MAIL')}
+                            label={`${language.getText('USERNAME')} / ${language.getText('E_MAIL')}`}
                             onChange={this.handleChange}
                             value={email.value}
                             error={email.error}
