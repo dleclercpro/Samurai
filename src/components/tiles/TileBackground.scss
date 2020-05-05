@@ -91,9 +91,13 @@
     }
 
     .is-move &,
-    .hand-tile-content.is-swap & {
+    .is-swap & {
         fill: $color-dark-grey !important;
         stroke: $color-black !important;
+
+        .is-colorblind & {
+            fill: $color-light-grey !important;
+        }
     }
 
     .board-tile-component.is-swap & {
@@ -102,12 +106,12 @@
     }
 
     .is-ship & {
-        fill: $color-blue;
-        stroke: $color-dark-blue;
+        fill: $color-ship;
+        stroke: $color-dark-ship;
 
         .is-colorblind & {
-            fill: $color-blind-blue;
-            stroke: $color-blind-dark-blue;
+            fill: $color-blind-ship;
+            stroke: $color-blind-dark-ship;
         }
     }
 
@@ -156,10 +160,10 @@
 
     .is-playable.is-hovered.is-ship &,
     .hand-tile-component .is-selected.is-ship & {
-        fill: $color-dark-blue;
+        fill: $color-dark-ship;
 
         .is-colorblind & {
-            fill: $color-blind-dark-blue;
+            fill: $color-blind-dark-ship;
         }
     }
 }

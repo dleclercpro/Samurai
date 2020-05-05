@@ -19,28 +19,53 @@
     pointer-events: none;
     user-select: none;
     fill: $color-black;
-    
-    .is-playable.is-hovered &,
-    .hand-tile-component .is-selected & {
+
+    .is-purple &,
+    .is-green & {
 
         .is-colorblind & {
-            fill: $color-white !important;
-        }        
+            fill: $color-white;
+        }
     }
 
-    .is-ship.is-red & {
-        fill: $color-dark-red;
+    .is-swap.is-red &,
+    .is-move.is-red & {
+        fill: $color-red;
 
         .is-colorblind & {
             fill: $color-blind-red;
         }
     }
 
-    .is-playable.is-hovered.is-red &,
-    .hand-tile-component .is-selected.is-red &,
-    .is-move.is-red &,
-    .hand-tile-content.is-swap.is-red & {
-        fill: $color-red;
+    .is-swap.is-purple &,
+    .is-move.is-purple & {
+        fill: $color-purple;
+
+        .is-colorblind & {
+            fill: $color-blind-purple;
+        }
+    }
+
+    .is-swap.is-orange &,
+    .is-move.is-orange & {
+        fill: $color-orange;
+
+        .is-colorblind & {
+            fill: $color-blind-orange;
+        }
+    }
+
+    .is-swap.is-green &,
+    .is-move.is-green & {
+        fill: $color-green;
+
+        .is-colorblind & {
+            fill: $color-blind-green;
+        }
+    }
+
+    .is-ship.is-red & {
+        fill: $color-dark-red;
 
         .is-colorblind & {
             fill: $color-blind-red;
@@ -55,30 +80,8 @@
         }
     }
 
-    .is-playable.is-hovered.is-purple &,
-    .hand-tile-component .is-selected.is-purple &,
-    .is-move.is-purple &,
-    .hand-tile-content.is-swap.is-purple & {
-        fill: $color-purple;
-
-        .is-colorblind & {
-            fill: $color-blind-purple;
-        }
-    }
-
     .is-ship.is-orange & {
         fill: $color-dark-orange;
-
-        .is-colorblind & {
-            fill: $color-blind-orange;
-        }
-    }
-
-    .is-playable.is-hovered.is-orange &,
-    .hand-tile-component .is-selected.is-orange &,
-    .is-move.is-orange &,
-    .hand-tile-content.is-swap.is-orange & {
-        fill: $color-orange;
 
         .is-colorblind & {
             fill: $color-blind-orange;
@@ -93,14 +96,11 @@
         }
     }
 
-    .is-playable.is-hovered.is-green &,
-    .hand-tile-component .is-selected.is-green &,
-    .is-move.is-green &,
-    .hand-tile-content.is-swap.is-green & {
-        fill: $color-green;
+    .is-playable.is-hovered &,
+    .hand-tile-component .is-selected & {
 
         .is-colorblind & {
-            fill: $color-blind-green;
+            fill: $color-white !important;
         }
     }
 }
