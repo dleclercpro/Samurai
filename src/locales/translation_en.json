@@ -29,7 +29,7 @@
     "GAME_ID": "Game ID",
 
     "CREATE_GAME": "Create Game",
-    "CREATE_GAME_MESSAGE": "Provide the following information to create a new game:",
+    "CREATE_GAME_MESSAGE": "Provide the information about the users you would like to play with to create a new game:",
     "GAME_NAME": "Game name",
 
     "NEW_TURN": "New Turn",

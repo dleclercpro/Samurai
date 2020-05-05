@@ -29,7 +29,7 @@
     "GAME_ID": "Spiel ID",
 
     "CREATE_GAME": "Spiel erstellen",
-    "CREATE_GAME_MESSAGE": "Gib folgende Informationen ein, um ein neues Spiel zu erstellen:",
+    "CREATE_GAME_MESSAGE": "Gib die Informationen der Benutzer ein, mit denen du spielen möchtest, um ein neues Spiel zu erstellen:",
     "GAME_NAME": "Name des Spieles",
 
     "NEW_TURN": "Neuer Spielzug",

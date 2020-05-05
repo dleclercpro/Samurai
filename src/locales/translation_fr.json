@@ -29,7 +29,7 @@
     "GAME_ID": "Identifiant de la partie",
 
     "CREATE_GAME": "Créer une partie",
-    "CREATE_GAME_MESSAGE": "Entre les informations suivantes afin de créer une nouvelle partie:",
+    "CREATE_GAME_MESSAGE": "Entre les informations des utilisateurs avec qui tu aimerais jouer afin de créer une nouvelle partie:",
     "GAME_NAME": "Nom de la partie",
 
     "NEW_TURN": "Nouveau tour",
