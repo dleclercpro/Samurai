@@ -59,7 +59,20 @@ class FormCreateGame extends React.Component<Props, State> {
             },
         };
 
-        const isFilled = Object.values(fields).map(field => field.value).every(value => value !== '');
+        // Remove further players if the ones before them were removed
+        if (fields.user1.value === '') {
+            fields.user2.value = '';
+        }
+        if (fields.user2.value === '') {
+            fields.user3.value = '';
+        }
+
+        // Game has a name and at least one user was entered
+        const isFilled = fields.name.value !== '' && (
+            fields.user1.value !== '' ||
+            fields.user2.value !== '' ||
+            fields.user3.value !== ''
+        );
 
         this.setState({
             fields,
@@ -120,18 +133,22 @@ class FormCreateGame extends React.Component<Props, State> {
                         type='email'
                         name='user2'
                         label={`${language.getText('PLAYER')} 2 (${language.getText('USERNAME')} / ${language.getText('E_MAIL')})`}
+                        remark={language.getText('OPTIONAL')}
                         onChange={this.handleChange}
                         value={user2.value}
                         error={user2.error}
+                        disabled={user1.value === ''}
                     />
 
                     <FormTextField
                         type='email'
                         name='user3'
                         label={`${language.getText('PLAYER')} 3 (${language.getText('USERNAME')} / ${language.getText('E_MAIL')})`}
+                        remark={language.getText('OPTIONAL')}
                         onChange={this.handleChange}
                         value={user3.value}
                         error={user3.error}
+                        disabled={user1.value === '' || user2.value === ''}
                     />
                 </Form>
             </Dialog>

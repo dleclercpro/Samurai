@@ -4,6 +4,19 @@
     display: flex;
     flex-direction: column;
 
+    &.is-disabled {
+
+        > .label,
+        > .remark {
+            color: $color-light-grey;
+        }
+
+        > input {
+            border-color: $color-light-grey;
+            cursor: default;
+        }
+    }
+
     > .label {
         font-weight: bold;
         margin-bottom: 6px;
@@ -28,10 +41,14 @@
         border-color: $color-dark-red;
     }
 
+    > .remark,
     > .error {
         width: 100%;
-        margin-top: 10px;
+        margin-top: 5px;
         font-size: 12px;
+    }
+
+    > .error {
         color: $color-dark-red;
     }
 }

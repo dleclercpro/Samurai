@@ -23,7 +23,10 @@ class ScoreBoard extends React.Component<Props, {}> {
         const hasPlayer = id !== -1;
 
         return (
-            <section id='score-board'>
+            <section
+                id='score-board'
+                className={`n-players--${opponents.length + 1}`}
+            >
                 {hasPlayer &&
                     <ScorePlayer
                         username={username}
