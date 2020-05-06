@@ -103,4 +103,24 @@
             fill: $color-white !important;
         }
     }
+
+    .is-playable.is-hovered.is-red &,
+    .hand-tile-component .is-selected.is-red & {
+        fill: $color-red;
+    }
+
+    .is-playable.is-hovered.is-purple &,
+    .hand-tile-component .is-selected.is-purple & {
+        fill: $color-purple;
+    }
+
+    .is-playable.is-hovered.is-orange &,
+    .hand-tile-component .is-selected.is-orange & {
+        fill: $color-orange;
+    }
+
+    .is-playable.is-hovered.is-green &,
+    .hand-tile-component .is-selected.is-green & {
+        fill: $color-green;
+    }
 }
