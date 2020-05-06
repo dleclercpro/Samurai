@@ -15,7 +15,7 @@ import i18n from '../../i18n';
 
 const INIT_STATE = {
     fields: {
-        email: { ...INIT_FIELD_STATE },
+        identifier: { ...INIT_FIELD_STATE },
         password: { ...INIT_FIELD_STATE },
     },
     isFilled: false,
@@ -26,7 +26,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    signIn: (email: string, password: string) => Promise<void>,
+    signIn: (identifier: string, password: string) => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -65,9 +65,9 @@ class FormSignIn extends React.Component<Props, State> {
 
     handleSubmit = () => {
         const { signIn } = this.props;
-        const { email, password } = getFormPayload(this.state.fields);
+        const { identifier, password } = getFormPayload(this.state.fields);
   
-        return signIn(email, password)
+        return signIn(identifier, password)
             .then(() => {
                 this.setState({ ...INIT_STATE });
             })
@@ -79,7 +79,7 @@ class FormSignIn extends React.Component<Props, State> {
     render() {
         const { language } = this.props;
         const { fields, isFilled } = this.state;
-        const { email, password } = fields;
+        const { identifier, password } = fields;
 
         return (
             <Dialog
@@ -92,15 +92,13 @@ class FormSignIn extends React.Component<Props, State> {
             >
                 <Form id='sign-in'>
                         <FormTextField
-                            type='email'
-                            name='email'
+                            name='identifier'
                             label={`${language.getText('USERNAME')} / ${language.getText('E_MAIL')}`}
                             onChange={this.handleChange}
-                            value={email.value}
-                            error={email.error}
+                            value={identifier.value}
+                            error={identifier.error}
                             autoFocus
                         />
-
                         <FormTextField
                             type='password'
                             name='password'
@@ -124,7 +122,7 @@ const mapStateToProps = (state: AppState) => {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    signIn: (email: string, password: string) => dispatch(signIn(email, password)),
+    signIn: (identifier: string, password: string) => dispatch(signIn(identifier, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormSignIn);

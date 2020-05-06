@@ -37,13 +37,13 @@ export const verifyAuthentication = (): ThunkActionResult<void> => {
     };
 }
 
-export const signIn = (email: string, password: string): ThunkActionResult<void> => {
+export const signIn = (identifier: string, password: string): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
         const { language } = state.user;
         
-        return new CallSignIn(email, password).execute()
+        return new CallSignIn(identifier, password).execute()
             .then((response: ServerResponse<UserJSON>) => {
                 const { username, email } = response.data;
                 

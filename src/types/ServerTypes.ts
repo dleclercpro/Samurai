@@ -1,5 +1,6 @@
 import { Coordinates2D } from './GameTypes';
 
+// Server responses
 export interface ServerResponse<T> {
     status: number,
     message: string,
@@ -16,6 +17,7 @@ export interface GameData {
 
 
 
+// JSON types
 export interface UserJSON {
     username: string,
     email: string,
