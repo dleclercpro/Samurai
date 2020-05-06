@@ -10,7 +10,7 @@
         stroke: $color-blind-dark-ground;
     }
 
-    &.is-closed-city {
+    .is-city.is-closed & {
         fill: url(#tile-empty-pattern);
     }
 

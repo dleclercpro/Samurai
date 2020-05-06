@@ -4,18 +4,16 @@ import './TileBackground.scss';
 interface Props {
     path: string,
     stroke: number,
-    isClosedCity?: boolean,
     isWater?: boolean,
 }
 
 const TileBackground: React.FC<Props> = (props) => {
-    const { path, stroke, isClosedCity, isWater } = props;
+    const { path, stroke, isWater } = props;
 
     return (
         <polygon
             className={`
                 tile-background 
-                ${isClosedCity ? 'is-closed-city' : ''}
                 ${isWater ? 'is-water' : ''}
             `}
             points={path}

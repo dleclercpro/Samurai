@@ -108,6 +108,7 @@ class BoardTileComponent extends React.Component<Props, State> {
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
+                    ${isCity ? 'is-city' : ''}
                     ${isClosed ? 'is-closed' : ''}
                     ${isSwap ? 'is-swap' : ''}
                 `}
@@ -119,7 +120,6 @@ class BoardTileComponent extends React.Component<Props, State> {
                 <TileBackground
                     path={TILE_PATH_BOARD}
                     stroke={TILE_STROKE}
-                    isClosedCity={isCity && isClosed}
                     isWater={isWater}
                 />
                 {isCity &&

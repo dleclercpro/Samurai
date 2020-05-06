@@ -4,6 +4,7 @@ $color-white: #ffffff;
 $color-blue: #62d8ff;
 
 $color-dark-grey: darken($color: $color-grey, $amount: 15);
+$color-medium-grey: lighten($color: $color-grey, $amount: 45);
 $color-light-grey: lighten($color: $color-grey, $amount: 60);
 $color-black-transparent: rgba(0, 0, 0, 0.5);
 
