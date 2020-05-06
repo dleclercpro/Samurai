@@ -17,7 +17,7 @@ interface OwnProps {
     id: number,
     position: Coordinates2D,
     castes: Caste[],
-    isCity: boolean,
+    isClosed: boolean,
     isWater: boolean,
     isSwap: boolean,
 }
@@ -94,12 +94,12 @@ class BoardTileComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { position, castes, isCity, isWater, isPlayable, isSelected, isSwap } = this.props;
+        const { position, castes, isClosed, isWater, isPlayable, isSelected, isSwap } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
         const pieceSize = { width: width / 3, height: height / 3};
-        const hasCastes = castes.length > 0;
+        const isCity = castes.length > 0;
     
         return (
             <g
@@ -108,6 +108,7 @@ class BoardTileComponent extends React.Component<Props, State> {
                     ${isHovered ? 'is-hovered' : ''}
                     ${isPlayable ? 'is-playable' : ''}
                     ${isSelected ? 'is-selected' : ''}
+                    ${isClosed ? 'is-closed' : ''}
                     ${isSwap ? 'is-swap' : ''}
                 `}
                 transform={`translate(${position.x},${position.y})`}
@@ -118,10 +119,10 @@ class BoardTileComponent extends React.Component<Props, State> {
                 <TileBackground
                     path={TILE_PATH_BOARD}
                     stroke={TILE_STROKE}
-                    isEmptyCity={isCity && !hasCastes}
+                    isClosedCity={isCity && isClosed}
                     isWater={isWater}
                 />
-                {hasCastes &&
+                {isCity &&
                     <g
                         className='board-tile-component-content'
                         transform={`rotate(${-BOARD_ROTATION} ${center.x} ${center.y})`}
@@ -146,15 +147,15 @@ class BoardTileComponent extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { id, castes, isCity, isWater, isSwap } = ownProps;
+    const { id, castes, isClosed, isWater, isSwap } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
     
     // Playability
     const isOver = isGameOver(state.players);
+    const isCity = castes.length > 0;
     let isPlayable = false;
 
-    const hasCastes = castes.length > 0;
     const hasShipInHand = getHandTiles(state).some(tile => tile.type === Figure.Ship);
     const hasGroundTileInHand = getHandTiles(state).some(tile => isGroundHandTile(tile));
 
@@ -168,7 +169,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
             break;
         case CasteSwapStep.ChooseTileFrom:
         case CasteSwapStep.ChooseTileTo:
-            isPlayable = !isOver && self.isPlaying && !isSelectedForSwap && !isSwap && isCity && hasCastes;
+            isPlayable = !isOver && self.isPlaying && !isSelectedForSwap && !isSwap && isCity && !isClosed;
             break;
         case TileMoveStep.ChooseBoardTile:
             isPlayable = !isOver && self.isPlaying && !isSelectedForMove && !isSwap && !isCity && !isWater;

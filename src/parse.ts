@@ -7,7 +7,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
 
     // Build tile map
     rawTiles.forEach((rawTile: BoardTileJSON) => {
-        const { id, coordinates, castes, isCity, isWater, isSwap } = rawTile;
+        const { id, coordinates, castes, isClosed, isWater, isSwap } = rawTile;
         
         if (tiles.has(id)) {
             console.warn('Trying to add same tile twice.');
@@ -19,7 +19,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
             coordinates,
             neighborhood: [],
             castes: castes.map(caste => parseCaste(caste)),
-            isCity,
+            isClosed,
             isWater,
             isSwap,
         });

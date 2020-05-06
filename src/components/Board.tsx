@@ -122,7 +122,7 @@ class Board extends React.Component<Props, State> {
         // Ground tiles are added after water tiles in SVG, so that the ground tiles'
         // contour is on top (visible)
         return waterTiles.concat(groundTiles).map((tile: BoardTile) => {
-            const { id, coordinates, castes, isCity, isWater, isSwap } = tile;
+            const { id, coordinates, castes, isClosed, isWater, isSwap } = tile;
             const position = this.getTilePosition(coordinates);
 
             return (
@@ -131,7 +131,7 @@ class Board extends React.Component<Props, State> {
                     id={id}
                     position={position}
                     castes={castes}
-                    isCity={isCity}
+                    isClosed={isClosed}
                     isWater={isWater}
                     isSwap={isSwap}
                 />

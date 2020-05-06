@@ -14,6 +14,8 @@ export interface GameData {
     lastPlayedTiles: PlayedTilesJSON,
 }
 
+
+
 export interface UserJSON {
     username: string,
     email: string,
@@ -23,7 +25,7 @@ export interface BoardTileJSON {
     id: number,
     coordinates: Coordinates2D,
     castes: string[],
-    isCity: boolean,
+    isClosed: boolean,
     isWater: boolean,
     isSwap: boolean,
 }
