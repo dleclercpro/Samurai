@@ -1,6 +1,6 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SWITCH_COLOR_MODE, SET_GAME_ID, SET_GAME_VERSION, SET_PLAYED_TILES_SINCE_LAST_TURN, RESET_GAME } from '../types/ActionTypes';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SWITCH_COLOR_MODE, SET_GAME_ID, SET_GAME_VERSION, SET_PLAYED_TILES_SINCE_LAST_TURN, RESET_GAME, SET_GAME_NAME } from '../types/ActionTypes';
 import { Caste, TilePlayStep, CasteSwapStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
 import { getLocalStorage, setLocalStorage } from '../lib';
 import { parsePlayedTiles } from '../parse';
@@ -33,6 +33,7 @@ const initSelectionState = {
 
 const initState = {
     id: -1,
+    name: '',
     version: -1,
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
@@ -145,11 +146,19 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
     switch (action.type) {
         case RESET_GAME:
             return { ...initState };
+
         case SET_GAME_ID:
             return {
                 ...state,
                 id: action.id,
             };
+
+        case SET_GAME_NAME:
+            return {
+                ...state,
+                name: action.name,
+            };
+
         case SET_GAME_VERSION:
             return {
                 ...state,

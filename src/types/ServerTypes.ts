@@ -8,6 +8,7 @@ export interface ServerResponse<T> {
 }
 
 export interface GameData {
+    name: string,
     version: number,
     hand: HandJSON,
     board: BoardJSON,

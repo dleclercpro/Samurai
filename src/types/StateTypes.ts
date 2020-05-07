@@ -23,6 +23,7 @@ export interface SwapPartialState {
 
 export interface GameState {
     id: number,
+    name: string,
     version: number,
     step: GameStep,
     selection: {

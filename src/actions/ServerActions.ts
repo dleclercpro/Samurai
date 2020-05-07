@@ -2,7 +2,7 @@ import { CallPlayGame } from '../calls/CallPlayGame';
 import { openDialog, setDialogText, setDialogAction } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { UserJSON, GameData } from '../types/ServerTypes';
-import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn } from './GameActions';
+import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn, setGameName } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
 import { setBoard } from './DataActions';
 import { AppState } from '../types/StateTypes';
@@ -141,10 +141,11 @@ export const getData = (): ThunkActionResult<void> => {
                     return;
                 }
 
-                const { hand, board, players, lastPlayedTiles } = response.data;
+                const { name, hand, board, players, lastPlayedTiles } = response.data;
                 const wasPlaying = isCurrentPlayer(state.players);
 
                 // Load everything
+                dispatch(setGameName(name));
                 dispatch(setGameVersion(version));
                 dispatch(setBoard(board));
                 dispatch(setSelf(players.self));

@@ -43,6 +43,12 @@ export interface SetGameId {
     id: number,
 }
 
+export const SET_GAME_NAME = 'SET_GAME_NAME';
+export interface SetGameName {
+    type: typeof SET_GAME_NAME,
+    name: string,
+}
+
 export const SET_GAME_VERSION = 'SET_GAME_VERSION';
 export interface SetGameVersion {
     type: typeof SET_GAME_VERSION,

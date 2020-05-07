@@ -9,6 +9,7 @@ import { HandTile, PlayerColor } from '../types/GameTypes';
 import { getHandTiles } from '../selectors';
 
 interface StateProps {
+    name: string,
     hand: HandTile[],
     color: PlayerColor,
 }
@@ -18,11 +19,12 @@ type Props = StateProps;
 class Grid extends React.Component<Props, {}> {
     
     render() {
-        const { hand, color } = this.props;
+        const { name, hand, color } = this.props;
 
         return (
             <div id='grid'>
                 <section id='top'>
+                    <p className='game-name'>{name}</p>
                 </section>
                 <section id='center'>
                     <Board />
@@ -40,11 +42,13 @@ class Grid extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
+    const { name } = state.game;
     const { self } = state.players;
 
     return {
         hand: getHandTiles(state),
         color: self.color,
+        name,
     };
 };
 

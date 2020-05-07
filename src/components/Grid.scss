@@ -15,6 +15,13 @@ $height-bottom: 150px;
         display: flex;
         width: 100%;
         height: $height-top;
+
+        > .game-name {
+            position: fixed;
+            top: 34px;
+            right: 92px;
+            font-weight: bold;
+        }
     }
 
     > #center {
