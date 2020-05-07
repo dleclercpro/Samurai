@@ -68,7 +68,7 @@
     "SIGN_OUT_ERROR": "Es gab einen Fehler beim Ausloggen:",
     "SIGN_UP_SUCCESS": "Du hast dich erfolgreich angemeldet.",
     "SIGN_UP_ERROR": "Es gab einen Fehler bei der Anmeldung:",
-    "CREATE_GAME_SUCCESS": "Du hast ein neues Spiel erstellt. Seine Identifikationsnummer lautet: {{id}}",
+    "CREATE_GAME_SUCCESS": "Du hast ein neues Spiel erstellt. Seine Identifikationsnummer lautet: {{id}}. Du solltest sie dir merken, damit du mit Freunden spielen kannst!",
     "CREATE_GAME_ERROR": "Es gab einen Fehler beim Erstellen eines neuen Spieles:",
     "GET_DATA_ERROR": "Es gab einen Fehler beim Herunterladen der Spieldaten. [ID = {{id}}]",
     "PLAY_TILE_ERROR": "Der Spielstein konnte nicht auf die Spielplatte gelegt werden.",

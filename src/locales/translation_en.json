@@ -68,7 +68,7 @@
     "SIGN_OUT_ERROR": "There was an error while signing out:",
     "SIGN_UP_SUCCESS": "You have successfully signed up.",
     "SIGN_UP_ERROR": "There was an error while signing up:",
-    "CREATE_GAME_SUCCESS": "You have successfully create a game. Its ID is: {{id}}",
+    "CREATE_GAME_SUCCESS": "You have successfully create a game. Its ID is: {{id}}. Make sure to remember it, so you can invite friends to play with you!",
     "CREATE_GAME_ERROR": "There was an error while creating a new game:",
     "GET_DATA_ERROR": "There was a problem loading the data of game. [ID = {{id}}]",
     "PLAY_TILE_ERROR": "Tile placement was unsuccessful.",

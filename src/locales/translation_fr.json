@@ -68,7 +68,7 @@
     "SIGN_OUT_ERROR": "Il y a eu un problème lors de la déconnexion:",
     "SIGN_UP_SUCCESS": "Tu t'es inscrit(e) avec succès.",
     "SIGN_UP_ERROR": "Il y eu un problème lors de l'inscription:",
-    "CREATE_GAME_SUCCESS": "Tu as créé une nouvelle partie. Son numéro d'identification est le suivant: {{id}}",
+    "CREATE_GAME_SUCCESS": "Tu as créé une nouvelle partie. Son numéro d'identification est le suivant: {{id}}. Assure-toi de t'en rappeler afin que tu puisses inviter des ami(e)s à jouer avec toi!",
     "CREATE_GAME_ERROR": "Il y a eu un problème lors de la création d'une nouvelle partie:",
     "GET_DATA_ERROR": "Il y a eu un problème lors du chargement des données de la partie. [ID = {{id}}]",
     "PLAY_TILE_ERROR": "La tuile n'a pas pu être placée sur le jeu.",
