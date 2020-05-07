@@ -24,13 +24,22 @@ class DialogGameOver extends React.Component<Props, {}> {
             case 0:
                 return language.getText('NO_WINNER');
             case 1:
-                return language.getText('WINNER_IS', {
-                    winner: winners[0].username
-                });
+                return language.getText('WINNER_IS');
             default:
-                return language.getText('WINNERS_ARE', {
-                    winners: winners.map(winner => winner.username).join(', ')
-                });
+                return language.getText('WINNERS_ARE');
+        }
+    }
+
+    getExplanation = () => {
+        const { winners } = this.props;
+
+        switch (winners.length) {
+            case 0:
+                return '';
+            case 1:
+                return winners[0].username;
+            default:
+                return winners.map(winner => winner.username).join(', ');
         }
     }
 
@@ -42,6 +51,7 @@ class DialogGameOver extends React.Component<Props, {}> {
                 type={DialogType.GameOver}
                 headline={language.getText('GAME_OVER')}
                 message={this.getMessage()}
+                explanation={this.getExplanation()}
             />
         );
     }

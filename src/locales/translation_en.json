@@ -37,8 +37,8 @@
 
     "GAME_OVER": "Game Over",
     "NO_WINNER": "There is no winner.",
-    "WINNER_IS": "The winner is: {{winner}}",
-    "WINNERS_ARE": "The winners are: {{winners}}",
+    "WINNER_IS": "The winner is:",
+    "WINNERS_ARE": "The winners are:",
     
     "TILE_CHOICE": "Tile Choice",
     "TILE_CHOICE_MESSAGE": "Choose which tile to place on the empty space you just clicked:",

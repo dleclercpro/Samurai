@@ -37,8 +37,8 @@
 
     "GAME_OVER": "Spielende",
     "NO_WINNER": "Es hat niemand gewonnen.",
-    "WINNER_IS": "Der/die Gewinner/in ist: {{winner}}",
-    "WINNERS_ARE": "Die Gewinner sind: {{winners}}",
+    "WINNER_IS": "Der/die Gewinner/in ist:",
+    "WINNERS_ARE": "Die Gewinner sind:",
 
     "TILE_CHOICE": "Spielstein auswählen",
     "TILE_CHOICE_MESSAGE": "Wähle welchen Spielstein du auf die geclickte Position setzen möchtest:",

@@ -37,8 +37,8 @@
 
     "GAME_OVER": "Fin de la partie",
     "NO_WINNER": "Il n'y a aucun vainqueur.",
-    "WINNER_IS": "Le vainqueur est: {{winner}}",
-    "WINNERS_ARE": "Les vainqueurs sont: {{winners}}",
+    "WINNER_IS": "Le vainqueur est:",
+    "WINNERS_ARE": "Les vainqueurs sont:",
 
     "TILE_CHOICE": "Choix de tuile",
     "TILE_CHOICE_MESSAGE": "Choisis une tuile à déposer à l'endroit où tu viens de cliquer sur la plaque de jeu:",
