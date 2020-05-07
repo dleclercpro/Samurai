@@ -135,19 +135,19 @@ export interface CloseDialog {
     dialogType: DialogType,
 }
 
-export const SET_SUCCESS_DIALOG = 'SET_SUCCESS_DIALOG';
-export interface SetSuccessDialog {
-    type: typeof SET_SUCCESS_DIALOG,
-    message: string,
-    action?: () => Promise<void>,
-}
-
-export const SET_ERROR_DIALOG = 'SET_ERROR_DIALOG';
-export interface SetErrorDialog {
-    type: typeof SET_ERROR_DIALOG,
+export const SET_DIALOG_TEXT = 'SET_DIALOG_TEXT';
+export interface SetDialogText {
+    type: typeof SET_DIALOG_TEXT,
+    dialogType: DialogType,
     message: string,
     explanation: string,
-    action?: () => Promise<void>,
+}
+
+export const SET_DIALOG_ACTION = 'SET_DIALOG_ACTION';
+export interface SetDialogAction {
+    type: typeof SET_DIALOG_ACTION,
+    dialogType: DialogType,
+    action: () => Promise<void>,
 }
 
 

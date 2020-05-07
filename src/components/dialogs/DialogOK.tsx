@@ -31,7 +31,7 @@ class DialogOK extends React.Component<Props, {}> {
                 headline={headline}
                 message={message}
                 explanation={explanation}
-                onAction={action !== undefined ? action : () => Promise.resolve()}
+                onAction={action}
                 actionButtonText={language.getText('OK')}
                 isActionButtonActive
             />

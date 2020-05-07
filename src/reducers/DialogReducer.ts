@@ -1,10 +1,13 @@
 import { DialogState } from '../types/StateTypes';
 import { DialogAction } from '../actions';
-import { OPEN_DIALOG, CLOSE_DIALOG, SET_SUCCESS_DIALOG, SET_ERROR_DIALOG } from '../types/ActionTypes';
+import { OPEN_DIALOG, CLOSE_DIALOG, SET_DIALOG_TEXT, SET_DIALOG_ACTION } from '../types/ActionTypes';
 import { DialogType } from '../types/DialogTypes';
 
 const initDialogState = {
     isOpen: false,
+    message: '',
+    explanation: '',
+    action: () => Promise.resolve(),
 };
 
 const initState = {
@@ -20,15 +23,8 @@ const initState = {
     [DialogType.TileMoveEnd]: { ...initDialogState },
     [DialogType.CasteSwapStart]: { ...initDialogState },
     [DialogType.CasteSwapEnd]: { ...initDialogState },
-
-    [DialogType.Success]: {
-        ...initDialogState,
-        message: '',
-    },
-    [DialogType.Error]: {
-        ...initDialogState,
-        message: '',
-    },
+    [DialogType.Success]: { ...initDialogState },
+    [DialogType.Error]: { ...initDialogState },
 };
 
 const DialogReducer = (state: DialogState = initState, action: DialogAction) => {
@@ -49,22 +45,20 @@ const DialogReducer = (state: DialogState = initState, action: DialogAction) => 
                     isOpen: false,
                 },
             };
-        case SET_SUCCESS_DIALOG:
+        case SET_DIALOG_TEXT:
             return {
                 ...state,
-                [DialogType.Success]: {
-                    ...state[DialogType.Success],
-                    message: action.message,
-                    action: action.action,
-                },
-            };
-        case SET_ERROR_DIALOG:
-            return {
-                ...state,
-                [DialogType.Error]: {
-                    ...state[DialogType.Error],
+                [action.dialogType]: {
+                    ...state[action.dialogType],
                     message: action.message,
                     explanation: action.explanation,
+                },
+            };
+        case SET_DIALOG_ACTION:
+            return {
+                ...state,
+                [action.dialogType]: {
+                    ...state[action.dialogType],
                     action: action.action,
                 },
             };

@@ -1,4 +1,4 @@
-import { OPEN_DIALOG, CLOSE_DIALOG, OpenDialog, CloseDialog, SetSuccessDialog, SET_SUCCESS_DIALOG, SetErrorDialog, SET_ERROR_DIALOG } from '../types/ActionTypes';
+import { OPEN_DIALOG, CLOSE_DIALOG, OpenDialog, CloseDialog, SetDialogText, SET_DIALOG_TEXT, SetDialogAction, SET_DIALOG_ACTION } from '../types/ActionTypes';
 import { DialogType } from '../types/DialogTypes';
 
 export const openDialog = (dialogType: DialogType): OpenDialog => ({
@@ -11,15 +11,15 @@ export const closeDialog = (dialogType: DialogType): CloseDialog => ({
     dialogType,
 });
 
-export const setSuccessDialog = (message: string, action?: () => Promise<void>): SetSuccessDialog => ({
-    type: SET_SUCCESS_DIALOG,
-    message,
-    action,
-});
-
-export const setErrorDialog = (message: string, explanation: string, action?: () => Promise<void>): SetErrorDialog => ({
-    type: SET_ERROR_DIALOG,
+export const setDialogText = (dialogType: DialogType, message: string, explanation: string = ''): SetDialogText => ({
+    type: SET_DIALOG_TEXT,
+    dialogType,
     message,
     explanation,
+});
+
+export const setDialogAction = (dialogType: DialogType, action: () => Promise<void>): SetDialogAction => ({
+    type: SET_DIALOG_ACTION,
+    dialogType,
     action,
 });

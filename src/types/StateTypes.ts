@@ -49,10 +49,9 @@ export interface UserState {
 export interface DialogState {
     [type: string]: {
         isOpen: boolean,
-        headline?: string,
-        message?: string,
-        explanation?: string,
-        action?: () => Promise<void>,
+        message: string,
+        explanation: string,
+        action: () => Promise<void>,
     },
 }
 

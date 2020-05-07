@@ -32,6 +32,12 @@ export const redirectHome = (): Promise<void> => {
     return Promise.resolve();
 }
 
+export const redirectGame = (id: number): Promise<void> => {
+    document.location.replace(`/game/${id}/`);
+
+    return Promise.resolve();
+}
+
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
     const { width, height } = size;
     const innerWidth = width - stroke;

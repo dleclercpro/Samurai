@@ -8,7 +8,7 @@ import i18n from '../../i18n';
 
 interface StateProps {
     message: string,
-    explanation: string,
+    explanation?: string,
     action?: () => Promise<void>,
     language: i18n,
 }

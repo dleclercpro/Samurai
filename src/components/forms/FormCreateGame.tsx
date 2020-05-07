@@ -10,7 +10,6 @@ import { getFormPayload } from '../../lib';
 import { createGame } from '../../actions/ServerActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Dialog from '../dialogs/Dialog';
 import i18n from '../../i18n';
 
@@ -30,10 +29,10 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    createGame: (name: string, self: string, opponents: string[]) => Promise<number>,
+    createGame: (name: string, self: string, opponents: string[]) => Promise<void>,
 }
 
-type Props = StateProps & DispatchProps & RouteComponentProps;
+type Props = StateProps & DispatchProps;
 
 interface State {
     fields: FormFields,
@@ -81,14 +80,12 @@ class FormCreateGame extends React.Component<Props, State> {
     }
 
     handleSubmit = () => {
-        const { self, createGame, history } = this.props;
+        const { self, createGame } = this.props;
         const { name, user1, user2, user3 } = getFormPayload(this.state.fields);
 
         return createGame(name, self, [ user1, user2, user3 ])
-            .then((id: number) => {
+            .then(() => {
                 this.setState({ ...INIT_STATE });
-
-                history.push(`/game/${id}/`);
             })
             .catch(() => {
                 
@@ -166,4 +163,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, App
     createGame: (name: string, self: string, opponents: string[]) => dispatch(createGame(name, self, opponents)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormCreateGame));
+export default connect(mapStateToProps, mapDispatchToProps)(FormCreateGame);

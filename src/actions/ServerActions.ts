@@ -1,5 +1,5 @@
 import { CallPlayGame } from '../calls/CallPlayGame';
-import { setSuccessDialog, setErrorDialog, openDialog } from './DialogActions';
+import { openDialog, setDialogText, setDialogAction } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { UserJSON, GameData } from '../types/ServerTypes';
 import { endTurn, resetGameId, setGameVersion, resetGameVersion, setPlayedTilesSinceLastTurn } from './GameActions';
@@ -17,7 +17,7 @@ import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 import { isGameOver, isCurrentPlayer } from '../selectors';
-import { redirectHome } from '../lib';
+import { redirectHome, redirectGame } from '../lib';
 import { CallGetData } from '../calls/CallGetData';
 
 export const verifyAuthentication = (): ThunkActionResult<void> => {
@@ -49,11 +49,11 @@ export const signIn = (identifier: string, password: string): ThunkActionResult<
                 
                 dispatch(setUser(username, email));
 
-                dispatch(setSuccessDialog(language.getText('SIGN_IN_SUCCESS')));
+                dispatch(setDialogText(DialogType.Success, language.getText('SIGN_IN_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('SIGN_IN_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('SIGN_IN_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
 
                 throw new Error(error.message);
@@ -69,11 +69,11 @@ export const signOut = (): ThunkActionResult<void> => {
         
         return new CallSignOut().execute()
             .then(() => {                
-                dispatch(setSuccessDialog(language.getText('SIGN_OUT_SUCCESS')));
+                dispatch(setDialogText(DialogType.Success, language.getText('SIGN_OUT_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('SIGN_OUT_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('SIGN_OUT_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             })
             .finally(() => {
@@ -91,11 +91,11 @@ export const signUp = (username: string, firstName: string, lastName: string, em
         
         return new CallSignUp(username, firstName, lastName, email, password).execute()
             .then(() => {
-                dispatch(setSuccessDialog(language.getText('SIGN_UP_SUCCESS')));
+                dispatch(setDialogText(DialogType.Success, language.getText('SIGN_UP_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('SIGN_UP_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('SIGN_UP_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
 
                 throw new Error(error.message);
@@ -103,9 +103,9 @@ export const signUp = (username: string, firstName: string, lastName: string, em
     };
 }
 
-export const createGame = (name: string, self: string, opponents: string[]): ThunkActionResult<number> => {
+export const createGame = (name: string, self: string, opponents: string[]): ThunkActionResult<void> => {
 
-    return (dispatch: ThunkDispatchResult<number>, getState: () => AppState) => {
+    return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
         const { language } = state.user;
 
@@ -115,13 +115,13 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
             .then((response: ServerResponse<{ id: number }>) => {
                 const { id } = response.data;
 
-                return id;
+                dispatch(setDialogText(DialogType.Success, language.getText('CREATE_GAME_SUCCESS', { id: id })));
+                dispatch(setDialogAction(DialogType.Success, () => redirectGame(id)));
+                dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('CREATE_GAME_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('CREATE_GAME_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
-
-                throw new Error(error.message);
             });
     };
 }
@@ -171,7 +171,8 @@ export const getData = (): ThunkActionResult<void> => {
             .catch((error: any) => {
                 dispatch(resetGameVersion);
 
-                dispatch(setErrorDialog(language.getText('GET_DATA_ERROR', { id: game.id }), error.message, redirectHome));
+                dispatch(setDialogText(DialogType.Error, language.getText('GET_DATA_ERROR', { id: game.id }), error.message));
+                dispatch(setDialogAction(DialogType.Error, redirectHome));
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject();
@@ -203,7 +204,7 @@ export const playTile = (handTile: number, boardTile: number): ThunkActionResult
 
         return dispatch(play(handTile, -1, boardTile, '', ''))
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('PLAY_TILE_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('PLAY_TILE_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -217,7 +218,7 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActio
 
         return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('MOVE_TILE_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('MOVE_TILE_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
@@ -231,7 +232,7 @@ export const swapCastePieces = (boardTileFrom: number, boardTileTo: number, cast
 
         return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
             .catch((error: any) => {
-                dispatch(setErrorDialog(language.getText('CASTE_SWAP_ERROR'), error.message));
+                dispatch(setDialogText(DialogType.Error, language.getText('CASTE_SWAP_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
             });
     };
