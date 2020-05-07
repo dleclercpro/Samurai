@@ -113,7 +113,7 @@ class DialogCasteChoice extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState) => {
     const { step, selection } = state.game;
-    const { tiles } = state.data;
+    const { board } = state.data;
     const { language } = state.user;
 
     const isChoosingFrom = step === CasteSwapStep.ChooseCasteFrom;
@@ -130,7 +130,7 @@ const mapStateToProps = (state: AppState) => {
         selectedTileId = -1;
     }
 
-    const selectedTile = tiles.get(selectedTileId);
+    const selectedTile = board.get(selectedTileId);
     const castes = selectedTile ? selectedTile.castes : [];
 
     const isActionButtonActive = hasChosenFrom || hasChosenTo;

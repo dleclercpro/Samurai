@@ -2,7 +2,7 @@ import { CallPlayGame } from '../calls/CallPlayGame';
 import { openDialog, setDialogText, setDialogAction } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { UserJSON, GameData } from '../types/ServerTypes';
-import { endTurn, resetGameId, setGameVersion, resetGameVersion, setPlayedTilesSinceLastTurn } from './GameActions';
+import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
 import { setBoard } from './DataActions';
 import { AppState } from '../types/StateTypes';
@@ -12,13 +12,14 @@ import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
-import { setPlayer, setOpponents, setHand } from './PlayerActions';
+import { setSelf, setOpponents, setHand } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { redirectHome, redirectGame } from '../lib';
 import { CallGetData } from '../calls/CallGetData';
+import { resetApp } from './AppActions';
 
 export const verifyAuthentication = (): ThunkActionResult<void> => {
 
@@ -32,7 +33,6 @@ export const verifyAuthentication = (): ThunkActionResult<void> => {
             })
             .catch(() => {
                 dispatch(resetUser);
-                dispatch(resetGameId);
             });
     };
 }
@@ -56,7 +56,7 @@ export const signIn = (identifier: string, password: string): ThunkActionResult<
                 dispatch(setDialogText(DialogType.Error, language.getText('SIGN_IN_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
 
-                throw new Error(error.message);
+                return Promise.reject(error);
             });
     };
 }
@@ -78,7 +78,6 @@ export const signOut = (): ThunkActionResult<void> => {
             })
             .finally(() => {
                 dispatch(resetUser);
-                dispatch(resetGameId);
             });
     };
 }
@@ -98,7 +97,7 @@ export const signUp = (username: string, firstName: string, lastName: string, em
                 dispatch(setDialogText(DialogType.Error, language.getText('SIGN_UP_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
 
-                throw new Error(error.message);
+                return Promise.reject(error);
             });
     };
 }
@@ -109,19 +108,19 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
         const state = getState();
         const { language } = state.user;
 
-        dispatch(resetGameId);
-        
         return new CallCreateGame(name, self, opponents).execute()
             .then((response: ServerResponse<{ id: number }>) => {
                 const { id } = response.data;
 
-                dispatch(setDialogText(DialogType.Success, language.getText('CREATE_GAME_SUCCESS', { id: id })));
+                dispatch(setDialogText(DialogType.Success, language.getText('CREATE_GAME_SUCCESS'), language.getText('ID', { id: id })));
                 dispatch(setDialogAction(DialogType.Success, () => redirectGame(id)));
                 dispatch(openDialog(DialogType.Success));
             })
             .catch((error: any) => {
                 dispatch(setDialogText(DialogType.Error, language.getText('CREATE_GAME_ERROR'), error.message));
                 dispatch(openDialog(DialogType.Error));
+
+                return Promise.reject(error);
             });
     };
 }
@@ -148,7 +147,7 @@ export const getData = (): ThunkActionResult<void> => {
                 // Load everything
                 dispatch(setGameVersion(version));
                 dispatch(setBoard(board));
-                dispatch(setPlayer(players.self));
+                dispatch(setSelf(players.self));
                 dispatch(setOpponents(players.opponents));
                 dispatch(setHand(hand));
                 dispatch(setPlayedTilesSinceLastTurn(lastPlayedTiles));
@@ -169,13 +168,11 @@ export const getData = (): ThunkActionResult<void> => {
                 }
             })
             .catch((error: any) => {
-                dispatch(resetGameVersion);
-
                 dispatch(setDialogText(DialogType.Error, language.getText('GET_DATA_ERROR', { id: game.id }), error.message));
                 dispatch(setDialogAction(DialogType.Error, redirectHome));
                 dispatch(openDialog(DialogType.Error));
 
-                return Promise.reject();
+                return Promise.reject(error);
             });
     };
 }
@@ -205,7 +202,10 @@ export const playTile = (handTile: number, boardTile: number): ThunkActionResult
         return dispatch(play(handTile, -1, boardTile, '', ''))
             .catch((error: any) => {
                 dispatch(setDialogText(DialogType.Error, language.getText('PLAY_TILE_ERROR'), error.message));
+                dispatch(setDialogAction(DialogType.Error, redirectHome));
                 dispatch(openDialog(DialogType.Error));
+
+                return dispatch(resetApp());
             });
     };
 }
@@ -219,7 +219,10 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActio
         return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
             .catch((error: any) => {
                 dispatch(setDialogText(DialogType.Error, language.getText('MOVE_TILE_ERROR'), error.message));
+                dispatch(setDialogAction(DialogType.Error, redirectHome));
                 dispatch(openDialog(DialogType.Error));
+
+                return dispatch(resetApp());
             });
     };
 }
@@ -233,7 +236,10 @@ export const swapCastePieces = (boardTileFrom: number, boardTileTo: number, cast
         return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
             .catch((error: any) => {
                 dispatch(setDialogText(DialogType.Error, language.getText('CASTE_SWAP_ERROR'), error.message));
+                dispatch(setDialogAction(DialogType.Error, redirectHome));
                 dispatch(openDialog(DialogType.Error));
+
+                return dispatch(resetApp());
             });
     };
 }

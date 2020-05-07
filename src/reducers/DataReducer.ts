@@ -1,16 +1,21 @@
 import { DataAction } from '../actions';
-import { SET_BOARD, SET_FULL_HAND } from '../types/ActionTypes';
+import { SET_BOARD, SET_FULL_HAND, RESET_BOARD } from '../types/ActionTypes';
 import { parseBoard, parseFullHand } from '../parse';
 import { getTileNeighborhood } from '../lib';
 import { DataState } from '../types/StateTypes';
 
 const initState = {
-    tiles: new Map(),
     fullHand: new Map(),
+    board: new Map(),
 };
 
 const DataReducer = (state: DataState = initState, action: DataAction) => {
     switch (action.type) {
+        case RESET_BOARD:
+            return {
+                ...state,
+                board: new Map(),
+            };
         case SET_BOARD:
             const tiles = parseBoard(action.data);
 
@@ -23,7 +28,7 @@ const DataReducer = (state: DataState = initState, action: DataAction) => {
 
             return {
                 ...state,
-                tiles,
+                board: tiles,
             };
         case SET_FULL_HAND:
             return {

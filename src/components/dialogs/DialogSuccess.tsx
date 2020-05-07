@@ -8,6 +8,7 @@ import i18n from '../../i18n';
 
 interface StateProps {
     message: string,
+    explanation?: string,
     action?: () => Promise<void>,
     language: i18n,
 }
@@ -17,13 +18,14 @@ type Props = StateProps;
 class DialogSuccess extends React.Component<Props, {}> {
 
     render() {
-        const { message, action, language } = this.props;
+        const { message, explanation, action, language } = this.props;
 
         return (
             <DialogOK
                 type={DialogType.Success}
                 headline={language.getText('SUCCESS')}
                 message={message}
+                explanation={explanation}
                 action={action}
             />
         );
@@ -31,11 +33,12 @@ class DialogSuccess extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { message, action } = state.dialog.success;
+    const { message, explanation, action } = state.dialog.success;
     const { language } = state.user;
 
     return {
         message: message !== undefined ? message : '',
+        explanation: explanation !== undefined ? explanation : '',
         action,
         language,
     };

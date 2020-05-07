@@ -2,11 +2,8 @@
 
 #dialog--error {
 
-    .text {
-
-        > .explanation {
-            color: $color-dark-red;
-            font-weight: bold;
-        }
+    .explanation {
+        color: $color-dark-red;
+        font-weight: bold;
     }
 }

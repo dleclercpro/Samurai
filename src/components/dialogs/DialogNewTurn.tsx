@@ -18,13 +18,22 @@ type Props = StateProps;
 
 class DialogNewTurn extends React.Component<Props> {
 
+    private sound: HTMLAudioElement;
+
+    constructor(props: Props) {
+        super(props);
+
+        this.sound = new Audio(FX_SOUND_NEW_TURN);
+    }
+
     componentDidUpdate(prevProps: Props) {
         const { isOpen } = this.props;
 
         if (!prevProps.isOpen && isOpen) {
-            const sound = new Audio(FX_SOUND_NEW_TURN);
-
-            sound.play();
+            this.sound.play()
+                .catch((e) => {
+                    console.warn(e.message);
+                });
         }
     }
     

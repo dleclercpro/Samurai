@@ -12,6 +12,11 @@ export type ThunkActionResult<R> = ThunkAction<Promise<R>, AppState, {}, AppActi
 
 
 // Data actions
+export const RESET_BOARD = 'RESET_BOARD';
+export interface ResetBoard {
+    type: typeof RESET_BOARD,
+}
+
 export const SET_BOARD = 'SET_BOARD';
 export interface SetBoard {
     type: typeof SET_BOARD,
@@ -27,20 +32,15 @@ export interface SetFullHand {
 
 
 // Game actions
-export const RESET_GAME_ID = 'RESET_GAME_ID';
-export interface ResetGameId {
-    type: typeof RESET_GAME_ID,
+export const RESET_GAME = 'RESET_GAME';
+export interface ResetGame {
+    type: typeof RESET_GAME,
 }
 
 export const SET_GAME_ID = 'SET_GAME_ID';
 export interface SetGameId {
     type: typeof SET_GAME_ID,
     id: number,
-}
-
-export const RESET_GAME_VERSION = 'RESET_GAME_VERSION';
-export interface ResetGameVersion {
-    type: typeof RESET_GAME_VERSION,
 }
 
 export const SET_GAME_VERSION = 'SET_GAME_VERSION';
@@ -83,9 +83,14 @@ export interface SetLanguage {
 
 
 // Player actions
-export const SET_PLAYER = 'SET_PLAYER';
-export interface SetPlayer {
-    type: typeof SET_PLAYER,
+export const RESET_PLAYERS = 'RESET_PLAYERS';
+export interface ResetPlayers {
+    type: typeof RESET_PLAYERS,
+}
+
+export const SET_SELF = 'SET_SELF';
+export interface SetSelf {
+    type: typeof SET_SELF,
     data: PlayerJSON,
 }
 

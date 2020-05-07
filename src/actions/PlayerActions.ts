@@ -1,8 +1,12 @@
 import { PlayerJSON } from '../types/ServerTypes';
-import { SetPlayer, SET_PLAYER, SetOpponents, SET_OPPONENTS, SetHand, SET_HAND } from '../types/ActionTypes';
+import { SetSelf, SET_SELF, SetOpponents, SET_OPPONENTS, SetHand, SET_HAND, ResetPlayers, RESET_PLAYERS } from '../types/ActionTypes';
 
-export const setPlayer = (data: PlayerJSON): SetPlayer => ({
-    type: SET_PLAYER,
+export const resetPlayers: ResetPlayers = {
+    type: RESET_PLAYERS,
+};
+
+export const setSelf = (data: PlayerJSON): SetSelf => ({
+    type: SET_SELF,
     data,
 });
 

@@ -19,13 +19,22 @@ type Props = StateProps;
 
 class DialogGameOver extends React.Component<Props, {}> {
 
+    private sound: HTMLAudioElement;
+
+    constructor(props: Props) {
+        super(props);
+
+        this.sound = new Audio(FX_SOUND_GAME_OVER);
+    }
+
     componentDidUpdate(prevProps: Props) {
         const { isOpen } = this.props;
 
         if (!prevProps.isOpen && isOpen) {
-            const sound = new Audio(FX_SOUND_GAME_OVER);
-            
-            sound.play();
+            this.sound.play()
+                .catch((e) => {
+                    console.warn(e.message);
+                });
         }
     }
 

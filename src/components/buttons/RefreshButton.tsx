@@ -19,7 +19,9 @@ class RefreshButton extends React.Component<Props, {}> {
     handleRefresh = () => {
         const { getData } = this.props;
 
-        getData();
+        // We don't care if refreshing doesn't work
+        getData()
+            .catch(() => {});
     }
 
     render() {

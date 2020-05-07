@@ -5,6 +5,10 @@ import { DialogType } from '../types/DialogTypes';
 
 const initDialogState = {
     isOpen: false,
+};
+
+const initOKDialogState = {
+    ...initDialogState,
     message: '',
     explanation: '',
     action: () => Promise.resolve(),
@@ -23,8 +27,9 @@ const initState = {
     [DialogType.TileMoveEnd]: { ...initDialogState },
     [DialogType.CasteSwapStart]: { ...initDialogState },
     [DialogType.CasteSwapEnd]: { ...initDialogState },
-    [DialogType.Success]: { ...initDialogState },
-    [DialogType.Error]: { ...initDialogState },
+
+    [DialogType.Success]: { ...initOKDialogState },
+    [DialogType.Error]: { ...initOKDialogState },
 };
 
 const DialogReducer = (state: DialogState = initState, action: DialogAction) => {

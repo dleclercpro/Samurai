@@ -49,15 +49,15 @@ export interface UserState {
 export interface DialogState {
     [type: string]: {
         isOpen: boolean,
-        message: string,
-        explanation: string,
-        action: () => Promise<void>,
+        message?: string,
+        explanation?: string,
+        action?: () => Promise<void>,
     },
 }
 
 export interface DataState {
-    tiles: BoardTileMap,
     fullHand: HandTileMap,
+    board: BoardTileMap,
 }
 
 // Root state

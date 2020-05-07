@@ -16,7 +16,7 @@ import i18n from '../../i18n';
 interface StateProps {
     handTile: number,
     boardTile: number,
-    tiles: HandTile[],
+    hand: HandTile[],
     color: PlayerColor,
     isChoosing: boolean,
     hasChosen: boolean,
@@ -34,7 +34,7 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 interface State {
-    tiles: HandTile[],
+    hand: HandTile[],
     color: PlayerColor,
 }
 
@@ -44,19 +44,19 @@ class DialogTileChoice extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            tiles: [],
+            hand: [],
             color: PlayerColor.Unknown,
         };
     }
 
     componentDidUpdate(prevProps: Props) {
-        const { isOpen, tiles, color } = this.props;
+        const { isOpen, hand, color } = this.props;
 
         // We set its content when opening dialog, so store
         // changes do not alter it
         if (!prevProps.isOpen && isOpen) {
             this.setState({
-                tiles,
+                hand,
                 color,
             });
         }
@@ -77,7 +77,7 @@ class DialogTileChoice extends React.Component<Props, State> {
 
     render() {
         const { isActionButtonActive, language } = this.props;
-        const { tiles, color } = this.state;
+        const { hand, color } = this.state;
 
         return (
             <Dialog
@@ -89,9 +89,9 @@ class DialogTileChoice extends React.Component<Props, State> {
                 onCancel={this.handleCancel}
                 isActionButtonActive={isActionButtonActive}
             >
-                {tiles &&
+                {hand &&
                     <Hand
-                        tiles={tiles}
+                        tiles={hand}
                         color={color}
                         inDialog={DialogType.TileChoice}
                     />
@@ -113,7 +113,7 @@ const mapStateToProps = (state: AppState) => {
     return {
         handTile: selection.play.handTile,
         boardTile: selection.play.boardTile,
-        tiles: getHandTiles(state),
+        hand: getHandTiles(state),
         color: self.color,
         isChoosing,
         hasChosen,

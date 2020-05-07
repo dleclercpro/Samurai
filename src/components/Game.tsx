@@ -4,7 +4,7 @@ import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import { getData } from '../actions/ServerActions';
-import { setGameId, resetGameId, resetGameVersion } from '../actions/GameActions';
+import { setGameId } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -12,6 +12,7 @@ import SpinnerOverlay from './overlays/SpinnerOverlay';
 import Dash from './buttons/Dash';
 import { REFRESH_RATE } from '../config';
 import { isGameOver } from '../selectors';
+import { resetApp } from '../actions/AppActions';
 
 interface OwnProps {
     id: number,
@@ -23,9 +24,8 @@ interface StateProps {
 
 interface DispatchProps {
     setGameId: (id: number) => void,
-    resetGameId: () => void,
-    resetGameVersion: () => void,
     getData: () => Promise<void>,
+    resetApp: () => Promise<void>,
 }
 
 type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
@@ -47,7 +47,7 @@ class Game extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { id, setGameId, resetGameId, resetGameVersion, getData } = this.props;
+        const { id, setGameId, resetApp, getData } = this.props;
 
         this.showSpinner();
 
@@ -58,8 +58,7 @@ class Game extends React.Component<Props, State> {
                 this.startPolling();
             })
             .catch(() => {
-                resetGameId();
-                resetGameVersion();
+                resetApp();
             })
             .finally(() => {
                 this.hideSpinner();
@@ -67,12 +66,11 @@ class Game extends React.Component<Props, State> {
     }
 
     componentWillUnmount() {
-        const { resetGameId, resetGameVersion } = this.props;
+        const { resetApp } = this.props;
 
         this.stopPolling();
 
-        resetGameId();
-        resetGameVersion();
+        resetApp();
     }
 
     poll = () => {
@@ -147,9 +145,8 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     setGameId: (id: number) => dispatch(setGameId(id)),
-    resetGameId: () => dispatch(resetGameId),
-    resetGameVersion: () => dispatch(resetGameVersion),
     getData: () => dispatch(getData()),
+    resetApp: () => dispatch(resetApp()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));

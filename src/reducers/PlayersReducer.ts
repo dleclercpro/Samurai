@@ -1,6 +1,6 @@
 import { PlayersState } from '../types/StateTypes';
 import { PlayersAction } from '../actions';
-import { SET_PLAYER, SET_HAND, SET_OPPONENTS } from '../types/ActionTypes';
+import { SET_SELF, SET_HAND, SET_OPPONENTS, RESET_PLAYERS } from '../types/ActionTypes';
 import { parsePlayer } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
@@ -22,7 +22,11 @@ const initState = {
 
 const PlayersReducer = (state: PlayersState = initState, action: PlayersAction) => {
     switch (action.type) {
-        case SET_PLAYER:
+        case RESET_PLAYERS:
+            return {
+                ...initState,
+            };
+        case SET_SELF:
             return {
                 ...state,
                 self: parsePlayer(action.data),
