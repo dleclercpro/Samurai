@@ -28,6 +28,7 @@ class DialogOK extends React.Component<Props, {}> {
         return (
             <Dialog
                 type={type}
+                classes={[DialogType.OK]}
                 headline={headline}
                 message={message}
                 explanation={explanation}

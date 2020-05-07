@@ -1,7 +1,8 @@
 export enum DialogType {
+    OK = 'ok',
     Success = 'success',
     Error = 'error',
-    SetUser = 'sign-in',
+    SignIn = 'sign-in',
     SignUp = 'sign-up',
     PlayGame = 'play-game',
     CreateGame = 'create-game',

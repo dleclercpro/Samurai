@@ -15,7 +15,7 @@ const initOKDialogState = {
 };
 
 const initState = {
-    [DialogType.SetUser]: { ...initDialogState },
+    [DialogType.SignIn]: { ...initDialogState },
     [DialogType.SignUp]: { ...initDialogState },
     [DialogType.PlayGame]: { ...initDialogState },
     [DialogType.CreateGame]: { ...initDialogState },

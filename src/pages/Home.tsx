@@ -97,7 +97,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     resetUser: () => dispatch(signOut()),
     openSignUpDialog: () => dispatch(openDialog(DialogType.SignUp)),
-    openSignInDialog: () => dispatch(openDialog(DialogType.SetUser)),
+    openSignInDialog: () => dispatch(openDialog(DialogType.SignIn)),
     openPlayGameDialog: () => dispatch(openDialog(DialogType.PlayGame)),
     openCreateGameDialog: () => dispatch(openDialog(DialogType.CreateGame)),
 });

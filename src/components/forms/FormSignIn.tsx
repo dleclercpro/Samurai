@@ -83,7 +83,7 @@ class FormSignIn extends React.Component<Props, State> {
 
         return (
             <Dialog
-                type={DialogType.SetUser}
+                type={DialogType.SignIn}
                 headline={language.getText('SIGN_IN')}
                 actionButtonText={language.getText('SIGN_IN')}
                 isActionButtonActive={isFilled}

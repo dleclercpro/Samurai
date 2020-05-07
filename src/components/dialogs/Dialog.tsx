@@ -15,6 +15,7 @@ import i18n from '../../i18n';
 interface OwnProps {
     children?: ReactNode,
     type: DialogType,
+    classes?: string[],
     headline: string,
     message?: string,
     explanation?: string,
@@ -132,6 +133,16 @@ class Dialog extends React.Component<Props, State> {
         });
     }
 
+    getClasses = () => {
+        const { classes } = this.props;
+
+        if (classes !== undefined) {
+            return classes.map(c => 'dialog--' + c).join(' ');
+        }
+
+        return '';
+    }
+
     render() {
         const { children, message, explanation, type, headline, cancelButtonText, actionButtonText, isActionButtonActive, isOpen, language, onCancel } = this.props;
         const { isLoading } = this.state;
@@ -149,7 +160,14 @@ class Dialog extends React.Component<Props, State> {
                 id='dialog'
                 onMouseDown={this.handleCancel}
             >
-                <div id={`${type ? `dialog--${type}` : ''}`} className='dialog' onMouseDown={this.handleMouseDown}>
+                <div
+                    id={`${type ? `dialog--${type}` : ''}`}
+                    className={`
+                        dialog
+                        ${this.getClasses()}
+                    `}
+                    onMouseDown={this.handleMouseDown}
+                >
                     <div className='wrapper'>
                         {isLoading && <SpinnerOverlay />}
 
