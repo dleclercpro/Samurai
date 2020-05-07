@@ -6,15 +6,27 @@ import { connect } from 'react-redux';
 import { AppState } from '../../types/StateTypes';
 import { FULL_HAND_SIZE } from '../../constants';
 import i18n from '../../i18n';
+import { FX_SOUND_NEW_TURN } from '../../config';
 
 interface StateProps {
     nTilesLeft: number,
+    isOpen: boolean,
     language: i18n,
 }
 
 type Props = StateProps;
 
 class DialogNewTurn extends React.Component<Props> {
+
+    componentDidUpdate(prevProps: Props) {
+        const { isOpen } = this.props;
+
+        if (!prevProps.isOpen && isOpen) {
+            const sound = new Audio(FX_SOUND_NEW_TURN);
+
+            sound.play();
+        }
+    }
     
     render() {
         const { nTilesLeft, language } = this.props;
@@ -31,10 +43,12 @@ class DialogNewTurn extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState) => {
     const nPlayedTiles = state.players.self.playedTiles.size;
+    const { isOpen } = state.dialog[DialogType.NewTurn];
     const { language } = state.user;
     
     return {
         nTilesLeft: FULL_HAND_SIZE - nPlayedTiles,
+        isOpen,
         language,
     };
 };

@@ -7,15 +7,27 @@ import { getWinners } from '../../selectors';
 import { DialogType } from '../../types/DialogTypes';
 import DialogOK from './DialogOK';
 import i18n from '../../i18n';
+import { FX_SOUND_GAME_OVER } from '../../config';
 
 interface StateProps {
-    winners: Player[],
+    isOpen: boolean,
     language: i18n,
+    winners: Player[],
 }
 
 type Props = StateProps;
 
 class DialogGameOver extends React.Component<Props, {}> {
+
+    componentDidUpdate(prevProps: Props) {
+        const { isOpen } = this.props;
+
+        if (!prevProps.isOpen && isOpen) {
+            const sound = new Audio(FX_SOUND_GAME_OVER);
+            
+            sound.play();
+        }
+    }
 
     getMessage = () => {
         const { winners, language } = this.props;
@@ -58,11 +70,13 @@ class DialogGameOver extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
+    const { isOpen } = state.dialog[DialogType.GameOver];
     const { language } = state.user;
 
     return {
-        winners: getWinners(state.players),
+        isOpen,
         language,
+        winners: getWinners(state.players),
     };
 }
 
