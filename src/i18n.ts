@@ -20,7 +20,7 @@ class i18n {
                 },
                 lng: language,
                 fallbackLng: Language.EN,
-                debug: true,
+                debug: process.env.NODE_ENV === 'development',
                 interpolation: {
                     escapeValue: false,
                 },

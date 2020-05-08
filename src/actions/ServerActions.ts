@@ -18,8 +18,7 @@ import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { CallGetData } from '../calls/CallGetData';
-import { resetApp } from './AppActions';
-import { redirectGame, redirectHome } from '../redirect';
+import { redirectGame } from '../redirect';
 import { setOwnHand } from './HandActions';
 
 export const verifyAuthentication = (): ThunkActionResult<void> => {
@@ -131,7 +130,6 @@ export const getData = (): ThunkActionResult<void> => {
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         let state = getState();
         const { game } = state;
-        const { language } = state.settings;
 
         return new CallGetData(game.id, game.version).execute()
             .then((response: ServerResponse<GameData>) => {
@@ -168,13 +166,6 @@ export const getData = (): ThunkActionResult<void> => {
                 if (!wasPlaying && isPlaying) {
                     dispatch(openDialog(DialogType.NewTurn));
                 }
-            })
-            .catch((error: any) => {
-                dispatch(setDialogText(DialogType.Error, language.getText('GET_DATA_ERROR', { id: game.id }), error.message));
-                dispatch(setDialogAction(DialogType.Error, redirectHome));
-                dispatch(openDialog(DialogType.Error));
-
-                return Promise.reject(error);
             });
     };
 }
@@ -198,50 +189,20 @@ const play = (handTile: number, boardTileFrom: number, boardTileTo: number, cast
 export const playTile = (handTile: number, boardTile: number): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
-        const state = getState();
-        const { language } = state.settings;
-
-        return dispatch(play(handTile, -1, boardTile, '', ''))
-            .catch((error: any) => {
-                dispatch(setDialogText(DialogType.Error, language.getText('PLAY_TILE_ERROR'), error.message));
-                dispatch(setDialogAction(DialogType.Error, redirectHome));
-                dispatch(openDialog(DialogType.Error));
-
-                return dispatch(resetApp());
-            });
+        return dispatch(play(handTile, -1, boardTile, '', ''));
     };
 }
 
 export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
-        const state = getState();
-        const { language } = state.settings;
-
-        return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
-            .catch((error: any) => {
-                dispatch(setDialogText(DialogType.Error, language.getText('MOVE_TILE_ERROR'), error.message));
-                dispatch(setDialogAction(DialogType.Error, redirectHome));
-                dispatch(openDialog(DialogType.Error));
-
-                return dispatch(resetApp());
-            });
+        return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''));
     };
 }
 
 export const swapCastePieces = (boardTileFrom: number, boardTileTo: number, casteFrom: Caste, casteTo: Caste): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
-        const state = getState();
-        const { language } = state.settings;
-
-        return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
-            .catch((error: any) => {
-                dispatch(setDialogText(DialogType.Error, language.getText('CASTE_SWAP_ERROR'), error.message));
-                dispatch(setDialogAction(DialogType.Error, redirectHome));
-                dispatch(openDialog(DialogType.Error));
-
-                return dispatch(resetApp());
-            });
+        return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo));
     };
 }

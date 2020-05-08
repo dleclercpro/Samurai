@@ -10,15 +10,19 @@ import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import SpinnerOverlay from './overlays/SpinnerOverlay';
 import Dash from './buttons/Dash';
-import { REFRESH_RATE } from '../config';
+import { REFRESH_RATE, MAX_POLL_RETRIES } from '../config';
 import { isGameOver } from '../selectors';
-import { resetApp } from '../actions/AppActions';
+import { resetApp, openErrorDialog } from '../actions/AppActions';
+import { redirectHome } from '../redirect';
+import i18n from '../i18n';
 
 interface OwnProps {
-    id: number,
+    routeId: number,
 }
 
 interface StateProps {
+    id: number,
+    language: i18n,
     isOver: boolean,
 }
 
@@ -26,12 +30,14 @@ interface DispatchProps {
     setGameId: (id: number) => void,
     getData: () => Promise<void>,
     resetApp: () => Promise<void>,
+    openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
 
 interface State {
     isLoading: boolean,
+    nPollRetries: number,
     timer: NodeJS.Timeout | undefined,
 }
 
@@ -42,44 +48,69 @@ class Game extends React.Component<Props, State> {
 
         this.state = {
             isLoading: true,
+            nPollRetries: 0,
             timer: undefined,
         };
     }
 
     componentDidMount() {
-        const { id, setGameId, resetApp, getData } = this.props;
+        const { id, routeId, setGameId, getData } = this.props;
 
-        this.showSpinner();
+        // No need to reload game that's already loaded
+        if (routeId === id) {
+            this.hideSpinner();
+            
+            return;
+        }
 
-        setGameId(id);
+        setGameId(routeId);
 
         getData()
-            .then(() => {
-                this.startPolling();
-            })
             .catch(() => {
-                resetApp();
+                this.increaseRetryCount();
             })
             .finally(() => {
                 this.hideSpinner();
+                this.startPolling();
             });
     }
 
     componentWillUnmount() {
-        const { resetApp } = this.props;
-
         this.stopPolling();
-
-        resetApp();
     }
 
     poll = () => {
         const { getData } = this.props;
         
         getData()
-            .catch(() => {
-                this.stopPolling();
+            .then(() => {
+                this.resetRetryCount();
+            })
+            .catch((error: any) => {
+                const { nPollRetries } = this.state;
+
+                if (nPollRetries === MAX_POLL_RETRIES) {
+                    this.failPolling(error);
+                    return;
+                }
+
+                this.increaseRetryCount();
             });
+    }
+
+    failPolling = (error: any) => {
+        const { id, language, openErrorDialog } = this.props;
+
+        this.stopPolling();
+
+        openErrorDialog(language.getText('GET_DATA_ERROR', { id }), error.message, () => {
+            const { resetApp } = this.props;
+            
+            return resetApp()
+                .then(() => {
+                    return redirectHome();
+                });
+        });
     }
 
     startPolling = () => {
@@ -97,7 +128,7 @@ class Game extends React.Component<Props, State> {
             }, REFRESH_RATE),
         });
 
-        console.log('Started polling.');
+        //console.log('Started polling.');
     }
 
     stopPolling = () => {
@@ -111,7 +142,23 @@ class Game extends React.Component<Props, State> {
             timer: undefined,
         });
 
-        console.log('Stopped polling.');        
+        //console.log('Stopped polling.');        
+    }
+
+    resetRetryCount = () => {
+        this.setState({
+            nPollRetries: 0,
+        });
+    }
+
+    increaseRetryCount = () => {
+        const { nPollRetries } = this.state;
+
+        console.warn(`# polling retries: ${nPollRetries + 1}/${MAX_POLL_RETRIES}`);
+
+        this.setState({
+            nPollRetries: nPollRetries + 1,
+        });
     }
 
     showSpinner = () => {
@@ -139,14 +186,24 @@ class Game extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
-    isOver: isGameOver(state.players),
-});
+const mapStateToProps = (state: AppState) => {
+    const { id } = state.game;
+    const { language } = state.settings;
+
+    const isOver = isGameOver(state.players);
+
+    return {
+        id,
+        language,
+        isOver,
+    };
+};
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     setGameId: (id: number) => dispatch(setGameId(id)),
     getData: () => dispatch(getData()),
     resetApp: () => dispatch(resetApp()),
+    openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => dispatch(openErrorDialog(message, explanation, action)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));
