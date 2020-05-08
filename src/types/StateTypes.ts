@@ -31,8 +31,16 @@ export interface GameState {
         move: MoveState,
         swap: SwapState,
     },
-    colors: ColorMode,
     playedTilesSinceLastTurn: PlayedTileMap,
+}
+
+export interface HandState {
+    full: HandTileMap,
+    own: number[],
+}
+
+export interface BoardState {
+    tiles: BoardTileMap,
 }
 
 export interface PlayersState {
@@ -43,7 +51,6 @@ export interface PlayersState {
 export interface UserState {
     username: string,
     email: string,
-    language: i18n,
     isAuthenticated: boolean,
 }
 
@@ -56,9 +63,9 @@ export interface DialogState {
     },
 }
 
-export interface DataState {
-    fullHand: HandTileMap,
-    board: BoardTileMap,
+export interface SettingsState {
+    language: i18n,
+    colors: ColorMode,
 }
 
 // Root state
@@ -66,6 +73,8 @@ export interface AppState {
     game: GameState,
     user: UserState,
     players: PlayersState,
+    hand: HandState,
+    board: BoardState,
     dialog: DialogState,
-    data: DataState,
+    settings: SettingsState,
 };

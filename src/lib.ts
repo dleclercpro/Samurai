@@ -1,41 +1,9 @@
 import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile, PlayerColor } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
-import { HandBoardTileJSON } from './types/ServerTypes';
+import { HandTileJSON } from './types/ServerTypes';
 
 export const hasMultiple = <T> (element: T, list: T[]) => {
     return (list.filter(el => el === element)).length > 1;
-}
-
-export const hasLocalStorage = () => {
-    return typeof(Storage) !== 'undefined';
-}
-
-export const setLocalStorage = (key: string, value: string) => {
-    if (hasLocalStorage()) {
-        localStorage.setItem(key, value);
-    }
-}
-
-export const getLocalStorage = (key: string): string => {
-    if (hasLocalStorage()) {
-        const value = localStorage.getItem(key);
-
-        return value !== null ? value : '';
-    }
-    
-    return '';
-}
-
-export const redirectHome = (): Promise<void> => {
-    document.location.replace(`/`);
-
-    return Promise.resolve();
-}
-
-export const redirectGame = (id: number): Promise<void> => {
-    document.location.replace(`/game/${id}/`);
-
-    return Promise.resolve();
 }
 
 export const getHexagonalPath = (size: Size2D, stroke: number): string => {
@@ -151,7 +119,7 @@ export const getFormPayload = (fields: FormFields): FormPayload => {
     }, {});
 }
 
-export const getRandomHand = (fullHand: HandBoardTileJSON[]) => {
+export const getRandomHand = (fullHand: HandTileJSON[]) => {
     const randomIndexes = new Set<number>();
     const handSize = 5;
 

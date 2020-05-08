@@ -30,10 +30,7 @@ class DialogNewTurn extends React.Component<Props> {
         const { isOpen } = this.props;
 
         if (!prevProps.isOpen && isOpen) {
-            this.sound.play()
-                .catch((e) => {
-                    console.warn(e.message);
-                });
+            this.sound.play().catch((e) => { });
         }
     }
     
@@ -53,7 +50,7 @@ class DialogNewTurn extends React.Component<Props> {
 const mapStateToProps = (state: AppState) => {
     const nPlayedTiles = state.players.self.playedTiles.size;
     const { isOpen } = state.dialog[DialogType.NewTurn];
-    const { language } = state.user;
+    const { language } = state.settings;
     
     return {
         nTilesLeft: FULL_HAND_SIZE - nPlayedTiles,

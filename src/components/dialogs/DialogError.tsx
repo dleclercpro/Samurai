@@ -31,7 +31,7 @@ const DialogError: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
     const { message, explanation, action } = state.dialog.error;
-    const { language } = state.user;
+    const { language } = state.settings;
 
     return {
         message: message !== undefined ? message : '',

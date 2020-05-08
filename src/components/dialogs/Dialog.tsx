@@ -217,7 +217,7 @@ class Dialog extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     const { type } = ownProps;
-    const { language } = state.user;
+    const { language } = state.settings;
     const { isOpen } = state.dialog[type];
     
     return {

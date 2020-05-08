@@ -1,8 +1,7 @@
 import { GameState } from '../types/StateTypes';
 import { GameAction } from '../actions';
-import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SWITCH_COLOR_MODE, SET_GAME_ID, SET_GAME_VERSION, SET_PLAYED_TILES_SINCE_LAST_TURN, RESET_GAME, SET_GAME_NAME } from '../types/ActionTypes';
-import { Caste, TilePlayStep, CasteSwapStep, GameStep, TileMoveStep, ColorMode } from '../types/GameTypes';
-import { getLocalStorage, setLocalStorage } from '../lib';
+import { SELECT_BOARD_TILE, DESELECT_BOARD_TILE, SELECT_HAND_TILE, DESELECT_HAND_TILE, SELECT_TILE_FROM_FOR_SWAP, DESELECT_TILE_FROM_FOR_SWAP, SELECT_CASTE_FROM_FOR_SWAP, SELECT_TILE_TO_FOR_SWAP, DESELECT_TILE_TO_FOR_SWAP, SELECT_CASTE_TO_FOR_SWAP, DESELECT_CASTE_TO_FOR_SWAP, END_TURN, START_CASTE_SWAP, START_TILE_MOVE, SELECT_BOARD_TILE_TO_MOVE_FROM, SELECT_BOARD_TILE_TO_MOVE_TO, DESELECT_CASTE_FROM_FOR_SWAP, FINISH_CASTE_SWAP, SET_GAME_ID, SET_GAME_VERSION, SET_PLAYED_TILES_SINCE_LAST_TURN, RESET_GAME, SET_GAME_NAME } from '../types/ActionTypes';
+import { Caste, TilePlayStep, CasteSwapStep, GameStep, TileMoveStep } from '../types/GameTypes';
 import { parsePlayedTiles } from '../parse';
 
 const initPlayState = {
@@ -37,7 +36,6 @@ const initState = {
     version: -1,
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
-    colors: getLocalStorage('colors') as ColorMode || ColorMode.Normal,
     playedTilesSinceLastTurn: new Map(),
 };
 
@@ -163,15 +161,6 @@ const GameReducer = (state: GameState = initState, action: GameAction) => {
             return {
                 ...state,
                 version: action.version,
-            };
-
-        case SWITCH_COLOR_MODE:
-            const newColors = state.colors === ColorMode.Normal ? ColorMode.Blind : ColorMode.Normal;
-            setLocalStorage('colors', newColors);
-
-            return {
-                ...state,
-                colors: newColors,
             };
 
         case SET_PLAYED_TILES_SINCE_LAST_TURN:

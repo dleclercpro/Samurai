@@ -104,7 +104,7 @@ class DialogTileChoice extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState) => {
     const { step, selection } = state.game;
     const { self } = state.players;
-    const { language } = state.user;
+    const { language } = state.settings;
 
     const isChoosing = step === TilePlayStep.ChooseHandTile;
     const hasChosen = step === TilePlayStep.Done;

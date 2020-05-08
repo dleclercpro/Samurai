@@ -151,7 +151,8 @@ class FormCreateGame extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { language, email } = state.user;
+    const { email } = state.user;
+    const { language } = state.settings;
     
     return {
         self: email,

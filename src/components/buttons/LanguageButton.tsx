@@ -5,8 +5,8 @@ import { ReactComponent as UKIcon } from '../../icons/uk.svg';
 import { ReactComponent as FranceIcon } from '../../icons/france.svg';
 import { connect } from 'react-redux';
 import { AppAction } from '../../actions';
-import { setLanguage } from '../../actions/UserActions';
 import { Language } from '../../types/GameTypes';
+import { setLanguage } from '../../actions/SettingsActions';
 
 interface OwnProps {
     language: Language,

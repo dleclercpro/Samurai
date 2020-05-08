@@ -1,9 +1,4 @@
-import { SetBoard, SetFullHand, SelectBoardTile, SelectHandTile, DeselectBoardTile, DeselectHandTile, SelectTileFromForSwap, SelectCasteFromForSwap, SelectTileToForSwap, SelectCasteToForSwap, DeselectTileFromForSwap, DeselectTileToForSwap, DeselectCasteToForSwap, SetSelf, SetOpponents, SetHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwap, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwap, FinishCasteSwap, SwitchColorMode, SetGameId, SetUser, ResetUser, SetPlayedTilesSinceLastTurn, SetGameVersion, SetLanguage, SetDialogText, SetDialogAction, ResetPlayers, ResetGame, ResetBoard, SetGameName } from '../types/ActionTypes';
-
-export type DataAction =
-    ResetBoard |
-    SetBoard |
-    SetFullHand;
+import { SetBoard, SetFullHand, SelectBoardTile, SelectHandTile, DeselectBoardTile, DeselectHandTile, SelectTileFromForSwap, SelectCasteFromForSwap, SelectTileToForSwap, SelectCasteToForSwap, DeselectTileFromForSwap, DeselectTileToForSwap, DeselectCasteToForSwap, SetSelf, SetOpponents, SetOwnHand, OpenDialog, CloseDialog, EndTurn, StartCasteSwap, StartTileMove, SelectBoardTileToMoveFrom, SelectBoardTileToMoveTo, DeselectCasteFromForSwap, FinishCasteSwap, SwitchColorMode, SetGameId, SetUser, ResetUser, SetPlayedTilesSinceLastTurn, SetGameVersion, SetLanguage, SetDialogText, SetDialogAction, ResetPlayers, ResetGame, ResetBoard, SetGameName } from '../types/ActionTypes';
 
 export type GameAction =
     ResetGame |
@@ -11,7 +6,6 @@ export type GameAction =
     SetGameName |
     SetGameVersion |
     EndTurn |
-    SwitchColorMode |
     SetPlayedTilesSinceLastTurn |
 
     StartTileMove |
@@ -37,14 +31,20 @@ export type GameAction =
 
 export type UserAction =
     SetUser |
-    ResetUser |
-    SetLanguage;
+    ResetUser;
 
 export type PlayersAction =
     ResetPlayers |
     SetSelf |
-    SetOpponents |
-    SetHand;
+    SetOpponents;
+
+export type HandAction =
+    SetFullHand |
+    SetOwnHand;
+
+export type BoardAction =
+    ResetBoard |
+    SetBoard;
 
 export type DialogAction =
     OpenDialog |
@@ -52,10 +52,16 @@ export type DialogAction =
     SetDialogText |
     SetDialogAction;
 
+export type SettingsAction =
+    SetLanguage |
+    SwitchColorMode;
+
 // Root action
 export type AppAction =
-    DataAction |
     GameAction |
     UserAction |
     PlayersAction |
-    DialogAction;
+    HandAction |
+    BoardAction |
+    DialogAction |
+    SettingsAction;

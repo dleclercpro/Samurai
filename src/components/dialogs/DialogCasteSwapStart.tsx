@@ -46,7 +46,7 @@ class DialogCasteSwapStart extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { language } = state.user;
+    const { language } = state.settings;
 
     return {
         language,

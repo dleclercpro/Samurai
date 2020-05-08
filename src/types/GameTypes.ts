@@ -62,7 +62,6 @@ export interface Player {
     id: number,
     username: string,
     color: PlayerColor,
-    hand: number[],
     playedTiles: PlayedTileMap,
     score: PlayerScore,
     hasWon: boolean,

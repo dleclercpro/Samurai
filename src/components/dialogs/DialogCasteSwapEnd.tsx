@@ -58,7 +58,7 @@ class DialogCasteSwapEnd extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { selection } = state.game;
-    const { language } = state.user;
+    const { language } = state.settings;
 
     return {
         from: selection.swap.from,

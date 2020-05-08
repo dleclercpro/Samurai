@@ -43,7 +43,7 @@ export type PlayedTilesJSON = {
     [id: string]: number,
 };
 
-export interface HandBoardTileJSON {
+export interface HandTileJSON {
     id: number,
     type: string,
     strength: number,

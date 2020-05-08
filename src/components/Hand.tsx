@@ -66,11 +66,10 @@ class Hand extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { selection } = state.game;
-    const { board } = state.data;
-    const { play } = selection;
+    const { tiles } = state.board;
 
     return {
-        isWaterTileSelected: board.get(play.boardTile)?.isWater,
+        isWaterTileSelected: tiles.get(selection.play.boardTile)?.isWater,
     };
 };
 

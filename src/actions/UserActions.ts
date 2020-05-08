@@ -1,5 +1,4 @@
-import { SetUser, SET_USER, ResetUser, RESET_USER, SetLanguage, SET_LANGUAGE } from '../types/ActionTypes';
-import { Language } from '../types/GameTypes';
+import { SetUser, SET_USER, ResetUser, RESET_USER } from '../types/ActionTypes';
 
 export const setUser = (username: string, email: string): SetUser => ({
     type: SET_USER,
@@ -10,8 +9,3 @@ export const setUser = (username: string, email: string): SetUser => ({
 export const resetUser: ResetUser = {
     type: RESET_USER,
 };
-
-export const setLanguage = (language: Language): SetLanguage => ({
-    type: SET_LANGUAGE,
-    language,
-});

@@ -4,7 +4,7 @@ import { DialogType } from '../types/DialogTypes';
 import { UserJSON, GameData } from '../types/ServerTypes';
 import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn, setGameName } from './GameActions';
 import { ThunkDispatchResult, ThunkActionResult } from '../types/ActionTypes';
-import { setBoard } from './DataActions';
+import { setBoard } from './BoardActions';
 import { AppState } from '../types/StateTypes';
 import { TILE_MOVE_ID, TILE_SWAP_ID } from '../constants';
 import { Caste } from '../types/GameTypes';
@@ -12,14 +12,15 @@ import { CallSignIn } from '../calls/CallSignIn';
 import { CallSignUp } from '../calls/CallSignUp';
 import { CallCreateGame } from '../calls/CallCreateGame';
 import { ServerResponse } from '../types/ServerTypes';
-import { setSelf, setOpponents, setHand } from './PlayerActions';
+import { setSelf, setOpponents } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/CallSignOut';
 import { CallVerifyAuthentication } from '../calls/CallVerifyAuthentication';
 import { isGameOver, isCurrentPlayer } from '../selectors';
-import { redirectHome, redirectGame } from '../lib';
 import { CallGetData } from '../calls/CallGetData';
 import { resetApp } from './AppActions';
+import { redirectGame, redirectHome } from '../redirect';
+import { setOwnHand } from './HandActions';
 
 export const verifyAuthentication = (): ThunkActionResult<void> => {
 
@@ -41,7 +42,7 @@ export const signIn = (identifier: string, password: string): ThunkActionResult<
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
         
         return new CallSignIn(identifier, password).execute()
             .then((response: ServerResponse<UserJSON>) => {
@@ -65,7 +66,7 @@ export const signOut = (): ThunkActionResult<void> => {
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
         
         return new CallSignOut().execute()
             .then(() => {                
@@ -86,7 +87,7 @@ export const signUp = (username: string, firstName: string, lastName: string, em
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
         
         return new CallSignUp(username, firstName, lastName, email, password).execute()
             .then(() => {
@@ -106,7 +107,7 @@ export const createGame = (name: string, self: string, opponents: string[]): Thu
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
 
         return new CallCreateGame(name, self, opponents).execute()
             .then((response: ServerResponse<{ id: number }>) => {
@@ -130,7 +131,7 @@ export const getData = (): ThunkActionResult<void> => {
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         let state = getState();
         const { game } = state;
-        const { language } = state.user;
+        const { language } = state.settings;
 
         return new CallGetData(game.id, game.version).execute()
             .then((response: ServerResponse<GameData>) => {
@@ -147,10 +148,10 @@ export const getData = (): ThunkActionResult<void> => {
                 // Load everything
                 dispatch(setGameName(name));
                 dispatch(setGameVersion(version));
+                dispatch(setOwnHand(hand));
                 dispatch(setBoard(board));
                 dispatch(setSelf(players.self));
                 dispatch(setOpponents(players.opponents));
-                dispatch(setHand(hand));
                 dispatch(setPlayedTilesSinceLastTurn(lastPlayedTiles));
 
                 // Re-pull state
@@ -198,7 +199,7 @@ export const playTile = (handTile: number, boardTile: number): ThunkActionResult
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
 
         return dispatch(play(handTile, -1, boardTile, '', ''))
             .catch((error: any) => {
@@ -215,7 +216,7 @@ export const moveTile = (boardTileFrom: number, boardTileTo: number): ThunkActio
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
 
         return dispatch(play(TILE_MOVE_ID, boardTileFrom, boardTileTo, '', ''))
             .catch((error: any) => {
@@ -232,7 +233,7 @@ export const swapCastePieces = (boardTileFrom: number, boardTileTo: number, cast
 
     return (dispatch: ThunkDispatchResult<void>, getState: () => AppState) => {
         const state = getState();
-        const { language } = state.user;
+        const { language } = state.settings;
 
         return dispatch(play(TILE_SWAP_ID, boardTileFrom, boardTileTo, casteFrom, casteTo))
             .catch((error: any) => {

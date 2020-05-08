@@ -1,4 +1,4 @@
-import { BoardJSON, HandBoardTileJSON, PlayerJSON, PlayedTilesJSON } from './ServerTypes';
+import { BoardJSON, HandTileJSON, PlayerJSON, PlayedTilesJSON } from './ServerTypes';
 import { DialogType } from './DialogTypes';
 import { Caste, Language } from './GameTypes';
 import { AppAction } from '../actions';
@@ -8,26 +8,6 @@ import { AppState } from './StateTypes';
 // Server actions
 export type ThunkDispatchResult<R> = ThunkDispatch<AppState, Promise<R>, AppAction>;
 export type ThunkActionResult<R> = ThunkAction<Promise<R>, AppState, {}, AppAction>;
-
-
-
-// Data actions
-export const RESET_BOARD = 'RESET_BOARD';
-export interface ResetBoard {
-    type: typeof RESET_BOARD,
-}
-
-export const SET_BOARD = 'SET_BOARD';
-export interface SetBoard {
-    type: typeof SET_BOARD,
-    data: BoardJSON,
-}
-
-export const SET_FULL_HAND = 'SET_FULL_HAND';
-export interface SetFullHand {
-    type: typeof SET_FULL_HAND,
-    data: HandBoardTileJSON[],
-}
 
 
 
@@ -106,12 +86,6 @@ export interface SetOpponents {
     data: PlayerJSON[],
 }
 
-export const SET_HAND = 'SET_HAND';
-export interface SetHand {
-    type: typeof SET_HAND,
-    data: number[],
-}
-
 export const SET_PLAYED_TILES_SINCE_LAST_TURN = 'SET_PLAYED_TILES_SINCE_LAST_TURN';
 export interface SetPlayedTilesSinceLastTurn {
     type: typeof SET_PLAYED_TILES_SINCE_LAST_TURN,
@@ -120,45 +94,31 @@ export interface SetPlayedTilesSinceLastTurn {
 
 
 
-// Overlay actions
-export const OPEN_SPINNER_OVERLAY = 'OPEN_SPINNER_OVERLAY';
-export interface OpenSpinnerOverlay {
-    type: typeof OPEN_SPINNER_OVERLAY,
+// Hand actions
+export const SET_FULL_HAND = 'SET_FULL_HAND';
+export interface SetFullHand {
+    type: typeof SET_FULL_HAND,
+    data: HandTileJSON[],
 }
 
-export const CLOSE_SPINNER_OVERLAY = 'CLOSE_SPINNER_OVERLAY';
-export interface CloseSpinnerOverlay {
-    type: typeof CLOSE_SPINNER_OVERLAY,
+export const SET_OWN_HAND = 'SET_OWN_HAND';
+export interface SetOwnHand {
+    type: typeof SET_OWN_HAND,
+    data: number[],
 }
 
 
 
-// Dialog actions
-export const OPEN_DIALOG = 'OPEN_DIALOG';
-export interface OpenDialog {
-    type: typeof OPEN_DIALOG,
-    dialogType: DialogType,
+// Board actions
+export const RESET_BOARD = 'RESET_BOARD';
+export interface ResetBoard {
+    type: typeof RESET_BOARD,
 }
 
-export const CLOSE_DIALOG = 'CLOSE_DIALOG';
-export interface CloseDialog {
-    type: typeof CLOSE_DIALOG,
-    dialogType: DialogType,
-}
-
-export const SET_DIALOG_TEXT = 'SET_DIALOG_TEXT';
-export interface SetDialogText {
-    type: typeof SET_DIALOG_TEXT,
-    dialogType: DialogType,
-    message: string,
-    explanation: string,
-}
-
-export const SET_DIALOG_ACTION = 'SET_DIALOG_ACTION';
-export interface SetDialogAction {
-    type: typeof SET_DIALOG_ACTION,
-    dialogType: DialogType,
-    action: () => Promise<void>,
+export const SET_BOARD = 'SET_BOARD';
+export interface SetBoard {
+    type: typeof SET_BOARD,
+    data: BoardJSON,
 }
 
 
@@ -272,4 +232,47 @@ export const DESELECT_CASTE_TO_FOR_SWAP = 'DESELECT_CASTE_TO_FOR_SWAP';
 export interface DeselectCasteToForSwap {
     type: typeof DESELECT_CASTE_TO_FOR_SWAP,
     caste: Caste,
+}
+
+
+
+// Overlay actions
+export const OPEN_SPINNER_OVERLAY = 'OPEN_SPINNER_OVERLAY';
+export interface OpenSpinnerOverlay {
+    type: typeof OPEN_SPINNER_OVERLAY,
+}
+
+export const CLOSE_SPINNER_OVERLAY = 'CLOSE_SPINNER_OVERLAY';
+export interface CloseSpinnerOverlay {
+    type: typeof CLOSE_SPINNER_OVERLAY,
+}
+
+
+
+// Dialog actions
+export const OPEN_DIALOG = 'OPEN_DIALOG';
+export interface OpenDialog {
+    type: typeof OPEN_DIALOG,
+    dialogType: DialogType,
+}
+
+export const CLOSE_DIALOG = 'CLOSE_DIALOG';
+export interface CloseDialog {
+    type: typeof CLOSE_DIALOG,
+    dialogType: DialogType,
+}
+
+export const SET_DIALOG_TEXT = 'SET_DIALOG_TEXT';
+export interface SetDialogText {
+    type: typeof SET_DIALOG_TEXT,
+    dialogType: DialogType,
+    message: string,
+    explanation: string,
+}
+
+export const SET_DIALOG_ACTION = 'SET_DIALOG_ACTION';
+export interface SetDialogAction {
+    type: typeof SET_DIALOG_ACTION,
+    dialogType: DialogType,
+    action: () => Promise<void>,
 }

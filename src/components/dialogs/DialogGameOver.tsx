@@ -31,10 +31,7 @@ class DialogGameOver extends React.Component<Props, {}> {
         const { isOpen } = this.props;
 
         if (!prevProps.isOpen && isOpen) {
-            this.sound.play()
-                .catch((e) => {
-                    console.warn(e.message);
-                });
+            this.sound.play().catch(() => { });
         }
     }
 
@@ -80,7 +77,7 @@ class DialogGameOver extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => {
     const { isOpen } = state.dialog[DialogType.GameOver];
-    const { language } = state.user;
+    const { language } = state.settings;
 
     return {
         isOpen,

@@ -188,7 +188,7 @@ class FormSignUp extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { language } = state.user;
+    const { language } = state.settings;
 
     return {
         language,

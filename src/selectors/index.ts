@@ -5,12 +5,9 @@ import { CASTES } from '../constants';
 import { hasMultiple } from '../lib';
 
 export const getHandTiles = (state: AppState): HandTile[] => {
-    const { data, players } = state;
-    const { self } = players;
+    const { full, own } = state.hand;
 
-    return self.hand.map((id: number) => (
-        data.fullHand.get(id)
-    )).filter(notUndefined);
+    return own.map((id: number) => full.get(id)).filter(notUndefined);
 }
 
 export const getTakenBoardTileIds = (state: PlayersState): number[] => {

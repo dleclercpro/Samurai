@@ -1,17 +1,11 @@
 import { UserState } from '../types/StateTypes';
 import { UserAction } from '../actions';
-import { SET_USER, RESET_USER, SET_LANGUAGE } from '../types/ActionTypes';
-import { Language } from '../types/GameTypes';
-import i18n from '../i18n';
-import { getLocalStorage, setLocalStorage } from '../lib';
-
-const language = getLocalStorage('language') as Language;
+import { SET_USER, RESET_USER } from '../types/ActionTypes';
 
 const initState = {
     username: '',
     email: '',
     isAuthenticated: false,
-    language: new i18n(language ? language : Language.EN),
 };
 
 const UserReducer = (state: UserState = initState, action: UserAction) => {
@@ -24,13 +18,6 @@ const UserReducer = (state: UserState = initState, action: UserAction) => {
                 username: action.username,
                 email: action.email,
                 isAuthenticated: true,
-            };
-        case SET_LANGUAGE:
-            setLocalStorage('language', action.language);
-
-            return {
-                ...state,
-                language: new i18n(action.language),
             };
         default:
             return state;

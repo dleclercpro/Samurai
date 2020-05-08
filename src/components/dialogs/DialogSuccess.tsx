@@ -31,7 +31,7 @@ const DialogSuccess: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
     const { message, explanation, action } = state.dialog.success;
-    const { language } = state.user;
+    const { language } = state.settings;
 
     return {
         message: message !== undefined ? message : '',

@@ -103,12 +103,12 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
 const mapStateToProps = (state: AppState) => {
     const { self } = state.players;
     const { move } = state.game.selection;
-    const { fullHand } = state.data;
-    const { language } = state.user;
+    const { full } = state.hand;
+    const { language } = state.settings;
 
     // Get hand tile to move
     const tileId = self.playedTiles.get(move.from);
-    const tile = tileId !== undefined ? fullHand.get(tileId) : undefined;
+    const tile = tileId !== undefined ? full.get(tileId) : undefined;
 
     return {
         tile,

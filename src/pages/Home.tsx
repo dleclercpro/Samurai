@@ -10,6 +10,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import Button from '../components/buttons/Button';
 import i18n from '../i18n';
 import DashLanguage from '../components/buttons/DashLanguage';
+import { redirectRules } from '../redirect';
 
 interface StateProps {
     isAuthenticated: boolean,
@@ -79,7 +80,7 @@ const Home: React.FC<Props> = (props) => {
                 }
                 <Button
                     id='button-home-rules'
-                    action={() => { document.location.replace('/rules/'); }}
+                    action={redirectRules}
                     isActive
                 >
                     {language.getText('RULES')}
@@ -90,7 +91,8 @@ const Home: React.FC<Props> = (props) => {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { isAuthenticated, language } = state.user;
+    const { isAuthenticated } = state.user;
+    const { language } = state.settings;
     
     return {
         isAuthenticated,

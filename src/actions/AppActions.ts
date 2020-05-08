@@ -1,7 +1,7 @@
 import { ThunkActionResult, ThunkDispatchResult } from '../types/ActionTypes';
 import { resetGame } from './GameActions';
 import { resetPlayers } from './PlayerActions';
-import { resetBoard } from './DataActions';
+import { resetBoard } from './BoardActions';
 
 export const resetApp = (): ThunkActionResult<void> => {
 

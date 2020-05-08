@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import FULL_HAND from '../data/FullHand.json';
 import DialogGameOver from './dialogs/DialogGameOver';
 import DialogCasteSwapStart from './dialogs/DialogCasteSwapStart';
-import { setFullHand } from '../actions/DataActions';
 import DialogCasteChoice from './dialogs/DialogCasteChoice';
 import DialogCasteSwapEnd from './dialogs/DialogCasteSwapEnd';
 import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
@@ -19,7 +18,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../pages/Home';
 import Game from './Game';
-import { HandBoardTileJSON } from '../types/ServerTypes';
+import { HandTileJSON } from '../types/ServerTypes';
 import FormSignIn from './forms/FormSignIn';
 import FormSignUp from './forms/FormSignUp';
 import FormPlayGame from './forms/FormPlayGame';
@@ -28,6 +27,7 @@ import { verifyAuthentication } from '../actions/ServerActions';
 import DialogNewTurn from './dialogs/DialogNewTurn';
 import i18n from '../i18n';
 import Rules from '../pages/Rules';
+import { setFullHand } from '../actions/HandActions';
 
 interface StateProps {
     language: i18n,
@@ -36,7 +36,7 @@ interface StateProps {
 
 interface DispatchProps {
     verifyAuthentication: () => Promise<void>,
-    setFullHand: (data: HandBoardTileJSON[]) => void,
+    setFullHand: (data: HandTileJSON[]) => void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -98,8 +98,7 @@ class App extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { language } = state.user;
-    const { colors } = state.game;
+    const { language, colors } = state.settings;
     
     return {
         language,
@@ -109,7 +108,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     verifyAuthentication: () => dispatch(verifyAuthentication()),
-    setFullHand: (data: HandBoardTileJSON[]) => dispatch(setFullHand(data)),
+    setFullHand: (data: HandTileJSON[]) => dispatch(setFullHand(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

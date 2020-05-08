@@ -157,11 +157,12 @@ class Board extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { board, fullHand } = state.data;
+    const { tiles } = state.board;
+    const { full } = state.hand;
 
     return {
-        fullHand,
-        tiles: board,
+        tiles,
+        fullHand: full,
         players: getAllPlayers(state.players),
         takenTileIds: getTakenBoardTileIds(state.players),
     };
