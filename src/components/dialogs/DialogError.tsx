@@ -15,21 +15,18 @@ interface StateProps {
 
 type Props = StateProps;
 
-class DialogError extends React.Component<Props, {}> {
+const DialogError: React.FC<Props> = (props) => {
+    const { message, explanation, action, language } = props;
 
-    render() {
-        const { message, explanation, action, language } = this.props;
-
-        return (
-            <DialogOK
-                type={DialogType.Error}
-                headline={language.getText('ERROR')}
-                message={message}
-                explanation={explanation}
-                action={action}
-            />
-        );
-    }
+    return (
+        <DialogOK
+            type={DialogType.Error}
+            headline={language.getText('ERROR')}
+            message={message}
+            explanation={explanation}
+            action={action}
+        />
+    );
 }
 
 const mapStateToProps = (state: AppState) => {

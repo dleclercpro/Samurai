@@ -20,24 +20,21 @@ interface StateProps {
 
 type Props = OwnProps & StateProps;
 
-class DialogOK extends React.Component<Props, {}> {
+const DialogOK: React.FC<Props> = (props) => {
+    const { type, headline, message, explanation, action, language } = props;
 
-    render() {
-        const { type, headline, message, explanation, action, language } = this.props;
-
-        return (
-            <Dialog
-                type={type}
-                classes={[DialogType.OK]}
-                headline={headline}
-                message={message}
-                explanation={explanation}
-                onAction={action}
-                actionButtonText={language.getText('OK')}
-                isActionButtonActive
-            />
-        );
-    }
+    return (
+        <Dialog
+            type={type}
+            classes={[DialogType.OK]}
+            headline={headline}
+            message={message}
+            explanation={explanation}
+            onAction={action}
+            actionButtonText={language.getText('OK')}
+            isActionButtonActive
+        />
+    );
 }
 
 const mapStateToProps = (state: AppState) => {

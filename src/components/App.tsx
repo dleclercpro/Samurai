@@ -27,6 +27,7 @@ import FormCreateGame from './forms/FormCreateGame';
 import { verifyAuthentication } from '../actions/ServerActions';
 import DialogNewTurn from './dialogs/DialogNewTurn';
 import i18n from '../i18n';
+import Rules from '../pages/Rules';
 
 interface StateProps {
     language: i18n,
@@ -59,6 +60,9 @@ class App extends React.Component<Props, {}> {
                     <Switch>
                         <Route exact path='/'>
                             <Home />
+                        </Route>
+                        <Route exact path='/rules/'>
+                            <Rules />
                         </Route>
                         <Route exact path='/game/:id/' render={({ match }) => (
                             <Game id={parseInt(match.params.id)} />

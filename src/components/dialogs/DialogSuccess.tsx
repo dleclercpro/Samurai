@@ -15,21 +15,18 @@ interface StateProps {
 
 type Props = StateProps;
 
-class DialogSuccess extends React.Component<Props, {}> {
+const DialogSuccess: React.FC<Props> = (props) => {
+    const { message, explanation, action, language } = props;
 
-    render() {
-        const { message, explanation, action, language } = this.props;
-
-        return (
-            <DialogOK
-                type={DialogType.Success}
-                headline={language.getText('SUCCESS')}
-                message={message}
-                explanation={explanation}
-                action={action}
-            />
-        );
-    }
+    return (
+        <DialogOK
+            type={DialogType.Success}
+            headline={language.getText('SUCCESS')}
+            message={message}
+            explanation={explanation}
+            action={action}
+        />
+    );
 }
 
 const mapStateToProps = (state: AppState) => {

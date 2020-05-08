@@ -1,0 +1,25 @@
+@import 'styles';
+
+#rules {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: calc(100% - 20px);
+        max-width: 800px;
+        height: 100%;
+        padding: 20px 0;
+
+        > .title {
+            width: 100%;
+            text-align: left;
+            padding-bottom: 10px;
+            border-bottom: 1px solid $color-light-grey;
+        }
+    }
+}

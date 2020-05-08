@@ -15,45 +15,42 @@ interface StateProps {
 
 type Props = StateProps;
 
-class ScoreBoard extends React.Component<Props, {}> {
+const ScoreBoard: React.FC<Props> = (props) => {
+    const { player, opponents, highestScores, isGameOver } = props;
+    const { id, username, score, color, isPlaying } = player;
+    const hasPlayer = id !== -1;
 
-    render() {
-        const { player, opponents, highestScores, isGameOver } = this.props;
-        const { id, username, score, color, isPlaying } = player;
-        const hasPlayer = id !== -1;
-
-        return (
-            <section
-                id='score-board'
-                className={`n-players--${opponents.length + 1}`}
-            >
-                {hasPlayer &&
+    return (
+        <section
+            id='score-board'
+            className={`n-players--${opponents.length + 1}`}
+        >
+            {hasPlayer &&
+                <ScorePlayer
+                    username={username}
+                    color={color}
+                    score={score}
+                    highestScores={highestScores}
+                    isPlaying={isPlaying && !isGameOver}
+                />
+            }
+            {opponents.map((opponent: Player, index: number) => {
+                const { id, username, score, color, isPlaying } = opponent;
+                const hasPlayer = id !== -1;
+                
+                return hasPlayer && (
                     <ScorePlayer
+                        key={`player-${index}`}
                         username={username}
                         color={color}
                         score={score}
                         highestScores={highestScores}
                         isPlaying={isPlaying && !isGameOver}
                     />
-                }
-                {opponents.map((opponent: Player, index: number) => {
-                    const { id, username, score, color, isPlaying } = opponent;
-                    const hasPlayer = id !== -1;
-                    
-                    return hasPlayer && (
-                        <ScorePlayer
-                            key={`player-${index}`}
-                            username={username}
-                            color={color}
-                            score={score}
-                            highestScores={highestScores}
-                            isPlaying={isPlaying && !isGameOver}
-                        />
-                    );
-                })}
-            </section>
-        );
-    }
+                );
+            })}
+        </section>
+    );
 }
 
 const mapStateToProps = (state: AppState) => {

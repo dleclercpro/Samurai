@@ -12,21 +12,18 @@ interface DispatchProps {
 
 type Props = DispatchProps;
 
-class SwitchColorModeButton extends React.Component<Props, {}> {
+const SwitchColorModeButton: React.FC<Props> = (props) => {
+    const { switchColorMode } = props;
 
-    render() {
-        const { switchColorMode } = this.props;
-
-        return (
-            <Button
-                id='switch-color-mode-button'
-                action={switchColorMode}
-                isActive
-            >
-                <EyeIcon className='icon' />
-            </Button>
-        );   
-    }
+    return (
+        <Button
+            id='switch-color-mode-button'
+            action={switchColorMode}
+            isActive
+        >
+            <EyeIcon className='icon' />
+        </Button>
+    );
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<AppAction>) => ({
