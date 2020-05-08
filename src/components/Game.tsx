@@ -15,6 +15,7 @@ import { isGameOver } from '../selectors';
 import { resetApp, openErrorDialog } from '../actions/AppActions';
 import { redirectHome } from '../redirect';
 import i18n from '../i18n';
+import { log, warn } from '../logger';
 
 interface OwnProps {
     routeId: number,
@@ -66,8 +67,10 @@ class Game extends React.Component<Props, State> {
         setGameId(routeId);
 
         getData()
-            .catch(() => {
-                this.increaseRetryCount();
+            .catch((error: any) => {
+
+                // Game data loading can't fail on first time!
+                this.fail(error);
             })
             .finally(() => {
                 this.hideSpinner();
@@ -84,13 +87,15 @@ class Game extends React.Component<Props, State> {
         
         getData()
             .then(() => {
-                this.resetRetryCount();
+                this.resetPollRetryCount();
             })
             .catch((error: any) => {
                 const { nPollRetries } = this.state;
 
                 if (nPollRetries === MAX_POLL_RETRIES) {
-                    this.failPolling(error);
+                    this.stopPolling();
+                    this.fail(error);
+
                     return;
                 }
 
@@ -98,17 +103,17 @@ class Game extends React.Component<Props, State> {
             });
     }
 
-    failPolling = (error: any) => {
+    fail = (error: any) => {
         const { id, language, openErrorDialog } = this.props;
-
-        this.stopPolling();
 
         openErrorDialog(language.getText('GET_DATA_ERROR', { id }), error.message, () => {
             const { resetApp } = this.props;
             
-            return resetApp()
+            // Reset app data after redirecting to home, so no weird state
+            // changes appear on screen
+            return redirectHome()
                 .then(() => {
-                    return redirectHome();
+                    return resetApp();
                 });
         });
     }
@@ -128,7 +133,7 @@ class Game extends React.Component<Props, State> {
             }, REFRESH_RATE),
         });
 
-        //console.log('Started polling.');
+        log('Started polling.');
     }
 
     stopPolling = () => {
@@ -142,10 +147,10 @@ class Game extends React.Component<Props, State> {
             timer: undefined,
         });
 
-        //console.log('Stopped polling.');        
+        log('Stopped polling.');        
     }
 
-    resetRetryCount = () => {
+    resetPollRetryCount = () => {
         this.setState({
             nPollRetries: 0,
         });
@@ -154,7 +159,7 @@ class Game extends React.Component<Props, State> {
     increaseRetryCount = () => {
         const { nPollRetries } = this.state;
 
-        console.warn(`# polling retries: ${nPollRetries + 1}/${MAX_POLL_RETRIES}`);
+        warn(`Poll retries: ${nPollRetries + 1}/${MAX_POLL_RETRIES}`);
 
         this.setState({
             nPollRetries: nPollRetries + 1,

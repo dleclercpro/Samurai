@@ -1,5 +1,6 @@
 import { getCookie } from './Cookie';
 import { BASE_URL } from '../config';
+import { log } from '../logger';
 
 class Call {
     private name: string;
@@ -71,7 +72,7 @@ class Call {
     }
 
     execute() {
-        console.log(`Executing call: ${this.name}`);
+        log(`Executing call: ${this.name}`);
 
         this.prepare();
 

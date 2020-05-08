@@ -10,8 +10,7 @@ export const parseBoard = (data: BoardJSON): BoardTileMap => {
         const { id, coordinates, castes, isClosed, isWater, isSwap } = rawTile;
         
         if (tiles.has(id)) {
-            console.error('Trying to add same tile twice.');
-            return;
+            throw new Error('Trying to add same tile twice.');
         }
 
         tiles.set(id, {
