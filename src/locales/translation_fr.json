@@ -10,7 +10,7 @@
     "BACK": "Revenir",
     "OPTIONAL": "Optionnel",
     "ID": "Numéro d'identification: {{id}}",
-    "RULES": "Règles du jeu",
+    "GAME_RULES": "Règles du jeu",
 
     "PLAYER": "Joueur",
     "E_MAIL": "Courriel",

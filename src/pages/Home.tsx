@@ -83,7 +83,7 @@ const Home: React.FC<Props> = (props) => {
                     action={redirectRules}
                     isActive
                 >
-                    {language.getText('RULES')}
+                    {language.getText('GAME_RULES')}
                 </Button>
             </div>
         </div>

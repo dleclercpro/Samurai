@@ -10,7 +10,7 @@
     "BACK": "Back",
     "OPTIONAL": "Optional",
     "ID": "ID: {{id}}",
-    "RULES": "Game Rules",
+    "GAME_RULES": "Rules",
 
     "PLAYER": "Player",
     "E_MAIL": "E-mail",

@@ -11,7 +11,7 @@ import DialogCasteSwapEnd from './dialogs/DialogCasteSwapEnd';
 import DialogTileMoveStart from './dialogs/DialogTileMoveStart';
 import DialogTileMoveEnd from './dialogs/DialogTileMoveEnd';
 import { AppState } from '../types/StateTypes';
-import { ColorMode } from '../types/GameTypes';
+import { ColorMode, Language } from '../types/GameTypes';
 import DialogSuccess from './dialogs/DialogSuccess';
 import DialogError from './dialogs/DialogError';
 import { ThunkDispatch } from 'redux-thunk';
@@ -26,7 +26,9 @@ import FormCreateGame from './forms/FormCreateGame';
 import { verifyAuthentication } from '../actions/ServerActions';
 import DialogNewTurn from './dialogs/DialogNewTurn';
 import i18n from '../i18n';
-import Rules from '../pages/Rules';
+import RulesEN from '../pages/rules/Rules-EN';
+import RulesDE from '../pages/rules/Rules-DE';
+import RulesFR from '../pages/rules/Rules-FR';
 import { setFullHand } from '../actions/HandActions';
 
 interface StateProps {
@@ -52,7 +54,10 @@ class App extends React.Component<Props, {}> {
     }
 
     render() {
-        const { isColorblind } = this.props;
+        const { language, isColorblind } = this.props;
+        const isEN = language.getLanguage() === Language.EN;
+        const isDE = language.getLanguage() === Language.DE;
+        const isFR = language.getLanguage() === Language.FR;
 
         return (
             <div id='app' className={`${isColorblind ? 'is-colorblind' : ''}`}>           
@@ -62,7 +67,9 @@ class App extends React.Component<Props, {}> {
                             <Home />
                         </Route>
                         <Route exact path='/rules/'>
-                            <Rules />
+                            {isEN && <RulesEN />}
+                            {isDE && <RulesDE />}
+                            {isFR && <RulesFR />}
                         </Route>
                         <Route exact path='/game/:id/' render={({ match }) => (
                             <Game routeId={parseInt(match.params.id)} />

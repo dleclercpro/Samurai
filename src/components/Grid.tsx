@@ -9,7 +9,6 @@ import { HandTile, PlayerColor } from '../types/GameTypes';
 import { getHandTiles } from '../selectors';
 
 interface StateProps {
-    name: string,
     hand: HandTile[],
     color: PlayerColor,
 }
@@ -17,12 +16,11 @@ interface StateProps {
 type Props = StateProps;
 
 const Grid: React.FC<Props> = (props) => {    
-    const { name, hand, color } = props;
+    const { hand, color } = props;
 
     return (
         <div id='grid'>
             <section id='top'>
-                <p className='game-name'>{name}</p>
             </section>
             <section id='center'>
                 <Board />
@@ -39,13 +37,11 @@ const Grid: React.FC<Props> = (props) => {
 }
 
 const mapStateToProps = (state: AppState) => {
-    const { name } = state.game;
     const { self } = state.players;
 
     return {
         hand: getHandTiles(state),
         color: self.color,
-        name,
     };
 };
 

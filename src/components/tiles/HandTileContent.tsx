@@ -11,7 +11,7 @@ interface OwnProps {
     type: TileType,
     color: PlayerColor,
     strength: number,
-    canReplay: boolean,
+    canReplay?: boolean,
     isPlayable?: boolean,
     isSelected?: boolean,
     wasPlayed?: boolean,

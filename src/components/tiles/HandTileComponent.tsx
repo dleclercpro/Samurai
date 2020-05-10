@@ -16,8 +16,8 @@ interface OwnProps {
     color: PlayerColor,
     type: TileType,
     strength: number,
-    canReplay: boolean,
-    isInDialog: boolean,
+    canReplay?: boolean,
+    isInDialog?: boolean,
 }
 
 interface StateProps {
@@ -90,9 +90,10 @@ class HandTileComponent extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
-    const { isInDialog, id, type } = ownProps;
+    const { id, type, isInDialog } = ownProps;
     const { self } = state.players;
     const { step, selection } = state.game;
+    const inDialog = isInDialog !== undefined && isInDialog;
 
     const isMove = type === Action.Move;
     const isSwap = type === Action.Swap;
@@ -105,10 +106,10 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
     switch (step) {
         case TilePlayStep.ChooseHandTile:
         case TilePlayStep.Done:
-            isPlayable = !isOver && self.isPlaying && isInDialog;
+            isPlayable = !isOver && self.isPlaying && inDialog;
             break;
         case TilePlayStep.ChooseBoardTile:
-            isPlayable = !isOver && self.isPlaying && !isInDialog && ((isMove && nPlayedTiles > 0) || isSwap);
+            isPlayable = !isOver && self.isPlaying && !inDialog && ((isMove && nPlayedTiles > 0) || isSwap);
             break;
     }
 
