@@ -62,7 +62,7 @@ const Rules: React.FC<Props> = (props) => {
                 </section>
 
                 <section id='rules--playing' className='section'>
-                    <h2 className='title title--section'>Spielen</h2>
+                    <h2 className='title title--section'>Spielverlauf</h2>
                     <p className='text'>
                         During a game, players take turns placing tiles on the game board and capturing caste pieces.
                         When all caste pieces have been captured, the game ends.
@@ -100,8 +100,8 @@ const Rules: React.FC<Props> = (props) => {
                                 </p>
                                 <p className='text'>
                                     Once a city is surrounded, its caste pieces are distributed among the players, and their scores
-                                    correspondingly updated. To determine who captures a caste piece, each player adds up
-                                    the <strong>influence</strong> values of their tiles that fulfill both of the following conditions:
+                                    correspondingly updated. To determine who captures a caste piece, the <strong>influence</strong> values
+                                    of each player's tiles, which fulfill both of the following conditions, are added up:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>
@@ -130,10 +130,11 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Refreshing the Hand</h3>
                                 <p className='text'>
-                                    Each player starts the game with the same tile stack. However, they're only allowed to see 5 of
-                                    them at a time in what is refered to as their <strong>hand</strong>. Every time a player places a
-                                    tile on the board, their hand is automatically refreshed: one of the tiles they haven't played yet
-                                    is randomly picked from their stack and inserted into their hand.
+                                    Each player starts the game with the same tile stack. However, the tiles are initially mixed, and
+                                    the players are only allowed to see 5 of them at a time in what is refered to as
+                                    their <strong>hand</strong>. Every time a player places a tile on the board, their hand
+                                    is automatically refreshed: one of the tiles they haven't played yet is randomly picked from
+                                    their stack and inserted into their hand.
                                 </p>
                             </section>
                         </li>
@@ -152,21 +153,36 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Caste-specific Tiles</h3>
                                 <p className='text'>
-                                    Those tiles have an influence value that only applies to one of the three castes in the
-                                    game: <strong>military</strong>, <strong>religion</strong>, and <strong>commerce</strong>. Here is an example of this
-                                    kind of tile:
+                                    Those tiles have an influence value that only applies to the caste depicted on them. The possible castes
+                                    for these tiles are the three social castes in the game: <strong>military</strong>, <strong>religion</strong>,
+                                    and <strong>commerce</strong>. Here is an example of this kind of tile for every caste:
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
                                         id={-1}
-                                        color={PlayerColor.Green}
+                                        color={PlayerColor.Purple}
                                         type={Caste.Military}
                                         strength={4}
                                     />
+                                    <HandTileComponent
+                                        id={-1}
+                                        color={PlayerColor.Purple}
+                                        type={Caste.Religion}
+                                        strength={3}
+                                    />
+                                    <HandTileComponent
+                                        id={-1}
+                                        color={PlayerColor.Purple}
+                                        type={Caste.Commerce}
+                                        strength={1}
+                                    />
                                 </div>
                                 <p className='text'>
-                                    This tile represents the <strong>military</strong> caste, since it has a <strong>house</strong> on it,
-                                    has an influence value of 4, and belongs to the player to which the color green has been assigned.
+                                    The first tile represents the <strong>military</strong> caste, and has an influence value
+                                    of 4. The second one represents the <strong>religion</strong> caste, and has an influence
+                                    value of 3. The third one represents the <strong>commerce</strong> caste, and has an
+                                    influence value of 1. They are all purple because they belong to the player to which the
+                                    color purple was assigned when the game was created.
                                 </p>
                             </section>
                         </li>
@@ -174,20 +190,20 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Joker Tiles</h3>
                                 <p className='text'>
-                                    The influence value of joker tiles counts for <strong>every</strong> caste at the <strong>same</strong> time.
-                                    They are represented by an image of a <strong>horse</strong> or a <strong>ship</strong>. Here is an example
-                                    of the two types of <strong>joker</strong> tiles:
+                                    Joker tiles are special, because their influence value counts for <strong>every</strong> caste
+                                    at the <strong>same</strong> time. They are represented by an image of a <strong>horse</strong> or
+                                    a <strong>ship</strong>. Here is an example of the two types of joker tiles:
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
                                         id={-1}
-                                        color={PlayerColor.Orange}
+                                        color={PlayerColor.Red}
                                         type={Figure.Samurai}
                                         strength={1}
                                     />
                                     <HandTileComponent
                                         id={-1}
-                                        color={PlayerColor.Orange}
+                                        color={PlayerColor.Red}
                                         type={Figure.Ship}
                                         strength={2}
                                     />
@@ -195,7 +211,7 @@ const Rules: React.FC<Props> = (props) => {
                                 <p className='text'>
                                     The first tile has an influence value of 1, and counts for <strong>every</strong> caste: military, religion,
                                     and/or commerce. The second one has an influence value of 2, an also counts for all possible castes. Both
-                                    tiles belong to the player to which the color orange has been assigned. Note that only the ship is colored
+                                    tiles belong to the player to which the color red has been assigned. Note that only the ship is colored
                                     in water tiles: the rest is blue to remind the player that those tiles can only be played onto sea spaces.
                                 </p>
                             </section>
@@ -205,7 +221,7 @@ const Rules: React.FC<Props> = (props) => {
                                 <h3 className='title title--sub-section'>Action Tiles</h3>
                                 <p className='text'>
                                     Some tiles have no influence value, yet allow the player to do specific <strong>actions</strong>, which might hold
-                                    strategic value. Those are the action tiles. There is <strong>only</strong> 2 of those in each player's stack, and
+                                    strategic value. Those are the action tiles. There is only <strong>two</strong> of those in each player's stack, and
                                     both are <strong>black</strong>. Here is a description of said action tiles:
                                 </p>
                                 <ul className='list'>
@@ -217,12 +233,12 @@ const Rules: React.FC<Props> = (props) => {
                                                 a zero on it. It allows the player to move one of the tiles that <strong>they</strong> (and
                                                 only they) have <strong>previously</strong> placed on the board to a different space
                                                 that's <strong>still</strong> free. Here is an example of the move tile (that would, in this
-                                                case, belong to the red player):
+                                                case, belong to the orange player):
                                             </p>
                                             <div className='images'>
                                                 <HandTileComponent
                                                     id={-1}
-                                                    color={PlayerColor.Red}
+                                                    color={PlayerColor.Orange}
                                                     type={Action.Move}
                                                     strength={0}
                                                 />
@@ -246,12 +262,12 @@ const Rules: React.FC<Props> = (props) => {
                                                 been captured by players.
                                             </p>
                                             <p className='text'>
-                                                Here is an example of the swap tile (that would, in this case, belong to the red player):
+                                                Here is an example of the swap tile (that would, in this case, belong to the orange player):
                                             </p>
                                             <div className='images'>
                                                 <HandTileComponent
                                                     id={-1}
-                                                    color={PlayerColor.Red}
+                                                    color={PlayerColor.Orange}
                                                     type={Action.Swap}
                                                     strength={0}
                                                     canReplay
@@ -268,12 +284,12 @@ const Rules: React.FC<Props> = (props) => {
                                 <p className='text'>
                                     Some tiles have a little japanese symbol (a <strong>kanji</strong>, to be precise) on their bottom part.
                                     After having played one of those, the player is immediately allowed <strong>another</strong> turn. Here
-                                    is an example of a tile that allows the player to replay (in this case, the purple player):
+                                    is an example of a tile that allows the player to replay (in this case, the green player):
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
                                         id={-1}
-                                        color={PlayerColor.Purple}
+                                        color={PlayerColor.Green}
                                         type={Figure.Samurai}
                                         strength={2}
                                         canReplay

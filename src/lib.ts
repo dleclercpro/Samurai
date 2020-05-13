@@ -160,3 +160,9 @@ export const getColor = (color: PlayerColor): string => {
             return '';
     }
 }
+
+export const setIntervalAsync = (fn: () => Promise<void>, ms: number) => {
+    fn().then(() => {
+        setTimeout(() => setIntervalAsync(fn, ms), ms);
+    });
+}

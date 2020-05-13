@@ -38,7 +38,10 @@ $wrapper-padding-bottom: 30px;
         }
 
         .images {
-            margin-bottom: 1rem;
+
+            &:not(:last-child) {
+                margin-bottom: 1rem;
+            }
 
             > * {
                 &:not(:last-child) {
@@ -62,7 +65,7 @@ $wrapper-padding-bottom: 30px;
         .title {
             width: 100%;
             text-align: left;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .title--section {
@@ -78,8 +81,12 @@ $wrapper-padding-bottom: 30px;
         }
 
         .list {
-            margin: 1rem 0;
+            margin: 1.5rem 0 0 0;
             padding: 0 0 0 10px;
+
+            &:not(:last-child) {
+                margin-bottom: 1.5rem;
+            }
 
             @include mq(width, tablet) {
                 padding: 0 0 0 15px;
