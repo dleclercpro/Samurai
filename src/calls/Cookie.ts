@@ -1,4 +1,4 @@
-export const getCookie = (name: string): string => {
+const getCookie = (name: string): string => {
     let cookieValue = '';
     
     if (document.cookie && document.cookie !== '') {
@@ -15,4 +15,6 @@ export const getCookie = (name: string): string => {
     }
     
     return cookieValue;
-}
+};
+
+export default getCookie;

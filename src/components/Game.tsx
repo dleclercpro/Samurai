@@ -10,9 +10,9 @@ import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import SpinnerOverlay from './overlays/SpinnerOverlay';
 import Dash from './buttons/Dash';
-import { REFRESH_RATE, MAX_POLL_RETRIES } from '../config';
+import { POLL_RATE, MAX_POLL_RETRIES } from '../config';
 import { isGameOver } from '../selectors';
-import { resetApp, openErrorDialog } from '../actions/AppActions';
+import { openErrorDialog } from '../actions/AppActions';
 import { redirectHome } from '../redirect';
 import i18n from '../i18n';
 import { log, warn } from '../logger';
@@ -30,7 +30,6 @@ interface StateProps {
 interface DispatchProps {
     setGameId: (id: number) => void,
     getData: () => Promise<void>,
-    resetApp: () => Promise<void>,
     openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => void,
 }
 
@@ -38,6 +37,7 @@ type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
 
 interface State {
     isLoading: boolean,
+    isPolling: boolean,
     nPollRetries: number,
     timer: NodeJS.Timeout | undefined,
 }
@@ -49,6 +49,7 @@ class Game extends React.Component<Props, State> {
 
         this.state = {
             isLoading: true,
+            isPolling: false,
             nPollRetries: 0,
             timer: undefined,
         };
@@ -85,6 +86,10 @@ class Game extends React.Component<Props, State> {
     poll = () => {
         const { getData } = this.props;
         
+        this.setState({
+            isPolling: true,
+        });
+        
         getData()
             .then(() => {
                 this.resetPollRetryCount();
@@ -100,6 +105,11 @@ class Game extends React.Component<Props, State> {
                 }
 
                 this.increaseRetryCount();
+            })
+            .finally(() => {
+                this.setState({
+                    isPolling: false,
+                });
             });
     }
 
@@ -107,14 +117,7 @@ class Game extends React.Component<Props, State> {
         const { id, language, openErrorDialog } = this.props;
 
         openErrorDialog(language.getText('GET_DATA_ERROR', { id }), error.message, () => {
-            const { resetApp } = this.props;
-            
-            // Reset app data after redirecting to home, so no weird state
-            // changes appear on screen
-            return redirectHome()
-                .then(() => {
-                    return resetApp();
-                });
+            return redirectHome();
         });
     }
 
@@ -122,6 +125,7 @@ class Game extends React.Component<Props, State> {
         this.setState({
             timer: setInterval(() => {
                 const { isOver } = this.props;
+                const { isPolling } = this.state;
 
                 // No need to poll data from server once the game is over
                 if (isOver) {
@@ -129,8 +133,11 @@ class Game extends React.Component<Props, State> {
                     return;
                 }
 
-                this.poll();
-            }, REFRESH_RATE),
+                // Do not poll again if already waiting for an answer from the server
+                if (!isPolling) {
+                    this.poll();
+                }
+            }, POLL_RATE),
         });
 
         log('Started polling.');
@@ -207,7 +214,6 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     setGameId: (id: number) => dispatch(setGameId(id)),
     getData: () => dispatch(getData()),
-    resetApp: () => dispatch(resetApp()),
     openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => dispatch(openErrorDialog(message, explanation, action)),
 });
 

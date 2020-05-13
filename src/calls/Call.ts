@@ -1,20 +1,23 @@
-import { getCookie } from './Cookie';
-import { BASE_URL } from '../config';
+import { BASE_URL, FETCH_DEFAULT_TIMEOUT } from '../config';
 import { log } from '../logger';
+import fetchWithTimeout from './Fetch';
+import getCookie from './Cookie';
 
 class Call {
     private name: string;
     private url: string;
     private method: string;
+    private timeout: number;
     private payload: object | undefined;
     private headers: HeadersInit;
     private params: RequestInit;
 
-    constructor(name: string, url: string, method: string, payload?: object) {
+    constructor(name: string, url: string, method: string, payload?: object, timeout?: number) {
         this.name = name;
         this.url = BASE_URL + url;
         this.method = method;
         this.payload = payload;
+        this.timeout = timeout !== undefined ? timeout : FETCH_DEFAULT_TIMEOUT;
         this.headers = {}
         this.params = {};
     }
@@ -76,7 +79,7 @@ class Call {
 
         this.prepare();
 
-        return fetch(this.url, this.params).then((response: Response) => {
+        return fetchWithTimeout(this.url, this.params, this.timeout).then((response: Response) => {
 
             // Raw server response
             if (response.ok) {

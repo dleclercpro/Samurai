@@ -16,7 +16,8 @@ export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superi
 export const REMOTE_URL = 'https://samurai.api.dleclerc.me/';
 export const LOCAL_URL = 'https://localhost:8000/';
 export const BASE_URL = REMOTE_URL;
-export const REFRESH_RATE = 5 * 1000; // ms
+export const POLL_RATE = 5 * 1000;      // ms
+export const FETCH_DEFAULT_TIMEOUT = 2000; // ms
 export const MAX_POLL_RETRIES = 5;
 
 // FX

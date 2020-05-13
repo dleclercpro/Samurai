@@ -161,8 +161,8 @@ export const getColor = (color: PlayerColor): string => {
     }
 }
 
-export const setIntervalAsync = (fn: () => Promise<void>, ms: number) => {
+export const setIntervalAsync = (fn: () => Promise<void>, dt: number) => {
     fn().then(() => {
-        setTimeout(() => setIntervalAsync(fn, ms), ms);
+        setTimeout(() => setIntervalAsync(fn, dt), dt);
     });
 }
