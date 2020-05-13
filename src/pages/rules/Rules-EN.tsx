@@ -128,7 +128,7 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Refreshing the Hand</h3>
+                                <h3 className='title title--sub-section'>Refreshing the Player's Hand</h3>
                                 <p className='text'>
                                     Each player starts the game with the same tile stack. However, the tiles are initially mixed, and
                                     the players are only allowed to see 5 of them at a time in what is refered to as

@@ -244,7 +244,7 @@ const Rules: React.FC<Props> = (props) => {
                                 <ul className='list'>
                                     <li className='item'>
                                         <section className='sub-sub-section'>
-                                            <h4 className='title title--sub-sub-section'>Move Tile</h4>
+                                            <h4 className='title title--sub-sub-section'>Tuile de déplacement</h4>
                                             <p className='text'>
                                                 La première tuile d'action est la tuile de <strong>déplacement</strong>. Elle est noire et
                                                 comporte le chiffre zéro. Elle permet au joueur de déplacer l'une des tuiles qu'il ou elle a
@@ -264,7 +264,7 @@ const Rules: React.FC<Props> = (props) => {
                                     </li>                                
                                     <li className='item'>
                                         <section className='sub-sub-section'>
-                                            <h4 className='title title--sub-sub-section'>Swap Tile</h4>
+                                            <h4 className='title title--sub-sub-section'>Tuile d'échange</h4>
                                             <p className='text'>
                                                 La seconde tuile d'action est la tuile d'<strong>échange</strong>. Elle est noire et
                                                 comporte le symbole de chacune des trois castes sociales du jeu. Elle permet au joueur
