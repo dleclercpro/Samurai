@@ -247,8 +247,8 @@ const Rules: React.FC<Props> = (props) => {
                                             <h4 className='title title--sub-sub-section'>Tuile de déplacement</h4>
                                             <p className='text'>
                                                 La première tuile d'action est la tuile de <strong>déplacement</strong>. Elle est noire et
-                                                comporte le chiffre zéro. Elle permet au joueur de déplacer l'une des tuiles qu'il ou elle a
-                                                <strong>déjà</strong> joué à un autre endroit (toujours <strong>libre</strong>) sur la plaque
+                                                comporte le chiffre zéro. Elle permet au joueur de déplacer l'une des tuiles qu'il ou elle
+                                                a <strong>déjà</strong> joué à un autre endroit (toujours <strong>libre</strong>) sur la plaque
                                                 de jeu. Voici un exemple de la tuile de déplacement (qui appartiendrait au joueur orange,
                                                 dans ce cas-ci):
                                             </p>
