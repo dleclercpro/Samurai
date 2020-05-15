@@ -55,7 +55,7 @@ const Rules: React.FC<Props> = (props) => {
                     <h2 className='title title--section'>Spielübersicht</h2>
                     <p className='text'>
                         Während eines Spieles <i>Samurai</i> begegnen sich die Spieler um die Kontrolle der drei sozialen
-                        Kasten in feudalem Japan: die Religion (mit einem <strong>Buddha</strong>) dargestellt), die
+                        Kasten in feudalem Japan: die Religion (mit einem <strong>Buddha</strong> dargestellt), die
                         Wirtschaft (mit einer <strong>Reizpflanze</strong> dargestellt), und das Militär (mit
                         einem <strong>Häuschen</strong> dargestellt). Die Spieler setzen ihre Spielsteine auf das
                         Brett um ihre Influenz auf die verschiedenen Kolonien (auch Städte genannt) festzustellen, und
