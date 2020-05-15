@@ -60,7 +60,7 @@ const Rules: React.FC<Props> = (props) => {
                         Ils placent leurs tuiles sur le plateau de jeu afin d'établir leur influence
                         sur les diverses colonies (aussi appelées villes) et ainsi réclamer les pions de
                         caste qu'elles continennent. Le joueur qui réussit à capturer le plus de pions
-                        d'une caste donnée devient le leader de cette caste. À la fin de la partie, le
+                        d'une caste donnée devient le leader de cette caste. À la fin de la partie, le joueur
                         étant le leader du plus grand <strong>nombre</strong> de castes est déclaré vainqueur.
                     </p>
                 </section>
@@ -319,7 +319,7 @@ const Rules: React.FC<Props> = (props) => {
                 </section>
 
                 <section id='rules--hand' className='section'>
-                    <h2 className='title title--section'>Tuiles de départ</h2>
+                    <h2 className='title title--section'>Tuiles du joueur</h2>
                     <p className='text'>
                         La pile de tuile dont dispose le joueur pour la partie (malgré qu'il ou elle ne puisse accéder qu'aux 5 tuiles
                         de sa main en tout temps) est composé des tuiles suivantes:

@@ -26,115 +26,127 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--introduction' className='section'>
                     <h2 className='title title--section'>Einführung</h2>
                     <p className='text'>
-                        It is a time of constant war and shifting loyalties in feudal Japan.
-                        Lords across the nation fight for control of three precious commodities:
-                        the loyalty of lesser lords, the land's primary sources of rice, and the
-                        very religion of the people.
+                        Es sind schwere Zeiten in feudalem Japan: der Krieg tobt und damals starke
+                        Allianzen scheinen nun zerbrechlich zu sein. Reiche Feudalherrn streiten sich
+                        zusammen um die Kontrolle über drei wichtige Ressourcen: die Unterstützung
+                        anderer weniger mächtigen Feudalherrn, vor allem dessen Militär, die größten
+                        Reisproduktionen des Landes und, schließlich, die Religion des Volkes.
                     </p>
                     <p className='text'>
-                        The year is 1336. The emperor's attempt at regaining power through the Kenmu
-                        Restoration has failed. The royal family has lost all authority and has been
-                        relegated to nothing more than figureheads. Across the country, powerful lords,
-                        called daimyo, have risen up and begun to claim dominion over the land and its
-                        resources. As these lords grow in power, they draw samurai to their cause.
-                        However, no one daimyo has ever managed to unify the samurai and, with them,
-                        Japan.
+                        Das Jahr ist 1336. Der zweite Versuch des Königs, durch die Kemmu-Restauration
+                        seine Herrschaft festzustellen, ist kläglich gescheitert. Die königliche Familie hat
+                        ihre Autorität verloren und nimmt an keine für das Land bedeutungsvolle Entscheidungen
+                        mehr teil. Im ganzen Land werden immer mehr mächtige Feudalherrn, auch Daimyo genannt,
+                        lauter: es will jeder die Macht über die Ressourcen des japanischen Kaiserreiches haben.
+                        Als deren Einfluss auf die Nation wächst, versuchen Daimyo die Samurai zu überzeugen,
+                        sich an ihrem Kampf zu beteiligen. Allerdings war es bisher niemandem gelungen, die Samurai
+                        zu vereinigen, geschweige denn ganz Japan.
                     </p>
                     <p className='text'>
-                        The game <i>Samurai</i> allows you to take the role of a daimyo just
-                        beginning ascent to power. Travel back to a Japan being torn asunder by warring clans.
-                        Prove you have the wisdom to garner the esteem of the samurai, and you will unite a
-                        nation.
+                        Das Spiel <i>Samurai</i> erlaubt dir die Rolle eines Daimyo anzunehmen, als er seinen Aufstieg
+                        zur absoluten Macht beginnt. Begebe dich in einem vom Krieg zerrissenen Japan, in dem machtdurstige
+                        Clans und deren Kriegsherren versuchen, ihre Dominanz auf das ganze Territorium zu etablieren.
+                        Zeige, dass du über genug Weisheit verfügst, um den Respekt der Samurai zu gewinnen. Nur so wirst
+                        du es schaffen, das Land der aufgehenden Sonne zu vereinigen.
                     </p>
                 </section>
 
                 <section id='rules--overview' className='section'>
-                    <h2 className='title title--section'>Übersicht</h2>
+                    <h2 className='title title--section'>Spielübersicht</h2>
                     <p className='text'>
-                        During a game of <i>Samurai</i>, players compete over the three societal
-                        castes of Japan: religion (represented by a <strong>buddha</strong>), commerce (represented
-                        by <strong>rice</strong>), and military (represented by a <strong>house</strong>). Players
-                        place tiles on the game board to influence settlement spaces (also called cities)
-                        and capture the various caste pieces on those spaces. The player capturing the most pieces
-                        of a particular caste becomes the leader of that caste. At the end of the game,
-                        the player who is the leader of the <strong>most</strong> castes wins the game.
+                        Während eines Spieles <i>Samurai</i> begegnen sich die Spieler um die Kontrolle der drei sozialen
+                        Kasten in feudalem Japan: die Religion (mit einem <strong>Buddha</strong>) dargestellt), die
+                        Wirtschaft (mit einer <strong>Reizpflanze</strong> dargestellt), und das Militär (mit
+                        einem <strong>Häuschen</strong> dargestellt). Die Spieler setzen ihre Spielsteine auf das
+                        Brett um ihre Influenz auf die verschiedenen Kolonien (auch Städte genannt) festzustellen, und
+                        dadurch deren Kastenfiguren zu gewinnen. Der Spieler, dem es gelingt, die größte Anzahl an Figuren
+                        einer gewissen Kaste zu gewinnen, wird zum Leiter dieser Kaste. Am Ende des Spieles gewinnt der Spieler,
+                        der zum Leiter der <strong>meisten</strong> Kasten geworden ist.
                     </p>
                 </section>
 
                 <section id='rules--playing' className='section'>
                     <h2 className='title title--section'>Spielverlauf</h2>
                     <p className='text'>
-                        During a game, players take turns placing tiles on the game board and capturing caste pieces.
-                        When all caste pieces have been captured, the game ends.
+                        À tour de rôle, les joueurs placent leurs tuiles sur le plateau de jeu et tentent
+                        de capturer les pions de caste regroupés au sein des multiples villes. Lorsque
+                        tous les pions ont été remportés (ou discartés), la partie prend fin.
                     </p>
                     
                     <p className='text'>
-                        Each player's turn can be summarized in three main steps, which happen in the following order:
+                        Le tour d'un joueur peut être résumé en trois étapes et ayant lieu dans l'ordre suivant:
                     </p>
                     <ol className='list'>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Playing a Tile</h3>
+                                <h3 className='title title--sub-section'>Jouer une tuile</h3>
                                 <p className='text'>
-                                    First, the player chooses one tile from their hand and places it on an empty land or sea
-                                    space (not a city) on the game board. They do so by clicking on the empty space of their
-                                    choice, then selecting the tile they want to put on that space. Note that only ships can
-                                    be placed onto water spaces.
+                                    Le joueur actif choisit une tuile dans sa main ainsi qu'un emplacement libre
+                                    sur la plaque de jeu où placer ladite tuile. Il peut s'agir d'un emplacement
+                                    sur la terre ou sur l'eau, mais ça ne doit pas être une ville. Pour y arriver,
+                                    le joueur clique sur l'emplacement en question, puis sélectionne la tuile désirée.
+                                    À noter que seules les tuiles portrayant bateau peuvent être placées sur l'eau.
                                 </p>
                                 <p className='text'>
-                                    Two special tiles make an exception to this:
-                                    the <strong>move</strong> and <strong>swap</strong> tiles. These are played by clicking
-                                    directly on them in the player's hand. Those two special tiles are discussed in more
-                                    details further down below, in the <strong>Action Tiles</strong> sub-section.
+                                    Cela dit, deux tuiles spéciales font exception à la règle: il s'agit des
+                                    tuiles <strong>déplacement</strong> et <strong>échange</strong>. Celles-ci peuvent
+                                    être jouées en cliquant directement dessus depuis la main du joueur. Ces tuiles
+                                    spéciales sont décrites dans plus amples détails plus bas dans cette page, dans la
+                                    sous-section <strong>Tuiles d'action</strong>.
                                 </p>
                             </section>
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Capturing Caste Pieces</h3>
+                                <h3 className='title title--sub-section'>Capturer les pions de caste</h3>
                                 <p className='text'>
-                                    If all <strong>land</strong> spaces adjacent to a city contain tiles, that city
-                                    is surrounded and its caste pieces become captured. Adjacent sea spaces <strong>may</strong> be
-                                    occupied by tiles, by they do <strong>not</strong> need to in order for a neighboring city
-                                    to be considered surrounded.
+                                    Si tous les espaces de <strong>terre</strong> adjacents à une ville donnée sont occupés par
+                                    une tuile placée par l'une ou l'un des joueurs, cette ville est entourée et ses pions de caste
+                                    capturés. Les espaces qui touchent à cette même ville et qui sont de type eau <strong>peuvent</strong> être 
+                                    occupés par des tuiles. Cependant, il n'est <strong>pas</strong> nécessaire qu'ils le soient pour que la
+                                    ville en question soit considérée comme étant entourée.
                                 </p>
                                 <p className='text'>
-                                    Once a city is surrounded, its caste pieces are distributed among the players, and their scores
-                                    correspondingly updated. To determine who captures a caste piece, the <strong>influence</strong> values
-                                    of each player's tiles, which fulfill both of the following conditions, are added up:
+                                    Lorsqu'une ville est entourée, chaque pion de caste y siégeant est remis au joueur l'ayant capturé, et les points
+                                    de ce dernier sont respectivement mis à jour (chaque pion d'une caste donnée vaut un point pour cette même caste).
+                                    Afin de déterminer qui capture chacun des pions, on additionne, pour chacun des joueurs, la
+                                    valeur d'<strong>influence</strong> de toutes les tuiles posées sur la plaque de jeu et qui remplissent les
+                                    conditions suivantes:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>
                                         <p className='text'>
-                                            It is adjacent to the city containing the considered caste piece.
+                                            La tuile est adjacente à la ville entourée pour laquelle on détermine à qui revient chacun des pions y étant placés
                                         </p>
                                     </li>
                                     <li className='item'>
                                         <p className='text'>
-                                            It has an image that corresponds to the piece's caste, or is a <strong>joker</strong> type.
-                                            You'll find more details about the joker tiles in their corresponding sub-section further down
-                                            this page.
+                                            La tuile a une image correspondant à la caste du pion considéré, ou est de type <strong>joker</strong>.
+                                            Davantage de détails sur les tuiles joker se trouvent dans la sous-section correspondante, plus bas dans
+                                            cette page.
                                         </p>
                                     </li>
                                 </ul>
                                 <p className='text'>
-                                    The player who has the <strong>highest</strong> influence in a given caste wins all pieces of this caste.
+                                    Le joueur dont la valeur d'influence totale est la <strong>plus grande</strong> pour une caste donnée est celui qui
+                                    remporte tous les pions de cette caste.
                                 </p>
                                 <p className='text'>
-                                    Watch out: if two or more players have an equal influence (which also happens to be the highest) in
-                                    a given caste, <strong>none</strong> of them wins the corresponding pieces! 
+                                    Attention: si plusieurs joueurs ont la même valeur d'influence et que cette même valeur est la plus grande pour une
+                                    caste en question, <strong>personne</strong> ne remporte les pions de cette caste et ceux-ci sont simplement
+                                    discartés.
                                 </p>
                             </section>
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Refreshing the Player's Hand</h3>
+                                <h3 className='title title--sub-section'>Auffüllen der Hand des Spielers</h3>
                                 <p className='text'>
-                                    Each player starts the game with the same tile stack. However, the tiles are initially mixed, and
-                                    the players are only allowed to see 5 of them at a time in what is refered to as
-                                    their <strong>hand</strong>. Every time a player places a tile on the board, their hand
-                                    is automatically refreshed: one of the tiles they haven't played yet is randomly picked from
-                                    their stack and inserted into their hand.
+                                    Chaque joueur débute la partie avec la même pile de tuiles. Toutefois, celles-ci sont mélangées,
+                                    et il ne lui est possible de voir que 5 tuiles à tout moment, dans ce qui est appelé
+                                    sa <strong>main</strong>. À chaque fois qu'un joueur place une tuile sur la plaque de jeu,
+                                    sa main est automatiquement rafraîchie: l'une des tuiles qu'il n'a pas encore jouées et sélectionnée
+                                    au hasard dans sa pile, puis insérée dans sa main.
                                 </p>
                             </section>
                         </li>
@@ -142,20 +154,22 @@ const Rules: React.FC<Props> = (props) => {
                 </section>
 
                 <section id='rules--tiles' className='section'>
-                    <h2 className='title title--section'>Spielsteine</h2>
+                    <h2 className='title title--section'>Spielsteintypen</h2>
                     <p className='text'>
-                        Every player is given the same tile stack (which contains a total of <strong>20</strong> tiles) at the beginning of a game. Every tile
-                        in this stack has the same color, which corresponds to the color assigned to the player, and can be categorized as follows:
+                        La pile de tuile avec laquelle chacun des joueurs commence une partie contient un total de <strong>20</strong> tuiles.
+                        Chaque tuile de cette pile est de la même couleur, et cette dernière correspond à la couleur ayant été assignée au joueur
+                        lors de la création de la partie. Voici une description de tous les types de tuile se retrouvant dans la pile du joueur:
                     </p>
                     
                     <ul className='list'>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Caste-specific Tiles</h3>
+                                <h3 className='title title--sub-section'>Kastespezifische Spielsteine</h3>
                                 <p className='text'>
-                                    Those tiles have an influence value that only applies to the caste depicted on them. The possible castes
-                                    for these tiles are the three social castes in the game: <strong>military</strong>, <strong>religion</strong>,
-                                    and <strong>commerce</strong>. Here is an example of this kind of tile for every caste:
+                                    Ces tuiles ont une valeur d'influence qui ne s'applique qu'à la caste qu'elles représentent. Les castes pouvant être
+                                    représentées sur ces tuiles correspondent aux trois castes sociales du jeu: l'<strong>armée</strong>,
+                                    la <strong>religion</strong> et le <strong>commerce</strong>. Voici un exemple de ce genre de tuiles pour chacune des
+                                    castes:
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
@@ -178,21 +192,21 @@ const Rules: React.FC<Props> = (props) => {
                                     />
                                 </div>
                                 <p className='text'>
-                                    The first tile represents the <strong>military</strong> caste, and has an influence value
-                                    of 4. The second one represents the <strong>religion</strong> caste, and has an influence
-                                    value of 3. The third one represents the <strong>commerce</strong> caste, and has an
-                                    influence value of 1. They are all purple because they belong to the player to which the
-                                    color purple was assigned when the game was created.
+                                    La première tuile représente la caste de l'<strong>armée</strong> et a une valeur d'influence
+                                    égale à 4. La seconde représente la caste de la <strong>religion</strong> et a une valeur
+                                    d'influence égale à 3. La troisième représente la caste du <strong>commerce</strong> et a
+                                    une valeur d'influence égale à 1. Elles sont toute de couleur mauve, car elles appartiennent
+                                    toutes au joueur dont la couleur assignée au début de la partie est le mauve.
                                 </p>
                             </section>
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Joker Tiles</h3>
+                                <h3 className='title title--sub-section'>Joker-Spielsteine</h3>
                                 <p className='text'>
-                                    Joker tiles are special, because their influence value counts for <strong>every</strong> caste
-                                    at the <strong>same</strong> time. They are represented by an image of a <strong>horse</strong> or
-                                    a <strong>ship</strong>. Here is an example of the two types of joker tiles:
+                                    Les tuiles joker sont spéciales, car leur valeur d'influence compte pour <strong>toutes</strong> les
+                                    castes à la fois. Elles sont représentées par une image de <strong>cheval</strong> ou de <strong>bateau</strong>.
+                                    Voici un exemple des deux types de tuiles joker pouvant être rencontrés en jeu:
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
@@ -209,31 +223,34 @@ const Rules: React.FC<Props> = (props) => {
                                     />
                                 </div>
                                 <p className='text'>
-                                    The first tile has an influence value of 1, and counts for <strong>every</strong> caste: military, religion,
-                                    and/or commerce. The second one has an influence value of 2, an also counts for all possible castes. Both
-                                    tiles belong to the player to which the color red has been assigned. Note that only the ship is colored
-                                    in water tiles: the rest is blue to remind the player that those tiles can only be played onto sea spaces.
+                                    La première tuile a une valeur d'influence égale à 1 et compte pour <strong>toutes</strong> les castes,
+                                    qu'il s'agisse de l'armée, de la religion et/ou du commerce. La deuxième a une valeur d'influence égale à 2
+                                    et compte également pour toutes les castes. Ces deux tuiles appartiennent au joueur auquel la couleur orange
+                                    a été assignée. À noter que seul le bateau est coloré à l'intérieur des tuiles de type eau: le reste de la
+                                    tuile est bleu pour rappeler au joueur qu'elle ne peut être jouée que sur un espace d'eau de la plaque de jeu.
                                 </p>
                             </section>
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Action Tiles</h3>
+                                <h3 className='title title--sub-section'>Aktion Spielsteine</h3>
                                 <p className='text'>
-                                    Some tiles have no influence value, yet allow the player to do specific <strong>actions</strong>, which might hold
-                                    strategic value. Those are the action tiles. There is only <strong>two</strong> of those in each player's stack, and
-                                    both are <strong>black</strong>. Here is a description of said action tiles:
+                                    Certaines tuiles n'ont aucune valeur d'influence, mais permettent tout de même au joueur de poser
+                                    certaines <strong>actions</strong> pouvant se révéler fort utiles pour celui ou celle-ci. Ce sont les tuiles
+                                    d'<strong>action</strong>. Il n'y a que <strong>deux</strong> tuiles d'action dans la pile de tuiles dont
+                                    dispose chaque joueur, et celles-ci sont <strong>noires</strong>. Voici une description plus détaillée
+                                    de ces tuiles:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>
                                         <section className='sub-sub-section'>
-                                            <h4 className='title title--sub-sub-section'>Move Tile</h4>
+                                            <h4 className='title title--sub-sub-section'>Tuile de déplacement</h4>
                                             <p className='text'>
-                                                The first action tile is the <strong>move</strong> tile. It is black, and has
-                                                a zero on it. It allows the player to move one of the tiles that <strong>they</strong> (and
-                                                only they) have <strong>previously</strong> placed on the board to a different space
-                                                that's <strong>still</strong> free. Here is an example of the move tile (that would, in this
-                                                case, belong to the orange player):
+                                                La première tuile d'action est la tuile de <strong>déplacement</strong>. Elle est noire et
+                                                comporte le chiffre zéro. Elle permet au joueur de déplacer l'une des tuiles qu'il ou elle
+                                                a <strong>déjà</strong> joué à un autre endroit (toujours <strong>libre</strong>) sur la plaque
+                                                de jeu. Voici un exemple de la tuile de déplacement (qui appartiendrait au joueur orange,
+                                                dans ce cas-ci):
                                             </p>
                                             <div className='images'>
                                                 <HandTileComponent
@@ -247,22 +264,22 @@ const Rules: React.FC<Props> = (props) => {
                                     </li>                                
                                     <li className='item'>
                                         <section className='sub-sub-section'>
-                                            <h4 className='title title--sub-sub-section'>Swap Tile</h4>
+                                            <h4 className='title title--sub-sub-section'>Tuile d'échange</h4>
                                             <p className='text'>
-                                                The second action tile is the <strong>swap</strong> tile. It is black, and has all 3
-                                                different castes on it. It allows the player to swap two caste pieces together from
-                                                two <strong>different</strong> cities. It is a <strong>one-for-one</strong> exchange.
-                                                This means a player <strong>cannot</strong> switch the entire content of a given city
-                                                for another one: this tile only allows the exchange of <strong>single</strong> caste
-                                                pieces.
+                                                La seconde tuile d'action est la tuile d'<strong>échange</strong>. Elle est noire et
+                                                comporte le symbole de chacune des trois castes sociales du jeu. Elle permet au joueur
+                                                d'échanger deux pions de caste situés dans deux villes <strong>différentes</strong>.
+                                                Il s'agit d'un échange <strong>« un pour un »</strong>. Cela signifie qu'un joueur
+                                                ne peut <strong>pas</strong> échanger tout le contenu d'une ville pour celui d'une autre:
+                                                cette tuile permet l'échange de deux pions <strong>distincts</strong>.
                                             </p>
                                             <p className='text'>
-                                                Watch out: once a caste piece has been won by a player, it can <strong>never</strong> come back into
-                                                the game. A caste piece swap can only happen on the board, never between pieces that have already
-                                                been captured by players.
+                                                Attention: une fois capturé par un joueur, un pion de caste ne peut <strong>jamais</strong> revenir
+                                                en jeu. Un échange peut avoir lieu sur la plaque de jeu, mais pas entre des pions déjà remportés
+                                                par les joueurs.
                                             </p>
                                             <p className='text'>
-                                                Here is an example of the swap tile (that would, in this case, belong to the orange player):
+                                                Voici un exemple de la tuile d'échange (qui appartiendrait au joueur orange, dans ce cas-ci):
                                             </p>
                                             <div className='images'>
                                                 <HandTileComponent
@@ -280,11 +297,12 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Fast Tiles</h3>
+                                <h3 className='title title--sub-section'>Schnelle Spielsteine</h3>
                                 <p className='text'>
-                                    Some tiles have a little japanese symbol (a <strong>kanji</strong>, to be precise) on their bottom part.
-                                    After having played one of those, the player is immediately allowed <strong>another</strong> turn. Here
-                                    is an example of a tile that allows the player to replay (in this case, the green player):
+                                    Certaines tuiles comportent un petit symbole japonais (un <strong>kanji</strong>, pour être exact)
+                                    dans leur partie inférieure. Après avoir joué l'une de ces tuiles, un <strong>nouveau</strong> tour
+                                    est immédiatement octroyé au joueur. Voici un exemple de tuile rapide, permettant au joueur de rejouer
+                                    (dans ce cas-ci, le joueur vert):
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
@@ -301,92 +319,91 @@ const Rules: React.FC<Props> = (props) => {
                 </section>
 
                 <section id='rules--hand' className='section'>
-                    <h2 className='title title--section'>Tile Stack</h2>
+                    <h2 className='title title--section'>Spielsteine des Spielers</h2>
                     <p className='text'>
-                        The tile stack every player is given at the beginning of the game (although they're only
-                        allowed a visible hand of 5 tiles at a time) is composed of the following tiles:
+                        La pile de tuile dont dispose le joueur pour la partie (malgré qu'il ou elle ne puisse accéder qu'aux 5 tuiles
+                        de sa main en tout temps) est composé des tuiles suivantes:
                     </p>
                     <ul className='list'>
                         <li className='item'>
                             <p className='text'>
-                                1 caste-specific tile of influence value equal to <strong>4</strong> for <strong>every</strong> caste
-                                (military, religion, commerce)
+                                1 tuile de caste spécifique, dont la valeur d'influence est égale à <strong>4</strong> pour <strong>chacune</strong> des
+                                castes (armée, religion, commerce)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 caste-specific tile of influence value equal to <strong>3</strong> for <strong>every</strong> caste
-                                (military, religion, commerce)
+                                1 tuile de caste spécifique, dont la valeur d'influence est égale à <strong>3</strong> pour <strong>chacune</strong> des
+                                castes (armée, religion, commerce)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 caste-specific tile of influence value equal to <strong>2</strong> for <strong>every</strong> caste
-                                (military, religion, commerce)
+                                1 tuile de caste spécifique, dont la valeur d'influence est égale à <strong>2</strong> pour <strong>chacune</strong> des
+                                castes (armée, religion, commerce)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 joker tile of type <strong>horse</strong> and influence value equal
-                                to <strong>3</strong>
+                                1 tuile joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>3</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 joker tiles of type <strong>horse</strong> and influence value equal
-                                to <strong>2</strong>
+                                2 tuiles joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>2</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 joker tiles of type <strong>horse</strong> and influence value equal
-                                to <strong>1</strong>
+                                2 tuiles joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>1</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 joker tile of type <strong>horse</strong> and influence value equal
-                                to <strong>1</strong>, which allows the player to <strong>replay</strong>
+                                1 tuile joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>1</strong>,
+                                et permettant au joueur de <strong>rejouer</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 joker tile of type <strong>ship</strong> and influence value equal
-                                to <strong>2</strong>, which allows the player to <strong>replay</strong>
+                                1 tuile joker de type <strong>bateau</strong>, dont la valeur d'influence est égale à <strong>2</strong>,
+                                et permettant au joueur de <strong>rejouer</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 joker tiles of type <strong>ship</strong> and influence value equal
-                                to <strong>1</strong>, which allow the player to <strong>replay</strong>
+                                2 tuiles joker de type <strong>bateau</strong>, dont la valeur d'influence est égale à <strong>1</strong>,
+                                et permettant au joueur de <strong>rejouer</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 action tile of type <strong>move</strong> (no influence value)
+                                1 tuile d'action de type <strong>déplacement</strong> (sans valeur d'influence)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 action tile of type <strong>swap</strong> (no influence value), which
-                                allows the player to <strong>replay</strong>
+                                1 tuile d'action de type <strong>échange</strong> (sans valeur d'influence) permettant au joueur
+                                de <strong>rejouer</strong>
                             </p>
                         </li>
                     </ul>
                 </section>
 
                 <section id='rules--winning' className='section'>
-                    <h2 className='title title--section'>Gewinnen</h2>
+                    <h2 className='title title--section'>Spielende</h2>
                     <p className='text'>
-                        To win the game, one must be the leader of the <strong>most</strong> castes. For
-                        instance, if a player manages to win the most houses as well as the most buddhas,
-                        they become the leader in 2 out of 3 castes, which means they win the game.
+                        Pour gagner la partie, un joueur doit être le leader du <strong>plus grand nombre</strong> de
+                        castes. À titre d'exemple, si un joueur arrive à capturer les plus grands nombres de maisons
+                        et de buddhas, ce même joueur devient le leader de 2 des 3 castes, ce qui signifie qu'il ou elle
+                        remporte la partie.
                     </p>
                     <p className='text'>
-                        However, since multiple players often fight over the same castes, it is possible, once
-                        the board is empty, that many players end up being the leader in one given (but different)
-                        caste. In that case, the winner is picked between those leaders, and determined by
-                        the <strong>total</strong> number of captured pieces, no matter the caste.
+                        Néanmoins, comme il arrive souvent que plusieurs joueurs compétitionnent pour devenir le leader
+                        d'une même caste, il est possible qu'une fois la plaque de jeu vide (de pions de caste),
+                        plusieurs joueurs soient le leader d'une caste donnée (mais différente). Dans ce cas, le ou la
+                        gagnante est déterminée entre les leaders par le nombre <strong>total</strong> de pions
+                        que tout un chacun a capturés tout au long de la partie, peu importe leur caste.
                     </p>
                 </section>
             </div>
