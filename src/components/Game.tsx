@@ -61,6 +61,7 @@ class Game extends React.Component<Props, State> {
         // No need to reload game that's already loaded
         if (routeId === id) {
             this.hideSpinner();
+            this.startPolling();
             
             return;
         }
