@@ -4,7 +4,7 @@ import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
 import { getData } from '../actions/ServerActions';
-import { setGameId } from '../actions/GameActions';
+import { setGameId, setGameVersion } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -29,6 +29,7 @@ interface StateProps {
 
 interface DispatchProps {
     setGameId: (id: number) => void,
+    setGameVersion: (version: number) => void,
     getData: () => Promise<void>,
     openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => void,
 }
@@ -56,7 +57,7 @@ class Game extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { id, routeId, setGameId, getData } = this.props;
+        const { id, routeId, setGameId, setGameVersion, getData } = this.props;
 
         // No need to reload game that's already loaded
         if (routeId === id) {
@@ -67,6 +68,7 @@ class Game extends React.Component<Props, State> {
         }
 
         setGameId(routeId);
+        setGameVersion(-1);
 
         getData()
             .catch((error: any) => {
@@ -214,6 +216,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     setGameId: (id: number) => dispatch(setGameId(id)),
+    setGameVersion: (version: number) => dispatch(setGameVersion(version)),
     getData: () => dispatch(getData()),
     openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => dispatch(openErrorDialog(message, explanation, action)),
 });
