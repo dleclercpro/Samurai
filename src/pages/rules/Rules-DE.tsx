@@ -68,18 +68,18 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--playing' className='section'>
                     <h2 className='title title--section'>Spielverlauf</h2>
                     <p className='text'>
-                        À tour de rôle, les joueurs placent leurs tuiles sur le plateau de jeu et tentent
-                        de capturer les pions de caste regroupés au sein des multiples villes. Lorsque
-                        tous les pions ont été remportés (ou discartés), la partie prend fin.
+                        Nacheinander setzen die Spieler ihre Spielsteine auf die Felder des Spielbretts und versuchen, die
+                        Kastenfiguren, die in verschiedenen Städten verteilt sind, zu erobern. Das Spiel endet erst, wenn
+                        alle Figuren gewonnen bzw. aus dem Spielbrett entfernt worden sind.
                     </p>
                     
                     <p className='text'>
-                        Le tour d'un joueur peut être résumé en trois étapes et ayant lieu dans l'ordre suivant:
+                        Jeder Spielzug erfolgt in 3 Schritten, die wie folgt zusammengefasst werden können:
                     </p>
                     <ol className='list'>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Jouer une tuile</h3>
+                                <h3 className='title title--sub-section'>Spielstein auf ein Feld setzen</h3>
                                 <p className='text'>
                                     Le joueur actif choisit une tuile dans sa main ainsi qu'un emplacement libre
                                     sur la plaque de jeu où placer ladite tuile. Il peut s'agir d'un emplacement
