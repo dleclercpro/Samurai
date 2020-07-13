@@ -378,12 +378,12 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile d'action de type <strong>déplacement</strong> (sans valeur d'influence)
+                                1 tuile d'action de type <strong>« déplacement de tuile »</strong> (sans valeur d'influence)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile d'action de type <strong>échange</strong> (sans valeur d'influence) permettant au joueur
+                                1 tuile d'action de type <strong>« échange de pions de caste »</strong> (sans valeur d'influence) permettant au joueur
                                 de <strong>rejouer</strong>
                             </p>
                         </li>
@@ -393,17 +393,23 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--winning' className='section'>
                     <h2 className='title title--section'>Gagner la partie</h2>
                     <p className='text'>
-                        Pour gagner la partie, un joueur doit être le leader du <strong>plus grand nombre</strong> de
-                        castes. À titre d'exemple, si un joueur arrive à capturer les plus grands nombres de maisons
-                        et de buddhas, ce même joueur devient le leader de 2 des 3 castes, ce qui signifie qu'il ou elle
-                        remporte la partie.
+                        La partie prend fin lorsqu'il ne reste plus aucun pion de caste sur le plaque de jeu.
+                        À ce moment-là, un joueur doit être le leader du <strong>plus grand nombre</strong> de
+                        castes pour gagner. À titre d'exemple, si un joueur arrive à capturer les plus grands
+                        nombres de maisons et de buddhas, ce même joueur devient le leader de 2 des 3 castes,
+                        ce qui signifie qu'il ou elle remporte la partie.
                     </p>
                     <p className='text'>
                         Néanmoins, comme il arrive souvent que plusieurs joueurs compétitionnent pour devenir le leader
-                        d'une même caste, il est possible qu'une fois la plaque de jeu vide (de pions de caste),
-                        plusieurs joueurs soient le leader d'une caste donnée (mais différente). Dans ce cas, le ou la
-                        gagnante est déterminée entre les leaders par le nombre <strong>total</strong> de pions
-                        que tout un chacun a capturés tout au long de la partie, peu importe leur caste.
+                        d'une même caste, il est possible qu'une fois la partie terminée, plusieurs joueurs soient le
+                        leader d'une caste donnée (mais différente). Dans ce cas, le ou la gagnante est déterminée entre
+                        les leaders par le nombre <strong>total</strong> de pions que tout un chacun a capturés tout au
+                        long de la partie, peu importe leur caste.
+                    </p>
+                    <p className='text'>
+                        <strong>Attention:</strong> lorsque plusieurs joueurs ramassent le même plus grand nombre de
+                        pions d'une caste donnée, <strong>aucun</strong> d'entre eux ne devient le leader de cette
+                        caste!
                     </p>
                 </section>
             </div>

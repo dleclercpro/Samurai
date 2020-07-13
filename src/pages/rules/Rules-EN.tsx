@@ -363,12 +363,12 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 action tile of type <strong>move</strong> (no influence value)
+                                1 action tile of type <strong>"tile move"</strong> (no influence value)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 action tile of type <strong>swap</strong> (no influence value), which
+                                1 action tile of type <strong>"caste figure swap"</strong> (no influence value), which
                                 allows the player to <strong>replay</strong>
                             </p>
                         </li>
@@ -378,15 +378,20 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--winning' className='section'>
                     <h2 className='title title--section'>Winning</h2>
                     <p className='text'>
-                        To win the game, one must be the leader of the <strong>most</strong> castes. For
+                        The game ends when there is no caste figure left on the board. At this point, one
+                        must be the leader of the <strong>most</strong> castes in order to win. For
                         instance, if a player manages to win the most houses as well as the most buddhas,
                         they become the leader in 2 out of 3 castes, which means they win the game.
                     </p>
                     <p className='text'>
                         However, since multiple players often fight over the same castes, it is possible, once
-                        the board is empty, that many players end up being the leader in one given (but different)
+                        the game is over, that many players end up being the leader in one given (but different)
                         caste. In that case, the winner is picked between those leaders, and determined by
                         the <strong>total</strong> number of captured pieces, no matter the caste.
+                    </p>
+                    <p className='text'>
+                        <strong>Warning:</strong> when multiple players have collected the same highest number
+                        of figures for a given caste, <strong>none</strong> of them becomes its leader!
                     </p>
                 </section>
             </div>

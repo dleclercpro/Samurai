@@ -164,7 +164,7 @@ const Rules: React.FC<Props> = (props) => {
                     <ul className='list'>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Kastespezifische Spielsteine</h3>
+                                <h3 className='title title--sub-section'>Kastenspezifische Spielsteine</h3>
                                 <p className='text'>
                                     Ces tuiles ont une valeur d'influence qui ne s'applique qu'à la caste qu'elles représentent. Les castes pouvant être
                                     représentées sur ces tuiles correspondent aux trois castes sociales du jeu: l'<strong>armée</strong>,
@@ -321,70 +321,70 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--hand' className='section'>
                     <h2 className='title title--section'>Spielsteine des Spielers</h2>
                     <p className='text'>
-                        La pile de tuile dont dispose le joueur pour la partie (malgré qu'il ou elle ne puisse accéder qu'aux 5 tuiles
-                        de sa main en tout temps) est composé des tuiles suivantes:
+                        Die Spielsteine, über die jeder Spieler am Anfang eines Spieles verfügt (ohwohl er zu jedem Zeitpunkt
+                        nur bis 5 Steine sehen darf), sind folgende:
                     </p>
                     <ul className='list'>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile de caste spécifique, dont la valeur d'influence est égale à <strong>4</strong> pour <strong>chacune</strong> des
-                                castes (armée, religion, commerce)
+                                1 kastenspezifischer Spielstein, dessen Influenzwert gleich <strong>4</strong> ist, für <strong>jede</strong> Kaste
+                                (Militär, Religion, Wirtschaft)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile de caste spécifique, dont la valeur d'influence est égale à <strong>3</strong> pour <strong>chacune</strong> des
-                                castes (armée, religion, commerce)
+                                1 kastenspezifischer Spielstein, dessen Influenzwert gleich <strong>3</strong> ist, für <strong>jede</strong> Kaste
+                                (Militär, Religion, Wirtschaft)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile de caste spécifique, dont la valeur d'influence est égale à <strong>2</strong> pour <strong>chacune</strong> des
-                                castes (armée, religion, commerce)
+                                1 kastenspezifischer Spielstein, dessen Influenzwert gleich <strong>2</strong> ist, für <strong>jede</strong> Kaste
+                                (Militär, Religion, Wirtschaft)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>3</strong>
+                                1 Joker-Spielstein vom Typ <strong>Pferd</strong>, dessen Influenzwert gleich <strong>3</strong> ist
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 tuiles joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>2</strong>
+                                2 Joker-Spielstein vom Typ <strong>Pferd</strong>, dessen Influenzwert gleich <strong>2</strong> ist
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 tuiles joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>1</strong>
+                                2 Joker-Spielstein vom Typ <strong>Pferd</strong>, dessen Influenzwert gleich <strong>1</strong> ist
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile joker de type <strong>cheval</strong>, dont la valeur d'influence est égale à <strong>1</strong>,
-                                et permettant au joueur de <strong>rejouer</strong>
+                                1 Joker-Spielstein vom Typ <strong>Pferd</strong>, dessen Influenzwert gleich <strong>1</strong> ist, und
+                                dem Spieler erlaubt, gleich <strong>noch einmal</strong> zu spielen
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile joker de type <strong>bateau</strong>, dont la valeur d'influence est égale à <strong>2</strong>,
-                                et permettant au joueur de <strong>rejouer</strong>
+                                1 Joker-Spielstein vom Typ <strong>Schiff</strong>, dessen Influenzwert gleich <strong>2</strong> ist, und
+                                dem Spieler erlaubt, gleich <strong>noch einmal</strong> zu spielen
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 tuiles joker de type <strong>bateau</strong>, dont la valeur d'influence est égale à <strong>1</strong>,
-                                et permettant au joueur de <strong>rejouer</strong>
+                                2 Joker-Spielstein vom Typ <strong>Schiff</strong>, dessen Influenzwert gleich <strong>1</strong> ist, und
+                                dem Spieler erlaubt, gleich <strong>noch einmal</strong> zu spielen
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile d'action de type <strong>déplacement</strong> (sans valeur d'influence)
+                                1 Aktion Spielstein vom Typ <strong>„Spielstein Versetzen“</strong> (ohne Influenzwert)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile d'action de type <strong>échange</strong> (sans valeur d'influence) permettant au joueur
-                                de <strong>rejouer</strong>
+                                1 Aktion Spielstein vom Typ <strong>„Kastenfiguren Tauschen“</strong> (ohne Influenzwert), der dem Spieler erlaubt,
+                                gleich <strong>noch einmal</strong> zu spielen
                             </p>
                         </li>
                     </ul>
@@ -393,17 +393,19 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--winning' className='section'>
                     <h2 className='title title--section'>Spielende</h2>
                     <p className='text'>
-                        Pour gagner la partie, un joueur doit être le leader du <strong>plus grand nombre</strong> de
-                        castes. À titre d'exemple, si un joueur arrive à capturer les plus grands nombres de maisons
-                        et de buddhas, ce même joueur devient le leader de 2 des 3 castes, ce qui signifie qu'il ou elle
-                        remporte la partie.
+                        Das Spiel endet, wenn es keine Kastenfiguren mehr auf dem Spielbrett gibt.
+                        Zu diesem Zeitpunkt muss der Spieler Leiter der <strong>meisten</strong> Kasten sein, um das
+                        Spiel zu gewinnen. Wenn jemand, zum Beispiel, die größte Anzahl an Häuschen und Buddhas gesammelt
+                        hat, dann ist er Leiter von 2 der 3 Kasten. So gewinnt er das Spiel.
                     </p>
                     <p className='text'>
-                        Néanmoins, comme il arrive souvent que plusieurs joueurs compétitionnent pour devenir le leader
-                        d'une même caste, il est possible qu'une fois la plaque de jeu vide (de pions de caste),
-                        plusieurs joueurs soient le leader d'une caste donnée (mais différente). Dans ce cas, le ou la
-                        gagnante est déterminée entre les leaders par le nombre <strong>total</strong> de pions
-                        que tout un chacun a capturés tout au long de la partie, peu importe leur caste.
+                        Es kann vorkommen, dass am Ende des Spieles mehrere Spieler Leiter einer einzigen
+                        (unterschiedlichen) Kaste sind. Wenn dies der Fall ist, gewinnt dann derjenige,
+                        dessen <strong>Gesamtanzahl</strong> an gesammlten Figuren die größte ist.
+                    </p>
+                    <p className='text'>
+                        <strong>Achtung:</strong> wenn mehrere Spieler dieselbe größte Anzahl Figuren einer gewissen
+                        Kaste gesammelt haben, dann wird <strong>keiner</strong> von denen zum Leiter besagter Kaste!
                     </p>
                 </section>
             </div>
