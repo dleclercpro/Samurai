@@ -2,12 +2,12 @@
     box-sizing: border-box;
     font-family: $font-family;
     color: $color-black;
+    @extend %no-highlight;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, a {
     margin: 0;
     text-decoration: none;
-    @extend %no-highlight;
 }
 
 html, body {

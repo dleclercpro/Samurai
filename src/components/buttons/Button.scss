@@ -12,6 +12,7 @@
     cursor: pointer;
     outline: none;
     user-select: none;
+    overflow: hidden;
 
     @media (hover: hover) {
         &:hover {
