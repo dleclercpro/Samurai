@@ -106,4 +106,4 @@ const mapStateToProps = (state: AppState) => {
     };
 }
 
-export default withRouter(connect(mapStateToProps, () => ({}))(FormPlayGame));
+export default withRouter(connect(mapStateToProps)(FormPlayGame));

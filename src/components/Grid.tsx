@@ -45,4 +45,4 @@ const mapStateToProps = (state: AppState) => {
     };
 };
 
-export default connect(mapStateToProps, () => ({}))(Grid);
+export default connect(mapStateToProps)(Grid);

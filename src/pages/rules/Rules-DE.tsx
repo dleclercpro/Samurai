@@ -68,7 +68,7 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--playing' className='section'>
                     <h2 className='title title--section'>Spielverlauf</h2>
                     <p className='text'>
-                        Nacheinander setzen die Spieler ihre Spielsteine auf die Felder des Spielbretts und versuchen, die
+                        Nacheinander setzen die Spieler ihre Spielsteine auf die Felder des Spielbrettes und versuchen, die
                         Kastenfiguren, die in verschiedenen Städten verteilt sind, zu erobern. Das Spiel endet erst, wenn
                         alle Figuren gewonnen bzw. aus dem Spielbrett entfernt worden sind.
                     </p>
@@ -81,24 +81,24 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Spielstein auf ein Feld setzen</h3>
                                 <p className='text'>
-                                    Le joueur actif choisit une tuile dans sa main ainsi qu'un emplacement libre
-                                    sur la plaque de jeu où placer ladite tuile. Il peut s'agir d'un emplacement
-                                    sur la terre ou sur l'eau, mais ça ne doit pas être une ville. Pour y arriver,
-                                    le joueur clique sur l'emplacement en question, puis sélectionne la tuile désirée.
-                                    À noter que seules les tuiles portrayant bateau peuvent être placées sur l'eau.
+                                    Der aktive Spieler wählt ein freies Feld auf dem Spielbrett aus, auf das
+                                    er einen Spielstein setzen will. Er darf überall spielen, nur nicht auf
+                                    Felder, die Städte sind. Um dies zu tun, muss der Spieler auf besagtes freies Feld
+                                    klicken, dann einen Spielstein in seiner Hand auswählen. Bitte beachten: es dürfen
+                                    nur Spielsteine, die ein Schiff darstellen, auf Wasserfelder gesetzt werden.
                                 </p>
                                 <p className='text'>
-                                    Cela dit, deux tuiles spéciales font exception à la règle: il s'agit des
-                                    tuiles <strong>déplacement</strong> et <strong>échange</strong>. Celles-ci peuvent
-                                    être jouées en cliquant directement dessus depuis la main du joueur. Ces tuiles
-                                    spéciales sont décrites dans plus amples détails plus bas dans cette page, dans la
-                                    sous-section <strong>Tuiles d'action</strong>.
+                                    Es gibt allerdings zwei Spielsteine, die Ausnahmen dieser Regeln sind: es sind
+                                    die <strong>Versetzen-</strong> und <strong>Umtausch-Spielsteine</strong>. Diese
+                                    werden gespielt, indem man direkt auf sie klickt (in der Hand des Spielers). Mehr
+                                    Details zu diesen speziellen Spielsteinen gibt es im
+                                    Abschnitt <strong>Aktion-Spielsteine</strong>.
                                 </p>
                             </section>
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Capturer les pions de caste</h3>
+                                <h3 className='title title--sub-section'>Erwerben der Kastenfiguren</h3>
                                 <p className='text'>
                                     Si tous les espaces de <strong>terre</strong> adjacents à une ville donnée sont occupés par
                                     une tuile placée par l'une ou l'un des joueurs, cette ville est entourée et ses pions de caste
@@ -233,7 +233,7 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <section className='sub-section'>
-                                <h3 className='title title--sub-section'>Aktion Spielsteine</h3>
+                                <h3 className='title title--sub-section'>Aktion-Spielsteine</h3>
                                 <p className='text'>
                                     Certaines tuiles n'ont aucune valeur d'influence, mais permettent tout de même au joueur de poser
                                     certaines <strong>actions</strong> pouvant se révéler fort utiles pour celui ou celle-ci. Ce sont les tuiles
@@ -244,7 +244,7 @@ const Rules: React.FC<Props> = (props) => {
                                 <ul className='list'>
                                     <li className='item'>
                                         <section className='sub-sub-section'>
-                                            <h4 className='title title--sub-sub-section'>Tuile de déplacement</h4>
+                                            <h4 className='title title--sub-sub-section'>Versetzen-Spielstein</h4>
                                             <p className='text'>
                                                 La première tuile d'action est la tuile de <strong>déplacement</strong>. Elle est noire et
                                                 comporte le chiffre zéro. Elle permet au joueur de déplacer l'une des tuiles qu'il ou elle
@@ -264,7 +264,7 @@ const Rules: React.FC<Props> = (props) => {
                                     </li>                                
                                     <li className='item'>
                                         <section className='sub-sub-section'>
-                                            <h4 className='title title--sub-sub-section'>Tuile d'échange</h4>
+                                            <h4 className='title title--sub-sub-section'>Umtausch-Spielstein</h4>
                                             <p className='text'>
                                                 La seconde tuile d'action est la tuile d'<strong>échange</strong>. Elle est noire et
                                                 comporte le symbole de chacune des trois castes sociales du jeu. Elle permet au joueur
@@ -421,4 +421,4 @@ const mapStateToProps = (state: AppState) => {
     };
 }
 
-export default connect(mapStateToProps, () => ({}))(Rules);
+export default connect(mapStateToProps)(Rules);

@@ -39,4 +39,4 @@ const mapStateToProps = (state: AppState) => {
     };
 };
 
-export default connect(mapStateToProps, () => ({}))(Dash);
+export default connect(mapStateToProps)(Dash);

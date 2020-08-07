@@ -64,4 +64,4 @@ const mapStateToProps = (state: AppState) => {
     }
 };
 
-export default connect(mapStateToProps, () => ({}))(ScoreBoard);
+export default connect(mapStateToProps)(ScoreBoard);

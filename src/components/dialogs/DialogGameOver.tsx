@@ -86,4 +86,4 @@ const mapStateToProps = (state: AppState) => {
     };
 }
 
-export default connect(mapStateToProps, () => ({}))(DialogGameOver);
+export default connect(mapStateToProps)(DialogGameOver);

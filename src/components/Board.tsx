@@ -168,4 +168,4 @@ const mapStateToProps = (state: AppState) => {
     };
 };
 
-export default connect(mapStateToProps, () => ({}))(Board);
+export default connect(mapStateToProps)(Board);

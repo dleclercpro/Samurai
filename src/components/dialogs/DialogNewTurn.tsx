@@ -59,4 +59,4 @@ const mapStateToProps = (state: AppState) => {
     };
 };
 
-export default connect(mapStateToProps, () => ({}))(DialogNewTurn);
+export default connect(mapStateToProps)(DialogNewTurn);

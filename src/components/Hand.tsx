@@ -73,4 +73,4 @@ const mapStateToProps = (state: AppState) => {
     };
 };
 
-export default connect(mapStateToProps, () => ({}))(Hand);
+export default connect(mapStateToProps)(Hand);

@@ -407,4 +407,4 @@ const mapStateToProps = (state: AppState) => {
     };
 }
 
-export default connect(mapStateToProps, () => ({}))(Rules);
+export default connect(mapStateToProps)(Rules);

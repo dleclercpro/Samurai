@@ -41,4 +41,4 @@ const mapStateToProps = (state: AppState) => {
     };
 };
 
-export default connect(mapStateToProps, () => ({}))(DialogError);
+export default connect(mapStateToProps)(DialogError);
