@@ -100,8 +100,9 @@ const Rules: React.FC<Props> = (props) => {
                                 </p>
                                 <p className='text'>
                                     Once a city is surrounded, its caste pieces are distributed among the players, and their scores
-                                    correspondingly updated. To determine who captures a caste piece, the <strong>influence</strong> values
-                                    of each player's tiles, which fulfill both of the following conditions, are added up:
+                                    correspondingly updated. To determine who captures the city's caste pieces,
+                                    the <strong>influence</strong> value of each player's tiles, which fulfill both of
+                                    the following conditions, are added up:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>

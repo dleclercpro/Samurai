@@ -90,7 +90,7 @@ const Rules: React.FC<Props> = (props) => {
                                 <p className='text'>
                                     Es gibt allerdings zwei Spielsteine, die Ausnahmen dieser Regeln sind: es sind
                                     die <strong>Versetzen-</strong> und <strong>Umtausch-Spielsteine</strong>. Diese
-                                    werden gespielt, indem man direkt auf sie klickt (in der Hand des Spielers). Mehr
+                                    werden gespielt, indem man direkt auf sie (in der Hand des Spielers) klickt. Mehr
                                     Details zu diesen speziellen Spielsteinen gibt es im
                                     Abschnitt <strong>Aktion-Spielsteine</strong>.
                                 </p>
@@ -100,23 +100,22 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Erwerben der Kastenfiguren</h3>
                                 <p className='text'>
-                                    Si tous les espaces de <strong>terre</strong> adjacents à une ville donnée sont occupés par
-                                    une tuile placée par l'une ou l'un des joueurs, cette ville est entourée et ses pions de caste
-                                    capturés. Les espaces qui touchent à cette même ville et qui sont de type eau <strong>peuvent</strong> être 
-                                    occupés par des tuiles. Cependant, il n'est <strong>pas</strong> nécessaire qu'ils le soient pour que la
-                                    ville en question soit considérée comme étant entourée.
+                                    Wenn alle <strong>Grundfelder</strong> um eine Stadt von Spielsteinen besetzt sind,
+                                    dann gilt diese als geschlossen, und die Kastenfiguren, die auf besagter Stadt stehen,
+                                    werden verteilt bzw. erworben. Die Felder, die eine Stadt umgeben und vom Typ Wasser
+                                    sind, <strong>können</strong> besetzt sein. Sie müssen es dennoch <strong>nicht</strong> unbedingt
+                                    sein, damit die Nachbarstadt als geschlossen betrachtet wird.
                                 </p>
                                 <p className='text'>
-                                    Lorsqu'une ville est entourée, chaque pion de caste y siégeant est remis au joueur l'ayant capturé, et les points
-                                    de ce dernier sont respectivement mis à jour (chaque pion d'une caste donnée vaut un point pour cette même caste).
-                                    Afin de déterminer qui capture chacun des pions, on additionne, pour chacun des joueurs, la
-                                    valeur d'<strong>influence</strong> de toutes les tuiles posées sur la plaque de jeu et qui remplissent les
-                                    conditions suivantes:
+                                    Wenn eine Stadt geschlossen wird, werden all ihre Kastenfiguren verteilt, sowie die Punktzahlen deren
+                                    Gewinner aktualisiert (jede Figur entspricht einem Punkt ihrer Kaste). Um zu bestimmen, wer welche Kastenfiguren
+                                    erwirbt, muss der <strong>Influenzwert</strong> aller Spielsteine, die die folgenden Bedingungen einhalten, addiert
+                                    werden:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>
                                         <p className='text'>
-                                            La tuile est adjacente à la ville entourée pour laquelle on détermine à qui revient chacun des pions y étant placés
+                                            Der Spielstein wurde auf ein Feld gesetzt, das Nachbar der betrachteten Stadt ist.
                                         </p>
                                     </li>
                                     <li className='item'>

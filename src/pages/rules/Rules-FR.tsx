@@ -110,13 +110,13 @@ const Rules: React.FC<Props> = (props) => {
                                     Lorsqu'une ville est entourée, chaque pion de caste y siégeant est remis au joueur l'ayant capturé, et les points
                                     de ce dernier sont respectivement mis à jour (chaque pion d'une caste donnée vaut un point pour cette même caste).
                                     Afin de déterminer qui capture chacun des pions, on additionne, pour chacun des joueurs, la
-                                    valeur d'<strong>influence</strong> de toutes les tuiles posées sur la plaque de jeu et qui remplissent les
+                                    valeur d'<strong>influence</strong> de toutes les tuiles posées sur la plaque de jeu remplissant les
                                     conditions suivantes:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>
                                         <p className='text'>
-                                            La tuile est adjacente à la ville entourée pour laquelle on détermine à qui revient chacun des pions y étant placés
+                                            La tuile est adjacente à la ville entourée pour laquelle on détermine à qui revient chacun des pions y étant placés.
                                         </p>
                                     </li>
                                     <li className='item'>
