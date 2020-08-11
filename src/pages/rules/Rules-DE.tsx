@@ -114,12 +114,12 @@ const Rules: React.FC<Props> = (props) => {
                                     für eine gewisse Kaste hat, gewinnt alle Figuren dieser Kaste.
                                 </p>
                                 <p className='text'>
-                                    Bitte beachten: der Influenzwert der <strong>Joker-Spielsteine</strong> zählt für alle Kasten! Mehr Details zu
-                                    diesem Spielsteintypen im entsprechenden Abschnitt.
+                                    <strong>Bitte beachten:</strong> der Influenzwert der <strong>Joker-Spielsteine</strong> zählt für alle Kasten!
+                                    Mehr Details zu diesem Spielsteintypen im entsprechenden Abschnitt.
                                 </p>
                                 <p className='text'>
-                                    Achtung: wenn mehrere Spieler denselben Influenzwert für eine Kaste haben, und dieser der grösste ist, dann
-                                    gewinnt <strong>keiner</strong> die Figuren dieser Kaste. Diese werden einfach abgeworfen.
+                                    <strong>Achtung:</strong> wenn mehrere Spieler denselben Influenzwert für eine Kaste haben, und dieser der grösste
+                                    ist, dann gewinnt <strong>keiner</strong> die Figuren dieser Kaste. Diese werden einfach abgeworfen.
                                 </p>
                             </section>
                         </li>
@@ -140,7 +140,7 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--tiles' className='section'>
                     <h2 className='title title--section'>Spielsteintypen</h2>
                     <p className='text'>
-                        Der Spielsteinstapel, mit dem jeder Spieler anfängt, enthält <strong>20</strong> Steine insgesamt.
+                        Der Spielsteinstapel, mit dem jeder Spieler beginnt, enthält <strong>20</strong> Steine insgesamt.
                         Jeder Spielstein des Stapels eines Spielers ist gleich gefärbt, zwar mit der Farbe, die beim Erstellen des Spieles
                         dem besagten Spieler zugewiesen wurde. Die nachstehenden Angaben beschreiben alle Typen Spielsteine, die man in seinem
                         Stapel finden kann:

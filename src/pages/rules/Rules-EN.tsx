@@ -106,13 +106,12 @@ const Rules: React.FC<Props> = (props) => {
                                     given caste wins all pieces of this caste.
                                 </p>
                                 <p className='text'>
-                                    Note: the influence value of <strong>joker</strong> tiles counts for <strong>every</strong> caste!
-                                    You'll find more details about the joker tiles in their corresponding sub-section further down
-                                    this page.
+                                    <strong>Note:</strong> the influence value of <strong>joker</strong> tiles counts for <strong>every</strong> caste!
+                                    You'll find more details about the joker tiles in their corresponding sub-section further down this page.
                                 </p>
                                 <p className='text'>
-                                    Watch out: if two or more players have an equal influence (which also happens to be the highest) in
-                                    a given caste, <strong>none</strong> of them wins the corresponding pieces! 
+                                    <strong>Watch out:</strong> if two or more players have an equal influence (which also happens to be the highest)
+                                    in a given caste, <strong>none</strong> of them wins the corresponding pieces! 
                                 </p>
                             </section>
                         </li>

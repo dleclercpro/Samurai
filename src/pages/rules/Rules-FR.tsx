@@ -115,14 +115,14 @@ const Rules: React.FC<Props> = (props) => {
                                     une caste donnée est celui qui remporte tous les pions de cette caste.
                                 </p>
                                 <p className='text'>
-                                    À noter: la valeur d'influence des tuiles de type <strong>joker</strong> est comptabilisée
-                                    pour <strong>chacune</strong> des castes! Davantage de détails sur les tuiles joker se trouvent
-                                    dans la sous-section correspondante, plus bas dans cette page.
+                                    <strong>À noter:</strong> la valeur d'influence des tuiles de type <strong>joker</strong> est
+                                    comptabilisée pour <strong>chacune</strong> des castes! Davantage de détails sur les tuiles joker se
+                                    trouvent dans la sous-section correspondante, plus bas dans cette page.
                                 </p>
                                 <p className='text'>
-                                    Attention: si plusieurs joueurs ont la même valeur d'influence et que cette même valeur est la plus grande pour une
-                                    caste en question, <strong>personne</strong> ne remporte les pions de cette caste et ceux-ci sont simplement
-                                    discartés.
+                                    <strong>Attention:</strong> si plusieurs joueurs ont la même valeur d'influence et que cette même valeur est
+                                    la plus grande pour une caste en question, <strong>personne</strong> ne remporte les pions de cette caste et
+                                    ceux-ci sont simplement discartés.
                                 </p>
                             </section>
                         </li>
