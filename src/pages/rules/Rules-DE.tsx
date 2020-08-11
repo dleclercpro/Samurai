@@ -107,33 +107,19 @@ const Rules: React.FC<Props> = (props) => {
                                     sein, damit die Nachbarstadt als geschlossen betrachtet wird.
                                 </p>
                                 <p className='text'>
-                                    Wenn eine Stadt geschlossen wird, werden all ihre Kastenfiguren verteilt, sowie die Punktzahlen deren
-                                    Gewinner aktualisiert (jede Figur entspricht einem Punkt ihrer Kaste). Um zu bestimmen, wer welche Kastenfiguren
-                                    erwirbt, muss der <strong>Influenzwert</strong> aller Spielsteine, die die folgenden Bedingungen einhalten, addiert
-                                    werden:
-                                </p>
-                                <ul className='list'>
-                                    <li className='item'>
-                                        <p className='text'>
-                                            Der Spielstein wurde auf ein Feld gesetzt, das Nachbar der betrachteten Stadt ist.
-                                        </p>
-                                    </li>
-                                    <li className='item'>
-                                        <p className='text'>
-                                            La tuile a une image correspondant à la caste du pion considéré, ou est de type <strong>joker</strong>.
-                                            Davantage de détails sur les tuiles joker se trouvent dans la sous-section correspondante, plus bas dans
-                                            cette page.
-                                        </p>
-                                    </li>
-                                </ul>
-                                <p className='text'>
-                                    Le joueur dont la valeur d'influence totale est la <strong>plus grande</strong> pour une caste donnée est celui qui
-                                    remporte tous les pions de cette caste.
+                                    Wenn eine Stadt geschlossen wird, werden ihre Kastenfiguren zwischen den Spielern verteilt, sowie die Punktzahlen
+                                    deren Gewinner aktualisiert (jede Figur entspricht einem Punkt ihrer Kaste). Um zu bestimmen, wer welche Kastenfiguren
+                                    erwirbt, muss der <strong>Influenzwert pro Kaste</strong> aller Spielsteine, die auf ein Nachbarfeld dieser Stadt
+                                    gesetzt wurden, für jeden Spieler addiert werden. Derjenige, der den <strong>höchsten</strong> Influenzwert
+                                    für eine gewisse Kaste hat, gewinnt alle Figuren dieser Kaste.
                                 </p>
                                 <p className='text'>
-                                    Attention: si plusieurs joueurs ont la même valeur d'influence et que cette même valeur est la plus grande pour une
-                                    caste en question, <strong>personne</strong> ne remporte les pions de cette caste et ceux-ci sont simplement
-                                    discartés.
+                                    Bitte beachten: der Influenzwert der <strong>Joker-Spielsteine</strong> zählt für alle Kasten! Mehr Details zu
+                                    diesem Spielsteintypen im entsprechenden Abschnitt.
+                                </p>
+                                <p className='text'>
+                                    Achtung: wenn mehrere Spieler denselben Influenzwert für eine Kaste haben, und dieser der grösste ist, dann
+                                    gewinnt <strong>keiner</strong> die Figuren dieser Kaste. Diese werden einfach abgeworfen.
                                 </p>
                             </section>
                         </li>
@@ -141,11 +127,10 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Auffüllen der Hand des Spielers</h3>
                                 <p className='text'>
-                                    Chaque joueur débute la partie avec la même pile de tuiles. Toutefois, celles-ci sont mélangées,
-                                    et il ne lui est possible de voir que 5 tuiles à tout moment, dans ce qui est appelé
-                                    sa <strong>main</strong>. À chaque fois qu'un joueur place une tuile sur la plaque de jeu,
-                                    sa main est automatiquement rafraîchie: l'une des tuiles qu'il n'a pas encore jouées et sélectionnée
-                                    au hasard dans sa pile, puis insérée dans sa main.
+                                    Jeder Spieler fängt das Spiel an mit dem selben Spielsteinstapel. Dieser wird allerdings gemischt, und
+                                    besagter Spieler darf zu jedem Zeitpunkt nur 5 Spielsteine sehen. Diese stellen seine <strong>Hand</strong> dar.
+                                    Wenn ein Spieler einen Stein auf das Brett setzt, wird seine Hand immer automatisch aufgefüllt: es wird einen
+                                    Spielstein, den der Spieler noch nicht gespielt hat, zufällig ausgewählt und in seine Hand hinzugefügt.
                                 </p>
                             </section>
                         </li>
@@ -155,9 +140,10 @@ const Rules: React.FC<Props> = (props) => {
                 <section id='rules--tiles' className='section'>
                     <h2 className='title title--section'>Spielsteintypen</h2>
                     <p className='text'>
-                        La pile de tuile avec laquelle chacun des joueurs commence une partie contient un total de <strong>20</strong> tuiles.
-                        Chaque tuile de cette pile est de la même couleur, et cette dernière correspond à la couleur ayant été assignée au joueur
-                        lors de la création de la partie. Voici une description de tous les types de tuile se retrouvant dans la pile du joueur:
+                        Der Spielsteinstapel, mit dem jeder Spieler anfängt, enthält <strong>20</strong> Steine insgesamt.
+                        Jeder Spielstein des Stapels eines Spielers ist gleich gefärbt, zwar mit der Farbe, die beim Erstellen des Spieles
+                        dem besagten Spieler zugewiesen wurde. Die nachstehenden Angaben beschreiben alle Typen Spielsteine, die man in seinem
+                        Stapel finden kann:
                     </p>
                     
                     <ul className='list'>

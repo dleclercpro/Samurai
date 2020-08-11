@@ -97,29 +97,18 @@ const Rules: React.FC<Props> = (props) => {
                                     is surrounded and its caste pieces become captured. Adjacent sea spaces <strong>may</strong> be
                                     occupied by tiles, by they do <strong>not</strong> need to in order for a neighboring city
                                     to be considered surrounded.
-                                </p>
+                                </p>                                
                                 <p className='text'>
                                     Once a city is surrounded, its caste pieces are distributed among the players, and their scores
-                                    correspondingly updated. To determine who captures the city's caste pieces,
-                                    the <strong>influence</strong> value of each player's tiles, which fulfill both of
-                                    the following conditions, are added up:
+                                    correspondingly updated (each caste piece amounts to a point in that caste). To determine who captures
+                                    which caste piece, the <strong>caste influence</strong> value of the tiles which were set next to said
+                                    city are added up for each player. The player who has the <strong>highest</strong> influence in a
+                                    given caste wins all pieces of this caste.
                                 </p>
-                                <ul className='list'>
-                                    <li className='item'>
-                                        <p className='text'>
-                                            It is adjacent to the city containing the considered caste piece.
-                                        </p>
-                                    </li>
-                                    <li className='item'>
-                                        <p className='text'>
-                                            It has an image that corresponds to the piece's caste, or is a <strong>joker</strong> type.
-                                            You'll find more details about the joker tiles in their corresponding sub-section further down
-                                            this page.
-                                        </p>
-                                    </li>
-                                </ul>
                                 <p className='text'>
-                                    The player who has the <strong>highest</strong> influence in a given caste wins all pieces of this caste.
+                                    Note: the influence value of <strong>joker</strong> tiles counts for <strong>every</strong> caste!
+                                    You'll find more details about the joker tiles in their corresponding sub-section further down
+                                    this page.
                                 </p>
                                 <p className='text'>
                                     Watch out: if two or more players have an equal influence (which also happens to be the highest) in
@@ -135,7 +124,7 @@ const Rules: React.FC<Props> = (props) => {
                                     the players are only allowed to see 5 of them at a time in what is refered to as
                                     their <strong>hand</strong>. Every time a player places a tile on the board, their hand
                                     is automatically refreshed: one of the tiles they haven't played yet is randomly picked from
-                                    their stack and inserted into their hand.
+                                    their stack, and inserted into their hand.
                                 </p>
                             </section>
                         </li>

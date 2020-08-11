@@ -107,29 +107,17 @@ const Rules: React.FC<Props> = (props) => {
                                     ville en question soit considérée comme étant entourée.
                                 </p>
                                 <p className='text'>
-                                    Lorsqu'une ville est entourée, chaque pion de caste y siégeant est remis au joueur l'ayant capturé, et les points
-                                    de ce dernier sont respectivement mis à jour (chaque pion d'une caste donnée vaut un point pour cette même caste).
+                                    Lorsqu'une ville est entourée, ses pions de caste sont distribués parmi les joueurs, et le pointage
+                                    de ces derniers est mis à jour (chaque pion d'une caste donnée vaut un point pour cette même caste).
                                     Afin de déterminer qui capture chacun des pions, on additionne, pour chacun des joueurs, la
-                                    valeur d'<strong>influence</strong> de toutes les tuiles posées sur la plaque de jeu remplissant les
-                                    conditions suivantes:
+                                    valeur d'<strong>influence par caste</strong> des tuiles qu'il ou elle a posées autour de la ville
+                                    en question. Le joueur dont la valeur d'influence totale est la <strong>plus grande</strong> pour
+                                    une caste donnée est celui qui remporte tous les pions de cette caste.
                                 </p>
-                                <ul className='list'>
-                                    <li className='item'>
-                                        <p className='text'>
-                                            La tuile est adjacente à la ville entourée pour laquelle on détermine à qui revient chacun des pions y étant placés.
-                                        </p>
-                                    </li>
-                                    <li className='item'>
-                                        <p className='text'>
-                                            La tuile a une image correspondant à la caste du pion considéré, ou est de type <strong>joker</strong>.
-                                            Davantage de détails sur les tuiles joker se trouvent dans la sous-section correspondante, plus bas dans
-                                            cette page.
-                                        </p>
-                                    </li>
-                                </ul>
                                 <p className='text'>
-                                    Le joueur dont la valeur d'influence totale est la <strong>plus grande</strong> pour une caste donnée est celui qui
-                                    remporte tous les pions de cette caste.
+                                    À noter: la valeur d'influence des tuiles de type <strong>joker</strong> est comptabilisée
+                                    pour <strong>chacune</strong> des castes! Davantage de détails sur les tuiles joker se trouvent
+                                    dans la sous-section correspondante, plus bas dans cette page.
                                 </p>
                                 <p className='text'>
                                     Attention: si plusieurs joueurs ont la même valeur d'influence et que cette même valeur est la plus grande pour une
@@ -145,7 +133,7 @@ const Rules: React.FC<Props> = (props) => {
                                     Chaque joueur débute la partie avec la même pile de tuiles. Toutefois, celles-ci sont mélangées,
                                     et il ne lui est possible de voir que 5 tuiles à tout moment, dans ce qui est appelé
                                     sa <strong>main</strong>. À chaque fois qu'un joueur place une tuile sur la plaque de jeu,
-                                    sa main est automatiquement rafraîchie: l'une des tuiles qu'il n'a pas encore jouées et sélectionnée
+                                    sa main est automatiquement rafraîchie: l'une des tuiles qu'il n'a pas encore jouées est sélectionnée
                                     au hasard dans sa pile, puis insérée dans sa main.
                                 </p>
                             </section>
