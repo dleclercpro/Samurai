@@ -1,5 +1,5 @@
 import Call from './Call';
-import { CallType } from '../types/CallTypes';
+import { CallType } from '../types/ServerTypes';
 
 class CallGET extends Call {
 

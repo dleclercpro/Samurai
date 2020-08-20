@@ -1,5 +1,14 @@
 import { Coordinates2D } from './GameTypes';
 
+export enum CallType {
+    HEAD = 'HEAD',
+    GET = 'GET',
+    POST = 'POST',
+    DELETE = 'DELETE',
+}
+
+
+
 // Server responses
 export interface ServerResponse<T> {
     status: number,
