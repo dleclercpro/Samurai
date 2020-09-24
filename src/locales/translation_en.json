@@ -77,6 +77,6 @@
     "MOVE_TILE_ERROR": "Tile move was unsuccessful.",
     "CASTE_SWAP_ERROR": "Caste pieces swap was unsuccessful.",
 
-    "EMAIL_ERROR": "The e-mail address you typed in does not seem to be valid.",
-    "REPEATED_PASSWORD_ERROR": "Your passwords don't match!"
+    "INVALID_EMAIL": "The e-mail address you typed in does not seem to be valid.",
+    "INVALID_PASSWORD_CONFIRMATION": "Your passwords don't match!"
 }

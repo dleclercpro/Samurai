@@ -77,6 +77,6 @@
     "MOVE_TILE_ERROR": "Das Verstezen des Spielsteines war unerfolgreich.",
     "CASTE_SWAP_ERROR": "Das Tauschen zweier Figuren war unerfolgreich.",
 
-    "EMAIL_ERROR": "Die von dir eingegebene E-Mail-Adresse scheint ungültig zu sein.",
-    "REPEATED_PASSWORD_ERROR": "Beide Passwörter müssen gleich sein!"
+    "INVALID_EMAIL": "Die von dir eingegebene E-Mail-Adresse scheint ungültig zu sein.",
+    "INVALID_PASSWORD_CONFIRMATION": "Beide Passwörter müssen gleich sein!"
 }

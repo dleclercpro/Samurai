@@ -77,6 +77,6 @@
     "MOVE_TILE_ERROR": "La tuile n'a pas pu être déplacée sur le jeu.",
     "CASTE_SWAP_ERROR": "L'échange de pièces n'a pas fonctionné.",
 
-    "EMAIL_ERROR": "L'adresse e-mail que tu as entrée ne semble pas être valide.",
-    "REPEATED_PASSWORD_ERROR": "Les mots de passe entrés ne correspondent pas!"
+    "INVALID_EMAIL": "L'adresse e-mail que tu as entrée ne semble pas être valide.",
+    "INVALID_PASSWORD_CONFIRMATION": "Les mots de passe entrés ne correspondent pas!"
 }

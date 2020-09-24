@@ -71,9 +71,9 @@ class FormSignUp extends React.Component<Props, State> {
 
         switch (field) {
             case 'email':
-                return language.getText('EMAIL_ERROR');
+                return language.getText('INVALID_EMAIL');
             case 'repeatedPassword':
-                return language.getText('REPEATED_PASSWORD_ERROR');
+                return language.getText('INVALID_PASSWORD_CONFIRMATION');
             default:
                 return language.getText('INVALID_FIELD');
         }
