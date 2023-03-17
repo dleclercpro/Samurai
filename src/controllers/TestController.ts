@@ -1,19 +1,18 @@
 import { RequestHandler } from 'express';
 import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
-import { successResponse } from '../libs/calls';
 import { sleep } from '../libs/time';
 import { TimeUnit } from '../types/TimeTypes';
 import { logger } from '../utils/Logging';
+import Connection from '../models/Connection';
 
 const TestController: RequestHandler = async (req, res) => {
-
     try {
 
         // Fake some processing time
         await sleep(500 * Math.random(), TimeUnit.Millisecond);
 
         // Success
-        return res.json(successResponse());
+        return res.json(Connection.success());
 
     } catch (err: any) {
         logger.warn(err.message);

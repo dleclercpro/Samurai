@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
-import Connection from '../models/Connection';
-import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
+import Connection from '../../models/Connection';
+import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 
-const PingController: RequestHandler = async (req, res) => {
+const SignOutController: RequestHandler = async (req, res) => {
     try {
 
         // Success
@@ -17,4 +17,4 @@ const PingController: RequestHandler = async (req, res) => {
     }
 }
 
-export default PingController;
+export default SignOutController;

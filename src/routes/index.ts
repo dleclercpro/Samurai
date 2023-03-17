@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import PingController from '../controllers/PingController';
 import { RequestMiddleware } from '../middleware/RequestMiddleware';
-import TestController from '../controllers/TestController';
+import SignInController from '../controllers/user/SignInController';
+import SignUpController from '../controllers/user/SignUpController';
+import SignOutController from '../controllers/user/SignOutController';
+import CreateGameController from '../controllers/game/CreateGameController';
+import PlayGameController from '../controllers/game/PlayGameController';
+import GetGameController from '../controllers/game/GetGameController';
 
 
 
@@ -15,8 +20,16 @@ router.use(RequestMiddleware);
 
 
 // ROUTES
-router.get('/ping', PingController);
-router.get('/test', TestController);
+// User
+router.post('/user', SignUpController)
+router.get('/user', PingController)
+router.get('/user/sign-in', SignInController)
+router.get('/user/sign-out', SignOutController)
+
+// Game
+router.post('/game', CreateGameController)
+router.post('/game/:gameId', PlayGameController)
+router.get('/game/:gameId', GetGameController)
 
 
 

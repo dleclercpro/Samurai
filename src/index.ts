@@ -28,7 +28,7 @@ server.use(express.json());
 server.use(compression());
 
 // API
-server.use('/api', router);
+server.use('/', router);
 
 
 
