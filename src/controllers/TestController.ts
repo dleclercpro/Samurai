@@ -3,7 +3,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
 import { sleep } from '../libs/time';
 import { TimeUnit } from '../types/TimeTypes';
 import { logger } from '../utils/Logging';
-import Connection from '../models/Connection';
+import { successResponse } from '../libs/calls';
 
 const TestController: RequestHandler = async (req, res) => {
     try {
@@ -12,7 +12,7 @@ const TestController: RequestHandler = async (req, res) => {
         await sleep(500 * Math.random(), TimeUnit.Millisecond);
 
         // Success
-        return res.json(Connection.success());
+        return res.json(successResponse());
 
     } catch (err: any) {
         logger.warn(err.message);

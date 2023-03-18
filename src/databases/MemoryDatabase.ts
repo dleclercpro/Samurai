@@ -1,69 +1,52 @@
-import { createObserver, Listener } from '../utils/Observer';
-
-interface Record {
-    getId: () => string,
-}
-
-interface AddEvent<V> {
-    prevValue?: V,
-    value: V,
-}
-
-interface RemoveEvent<V> {
-    prevValue: V,
-}
+import Session from '../models/Session';
+import User from '../models/User';
+import { KeyValueDatabase } from './KeyValueDatabase';
 
 
 
-interface IMemoryDatabase<R extends Record> {
-    has(id: string): boolean;
-    get(id: string): R | undefined;
-    set(record: R): void;
-    remove(id: string): void;
+// Singleton
+export class MemoryDatabase {
+    private static instance: MemoryDatabase;
 
-    onSet: (listener: Listener<AddEvent<R>>) => void;
-    onDelete: (listener: Listener<RemoveEvent<R>>) => void;
-}
+    private sessions: KeyValueDatabase<Session>;
+    private users: KeyValueDatabase<User>;
 
-
-
-export abstract class MemoryDatabase<R extends Record> implements IMemoryDatabase<R> {
-    protected db = new Map<string, R>();
-
-    protected onSetObserver = createObserver<AddEvent<R>>();
-    protected onDeleteObserver = createObserver<RemoveEvent<R>>();
-
-    public has(id: string) {
-        return this.db.has(id);
+    private constructor() {
+        this.sessions = new KeyValueDatabase<Session>();
+        this.users = new KeyValueDatabase<User>();
     }
 
-    public get(id: string) {
-        return this.db.get(id);
-    }
-
-    public set(record: R) {
-        const prevRecord = this.db.get(record.getId());
-
-        this.db.set(record.getId(), record);
-
-        this.onSetObserver.publish({ prevValue: prevRecord, value: record });
-    }
-
-    public remove(id: string) {
-        const record = this.db.get(id);
-
-        if (record) {
-            this.db.delete(id);
-
-            this.onDeleteObserver.publish({ prevValue: record });
+    public static get() {
+        if (!MemoryDatabase.instance) {
+            MemoryDatabase.instance = new MemoryDatabase();
         }
+
+        return MemoryDatabase.instance;
     }
 
-    public onSet(listener: Listener<AddEvent<R>>) {
-        return this.onSetObserver.subscribe(listener);
+    // Sessions
+    public getSessionById(id: string) {
+        return this.sessions.get(id);
     }
 
-    public onDelete(listener: Listener<RemoveEvent<R>>) {
-        return this.onDeleteObserver.subscribe(listener);
+    public setSession(session: Session) {
+        this.sessions.set(session.getId(), session);
+    }
+
+    public removeSession(session: Session) {
+        this.sessions.remove(session.getId());
+    }
+
+    // Users
+    public getUserById(id: string) {
+        return this.users.get(id);
+    }
+
+    public setUser(user: User) {
+        this.users.set(user.getId(), user);
+    }
+
+    public removeUser(user: User) {
+        this.users.remove(user.getId());
     }
 }

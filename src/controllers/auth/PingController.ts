@@ -1,12 +1,12 @@
 import { RequestHandler } from 'express';
-import Connection from '../models/Connection';
-import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
+import { successResponse } from '../../libs/calls';
+import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 
 const PingController: RequestHandler = async (req, res) => {
     try {
 
         // Success
-        return res.json(Connection.success());
+        return res.json(successResponse());
 
     } catch (err: any) {
 

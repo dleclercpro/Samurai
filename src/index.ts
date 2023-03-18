@@ -1,14 +1,18 @@
 import express from 'express';
 import compression from 'compression';
 import router from './routes';
-import { ENV, PORT, ROOT } from './config/AppConfig';
+import { DEBUG, ENV, PORT, ROOT } from './config/AppConfig';
 import { logger } from './utils/Logging';
+import { MemoryDatabase } from './databases/MemoryDatabase';
 
 
 
 /* -------------------------------------------------- INSTANCES -------------------------------------------------- */
 // Server
 const server = express();
+
+// Database
+export const database = MemoryDatabase.get();
 
 
 

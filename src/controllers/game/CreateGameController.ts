@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import Connection from '../../models/Connection';
+import { successResponse } from '../../libs/calls';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import { logger } from '../../utils/Logging';
 
@@ -8,7 +8,7 @@ const CreateGameController: RequestHandler = async (req, res) => {
         logger.debug(`Creating new game.`);
 
         // Success
-        return res.json(Connection.success());
+        return res.json(successResponse());
 
     } catch (err: any) {
 

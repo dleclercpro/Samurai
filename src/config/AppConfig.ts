@@ -11,6 +11,7 @@ export const PROTOCOL = process.env.PROTOCOL!;
 export const HOST = process.env.HOST!;
 export const PORT = parseInt(process.env.PORT!);
 export const ROOT = `${createURL(PROTOCOL, HOST, PORT)}/`;
+export const API_VERSION = 'v1';
 
 // Client
 export const CLIENT_PROTOCOL = process.env.CLIENT_PROTOCOL!;
