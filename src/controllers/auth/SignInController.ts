@@ -9,7 +9,7 @@ import { ErrorInvalidEmail, ErrorInvalidParams } from '../../errors/ServerError'
 import { SESSION_COOKIE } from '../../config/AuthConfig';
 import { logger } from '../../utils/Logging';
 
-const SignInController: RequestHandler = async (req, res) => {
+const SignInController: RequestHandler = async (req, res, next) => {
     try {
         let { email, password, staySignedIn } = req.body;
 
@@ -56,10 +56,7 @@ const SignInController: RequestHandler = async (req, res) => {
                 .json(errorResponse(ClientError.InvalidCredentials));
         }
 
-        // Unknown error
-        return res
-            .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
-            .send(HttpStatusMessage.INTERNAL_SERVER_ERROR);
+        next(err);
     }
 }
 

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { ErrorMiddleware } from '../../middleware/ErrorMiddleware';
 import { RequestMiddleware } from '../../middleware/RequestMiddleware';
 import AuthRouter from './auth';
 import GameRouter from './game';
@@ -15,9 +16,13 @@ router.use(RequestMiddleware);
 
 
 // ROUTES
-// User
-router.use(`/auth`, AuthRouter)
-router.use(`/game`, GameRouter)
+router.use(`/auth`, AuthRouter);
+router.use(`/game`, GameRouter);
+
+
+
+// Unknown error
+router.use(ErrorMiddleware);
 
 
 

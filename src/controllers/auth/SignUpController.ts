@@ -9,7 +9,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import { logger } from '../../utils/Logging';
 import { validatePassword } from '../../utils/Validation';
 
-const SignUpController: RequestHandler = async (req, res) => {    
+const SignUpController: RequestHandler = async (req, res, next) => {    
     try {
         let { email, password } = req.body;
 
@@ -68,10 +68,7 @@ const SignUpController: RequestHandler = async (req, res) => {
                 .json(errorResponse(ClientError.InvalidPassword));
         }
 
-        // Unknown error
-        return res
-            .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
-            .send(HttpStatusMessage.INTERNAL_SERVER_ERROR);
+        next(err);
     }
 }
 

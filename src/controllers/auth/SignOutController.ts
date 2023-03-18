@@ -4,10 +4,10 @@ import { SESSION_COOKIE } from '../../config/AuthConfig';
 import { ClientError } from '../../errors/ClientErrors';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { errorResponse, successResponse } from '../../libs/calls';
-import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
+import { HttpStatusCode } from '../../types/HTTPTypes';
 import { logger } from '../../utils/Logging';
 
-const SignOutController: RequestHandler = async (req, res) => {
+const SignOutController: RequestHandler = async (req, res, next) => {
     try {
         const { session } = req;
 
@@ -30,10 +30,7 @@ const SignOutController: RequestHandler = async (req, res) => {
                 .json(errorResponse(ClientError.InvalidCredentials));
         }
 
-        // Unknown error
-        return res
-            .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
-            .send(HttpStatusMessage.INTERNAL_SERVER_ERROR);
+        next(err);
     }
 }
 
