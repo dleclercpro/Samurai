@@ -2,6 +2,7 @@ import { Router } from 'express';
 import CreateGameController from '../../controllers/game/CreateGameController';
 import PlayGameController from '../../controllers/game/PlayGameController';
 import GetGameController from '../../controllers/game/GetGameController';
+import { SessionMiddleware } from '../../middleware/SessionMiddleware';
 
 
 
@@ -10,9 +11,9 @@ const router = Router();
 
 
 // ROUTES
-router.post('/', CreateGameController)
-router.post('/:gameId', PlayGameController)
-router.get('/:gameId', GetGameController)
+router.post('/', [SessionMiddleware], CreateGameController)
+router.post('/:gameId', [SessionMiddleware], PlayGameController)
+router.get('/:gameId', [SessionMiddleware], GetGameController)
 
 
 

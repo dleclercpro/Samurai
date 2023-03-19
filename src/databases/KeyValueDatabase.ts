@@ -16,6 +16,7 @@ interface IKeyValueDatabase<R> {
     get(id: string): R | undefined;
     set(id: string, record: R): void;
     remove(id: string): void;
+    size(): number;
 
     onSet: (listener: Listener<AddEvent<R>>) => void;
     onDelete: (listener: Listener<RemoveEvent<R>>) => void;
@@ -53,6 +54,10 @@ export class KeyValueDatabase<R> implements IKeyValueDatabase<R> {
 
             this.onDeleteObserver.publish({ prevValue: record });
         }
+    }
+
+    public size() {
+        return Object.keys(this.db).length;
     }
 
     public onSet(listener: Listener<AddEvent<R>>) {

@@ -1,3 +1,4 @@
+import Game from '../models/game/Game';
 import Session from '../models/Session';
 import User from '../models/User';
 import { KeyValueDatabase } from './KeyValueDatabase';
@@ -10,10 +11,12 @@ export class MemoryDatabase {
 
     private sessions: KeyValueDatabase<Session>;
     private users: KeyValueDatabase<User>;
+    private games: KeyValueDatabase<Game>;
 
     private constructor() {
         this.sessions = new KeyValueDatabase<Session>();
         this.users = new KeyValueDatabase<User>();
+        this.games = new KeyValueDatabase<Game>();
     }
 
     public static get() {
@@ -48,5 +51,18 @@ export class MemoryDatabase {
 
     public removeUser(user: User) {
         this.users.remove(user.getId());
+    }
+
+    // Games
+    public getGameById(id: string) {
+        return this.games.get(id);
+    }
+
+    public setGame(game: Game) {
+        this.games.set(game.getId(), game);
+    }
+
+    public getGameCount() {
+        return this.games.size();
     }
 }
