@@ -1,12 +1,12 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import Command from '../Command';
-import User from '../../models/User';
+import UserModel, { IUser } from '../../models/User';
 
 interface Argument {
     email: string,
 }
 
-type Response = User;
+type Response = IUser;
 
 class GetUserCommand extends Command<Argument, Response> {
 
@@ -18,7 +18,7 @@ class GetUserCommand extends Command<Argument, Response> {
         const { email } = this.argument;
 
         // Try and find user in database
-        const user = await User.findByEmail(email);
+        const user = await UserModel.getByEmail(email);
 
         // User should exist in database
         if (!user) {

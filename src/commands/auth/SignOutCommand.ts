@@ -1,6 +1,6 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import Session from '../../models/Session';
-import User from '../../models/User';
+import UserModel from '../../models/User';
 import Command from '../Command';
 
 interface Argument {
@@ -17,7 +17,7 @@ class SignOutCommand extends Command<Argument> {
         const { session } = this.argument;
 
         // User is authenticated: let's grab them in database
-        const user = await User.findByEmail(session.getEmail());
+        const user = await UserModel.getByEmail(session.getEmail());
 
         // The user should exist, otherwise they couldn't have signed in
         if (!user) {

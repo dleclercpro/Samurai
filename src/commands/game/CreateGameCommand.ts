@@ -1,12 +1,12 @@
-import User from '../../models/User';
+import { IUser } from '../../models/User';
 import Command from '../Command';
 import { logger } from '../../utils/Logging';
 import Game from '../../models/game/Game';
 
 interface Argument {
     name: string,
-    creator: User,
-    opponents: User[],
+    creator: IUser,
+    opponents: IUser[],
 }
 
 type Response = Game;

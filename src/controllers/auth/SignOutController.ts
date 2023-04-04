@@ -1,20 +1,21 @@
 import { RequestHandler } from 'express';
 import SignOutCommand from '../../commands/auth/SignOutCommand';
-import { SESSION_COOKIE } from '../../config/AuthConfig';
 import { ClientError } from '../../errors/ClientErrors';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { errorResponse, successResponse } from '../../libs/calls';
 import { HttpStatusCode } from '../../types/HTTPTypes';
 import { logger } from '../../utils/Logging';
+import { SESSION_OPTIONS } from '../../config/AuthConfig';
 
 const SignOutController: RequestHandler = async (req, res, next) => {
     try {
+        const { cookie } = SESSION_OPTIONS;
         const { session } = req;
 
         await new SignOutCommand({ session }).execute();
 
         // Remove session cookie in client
-        res.clearCookie(SESSION_COOKIE);
+        res.clearCookie(cookie.name);
 
         // Success
         return res.json(successResponse());

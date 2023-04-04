@@ -5,8 +5,9 @@ export enum Environment {
     Production = 'production',
 }
 
-export interface Session {
-    id: string,
-    email: string,
-    expireAt: Date,
+export interface Auth {
+    user: string,
+    pass: string,
 }
+
+export type IdentityFunction<Arg> = (arg: Arg) => Arg

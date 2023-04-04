@@ -1,8 +1,8 @@
-import { ErrorUserWrongPassword } from '../../errors/UserErrors';
+import { IUser } from '../../models/User';
 import Session from '../../models/Session';
-import User from '../../models/User';
 import Command from '../Command';
 import GetUserCommand from '../user/GetUserCommand';
+import { SESSION_OPTIONS } from '../../config/AuthConfig';
 
 interface Argument {
     email: string,
@@ -11,7 +11,7 @@ interface Argument {
 }
 
 interface Response {
-    user: User,
+    user: IUser,
     session: Session,
 }
 
@@ -23,19 +23,16 @@ class SignInCommand extends Command<Argument, Response> {
 
     protected async doExecute() {
         const { email, password, staySignedIn } = this.argument;
+        const { duration } = SESSION_OPTIONS;
 
         // Try and find user in database
         const user = await new GetUserCommand({ email }).execute();
 
         // Authenticate user
-        const isPasswordValid = await user.isPasswordValid(password);
-        
-        if (!isPasswordValid) {
-            throw new ErrorUserWrongPassword(user);
-        }
+        await user.authenticate(password);
 
         // Create session for user
-        const session = await Session.create(user.getId(), staySignedIn);
+        const session = await Session.create(user.getEmail(), staySignedIn, duration);
 
         return { user, session };
     }

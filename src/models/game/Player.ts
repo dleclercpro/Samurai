@@ -1,21 +1,40 @@
-import { Color } from '../types/GameTypes';
-import User from './User';
+import crypto from 'crypto';
+import { Color } from '../../types/GameTypes';
+import { IUser } from '../User';
+import Game from './Game';
 
 class Player {
     private id: string;
-    private gameId: string;
-    private userId: string;
+    private game: Game;
+    private user: IUser;
     private color: Color;
 
-    public constructor(id: string, gameId: string, user: User, color: Color) {
+    public constructor(id: string, game: Game, user: IUser, color: Color) {
         this.id = id;
-        this.gameId = gameId;
-        this.userId = user.getId();
+        this.game = game;
+        this.user = user;
         this.color = color;
     }
 
     public toString() {
-        return `[Game ${this.gameId}]: (${this.userId}, ${this.id})`;
+        return `[Game ${this.game.getId()}]: (${this.user.getId()}, ${this.id})`;
+    }
+
+    public getId() {
+        return this.id;
+    }
+
+    public getUser() {
+        return this.user;
+    }
+
+    // STATIC METHODS
+    protected static generateId() {
+        return crypto.randomUUID();
+    }
+
+    public static async findById(id: string) {
+
     }
 }
 

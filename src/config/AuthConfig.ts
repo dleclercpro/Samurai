@@ -1,11 +1,27 @@
+import { CookieOptions } from 'express';
 import { TimeUnit } from '../types/TimeTypes';
-
-export const SESSION_COOKIE = process.env.SESSION_COOKIE!;
-export const SESSION_DURATION = { time: 15, unit: TimeUnit.Minute };
+import { DEBUG } from './AppConfig';
 
 export const N_PASSWORD_SALT_ROUNDS = 12;
 export const PASSWORD_OPTIONS = {
     minLength: 8,
     minNumbers: 1,
     minSymbols: 1,
+};
+
+const SESSION_COOKIE_OPTIONS: CookieOptions = {
+    path: '/',
+    httpOnly: !DEBUG,
+    secure: !DEBUG,
+    sameSite: !DEBUG ? 'none' : 'strict',
+}
+
+export const SESSION_OPTIONS = {
+    duration: { time: 15, unit: TimeUnit.Minute },
+    secret: process.env.JWT_SESSION_SECRET!,
+    cookie: {
+        name: process.env.SESSION_COOKIE_NAME!,
+        secret: process.env.JWT_COOKIE_SECRET!,
+        options: SESSION_COOKIE_OPTIONS,
+    },
 };

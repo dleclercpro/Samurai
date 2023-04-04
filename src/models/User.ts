@@ -1,67 +1,99 @@
 import * as bcrypt from 'bcrypt';
-import { database } from '..';
+import { Document, model, Model, Schema } from 'mongoose';
 import { N_PASSWORD_SALT_ROUNDS } from '../config/AuthConfig';
-import { logger } from '../utils/Logging';
+import { ErrorUserWrongPassword } from '../errors/UserErrors';
 
-class User {
-    protected email: string;
-    protected password: string;
+export interface IUser extends Document {
+    email: string,
+    password: string,
 
-    public constructor(email: string, password: string) {
-        this.email = email;
-        this.password = password;
-    }
+    lastLogin: Date,
+    lastPasswordReset: Date,
 
-    public stringify() {
-        return this.getEmail();
-    }
+    nLoginAttempts: number,
+    nPasswordResets: number,
 
-    public getId() {
-        return this.getEmail();
-    }
+    // Methods
+    stringify: () => string,
+    getId: () => string,
+    getEmail: () => string,
+    
+    resetPassword: (password: string) => Promise<void>,
+    authenticate: (password: string) => Promise<void>,
+}
 
-    public getEmail() {
-        return this.email;
-    }
 
-    public getPassword() {
-        return this.password;
-    }
 
-    public async isPasswordValid(password: string) {
-        return bcrypt.compare(password, this.password);
-    }
+export interface IUserModel extends Model<IUser> {
+    getAll: () => Promise<IUser[]>,
+    getById: (id: string) => Promise<IUser>,
+    getByEmail: (email: string) => Promise<IUser>,
+    hashPassword: (password: string) => Promise<string>,
+}
 
-    public async save() {
-        database.setUser(this);
 
-        logger.debug(`Stored user: ${this.getEmail()}`);
-    }
 
-    public async delete() {
-        database.removeUser(this);
+export const UserSchema = new Schema<IUser>({
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true, index: true },
+    password: { type: String, required: true },
 
-        logger.debug(`Deleted user: ${this.getEmail()}`);
-    }
+    lastLogin: { type: Date },
+    lastPasswordReset: { type: Date },
 
-    // STATIC METHODS
-    public static async findByEmail(email: string) {
-        return database.getUserById(email);
-    }
+    nLoginAttempts: { type: Number, required: true, min: 0, default: 0 },
+    nPasswordResets: { type: Number, required: true, min: 0, default: 0 },
+});
 
-    public static async create(email: string, password: string) {
 
-        // Encrypt password
-        const hashedPassword = await bcrypt.hash(password, N_PASSWORD_SALT_ROUNDS);
 
-        // Create new user
-        const user = new User(email, hashedPassword);
+UserSchema.methods.stringify = function() {
+    return this.email;
+}
 
-        // Store user in database
-        database.setUser(user);
+UserSchema.methods.getId = function() {
+    return this._id;
+}
 
-        return user;
+UserSchema.methods.getEmail = function() {
+    return this.email;
+}
+
+
+
+UserSchema.methods.resetPassword = async function(password: string) {
+    this.password = await UserModel.hashPassword(password);
+    this.lastPasswordReset = new Date();
+    this.nPasswordResets += 1;
+}
+
+UserSchema.methods.authenticate = async function(password: string) {
+    const isPasswordValid = await bcrypt.compare(password, this.password);
+
+    if (!isPasswordValid) {
+        throw new ErrorUserWrongPassword(this.email);
     }
 }
 
-export default User;
+
+
+UserSchema.statics.getAll = async function() {
+    return this.find({ }).exec();
+}
+
+UserSchema.statics.getById = async function(id: string) {
+    return this.findById(id).exec();
+}
+
+UserSchema.statics.getByEmail = async function(email: string) {
+    return this.findOne({ email }).exec();
+}
+
+UserSchema.statics.hashPassword = async function(password: string) {
+    return bcrypt.hash(password, N_PASSWORD_SALT_ROUNDS);
+}
+
+
+
+const UserModel = model<IUser, IUserModel>('User', UserSchema);
+
+export default UserModel;

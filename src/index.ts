@@ -1,28 +1,19 @@
 import express from 'express';
 import compression from 'compression';
 import router from './routes';
-import { DEBUG, ENV, PORT, ROOT } from './config/AppConfig';
+import { ENV, PORT, ROOT } from './config/AppConfig';
 import { logger } from './utils/Logging';
-import { MemoryDatabase } from './databases/MemoryDatabase';
+import SessionsDatabase from './databases/SessionsDatabase';
+import AppDatabase from './databases/AppDatabase';
 
 
 
-/* -------------------------------------------------- INSTANCES -------------------------------------------------- */
 // Server
-const server = express();
-
-// Database
-export const database = MemoryDatabase.get();
+export const server = express();
 
 
 
-/* -------------------------------------------------- OPTIONS -------------------------------------------------- */
-// Trust first-level proxy
-server.set('trust proxy', 1);
-
-
-
-/* -------------------------------------------------- MIDDLEWARE -------------------------------------------------- */
+/* ----------------------------------------------- MIDDLEWARE ----------------------------------------------- */
 
 // JSON
 server.use(express.urlencoded({ extended: true }));
@@ -38,6 +29,10 @@ server.use('/', router);
 
 /* -------------------------------------------------- MAIN -------------------------------------------------- */
 const main = async () => {
+
+    // Establish connection with databases
+    await SessionsDatabase.start();
+    await AppDatabase.start();
 
     // Then start listening on given port
     server.listen(PORT, () => {

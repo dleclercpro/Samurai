@@ -7,3 +7,8 @@ export enum TimeUnit {
     Second = 's',
     Millisecond = 'ms',
 }
+
+export interface TimeDuration {
+    time: number;
+    unit: TimeUnit;
+}

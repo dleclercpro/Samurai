@@ -34,3 +34,11 @@ export class ErrorInvalidPassword extends ServerError {
         super(ErrorInvalidPassword.code, `Invalid password provided.`);
     }
 }
+
+export class ErrorNotImplementedYet extends ServerError {
+    public static code = -103;
+
+    constructor() {
+        super(ErrorNotImplementedYet.code, `Not implemented yet.`);
+    }
+}

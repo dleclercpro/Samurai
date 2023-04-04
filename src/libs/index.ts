@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Environment } from '../types';
+import { Environment, IdentityFunction } from '../types';
 
 export const getEnvironment = () => {
     const env = process.env.NODE_ENV || Environment.Development;
@@ -35,6 +35,23 @@ export const extractFields = (fields: string[], values: { [key: string]: any }) 
 
 export const arrayEquals = <T> (a: T[], b: T[]) => {
     return a.length === b.length && a.every((value, i) => value === b[i]);
+}
+
+export const shuffle = <T> (array: T[]) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+export const getRandom = <T> (array: T[]) => {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+// Build a pipe with functions, to which a given argument can then be passed sequentially
+export const pipe = <T> (...fns: IdentityFunction<T>[]) => (arg: T) => {
+    return fns.reduce((chain: Promise<T>, fn: IdentityFunction<T>) => chain.then(fn), Promise.resolve(arg));
 }
 
 export const deepCopy = (o: object) => JSON.parse(JSON.stringify(o));

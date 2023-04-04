@@ -1,5 +1,5 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import User from '../../models/User';
+import UserModel from '../../models/User';
 import Command from '../Command';
 
 interface Argument {
@@ -16,7 +16,7 @@ class DeleteUserCommand extends Command<Argument> {
         const { email } = this.argument;
 
         // Try and find user in database
-        const user = await User.findByEmail(email);
+        const user = await UserModel.getByEmail(email);
 
         // User should exist in database
         if (!user) {
@@ -24,7 +24,7 @@ class DeleteUserCommand extends Command<Argument> {
         }
         
         // Remove user from database
-        user.delete();
+        await user.deleteOne();
     }
 }
 

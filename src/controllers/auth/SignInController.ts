@@ -6,11 +6,12 @@ import { ErrorUserDoesNotExist, ErrorUserWrongPassword } from '../../errors/User
 import { ClientError } from '../../errors/ClientErrors';
 import { validate } from 'email-validator';
 import { ErrorInvalidEmail, ErrorInvalidParams } from '../../errors/ServerError';
-import { SESSION_COOKIE } from '../../config/AuthConfig';
 import { logger } from '../../utils/Logging';
+import { SESSION_OPTIONS } from '../../config/AuthConfig';
 
 const SignInController: RequestHandler = async (req, res, next) => {
     try {
+        const { cookie } = SESSION_OPTIONS;
         let { email, password, staySignedIn } = req.body;
 
         // Test params
@@ -30,7 +31,7 @@ const SignInController: RequestHandler = async (req, res, next) => {
         const { session } = await new SignInCommand({ email, password, staySignedIn }).execute();
 
         // Set cookie with session ID on client's browser
-        res.cookie(SESSION_COOKIE, session.getId());
+        res.cookie(cookie.name, session.getId(), cookie.options);
 
         // Success
         return res.json(successResponse());

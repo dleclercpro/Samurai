@@ -16,3 +16,4 @@ const PROD_OPTIONS = {
 };
 
 export const logger = pino(DEBUG ? DEV_OPTIONS : PROD_OPTIONS);
+export const createLogger = (name: string) => pino(DEBUG ? { name, ...DEV_OPTIONS} : { name, ...PROD_OPTIONS });
