@@ -62,7 +62,7 @@ export class MemoryDatabase<R> implements IKeyValueDatabase<R> {
     }
 
     public async getAll() {
-        return Object.values(this.db) as R[];
+        return Object.values(this.db);
     }
 
     public onSet(listener: Listener<SetEvent<R>>) {

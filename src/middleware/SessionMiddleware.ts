@@ -31,12 +31,16 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
         // Is session expired?
         const expirationDate = session.getExpirationDate();
         if (expirationDate && expirationDate <= new Date()) {
+
+            // Delete session in database
+            await session.delete();
+
             throw new ErrorExpiredSession(sessionId);
         }
 
         // Extend session duration if desired on every
         // further request
-        if (session.staySignedIn) {
+        if (session.hasTouch()) {
             await session.extend({ time: 1, unit: TimeUnit.Hour });
         }
 

@@ -11,10 +11,10 @@ class SessionSerializer {
     public serialize(session: Session) {
         const id = session.getId();
         const email = session.getEmail();
-        const staySignedIn = session.shouldStaySignedIn();
+        const staySignedIn = session.hasTouch();
         const expirationDate = session.getExpirationDate();
         
-        const sessionString = `
+        let string = `
             ${id}|
             ${email}|
             ${staySignedIn}|
@@ -23,23 +23,23 @@ class SessionSerializer {
         
         // Encrypt session string using JWT secret
         if (this.secret) {
-            return jwt.sign(sessionString, this.secret);
+            string = jwt.sign(string, this.secret);
         }
 
-        return sessionString;
+        return string;
     }
 
-    public deserialize(string: string) {
-        let sessionString;
+    public deserialize(session: string) {
+        let string;
 
         // Decrypt session token using JWT secret
         if (this.secret) {
-            sessionString = jwt.verify(string, this.secret);
+            string = jwt.verify(session, this.secret);
         } else {
-            sessionString = string;
+            string = session;
         }
 
-        const [ id, email, _staySignedIn, _expirationDate ] = sessionString.split('|');
+        const [ id, email, _staySignedIn, _expirationDate ] = string.split('|');
 
         const staySignedIn = _staySignedIn === 'true';
         const expirationDate = _expirationDate ? new Date(Number(_expirationDate)) : undefined;

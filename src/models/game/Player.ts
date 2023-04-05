@@ -1,41 +1,52 @@
-import crypto from 'crypto';
+import { Document, model, Model, Schema } from 'mongoose';
 import { Color } from '../../types/GameTypes';
-import { IUser } from '../User';
-import Game from './Game';
 
-class Player {
-    private id: string;
-    private game: Game;
-    private user: IUser;
-    private color: Color;
+export interface IPlayer extends Document {
+    gameId: string,
+    userId: string,
+    color: Color,
 
-    public constructor(id: string, game: Game, user: IUser, color: Color) {
-        this.id = id;
-        this.game = game;
-        this.user = user;
-        this.color = color;
-    }
+    nTurnsPlayed: number,
 
-    public toString() {
-        return `[Game ${this.game.getId()}]: (${this.user.getId()}, ${this.id})`;
-    }
-
-    public getId() {
-        return this.id;
-    }
-
-    public getUser() {
-        return this.user;
-    }
-
-    // STATIC METHODS
-    protected static generateId() {
-        return crypto.randomUUID();
-    }
-
-    public static async findById(id: string) {
-
-    }
+    // Methods
+    stringify: () => string,
+    getId: () => string,
 }
 
-export default Player;
+
+
+export interface IPlayerModel extends Model<IPlayer> {
+    getById: (id: string) => Promise<IPlayer>,
+}
+
+
+
+export const PlayerSchema = new Schema<IPlayer>({
+    gameId: { type: String, required: true },
+    userId: { type: String, required: true },
+    color: { type: String, required: true, enum: Object.values(Color) },
+
+    nTurnsPlayed: { type: Number, required: true, default: 0 },
+});
+
+
+
+PlayerSchema.methods.stringify = function() {
+    return ``;
+}
+
+PlayerSchema.methods.getId = function() {
+    return this._id;
+}
+
+
+
+PlayerSchema.statics.getById = async function(id: string) {
+    return this.findById(id).exec();
+}
+
+
+
+const PlayerModel = model<IPlayer, IPlayerModel>('Player', PlayerSchema);
+
+export default PlayerModel;

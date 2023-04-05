@@ -8,12 +8,12 @@ class Session {
     protected id: string;
     protected email: string;
     protected expirationDate?: Date;
-    public staySignedIn: boolean;
+    protected touch: boolean;
 
-    public constructor(id: string, email: string, staySignedIn: boolean, expirationDate?: Date) {
+    public constructor(id: string, email: string, touch: boolean, expirationDate?: Date) {
         this.id = id;
         this.email = email;
-        this.staySignedIn = staySignedIn;
+        this.touch = touch;
         this.expirationDate = expirationDate;
     }
 
@@ -29,8 +29,8 @@ class Session {
         return this.email;
     }
 
-    public shouldStaySignedIn() {
-        return this.staySignedIn;
+    public hasTouch() {
+        return this.touch;
     }
 
     public getExpirationDate() {
@@ -71,6 +71,7 @@ class Session {
         return SessionsDatabase.getSessionById(id);
     }
 
+    // TODO: clean Redis DB from time to time from older sessions of same user
     public static async create(email: string, staySignedIn: boolean = false, duration?: TimeDuration) {
         let id = '';
 

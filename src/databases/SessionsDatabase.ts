@@ -28,12 +28,12 @@ class SessionsDatabase extends RedisDB {
         const session = await this.get(id);
 
         if (session) {
-            return new SessionSerializer().deserialize(session);
+            return this.serializer.deserialize(session);
         }
     }
 
     public async setSession(session: Session) {
-        await this.set(session.getId(), new SessionSerializer().serialize(session));
+        await this.set(session.getId(), this.serializer.serialize(session));
     }
 
     public async deleteSession(session: Session) {
