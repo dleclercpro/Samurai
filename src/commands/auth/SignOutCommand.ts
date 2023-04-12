@@ -1,6 +1,7 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import Session from '../../models/auth/Session';
 import UserModel from '../../models/auth/User';
+import { logger } from '../../utils/Logging';
 import Command from '../Command';
 
 interface Argument {
@@ -26,6 +27,8 @@ class SignOutCommand extends Command<Argument> {
 
         // Destroy user session
         await session.delete();
+
+        logger.info(`User signed out: ${user.stringify()}`);
     }
 }
 

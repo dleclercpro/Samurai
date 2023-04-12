@@ -3,4 +3,5 @@ export enum ClientError {
     InvalidEmail = 'INVALID_EMAIL',
     InvalidPassword = 'INVALID_PASSWORD',
     UserAlreadyExists = 'USER_ALREADY_EXISTS',
+    UserDoesNotExist = 'USER_DOES_NOT_EXIST',
 }

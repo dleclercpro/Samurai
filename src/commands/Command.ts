@@ -11,7 +11,7 @@ abstract class Command<Argument = void, Response = void> {
 
     public async execute() {
         try {
-            return await this.doExecute();
+            return this.doExecute();
 
         } catch (err: any) {
             throw this.handleError(err);

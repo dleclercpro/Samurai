@@ -6,6 +6,8 @@ import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import PlayerModel from '../../models/game/Player';
+import { getRange } from '../../libs/math';
+import AppDatabase from '../../databases/AppDatabase';
 
 interface Argument {
     name: string,
@@ -23,39 +25,61 @@ class CreateGameCommand extends Command<Argument, Response> {
     }
 
     protected async doExecute() {
-        const { name, creatorEmail, opponentEmails } = this.argument;
+        const session = await AppDatabase.startSession();
 
-        // Ensure all users exist
-        const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
-            const user = await UserModel.getByEmail(email);
+        try {
+            const { name, creatorEmail, opponentEmails } = this.argument;
 
-            if (!user) {
-                throw new ErrorUserDoesNotExist(email);
-            }
+            // Start transaction with database
+            session.startTransaction();
 
-            return user;
-        }));
+            // Ensure all users exist
+            const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
+                const user = await UserModel.getByEmail(email);
+    
+                if (!user) {
+                    throw new ErrorUserDoesNotExist(email);
+                }
+    
+                return user;
+            }));
+    
+            // Create new game
+            const game = new GameModel({
+                name,
+                creatorId: creator.getId(),
+                opponentIds: opponents.map(o => o.getId()),
+            });
+    
+            // Keep it in command
+            this.game = game;
+    
+            // Store it in database
+            await game.save();
+    
+            // Create players
+            await this.createPlayers([creator, ...opponents]);
+    
+            // Finish database session
+            await session.commitTransaction();
+            
+            // Report its creation
+            logger.info(`New game created: ${game.getId()}`);
+    
+            return game;
 
-        // Create new game
-        const game = new GameModel({
-            name,
-            creatorId: creator.getId(),
-            opponentIds: opponents.map(o => o.getId()),
-        });
+        } catch (e: any) {
+            logger.warn(e.message);
 
-        // Keep it in command
-        this.game = game;
+            // Revert transaction
+            await session.abortTransaction();
 
-        // Store it in database
-        await game.save();
+            // Pass on error
+            throw e;
 
-        // Create players
-        await this.createPlayers([creator, ...opponents]);
-        
-        // Report its creation
-        logger.info(`New game created: ${game.getId()}`);
-
-        return game;
+        } finally {
+            await session.endSession();
+        }
     }
 
     private async createPlayers(users: IUser[]) {
@@ -66,8 +90,10 @@ class CreateGameCommand extends Command<Argument, Response> {
         // Randomly assign colors to users
         const randomizedColors = shuffle(Object.keys(Color)) as Color[];
 
-        const players = await Promise.all(randomizedColors.map(async (color: Color, i: number) => {
+        // Create players
+        const players = getRange(users.length).map(async (i: number) => {
             const user = users[i];
+            const color = randomizedColors[i];
 
             const player = new PlayerModel({
                 gameId: this.game!.getId(),
@@ -75,11 +101,10 @@ class CreateGameCommand extends Command<Argument, Response> {
                 color,
             });
 
-            // Store player in database
             await player.save();
 
             return player;
-        }));
+        });
 
         return players;
     }

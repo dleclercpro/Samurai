@@ -7,6 +7,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
 import { TimeUnit } from '../types/TimeTypes';
 import { logger } from '../utils/Logging';
 import { SESSION_OPTIONS } from '../config/AuthConfig';
+import GetUserCommand from '../commands/user/GetUserCommand';
 
 export const SessionMiddleware: RequestHandler = async (req, res, next) => {
     const { cookie } = SESSION_OPTIONS;
@@ -46,13 +47,16 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
         // Set session in request for further processing
         req.session = session;
 
+        // Set user in request as well
+        req.user = await new GetUserCommand({ email: session.getEmail() }).execute();
+
         return next();
 
     } catch (err: any) {
         logger.warn(err.message);
 
         // Remove session cookie in user's browser
-        //res.clearCookie(cookie.name);
+        res.clearCookie(cookie.name);
 
         if (err.code === ErrorMissingSessionId.code ||
             err.code === ErrorInvalidSessionId.code ||

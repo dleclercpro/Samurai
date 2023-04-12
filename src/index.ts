@@ -48,5 +48,5 @@ const main = async () => {
 
 // Run
 main().catch((err) => {
-    logger.error(err);
+    logger.fatal(err);
 });

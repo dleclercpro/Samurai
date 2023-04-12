@@ -3,6 +3,7 @@ import Session from '../../models/auth/Session';
 import Command from '../Command';
 import GetUserCommand from '../user/GetUserCommand';
 import { SESSION_OPTIONS } from '../../config/AuthConfig';
+import { logger } from '../../utils/Logging';
 
 interface Argument {
     email: string,
@@ -33,6 +34,8 @@ class SignInCommand extends Command<Argument, Response> {
 
         // Create session for user
         const session = await Session.create(user.getEmail(), staySignedIn, duration);
+
+        logger.info(`User signed in: ${user.stringify()}`);
 
         return { user, session };
     }

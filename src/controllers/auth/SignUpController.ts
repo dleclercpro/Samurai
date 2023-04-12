@@ -40,13 +40,6 @@ const SignUpController: RequestHandler = async (req, res, next) => {
     } catch (err: any) {
         logger.warn(err.message);
 
-        // Invalid parameters provided
-        if (err.code === ErrorInvalidParams.code) {
-            return res
-                .status(HttpStatusCode.BAD_REQUEST)
-                .send(HttpStatusMessage.BAD_REQUEST)
-        }
-
         // User already exists
         if (err.code === ErrorUserAlreadyExists.code) {
             return res

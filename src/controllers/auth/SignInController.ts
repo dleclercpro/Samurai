@@ -39,13 +39,6 @@ const SignInController: RequestHandler = async (req, res, next) => {
     } catch (err: any) {
         logger.warn(err.message);
 
-        // Invalid parameters provided
-        if (err.code === ErrorInvalidParams.code) {
-            return res
-                .status(HttpStatusCode.BAD_REQUEST)
-                .send(HttpStatusMessage.BAD_REQUEST)
-        }
-
         // Do not tell client why user can't sign in: just say that
         // their credentials are invalid
         if (err.code === ErrorUserDoesNotExist.code ||
