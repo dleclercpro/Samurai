@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
-import { Document, model, Model, Schema } from 'mongoose';
-import { N_PASSWORD_SALT_ROUNDS } from '../config/AuthConfig';
-import { ErrorUserWrongPassword } from '../errors/UserErrors';
+import { Document, model, Model, Schema, SchemaOptions } from 'mongoose';
+import { N_PASSWORD_SALT_ROUNDS } from '../../config/AuthConfig';
+import { ErrorUserWrongPassword } from '../../errors/UserErrors';
 
 export interface IUser extends Document {
     email: string,
@@ -33,6 +33,17 @@ export interface IUserModel extends Model<IUser> {
 
 
 
+const UserSchemaOptions: SchemaOptions<IUser> = {
+    toJSON: {
+        transform: function(doc, ret) {
+            // Do not let access to password outside Mongoose data layer
+            delete ret.password;
+        },
+    },
+}
+
+
+
 export const UserSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true, lowercase: true, trim: true, index: true },
     password: { type: String, required: true },
@@ -42,7 +53,7 @@ export const UserSchema = new Schema<IUser>({
 
     nLoginAttempts: { type: Number, required: true, min: 0, default: 0 },
     nPasswordResets: { type: Number, required: true, min: 0, default: 0 },
-});
+}, UserSchemaOptions);
 
 
 

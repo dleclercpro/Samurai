@@ -1,6 +1,6 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import Session from '../../models/Session';
-import UserModel from '../../models/User';
+import Session from '../../models/auth/Session';
+import UserModel from '../../models/auth/User';
 import Command from '../Command';
 
 interface Argument {

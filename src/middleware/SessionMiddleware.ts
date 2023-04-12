@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { ClientError } from '../errors/ClientErrors';
 import { ErrorExpiredSession, ErrorInvalidSessionId, ErrorMissingSessionId } from '../errors/SessionErrors';
 import { errorResponse } from '../libs/calls';
-import Session from '../models/Session';
+import Session from '../models/auth/Session';
 import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
 import { TimeUnit } from '../types/TimeTypes';
 import { logger } from '../utils/Logging';
@@ -29,8 +29,7 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
         }
 
         // Is session expired?
-        const expirationDate = session.getExpirationDate();
-        if (expirationDate && expirationDate <= new Date()) {
+        if (session.isExpired()) {
 
             // Delete session in database
             await session.delete();

@@ -1,6 +1,6 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import Command from '../Command';
-import UserModel, { IUser } from '../../models/User';
+import UserModel, { IUser } from '../../models/auth/User';
 
 interface Argument {
     email: string,

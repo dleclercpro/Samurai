@@ -1,5 +1,5 @@
-import Session from '../models/Session';
-import { IUser } from '../models/User';
+import Session from '../models/auth/Session';
+import { IUser } from '../models/auth/User';
 
 declare global {
     namespace Express {

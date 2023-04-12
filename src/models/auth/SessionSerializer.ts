@@ -3,6 +3,7 @@ import Session from './Session';
 
 class SessionSerializer {
     protected secret?: string;
+    protected separator: string = '|';
 
     public constructor(secret?: string) {
         this.secret = secret;
@@ -14,12 +15,16 @@ class SessionSerializer {
         const staySignedIn = session.hasTouch();
         const expirationDate = session.getExpirationDate();
         
-        let string = `
-            ${id}|
-            ${email}|
-            ${staySignedIn}|
-            ${expirationDate ? expirationDate.getTime() : ''}
-        `;
+        // Encode session as string
+        let string = [
+            id,
+            email,
+            staySignedIn,
+            expirationDate ? expirationDate.getTime() : '',
+        ]
+        .map(String)
+        .map(s => s.trim())
+        .join(this.separator);
         
         // Encrypt session string using JWT secret
         if (this.secret) {
@@ -39,7 +44,7 @@ class SessionSerializer {
             string = session;
         }
 
-        const [ id, email, _staySignedIn, _expirationDate ] = string.split('|');
+        const [ id, email, _staySignedIn, _expirationDate ] = string.split(this.separator);
 
         const staySignedIn = _staySignedIn === 'true';
         const expirationDate = _expirationDate ? new Date(Number(_expirationDate)) : undefined;

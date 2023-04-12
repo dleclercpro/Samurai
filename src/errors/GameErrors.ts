@@ -1,5 +1,5 @@
 import Game from '../models/game/Game';
-import { IUser } from '../models/User';
+import { IUser } from '../models/auth/User';
 import { ServerError } from './ServerError';
 
 export class ErrorGameDoesNotExist extends ServerError {

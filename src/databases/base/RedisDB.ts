@@ -119,6 +119,17 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
         return this.client.get(key);
     }
 
+    public async getAllKeys() {
+        return this.client.keys('*');
+    }
+
+    public async getAll() {
+        const keys = await this.getAllKeys();
+        const values = await Promise.all(keys.map((key) => this.get(key)));
+
+        return values;
+    }
+
     public async set(key: string, value: string) {
         const prevValue = await this.get(key);
 

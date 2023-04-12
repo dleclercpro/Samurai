@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import { toMs } from '../libs/time';
-import { TimeDuration } from '../types/TimeTypes';
-import { logger } from '../utils/Logging';
-import SessionsDatabase from '../databases/SessionsDatabase';
+import { toMs } from '../../libs/time';
+import { TimeDuration } from '../../types/TimeTypes';
+import { logger } from '../../utils/Logging';
+import SessionsDatabase from '../../databases/SessionsDatabase';
 
 class Session {
     protected id: string;
@@ -37,6 +37,10 @@ class Session {
         return this.expirationDate;
     }
 
+    public isExpired() {
+        return this.expirationDate && this.expirationDate <= new Date();
+    }
+
     public async extend(duration: TimeDuration) {
         if (!this.expirationDate) {
             throw new Error('Cannot extend a session that has no expiration date!');
@@ -51,13 +55,13 @@ class Session {
     }
 
     public async save() {
-        SessionsDatabase.setSession(this);
+        await SessionsDatabase.setSession(this);
 
         logger.debug(`Stored session of user: ${this.email}`);
     }
 
     public async delete() {
-        SessionsDatabase.deleteSession(this);
+        await SessionsDatabase.deleteSession(this);
 
         logger.debug(`Deleted session of user: ${this.email}`);
     }

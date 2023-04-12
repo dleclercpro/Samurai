@@ -1,4 +1,4 @@
-import UserModel, { IUser } from '../../models/User';
+import UserModel, { IUser } from '../../models/auth/User';
 import Command from '../Command';
 import { logger } from '../../utils/Logging';
 import GameModel, { IGame } from '../../models/game/Game';
