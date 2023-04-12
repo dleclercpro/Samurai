@@ -1,5 +1,4 @@
 import UserModel, { IUser } from '../../models/auth/User';
-import Command from '../Command';
 import { logger } from '../../utils/Logging';
 import GameModel, { IGame } from '../../models/game/Game';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
@@ -7,7 +6,7 @@ import { shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import PlayerModel from '../../models/game/Player';
 import { getRange } from '../../libs/math';
-import AppDatabase from '../../databases/AppDatabase';
+import TransactionCommand from '../TransactionCommand';
 
 interface Argument {
     name: string,
@@ -17,7 +16,7 @@ interface Argument {
 
 type Response = IGame;
 
-class CreateGameCommand extends Command<Argument, Response> {
+class CreateGameCommand extends TransactionCommand<Argument, Response> {
     private game?: IGame;
 
     public constructor(argument: Argument) {
@@ -25,61 +24,36 @@ class CreateGameCommand extends Command<Argument, Response> {
     }
 
     protected async doExecute() {
-        const session = await AppDatabase.startSession();
+        const { name, creatorEmail, opponentEmails } = this.argument;
 
-        try {
-            const { name, creatorEmail, opponentEmails } = this.argument;
+        // Ensure all users exist
+        const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
+            const user = await UserModel.getByEmail(email);
 
-            // Start transaction with database
-            session.startTransaction();
+            if (!user) {
+                throw new ErrorUserDoesNotExist(email);
+            }
 
-            // Ensure all users exist
-            const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
-                const user = await UserModel.getByEmail(email);
-    
-                if (!user) {
-                    throw new ErrorUserDoesNotExist(email);
-                }
-    
-                return user;
-            }));
-    
-            // Create new game
-            const game = new GameModel({
-                name,
-                creatorId: creator.getId(),
-                opponentIds: opponents.map(o => o.getId()),
-            });
-    
-            // Keep it in command
-            this.game = game;
-    
-            // Store it in database
-            await game.save();
-    
-            // Create players
-            await this.createPlayers([creator, ...opponents]);
-    
-            // Finish database session
-            await session.commitTransaction();
-            
-            // Report its creation
-            logger.info(`New game created: ${game.getId()}`);
-    
-            return game;
+            return user;
+        }));
 
-        } catch (e: any) {
-            logger.warn(e.message);
+        // Create new game
+        this.game = new GameModel({
+            name,
+            creatorId: creator.getId(),
+            opponentIds: opponents.map(o => o.getId()),
+        });
 
-            // Revert transaction
-            await session.abortTransaction();
+        // Store it in database
+        await this.game.save({ session: this.session });
 
-            // Pass on error
-            throw e;
+        // Create players
+        await this.createPlayers([creator, ...opponents]);
+        
+        // Report its creation
+        logger.info(`New game created: ${this.game.getId()}`);
 
-        } finally {
-            await session.endSession();
-        }
+        return this.game;
     }
 
     private async createPlayers(users: IUser[]) {
@@ -91,7 +65,7 @@ class CreateGameCommand extends Command<Argument, Response> {
         const randomizedColors = shuffle(Object.keys(Color)) as Color[];
 
         // Create players
-        const players = getRange(users.length).map(async (i: number) => {
+        const players = await Promise.all(getRange(users.length).map(async (i: number) => {
             const user = users[i];
             const color = randomizedColors[i];
 
@@ -101,10 +75,10 @@ class CreateGameCommand extends Command<Argument, Response> {
                 color,
             });
 
-            await player.save();
+            await player.save({ session: this.session });
 
             return player;
-        });
+        }));
 
         return players;
     }
