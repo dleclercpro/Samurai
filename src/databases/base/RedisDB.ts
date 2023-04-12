@@ -47,13 +47,7 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
     }
 
     protected getAnonymousURI = () => {
-        const uri = `${this.host}:${this.port}`;
-
-        if (this.name) {
-            return `${uri}/${this.name}`;
-        }
-
-        return uri;
+        return `${this.host}:${this.port}`;
     }
 
     public async start() {
