@@ -52,7 +52,7 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
         logger.warn(err.message);
 
         // Remove session cookie in user's browser
-        res.clearCookie(cookie.name);
+        //res.clearCookie(cookie.name);
 
         if (err.code === ErrorMissingSessionId.code ||
             err.code === ErrorInvalidSessionId.code ||
