@@ -1,3 +1,7 @@
+export const sum = (array: number[]) => {
+    return array.reduce((total, x) => total + x, 0);
+}
+
 export const roundDigits = (x: number, n: number) => {
     const power = Math.pow(10, n);
 

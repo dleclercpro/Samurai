@@ -2,6 +2,7 @@ import { Document, Schema } from 'mongoose';
 import { Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
+import { HandSchema, IHand } from './Hand';
 
 export interface IPlayer extends Document {
     userId: string,
@@ -14,13 +15,14 @@ export interface IPlayer extends Document {
     isWinner: boolean,
 
     score: IScore,
-    handTiles: number[],
+    hand: IHand,
     remainingTiles: number[],
     playedTiles: IPlayedTile[],
 
     // Methods
     stringify: () => string,
     getId: () => string,
+    getHand: () => IHand,
 }
 
 
@@ -37,7 +39,7 @@ export const PlayerSchema = new Schema<IPlayer>({
 
     score: { type: ScoreSchema, required: true, default: {} },
     
-    handTiles: { type: [Number], required: true },
+    hand: { type: HandSchema, required: true },
     remainingTiles: { type: [Number], required: true },
     playedTiles: { type: [PlayedTileSchema], required: true },
 });
@@ -50,4 +52,8 @@ PlayerSchema.methods.stringify = function() {
 
 PlayerSchema.methods.getId = function() {
     return this._id;
+}
+
+PlayerSchema.methods.getHand = function() {
+    return this.hand;
 }

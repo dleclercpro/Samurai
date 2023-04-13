@@ -44,3 +44,6 @@ export const SESSIONS_DB_OPTIONS = {
 export const DB_RETRY_CONNECT_MAX_DELAY = { time: 3, unit: TimeUnit.Second };
 export const DB_RETRY_CONNECT_TIMEOUT = { time: 5, unit: TimeUnit.Second };
 export const DB_RETRY_CONNECT_MAX = 5;
+
+export const PATH_BOARD_JSON = './public/board.json';
+export const PATH_HAND_JSON = './public/hand.json';

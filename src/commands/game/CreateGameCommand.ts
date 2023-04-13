@@ -5,6 +5,8 @@ import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { getRandom, shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
+import Board from '../../helpers/Board';
+import { getRange } from '../../libs/math';
 
 interface Argument {
     name: string,
@@ -57,6 +59,9 @@ class CreateGameCommand extends Command<Argument, Response> {
         // Store game in command
         this.game = game;
 
+        // Generate board
+        const board = await this.generateBoard();
+
         return game;
     }
 
@@ -80,6 +85,13 @@ class CreateGameCommand extends Command<Argument, Response> {
                 color,
             };
         });
+    }
+
+    private async generateBoard() {
+        for (let i of [2]) {
+            const board = await Board.create(i);
+            console.log(board.getTiles());
+        }
     }
 }
 

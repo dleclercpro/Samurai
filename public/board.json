@@ -1,0 +1,2864 @@
+{
+    "Center": [
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -10
+            },
+            "id": 41,
+            "type": "Water",
+            "neighbors": [
+                3,
+                22,
+                42,
+                45,
+                54
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -9
+            },
+            "id": 42,
+            "type": "Water",
+            "neighbors": [
+                41,
+                43,
+                54,
+                55
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -8
+            },
+            "id": 43,
+            "type": "Water",
+            "neighbors": [
+                42,
+                44,
+                55,
+                56
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -7
+            },
+            "id": 44,
+            "type": "Water",
+            "neighbors": [
+                43,
+                56,
+                57,
+                66
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -10
+            },
+            "id": 45,
+            "type": "Water",
+            "neighbors": [
+                22,
+                27,
+                32,
+                41,
+                46,
+                54
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -10
+            },
+            "id": 46,
+            "type": "Water",
+            "neighbors": [
+                32,
+                36,
+                45,
+                47,
+                54,
+                59
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -9
+            },
+            "id": 47,
+            "type": "Water",
+            "neighbors": [
+                19,
+                36,
+                46,
+                48,
+                59,
+                63
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -9
+            },
+            "id": 48,
+            "type": "Water",
+            "neighbors": [
+                19,
+                47,
+                49,
+                63
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -8
+            },
+            "id": 49,
+            "type": "Water",
+            "neighbors": [
+                48,
+                50,
+                63,
+                64
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -7
+            },
+            "id": 50,
+            "type": "Water",
+            "neighbors": [
+                49,
+                51,
+                64,
+                65
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -6
+            },
+            "id": 51,
+            "type": "Water",
+            "neighbors": [
+                50,
+                52,
+                53,
+                65
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -5
+            },
+            "id": 52,
+            "type": "Water",
+            "neighbors": [
+                51,
+                53,
+                70,
+                87
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -5
+            },
+            "id": 53,
+            "type": "Water",
+            "neighbors": [
+                51,
+                52,
+                62,
+                65,
+                84,
+                87
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 14,
+                "y": -9
+            },
+            "id": 54,
+            "type": "Ground",
+            "neighbors": [
+                41,
+                42,
+                45,
+                46,
+                55,
+                59
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -8
+            },
+            "id": 55,
+            "type": "Ground",
+            "neighbors": [
+                42,
+                43,
+                54,
+                56,
+                59,
+                60
+            ]
+        },
+        {
+            "castes": 2,
+            "coordinates": {
+                "x": 14,
+                "y": -7
+            },
+            "id": 56,
+            "type": "Ground",
+            "neighbors": [
+                43,
+                44,
+                55,
+                57,
+                60,
+                61
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -6
+            },
+            "id": 57,
+            "type": "Ground",
+            "neighbors": [
+                44,
+                56,
+                58,
+                61,
+                62,
+                66
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 14,
+                "y": -5
+            },
+            "id": 58,
+            "type": "Ground",
+            "neighbors": [
+                57,
+                62,
+                66,
+                77,
+                81,
+                84
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -9
+            },
+            "id": 59,
+            "type": "Ground",
+            "neighbors": [
+                46,
+                47,
+                54,
+                55,
+                60,
+                63
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -8
+            },
+            "id": 60,
+            "type": "Ground",
+            "neighbors": [
+                55,
+                56,
+                59,
+                61,
+                63,
+                64
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -7
+            },
+            "id": 61,
+            "type": "Ground",
+            "neighbors": [
+                56,
+                57,
+                60,
+                62,
+                64,
+                65
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -6
+            },
+            "id": 62,
+            "type": "Ground",
+            "neighbors": [
+                53,
+                57,
+                58,
+                61,
+                65,
+                84
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 16,
+                "y": -8
+            },
+            "id": 63,
+            "type": "Ground",
+            "neighbors": [
+                47,
+                48,
+                49,
+                59,
+                60,
+                64
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -7
+            },
+            "id": 64,
+            "type": "Ground",
+            "neighbors": [
+                49,
+                50,
+                60,
+                61,
+                63,
+                65
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 16,
+                "y": -6
+            },
+            "id": 65,
+            "type": "Ground",
+            "neighbors": [
+                50,
+                51,
+                53,
+                61,
+                62,
+                64
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -6
+            },
+            "id": 66,
+            "type": "Water",
+            "neighbors": [
+                44,
+                57,
+                58,
+                67,
+                77
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -5
+            },
+            "id": 67,
+            "type": "Water",
+            "neighbors": [
+                66,
+                68,
+                77,
+                90
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 11,
+                "y": -5
+            },
+            "id": 68,
+            "type": "Water",
+            "neighbors": [
+                67,
+                69,
+                90,
+                94
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": -4
+            },
+            "id": 69,
+            "type": "Water",
+            "neighbors": [
+                68,
+                94,
+                97
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -4
+            },
+            "id": 70,
+            "type": "Water",
+            "neighbors": [
+                52,
+                71,
+                87,
+                88
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -3
+            },
+            "id": 71,
+            "type": "Water",
+            "neighbors": [
+                70,
+                72,
+                88,
+                89
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -2
+            },
+            "id": 72,
+            "type": "Water",
+            "neighbors": [
+                71,
+                73,
+                89
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -1
+            },
+            "id": 73,
+            "type": "Water",
+            "neighbors": [
+                72,
+                74,
+                89
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -2
+            },
+            "id": 74,
+            "type": "Water",
+            "neighbors": [
+                73,
+                75,
+                83,
+                86,
+                89
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -1
+            },
+            "id": 75,
+            "type": "Water",
+            "neighbors": [
+                74,
+                76,
+                80,
+                83
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -1
+            },
+            "id": 76,
+            "type": "Water",
+            "neighbors": [
+                75,
+                80,
+                93,
+                116
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -5
+            },
+            "id": 77,
+            "type": "Ground",
+            "neighbors": [
+                58,
+                66,
+                67,
+                78,
+                81,
+                90
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -4
+            },
+            "id": 78,
+            "type": "Ground",
+            "neighbors": [
+                77,
+                79,
+                81,
+                82,
+                90,
+                91
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -3
+            },
+            "id": 79,
+            "type": "Ground",
+            "neighbors": [
+                78,
+                80,
+                82,
+                83,
+                91,
+                92
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 13,
+                "y": -2
+            },
+            "id": 80,
+            "type": "Ground",
+            "neighbors": [
+                75,
+                76,
+                79,
+                83,
+                92,
+                93
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -4
+            },
+            "id": 81,
+            "type": "Ground",
+            "neighbors": [
+                58,
+                77,
+                78,
+                82,
+                84,
+                85
+            ]
+        },
+        {
+            "castes": 3,
+            "coordinates": {
+                "x": 14,
+                "y": -3
+            },
+            "id": 82,
+            "type": "Ground",
+            "neighbors": [
+                78,
+                79,
+                81,
+                83,
+                85,
+                86
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -2
+            },
+            "id": 83,
+            "type": "Ground",
+            "neighbors": [
+                74,
+                75,
+                79,
+                80,
+                82,
+                86
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -5
+            },
+            "id": 84,
+            "type": "Ground",
+            "neighbors": [
+                53,
+                58,
+                62,
+                81,
+                85,
+                87
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -4
+            },
+            "id": 85,
+            "type": "Ground",
+            "neighbors": [
+                81,
+                82,
+                84,
+                86,
+                87,
+                88
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -3
+            },
+            "id": 86,
+            "type": "Ground",
+            "neighbors": [
+                74,
+                82,
+                83,
+                85,
+                88,
+                89
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 16,
+                "y": -4
+            },
+            "id": 87,
+            "type": "Ground",
+            "neighbors": [
+                52,
+                53,
+                70,
+                84,
+                85,
+                88
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -3
+            },
+            "id": 88,
+            "type": "Ground",
+            "neighbors": [
+                70,
+                71,
+                85,
+                86,
+                87,
+                89
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 16,
+                "y": -2
+            },
+            "id": 89,
+            "type": "Ground",
+            "neighbors": [
+                71,
+                72,
+                73,
+                74,
+                86,
+                88
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 12,
+                "y": -4
+            },
+            "id": 90,
+            "type": "Ground",
+            "neighbors": [
+                67,
+                68,
+                77,
+                78,
+                91,
+                94
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -3
+            },
+            "id": 91,
+            "type": "Ground",
+            "neighbors": [
+                78,
+                79,
+                90,
+                92,
+                94,
+                95
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -2
+            },
+            "id": 92,
+            "type": "Ground",
+            "neighbors": [
+                79,
+                80,
+                91,
+                93,
+                95,
+                96
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -1
+            },
+            "id": 93,
+            "type": "Ground",
+            "neighbors": [
+                76,
+                80,
+                92,
+                96,
+                116,
+                117
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 11,
+                "y": -4
+            },
+            "id": 94,
+            "type": "Ground",
+            "neighbors": [
+                68,
+                69,
+                90,
+                91,
+                95,
+                97
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 11,
+                "y": -3
+            },
+            "id": 95,
+            "type": "Ground",
+            "neighbors": [
+                91,
+                92,
+                94,
+                96,
+                97,
+                98
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 11,
+                "y": -2
+            },
+            "id": 96,
+            "type": "Ground",
+            "neighbors": [
+                92,
+                93,
+                95,
+                98,
+                117,
+                119
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": -3
+            },
+            "id": 97,
+            "type": "Water",
+            "neighbors": [
+                69,
+                94,
+                95,
+                98,
+                99
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": -2
+            },
+            "id": 98,
+            "type": "Water",
+            "neighbors": [
+                95,
+                96,
+                97,
+                99,
+                119,
+                122
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 9,
+                "y": -3
+            },
+            "id": 99,
+            "type": "Water",
+            "neighbors": [
+                97,
+                98,
+                100,
+                122
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 8,
+                "y": -2
+            },
+            "id": 100,
+            "type": "Water",
+            "neighbors": [
+                99,
+                101,
+                122,
+                124
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": -2
+            },
+            "id": 101,
+            "type": "Water",
+            "neighbors": [
+                100,
+                102,
+                124,
+                126
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 6,
+                "y": -1
+            },
+            "id": 102,
+            "type": "Water",
+            "neighbors": [
+                101,
+                103,
+                126,
+                128
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": -1
+            },
+            "id": 103,
+            "type": "Water",
+            "neighbors": [
+                102,
+                104,
+                128,
+                130
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 4,
+                "y": 0
+            },
+            "id": 104,
+            "type": "Water",
+            "neighbors": [
+                103,
+                105,
+                130
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 4,
+                "y": 1
+            },
+            "id": 105,
+            "type": "Water",
+            "neighbors": [
+                104,
+                106,
+                130,
+                131,
+                151
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 4,
+                "y": 2
+            },
+            "id": 106,
+            "type": "Water",
+            "neighbors": [
+                105,
+                107,
+                131,
+                151,
+                162,
+                166
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 2
+            },
+            "id": 107,
+            "type": "Water",
+            "neighbors": [
+                106,
+                108,
+                131,
+                138,
+                161,
+                162
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 6,
+                "y": 2
+            },
+            "id": 108,
+            "type": "Water",
+            "neighbors": [
+                107,
+                109,
+                129,
+                131,
+                157,
+                161
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": 1
+            },
+            "id": 109,
+            "type": "Water",
+            "neighbors": [
+                108,
+                110,
+                127,
+                129,
+                154,
+                157
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 8,
+                "y": 1
+            },
+            "id": 110,
+            "type": "Water",
+            "neighbors": [
+                109,
+                111,
+                112,
+                125,
+                127,
+                154
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 9,
+                "y": 1
+            },
+            "id": 111,
+            "type": "Water",
+            "neighbors": [
+                110,
+                112,
+                113,
+                121,
+                152,
+                154
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 9,
+                "y": 0
+            },
+            "id": 112,
+            "type": "Water",
+            "neighbors": [
+                110,
+                111,
+                120,
+                121,
+                123,
+                125
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": 2
+            },
+            "id": 113,
+            "type": "Water",
+            "neighbors": [
+                111,
+                114,
+                121,
+                132,
+                152
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 11,
+                "y": 1
+            },
+            "id": 114,
+            "type": "Water",
+            "neighbors": [
+                113,
+                115,
+                118,
+                121
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": 1
+            },
+            "id": 115,
+            "type": "Water",
+            "neighbors": [
+                114,
+                116,
+                118
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": 0
+            },
+            "id": 116,
+            "type": "Water",
+            "neighbors": [
+                76,
+                93,
+                115,
+                117,
+                118
+            ]
+        },
+        {
+            "castes": 2,
+            "coordinates": {
+                "x": 11,
+                "y": -1
+            },
+            "id": 117,
+            "type": "Ground",
+            "neighbors": [
+                93,
+                96,
+                116,
+                118,
+                119,
+                120
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 11,
+                "y": 0
+            },
+            "id": 118,
+            "type": "Ground",
+            "neighbors": [
+                114,
+                115,
+                116,
+                117,
+                120,
+                121
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": -1
+            },
+            "id": 119,
+            "type": "Ground",
+            "neighbors": [
+                96,
+                98,
+                117,
+                120,
+                122,
+                123
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": 0
+            },
+            "id": 120,
+            "type": "Ground",
+            "neighbors": [
+                112,
+                117,
+                118,
+                119,
+                121,
+                123
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 10,
+                "y": 1
+            },
+            "id": 121,
+            "type": "Ground",
+            "neighbors": [
+                111,
+                112,
+                113,
+                114,
+                118,
+                120
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 9,
+                "y": -2
+            },
+            "id": 122,
+            "type": "Ground",
+            "neighbors": [
+                98,
+                99,
+                100,
+                119,
+                123,
+                124
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 9,
+                "y": -1
+            },
+            "id": 123,
+            "type": "Ground",
+            "neighbors": [
+                112,
+                119,
+                120,
+                122,
+                124,
+                125
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 8,
+                "y": -1
+            },
+            "id": 124,
+            "type": "Ground",
+            "neighbors": [
+                100,
+                101,
+                122,
+                123,
+                125,
+                126
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 8,
+                "y": 0
+            },
+            "id": 125,
+            "type": "Ground",
+            "neighbors": [
+                110,
+                112,
+                123,
+                124,
+                126,
+                127
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": -1
+            },
+            "id": 126,
+            "type": "Ground",
+            "neighbors": [
+                101,
+                102,
+                124,
+                125,
+                127,
+                128
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": 0
+            },
+            "id": 127,
+            "type": "Ground",
+            "neighbors": [
+                109,
+                110,
+                125,
+                126,
+                128,
+                129
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 6,
+                "y": 0
+            },
+            "id": 128,
+            "type": "Ground",
+            "neighbors": [
+                102,
+                103,
+                126,
+                127,
+                129,
+                130
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 6,
+                "y": 1
+            },
+            "id": 129,
+            "type": "Ground",
+            "neighbors": [
+                108,
+                109,
+                127,
+                128,
+                130,
+                131
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 0
+            },
+            "id": 130,
+            "type": "Ground",
+            "neighbors": [
+                103,
+                104,
+                105,
+                128,
+                129,
+                131
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 5,
+                "y": 1
+            },
+            "id": 131,
+            "type": "Ground",
+            "neighbors": [
+                105,
+                106,
+                107,
+                108,
+                129,
+                130
+            ]
+        }
+    ],
+    "North": [
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -13
+            },
+            "id": 0,
+            "type": "Water",
+            "neighbors": [
+                1,
+                6,
+                20
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -12
+            },
+            "id": 1,
+            "type": "Water",
+            "neighbors": [
+                0,
+                2,
+                20,
+                21
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -11
+            },
+            "id": 2,
+            "type": "Water",
+            "neighbors": [
+                1,
+                3,
+                21,
+                22
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 12,
+                "y": -10
+            },
+            "id": 3,
+            "type": "Water",
+            "neighbors": [
+                2,
+                22,
+                41
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -16
+            },
+            "id": 4,
+            "type": "Water",
+            "neighbors": [
+                5,
+                7,
+                23
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -15
+            },
+            "id": 5,
+            "type": "Water",
+            "neighbors": [
+                4,
+                6,
+                23,
+                24
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -14
+            },
+            "id": 6,
+            "type": "Water",
+            "neighbors": [
+                0,
+                5,
+                20,
+                24,
+                25
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -16
+            },
+            "id": 7,
+            "type": "Water",
+            "neighbors": [
+                4,
+                8,
+                23
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -16
+            },
+            "id": 8,
+            "type": "Water",
+            "neighbors": [
+                7,
+                9,
+                23,
+                28
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -15
+            },
+            "id": 9,
+            "type": "Water",
+            "neighbors": [
+                8,
+                10,
+                11,
+                28
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -14
+            },
+            "id": 10,
+            "type": "Water",
+            "neighbors": [
+                9,
+                11,
+                28,
+                29,
+                33,
+                37
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -15
+            },
+            "id": 11,
+            "type": "Water",
+            "neighbors": [
+                9,
+                10,
+                12,
+                37,
+                39
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 18,
+                "y": -15
+            },
+            "id": 12,
+            "type": "Water",
+            "neighbors": [
+                11,
+                13,
+                39
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 19,
+                "y": -15
+            },
+            "id": 13,
+            "type": "Water",
+            "neighbors": [
+                12,
+                14,
+                39
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 19,
+                "y": -14
+            },
+            "id": 14,
+            "type": "Water",
+            "neighbors": [
+                13,
+                15,
+                39,
+                40
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 19,
+                "y": -13
+            },
+            "id": 15,
+            "type": "Water",
+            "neighbors": [
+                14,
+                16,
+                40
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 18,
+                "y": -12
+            },
+            "id": 16,
+            "type": "Water",
+            "neighbors": [
+                15,
+                17,
+                38,
+                40
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -12
+            },
+            "id": 17,
+            "type": "Water",
+            "neighbors": [
+                16,
+                18,
+                34,
+                35,
+                38
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -11
+            },
+            "id": 18,
+            "type": "Water",
+            "neighbors": [
+                17,
+                19,
+                35,
+                36
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -10
+            },
+            "id": 19,
+            "type": "Water",
+            "neighbors": [
+                18,
+                36,
+                47,
+                48
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 13,
+                "y": -13
+            },
+            "id": 20,
+            "type": "Ground",
+            "neighbors": [
+                0,
+                1,
+                6,
+                21,
+                25,
+                26
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 13,
+                "y": -12
+            },
+            "id": 21,
+            "type": "Ground",
+            "neighbors": [
+                1,
+                2,
+                20,
+                22,
+                26,
+                27
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 13,
+                "y": -11
+            },
+            "id": 22,
+            "type": "Ground",
+            "neighbors": [
+                2,
+                3,
+                21,
+                27,
+                41,
+                45
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 14,
+                "y": -15
+            },
+            "id": 23,
+            "type": "Ground",
+            "neighbors": [
+                4,
+                5,
+                7,
+                8,
+                24,
+                28
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -14
+            },
+            "id": 24,
+            "type": "Ground",
+            "neighbors": [
+                5,
+                6,
+                23,
+                25,
+                28,
+                29
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -13
+            },
+            "id": 25,
+            "type": "Ground",
+            "neighbors": [
+                6,
+                20,
+                24,
+                26,
+                29,
+                30
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -12
+            },
+            "id": 26,
+            "type": "Ground",
+            "neighbors": [
+                20,
+                21,
+                25,
+                27,
+                30,
+                31
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 14,
+                "y": -11
+            },
+            "id": 27,
+            "type": "Ground",
+            "neighbors": [
+                21,
+                22,
+                26,
+                31,
+                32,
+                45
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -15
+            },
+            "id": 28,
+            "type": "Ground",
+            "neighbors": [
+                8,
+                9,
+                10,
+                23,
+                24,
+                29
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 15,
+                "y": -14
+            },
+            "id": 29,
+            "type": "Ground",
+            "neighbors": [
+                10,
+                24,
+                25,
+                28,
+                30,
+                33
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -13
+            },
+            "id": 30,
+            "type": "Ground",
+            "neighbors": [
+                25,
+                26,
+                29,
+                31,
+                33,
+                34
+            ]
+        },
+        {
+            "castes": 2,
+            "coordinates": {
+                "x": 15,
+                "y": -12
+            },
+            "id": 31,
+            "type": "Ground",
+            "neighbors": [
+                26,
+                27,
+                30,
+                32,
+                34,
+                35
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 15,
+                "y": -11
+            },
+            "id": 32,
+            "type": "Ground",
+            "neighbors": [
+                27,
+                31,
+                35,
+                36,
+                45,
+                46
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -13
+            },
+            "id": 33,
+            "type": "Ground",
+            "neighbors": [
+                10,
+                29,
+                30,
+                34,
+                37,
+                38
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -12
+            },
+            "id": 34,
+            "type": "Ground",
+            "neighbors": [
+                17,
+                30,
+                31,
+                33,
+                35,
+                38
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 16,
+                "y": -11
+            },
+            "id": 35,
+            "type": "Ground",
+            "neighbors": [
+                17,
+                18,
+                31,
+                32,
+                34,
+                36
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 16,
+                "y": -10
+            },
+            "id": 36,
+            "type": "Ground",
+            "neighbors": [
+                18,
+                19,
+                32,
+                35,
+                46,
+                47
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 17,
+                "y": -14
+            },
+            "id": 37,
+            "type": "Ground",
+            "neighbors": [
+                10,
+                11,
+                33,
+                38,
+                39,
+                40
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 17,
+                "y": -13
+            },
+            "id": 38,
+            "type": "Ground",
+            "neighbors": [
+                16,
+                17,
+                33,
+                34,
+                37,
+                40
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 18,
+                "y": -14
+            },
+            "id": 39,
+            "type": "Ground",
+            "neighbors": [
+                11,
+                12,
+                13,
+                14,
+                37,
+                40
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 18,
+                "y": -13
+            },
+            "id": 40,
+            "type": "Ground",
+            "neighbors": [
+                14,
+                15,
+                16,
+                37,
+                38,
+                39
+            ]
+        }
+    ],
+    "South": [
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": 3
+            },
+            "id": 132,
+            "type": "Water",
+            "neighbors": [
+                113,
+                133,
+                152,
+                153
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 10,
+                "y": 4
+            },
+            "id": 133,
+            "type": "Water",
+            "neighbors": [
+                132,
+                134,
+                153
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 9,
+                "y": 4
+            },
+            "id": 134,
+            "type": "Water",
+            "neighbors": [
+                133,
+                135,
+                153,
+                156
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 8,
+                "y": 5
+            },
+            "id": 135,
+            "type": "Water",
+            "neighbors": [
+                134,
+                136,
+                156,
+                159
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": 5
+            },
+            "id": 136,
+            "type": "Water",
+            "neighbors": [
+                135,
+                137,
+                159
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 6,
+                "y": 5
+            },
+            "id": 137,
+            "type": "Water",
+            "neighbors": [
+                136,
+                139,
+                140,
+                159,
+                160
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 3
+            },
+            "id": 138,
+            "type": "Water",
+            "neighbors": [
+                107,
+                139,
+                160,
+                161,
+                162,
+                163
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 4
+            },
+            "id": 139,
+            "type": "Water",
+            "neighbors": [
+                137,
+                138,
+                140,
+                160,
+                163,
+                164
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 5
+            },
+            "id": 140,
+            "type": "Water",
+            "neighbors": [
+                137,
+                139,
+                141,
+                164,
+                165
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 5,
+                "y": 6
+            },
+            "id": 141,
+            "type": "Water",
+            "neighbors": [
+                140,
+                142,
+                165
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 4,
+                "y": 7
+            },
+            "id": 142,
+            "type": "Water",
+            "neighbors": [
+                141,
+                143,
+                165
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 3,
+                "y": 6
+            },
+            "id": 143,
+            "type": "Water",
+            "neighbors": [
+                142,
+                144,
+                165,
+                169
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 2,
+                "y": 6
+            },
+            "id": 144,
+            "type": "Water",
+            "neighbors": [
+                143,
+                145,
+                169,
+                172
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 1,
+                "y": 5
+            },
+            "id": 145,
+            "type": "Water",
+            "neighbors": [
+                144,
+                146,
+                172
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 1,
+                "y": 4
+            },
+            "id": 146,
+            "type": "Water",
+            "neighbors": [
+                145,
+                147,
+                171,
+                172,
+                173
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 0,
+                "y": 4
+            },
+            "id": 147,
+            "type": "Water",
+            "neighbors": [
+                146,
+                148,
+                173
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 0,
+                "y": 3
+            },
+            "id": 148,
+            "type": "Water",
+            "neighbors": [
+                147,
+                149,
+                173
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 1,
+                "y": 2
+            },
+            "id": 149,
+            "type": "Water",
+            "neighbors": [
+                148,
+                150,
+                170,
+                173
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 2,
+                "y": 2
+            },
+            "id": 150,
+            "type": "Water",
+            "neighbors": [
+                149,
+                151,
+                166,
+                170
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 3,
+                "y": 1
+            },
+            "id": 151,
+            "type": "Water",
+            "neighbors": [
+                105,
+                106,
+                150,
+                166
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 9,
+                "y": 2
+            },
+            "id": 152,
+            "type": "Ground",
+            "neighbors": [
+                111,
+                113,
+                132,
+                153,
+                154,
+                155
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 9,
+                "y": 3
+            },
+            "id": 153,
+            "type": "Ground",
+            "neighbors": [
+                132,
+                133,
+                134,
+                152,
+                155,
+                156
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 8,
+                "y": 2
+            },
+            "id": 154,
+            "type": "Ground",
+            "neighbors": [
+                109,
+                110,
+                111,
+                152,
+                155,
+                157
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 8,
+                "y": 3
+            },
+            "id": 155,
+            "type": "Ground",
+            "neighbors": [
+                152,
+                153,
+                154,
+                156,
+                157,
+                158
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 8,
+                "y": 4
+            },
+            "id": 156,
+            "type": "Ground",
+            "neighbors": [
+                134,
+                135,
+                153,
+                155,
+                158,
+                159
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": 2
+            },
+            "id": 157,
+            "type": "Ground",
+            "neighbors": [
+                108,
+                109,
+                154,
+                155,
+                158,
+                161
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 7,
+                "y": 3
+            },
+            "id": 158,
+            "type": "Ground",
+            "neighbors": [
+                155,
+                156,
+                157,
+                159,
+                160,
+                161
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 7,
+                "y": 4
+            },
+            "id": 159,
+            "type": "Ground",
+            "neighbors": [
+                135,
+                136,
+                137,
+                156,
+                158,
+                160
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 6,
+                "y": 4
+            },
+            "id": 160,
+            "type": "Ground",
+            "neighbors": [
+                137,
+                138,
+                139,
+                158,
+                159,
+                161
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 6,
+                "y": 3
+            },
+            "id": 161,
+            "type": "Ground",
+            "neighbors": [
+                107,
+                108,
+                138,
+                157,
+                158,
+                160
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 4,
+                "y": 3
+            },
+            "id": 162,
+            "type": "Ground",
+            "neighbors": [
+                106,
+                107,
+                138,
+                163,
+                166,
+                167
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 4,
+                "y": 4
+            },
+            "id": 163,
+            "type": "Ground",
+            "neighbors": [
+                138,
+                139,
+                162,
+                164,
+                167,
+                168
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 4,
+                "y": 5
+            },
+            "id": 164,
+            "type": "Ground",
+            "neighbors": [
+                139,
+                140,
+                163,
+                165,
+                168,
+                169
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 4,
+                "y": 6
+            },
+            "id": 165,
+            "type": "Ground",
+            "neighbors": [
+                140,
+                141,
+                142,
+                143,
+                164,
+                169
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 3,
+                "y": 2
+            },
+            "id": 166,
+            "type": "Ground",
+            "neighbors": [
+                106,
+                150,
+                151,
+                162,
+                167,
+                170
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 3,
+                "y": 3
+            },
+            "id": 167,
+            "type": "Ground",
+            "neighbors": [
+                162,
+                163,
+                166,
+                168,
+                170,
+                171
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 3,
+                "y": 4
+            },
+            "id": 168,
+            "type": "Ground",
+            "neighbors": [
+                163,
+                164,
+                167,
+                169,
+                171,
+                172
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 3,
+                "y": 5
+            },
+            "id": 169,
+            "type": "Ground",
+            "neighbors": [
+                143,
+                144,
+                164,
+                165,
+                168,
+                172
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 2,
+                "y": 3
+            },
+            "id": 170,
+            "type": "Ground",
+            "neighbors": [
+                149,
+                150,
+                166,
+                167,
+                171,
+                173
+            ]
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 2,
+                "y": 4
+            },
+            "id": 171,
+            "type": "Ground",
+            "neighbors": [
+                146,
+                167,
+                168,
+                170,
+                172,
+                173
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 2,
+                "y": 5
+            },
+            "id": 172,
+            "type": "Ground",
+            "neighbors": [
+                144,
+                145,
+                146,
+                168,
+                169,
+                171
+            ]
+        },
+        {
+            "castes": 1,
+            "coordinates": {
+                "x": 1,
+                "y": 3
+            },
+            "id": 173,
+            "type": "Ground",
+            "neighbors": [
+                146,
+                147,
+                148,
+                149,
+                170,
+                171
+            ]
+        }
+    ],
+    "CasteSwapTiles": [
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 21,
+                "y": -10
+            },
+            "id": 200,
+            "type": "Swap",
+            "neighbors": []
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 22,
+                "y": -10
+            },
+            "id": 201,
+            "type": "Swap",
+            "neighbors": []
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 22,
+                "y": -11
+            },
+            "id": 202,
+            "type": "Swap",
+            "neighbors": []
+        },
+        {
+            "castes": 0,
+            "coordinates": {
+                "x": 23,
+                "y": -12
+            },
+            "id": 203,
+            "type": "Swap",
+            "neighbors": []
+        }
+    ]
+}
