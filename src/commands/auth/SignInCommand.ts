@@ -17,20 +17,29 @@ interface Response {
 }
 
 class SignInCommand extends Command<Argument, Response> {
+    private user?: IUser;
 
     public constructor(argument: Argument) {
         super('SignInCommand', argument);
     }
 
-    protected async doExecute() {
-        const { email, password, staySignedIn } = this.argument;
-        const { duration } = SESSION_OPTIONS;
+    protected async doPrepare() {
+        const { email, password } = this.argument;
 
         // Try and find user in database
         const user = await new GetUserCommand({ email }).execute();
 
         // Authenticate user
         await user.authenticate(password);
+
+        // Store user in command
+        this.user = user;
+    }
+
+    protected async doExecute() {
+        const { staySignedIn } = this.argument;
+        const { duration } = SESSION_OPTIONS;
+        const user = this.user!;
 
         // Create session for user
         const session = await Session.create(user.getEmail(), staySignedIn, duration);

@@ -1,8 +1,8 @@
-import UserModel, { IUser } from '../../models/auth/User';
+import User, { IUser } from '../../models/auth/User';
 import { logger } from '../../utils/Logging';
-import GameModel, { IGame } from '../../models/game/Game';
+import Game, { IGame } from '../../models/game/Game';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import { shuffle } from '../../libs';
+import { getRandom, shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
 
@@ -15,6 +15,7 @@ interface Argument {
 type Response = IGame;
 
 class CreateGameCommand extends Command<Argument, Response> {
+    private game?: IGame;
 
     public constructor(argument: Argument) {
         super('CreateGameCommand', argument);
@@ -25,7 +26,7 @@ class CreateGameCommand extends Command<Argument, Response> {
 
         // Ensure all users exist
         await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
-            const user = await UserModel.getByEmail(email);
+            const user = await User.getByEmail(email);
 
             if (!user) {
                 throw new ErrorUserDoesNotExist(email);
@@ -38,11 +39,11 @@ class CreateGameCommand extends Command<Argument, Response> {
 
         // Fetch users
         const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
-            return UserModel.getByEmail(email);
+            return User.getByEmail(email);
         }));
 
         // Create new game
-        const game = new GameModel({
+        const game = new Game({
             name,
             players: this.generatePlayers({ creator, opponents }),
         });
@@ -53,6 +54,9 @@ class CreateGameCommand extends Command<Argument, Response> {
         // Report its creation
         logger.info(`New game created: ${game.getId()}`);
 
+        // Store game in command
+        this.game = game;
+
         return game;
     }
 
@@ -61,12 +65,17 @@ class CreateGameCommand extends Command<Argument, Response> {
         // Randomly assign colors to users
         const randomizedColors = shuffle(Object.keys(Color)) as Color[];
 
+        // Randomly decide who starts
+        const users = [creator, ...opponents];
+        const starter = getRandom(users);
+
         // Create players
-        return [creator, ...opponents].map((user: IUser, i: number) => {
+        return users.map((user: IUser, i: number) => {
             const color = randomizedColors[i];
 
             return {
                 userId: user.getId(),
+                isPlaying: user.getId() === starter.getId(),
                 isCreator: user.getId() === creator.getId(),
                 color,
             };

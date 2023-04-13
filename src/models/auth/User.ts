@@ -72,7 +72,7 @@ UserSchema.methods.getEmail = function() {
 
 
 UserSchema.methods.resetPassword = async function(password: string) {
-    this.password = await UserModel.hashPassword(password);
+    this.password = await User.hashPassword(password);
     this.lastPasswordReset = new Date();
     this.nPasswordResets += 1;
 }
@@ -105,6 +105,6 @@ UserSchema.statics.hashPassword = async function(password: string) {
 
 
 
-const UserModel = model<IUser, IUserModel>('User', UserSchema);
+const User = model<IUser, IUserModel>('User', UserSchema);
 
-export default UserModel;
+export default User;

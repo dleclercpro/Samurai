@@ -1,17 +1,22 @@
-class PlayedTile {
-    private handTileId: string;
-    private boardTileId: string;
-    private playerId: string;
+import { Document, Schema } from 'mongoose';
 
-    public constructor(handTileId: string, boardTileId: string, playerId: string) {
-        this.handTileId = handTileId;
-        this.boardTileId = boardTileId;
-        this.playerId = playerId;
-    }
+export interface IPlayedTile extends Document {
+    handTileId: number,
+    boardTileId: number,
 
-    public toString() {
-        return `[Player ${this.playerId}]: (${this.boardTileId}, ${this.handTileId})`;
-    }
+    // Methods
+    stringify: () => string,
 }
 
-export default PlayedTile;
+
+
+export const PlayedTileSchema = new Schema<IPlayedTile>({
+    handTileId: { type: Number, required: true },
+    boardTileId: { type: Number, required: true },
+});
+
+
+
+PlayedTileSchema.methods.stringify = function() {
+    return `[${this.parent().getId()}]: (${this.boardTileId}, ${this.handTileId})`;
+}

@@ -1,19 +1,29 @@
-class Score {
-    private playerId: string;
-    private military: number;
-    private religion: number;
-    private commerce: number;
+import { Document, Schema } from 'mongoose';
+import { Caste } from '../../types/GameTypes';
 
-    public constructor(playerId: string, military: number, religion: number, commerce: number) {
-        this.playerId = playerId;
-        this.military = military;
-        this.religion = religion;
-        this.commerce = commerce;
-    }
+export interface IScore extends Document {
+    [Caste.Military]: number,
+    [Caste.Commerce]: number,
+    [Caste.Religion]: number,
 
-    public toString() {
-        return `[Player ${this.playerId}]: (Military: ${this.military}, Religion: ${this.religion}, Commerce: ${this.commerce})`;
-    }
+    // Methods
+    stringify: () => string,
 }
 
-export default Score;
+
+
+export const ScoreSchema = new Schema<IScore>({
+    [Caste.Military]: { type: Number, required: true, default: 0, min: 0 },
+    [Caste.Commerce]: { type: Number, required: true, default: 0, min: 0 },
+    [Caste.Religion]: { type: Number, required: true, default: 0, min: 0 },
+});
+
+
+
+ScoreSchema.methods.stringify = function() {
+    const string = Object.entries(Caste)
+        .map(([key, value]: [string, Caste]) => `${value}: ${this[key]}`)
+        .join(', ');
+
+    return `[${string}]`;
+}
