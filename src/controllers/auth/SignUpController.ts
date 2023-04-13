@@ -1,4 +1,3 @@
-import { validate } from 'email-validator';
 import { RequestHandler } from 'express';
 import CreateUserCommand from '../../commands/user/CreateUserCommand';
 import { ClientError } from '../../errors/ClientErrors';
@@ -7,7 +6,6 @@ import { ErrorUserAlreadyExists } from '../../errors/UserErrors';
 import { errorResponse, successResponse } from '../../libs/calls';
 import { HttpStatusCode } from '../../types/HTTPTypes';
 import { logger } from '../../utils/Logging';
-import { validatePassword } from '../../utils/Validation';
 
 const SignUpController: RequestHandler = async (req, res, next) => {    
     try {
@@ -20,16 +18,6 @@ const SignUpController: RequestHandler = async (req, res, next) => {
 
         // Sanitize input
         email = email.trim().toLowerCase();
-
-        // Validate e-mail
-        if (!validate(email)) {
-            throw new ErrorInvalidEmail(email);
-        }
-
-        // Validate password
-        if (!validatePassword(password)) {
-            throw new ErrorInvalidPassword();
-        }
         
         // Create new user in database
         await new CreateUserCommand({ email, password }).execute();

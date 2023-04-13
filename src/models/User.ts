@@ -1,7 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import { Document, model, Model, Schema, SchemaOptions } from 'mongoose';
-import { N_PASSWORD_SALT_ROUNDS } from '../config/AuthConfig';
+import { N_PASSWORD_SALT_ROUNDS, PASSWORD_OPTIONS } from '../config/AuthConfig';
 import { ErrorUserDoesNotExist, ErrorUserWrongPassword } from '../errors/UserErrors';
+import { isAlphanumerical, isNumerical } from '../libs/string';
+import { validate } from 'email-validator';
 
 export interface IUser extends Document {
     email: string,
@@ -29,6 +31,8 @@ export interface IUserModel extends Model<IUser> {
     getById: (id: string) => Promise<IUser>,
     getByEmail: (email: string) => Promise<IUser>,
     hashPassword: (password: string) => Promise<string>,
+    isEmailValid: (email: string) => boolean,
+    isPasswordValid: (password: string) => boolean,
 }
 
 
@@ -78,9 +82,9 @@ UserSchema.methods.resetPassword = async function(password: string) {
 }
 
 UserSchema.methods.authenticate = async function(password: string) {
-    const isPasswordValid = await bcrypt.compare(password, this.password);
+    const isAuthenticated = await bcrypt.compare(password, this.password);
 
-    if (!isPasswordValid) {
+    if (!isAuthenticated) {
         throw new ErrorUserWrongPassword(this.email);
     }
 }
@@ -105,6 +109,29 @@ UserSchema.statics.getByEmail = async function(email: string) {
 
 UserSchema.statics.hashPassword = async function(password: string) {
     return bcrypt.hash(password, N_PASSWORD_SALT_ROUNDS);
+}
+
+UserSchema.statics.isEmailValid = function(email: string) {
+    return validate(email);
+}
+
+UserSchema.statics.isPasswordValid = function(password: string) {
+    const options = PASSWORD_OPTIONS;
+    let isValid = true;
+    
+    if (options.minLength) {
+        isValid = password.length >= options.minLength;
+    }
+
+    if (isValid && options.minNumbers) {
+        isValid = password.split('').filter(c => isNumerical(c)).length >= options.minNumbers;
+    }
+
+    if (isValid && options.minSymbols) {
+        isValid = password.split('').filter(c => !isAlphanumerical(c)).length >= options.minSymbols;
+    }
+
+    return isValid;
 }
 
 

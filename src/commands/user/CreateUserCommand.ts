@@ -2,6 +2,7 @@ import User, { IUser } from '../../models/User';
 import Command from '../Command';
 import { ErrorUserAlreadyExists } from '../../errors/UserErrors';
 import { logger } from '../../utils/Logging';
+import { ErrorInvalidEmail, ErrorInvalidPassword } from '../../errors/ServerError';
 
 interface Argument {
     email: string,
@@ -18,7 +19,17 @@ class CreateUserCommand extends Command<Argument, Response> {
     }
 
     protected async doPrepare() {
-        const { email } = this.argument;
+        const { email, password } = this.argument;
+
+        // Validate e-mail
+        if (!User.isEmailValid(email)) {
+            throw new ErrorInvalidEmail(email);
+        }
+
+        // Validate password
+        if (!User.isPasswordValid(password)) {
+            throw new ErrorInvalidPassword();
+        }
 
         // Try and find user in database
         const user = await User.getByEmail(email);
