@@ -1,6 +1,6 @@
-import User, { IUser } from '../../models/auth/User';
+import User, { IUser } from '../../models/User';
 import { logger } from '../../utils/Logging';
-import Game, { IGame } from '../../models/game/Game';
+import Game, { IGame } from '../../models/Game';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { getRandom, shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';

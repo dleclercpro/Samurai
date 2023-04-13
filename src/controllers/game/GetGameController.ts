@@ -1,47 +1,40 @@
 import { RequestHandler } from 'express';
+import { errorResponse, successResponse } from '../../libs/calls';
+import GetGameCommand from '../../commands/game/GetGameCommand';
+import { HttpStatusCode } from '../../types/HTTPTypes';
+import { ClientError } from '../../errors/ClientErrors';
+import { logger } from '../../utils/Logging';
 import { ErrorGameDoesNotExist, ErrorGameVersionDoesNotExist } from '../../errors/GameErrors';
-import { successResponse } from '../../libs/calls';
-import Game from '../../models/game/Game';
 
 const GetGameController: RequestHandler = async (req, res, next) => {
     try {
-        const { gameId: id } = req.params;
-        const { version } = req.body;
+        const { id } = req.params;
+        const { version: _version } = req.body;
 
-        return res.json(successResponse({}));
+        // Parse version
+        const version = parseInt(_version, 0);
 
-        /* // Fetch game
-        const game = await Game.findById(id);
-        
-        if (!game) {
-            throw new ErrorGameDoesNotExist(id);
-        }
+        // Fetch game
+        const game = await new GetGameCommand({ id, version }).execute();
 
-        // If version is higher than the current one, there's a problem
-        if (version > game.getVersion()) {
-            throw new ErrorGameVersionDoesNotExist(version);
-        }
-        
-        // No need to send details back if client's game details
-        // are already up-to-date
-        if (version === game.getVersion()) {
+        // No updates since provided version
+        if (game === null) {
             return res.json(successResponse());
         }
 
         // Otherwise send up-to-date details
-        return res.json(successResponse({
-            name: game.getName(),
-            version: game.getVersion(),
-            hand: [],
-            board: [],
-            lastPlayedTiles: [],
-            players: {
-                self: '',
-                opponents: [],
-            },
-        })); */
+        return res.json(successResponse(game));
 
     } catch (err: any) {
+        if (err.code === ErrorGameDoesNotExist.code ||
+            err.code === ErrorGameVersionDoesNotExist.code) {
+            logger.warn(err.message);
+
+            return res
+                .status(HttpStatusCode.NOT_FOUND)
+                .json(errorResponse(ClientError.GameDoesNotExist));
+        }
+        
         next(err);
     }
 }

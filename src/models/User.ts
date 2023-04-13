@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Document, model, Model, Schema, SchemaOptions } from 'mongoose';
-import { N_PASSWORD_SALT_ROUNDS } from '../../config/AuthConfig';
-import { ErrorUserWrongPassword } from '../../errors/UserErrors';
+import { N_PASSWORD_SALT_ROUNDS } from '../config/AuthConfig';
+import { ErrorUserDoesNotExist, ErrorUserWrongPassword } from '../errors/UserErrors';
 
 export interface IUser extends Document {
     email: string,
@@ -92,7 +92,11 @@ UserSchema.statics.getAll = async function() {
 }
 
 UserSchema.statics.getById = async function(id: string) {
-    return this.findById(id).exec();
+    try {
+        return await this.findById(id).exec();
+    } catch (e: any) {
+        throw new ErrorUserDoesNotExist(id);
+    }
 }
 
 UserSchema.statics.getByEmail = async function(email: string) {

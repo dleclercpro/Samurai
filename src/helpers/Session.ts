@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import { toMs } from '../../libs/time';
-import { TimeDuration } from '../../types/TimeTypes';
-import { logger } from '../../utils/Logging';
-import SessionsDatabase from '../../databases/SessionsDatabase';
+import { toMs } from '../libs/time';
+import { TimeDuration } from '../types/TimeTypes';
+import { logger } from '../utils/Logging';
+import SessionsDatabase from '../databases/SessionsDatabase';
 
 class Session {
     protected id: string;

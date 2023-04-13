@@ -1,4 +1,4 @@
-import { IUser } from '../models/auth/User';
+import { IUser } from '../models/User';
 import { ServerError } from './ServerError';
 
 export class ErrorUserAlreadyExists extends ServerError {
@@ -12,8 +12,8 @@ export class ErrorUserAlreadyExists extends ServerError {
 export class ErrorUserDoesNotExist extends ServerError {
     public static code = -301;
 
-    constructor(email: string) {
-        super(ErrorUserDoesNotExist.code, `User does not exist: ${email}`);
+    constructor(user: string) {
+        super(ErrorUserDoesNotExist.code, `User does not exist: ${user}`);
     }
 }
 

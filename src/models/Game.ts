@@ -1,7 +1,10 @@
 import { Document, model, Model, Schema } from 'mongoose';
 import { IPlayer, PlayerSchema } from './Player';
-import User, { IUser } from '../auth/User';
+import User, { IUser } from './User';
 import { CitySchema, ICity } from './City';
+import { isMongoError } from '../databases/base/MongoDB';
+import { ErrorUserDoesNotExist } from '../errors/UserErrors';
+import { ErrorGameDoesNotExist } from '../errors/GameErrors';
 
 export interface IGame extends Document {
     name: string,
@@ -19,6 +22,7 @@ export interface IGame extends Document {
     // Methods
     stringify: () => string,
     getId: () => string,
+    getVersion: () => number,
     getCreator: () => Promise<IUser>,
 }
 
@@ -54,6 +58,10 @@ GameSchema.methods.getId = function() {
     return this._id;
 }
 
+GameSchema.methods.getVersion = function() {
+    return this.version;
+}
+
 GameSchema.methods.getCreator = async function() {
     for (const player of this.players) {
         if (player.isCreator) {
@@ -65,7 +73,11 @@ GameSchema.methods.getCreator = async function() {
 
 
 GameSchema.statics.getById = async function(id: string) {
-    return this.findById(id).exec();
+    try {
+        return await this.findById(id).exec();
+    } catch (e: any) {
+        throw new ErrorGameDoesNotExist(id);
+    }
 }
 
 

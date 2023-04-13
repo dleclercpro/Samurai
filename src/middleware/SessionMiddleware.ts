@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { ClientError } from '../errors/ClientErrors';
 import { ErrorExpiredSession, ErrorInvalidSessionId, ErrorMissingSessionId } from '../errors/SessionErrors';
 import { errorResponse } from '../libs/calls';
-import Session from '../models/auth/Session';
+import Session from '../helpers/Session';
 import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
 import { TimeUnit } from '../types/TimeTypes';
 import { logger } from '../utils/Logging';

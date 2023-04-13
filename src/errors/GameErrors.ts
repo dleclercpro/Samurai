@@ -1,5 +1,5 @@
-import Game from '../models/game/Game';
-import { IUser } from '../models/auth/User';
+import { IGame } from '../models/Game';
+import { IUser } from '../models/User';
 import { ServerError } from './ServerError';
 
 export class ErrorGameDoesNotExist extends ServerError {
@@ -21,7 +21,7 @@ export class ErrorGameVersionDoesNotExist extends ServerError {
 export class ErrorUserNotPlayingInGame extends ServerError {
     public static code = -402;
     
-    constructor(user: IUser, game: Game) {
+    constructor(user: IUser, game: IGame) {
         super(ErrorUserNotPlayingInGame.code, `User ${user.getId()} does not play in game ${game.getId()}!`);
     }
 }

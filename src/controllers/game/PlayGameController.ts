@@ -4,9 +4,9 @@ import { logger } from '../../utils/Logging';
 
 const PlayGameController: RequestHandler = async (req, res, next) => {
     try {
-        const { gameId } = req.params;
+        const { id } = req.params;
 
-        logger.debug(`Playing game ${gameId}.`);
+        logger.debug(`Playing game ${id}.`);
 
         // Success
         return res.json(successResponse());

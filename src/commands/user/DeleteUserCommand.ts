@@ -1,5 +1,5 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import User, { IUser } from '../../models/auth/User';
+import User, { IUser } from '../../models/User';
 import Command from '../Command';
 
 interface Argument {

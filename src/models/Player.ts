@@ -1,5 +1,5 @@
 import { Document, Schema } from 'mongoose';
-import { Color } from '../../types/GameTypes';
+import { Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 

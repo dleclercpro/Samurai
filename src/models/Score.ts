@@ -1,5 +1,5 @@
 import { Document, Schema } from 'mongoose';
-import { Caste } from '../../types/GameTypes';
+import { Caste } from '../types/GameTypes';
 
 export interface IScore extends Document {
     [Caste.Military]: number,

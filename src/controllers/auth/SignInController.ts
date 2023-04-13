@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
+import { HttpStatusCode } from '../../types/HTTPTypes';
 import { errorResponse, successResponse } from '../../libs/calls';
 import SignInCommand from '../../commands/auth/SignInCommand';
 import { ErrorUserDoesNotExist, ErrorUserWrongPassword } from '../../errors/UserErrors';

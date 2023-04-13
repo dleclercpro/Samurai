@@ -1,7 +1,7 @@
 import { SESSIONS_DB_OPTIONS } from '../config/AppConfig';
 import { SESSION_OPTIONS } from '../config/AuthConfig';
-import Session from '../models/auth/Session';
-import SessionSerializer from '../models/auth/SessionSerializer';
+import Session from '../helpers/Session';
+import SessionSerializer from '../helpers/SessionSerializer';
 import { createLogger } from '../utils/Logging';
 import RedisDB from './base/RedisDB';
 import { schedule } from 'node-cron';

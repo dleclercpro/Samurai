@@ -1,4 +1,4 @@
-import User, { IUser } from '../../models/auth/User';
+import User, { IUser } from '../../models/User';
 import Command from '../Command';
 import { ErrorUserAlreadyExists } from '../../errors/UserErrors';
 import { logger } from '../../utils/Logging';
