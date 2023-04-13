@@ -1,9 +1,10 @@
 import { Document, model, Model, Schema } from 'mongoose';
+import { IPlayer, PlayerSchema } from './Player';
+import UserModel, { IUser } from '../auth/User';
 
 export interface IGame extends Document {
     name: string,
     version: number,
-    creatorId: string,
 
     createTime: Date,
     startTime?: Date,
@@ -11,11 +12,12 @@ export interface IGame extends Document {
     lastViewedTime?: Date,
     lastPlayedTime?: Date,
 
-    nTurnsPlayed: number,
+    players: IPlayer[],
 
     // Methods
     stringify: () => string,
     getId: () => string,
+    getCreator: () => Promise<IUser>,
 }
 
 
@@ -29,7 +31,6 @@ export interface IGameModel extends Model<IGame> {
 export const GameSchema = new Schema<IGame>({
     name: { type: String, required: true },
     version: { type: Number, required: true, default: 0, min: 0 },
-    creatorId: { type: String, required: true },
     
     createTime: { type: Date, required: true, default: () => new Date() },
     startTime: { type: Date },
@@ -37,7 +38,7 @@ export const GameSchema = new Schema<IGame>({
     lastViewedTime: { type: Date },
     lastPlayedTime: { type: Date },
 
-    nTurnsPlayed: { type: Number, required: true, min: 0, default: 0 },
+    players: { type: [PlayerSchema], required: true, min: 2, max: 4 }
 });
 
 
@@ -48,6 +49,14 @@ GameSchema.methods.stringify = function() {
 
 GameSchema.methods.getId = function() {
     return this._id;
+}
+
+GameSchema.methods.getCreator = async function() {
+    for (const player of this.players) {
+        if (player.isCreator) {
+            return UserModel.getById(player.userId);
+        }
+    }
 }
 
 

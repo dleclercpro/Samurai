@@ -9,8 +9,12 @@ abstract class Command<Argument = void, Response = void> {
         this.argument = argument;
     }
 
+    protected async doPrepare() {}
+
     public async execute() {
         try {
+            await this.doPrepare();
+
             return await this.doExecute();
 
         } catch (err: any) {

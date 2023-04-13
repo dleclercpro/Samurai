@@ -4,9 +4,7 @@ import GameModel, { IGame } from '../../models/game/Game';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
-import PlayerModel from '../../models/game/Player';
-import { getRange } from '../../libs/math';
-import TransactionCommand from '../TransactionCommand';
+import Command from '../Command';
 
 interface Argument {
     name: string,
@@ -16,71 +14,63 @@ interface Argument {
 
 type Response = IGame;
 
-class CreateGameCommand extends TransactionCommand<Argument, Response> {
-    private game?: IGame;
+class CreateGameCommand extends Command<Argument, Response> {
 
     public constructor(argument: Argument) {
         super('CreateGameCommand', argument);
     }
 
-    protected async doExecute() {
-        const { name, creatorEmail, opponentEmails } = this.argument;
+    protected async doPrepare() {
+        const { creatorEmail, opponentEmails } = this.argument;
 
         // Ensure all users exist
-        const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
+        await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
             const user = await UserModel.getByEmail(email);
 
             if (!user) {
                 throw new ErrorUserDoesNotExist(email);
             }
+        }));
+    }
 
-            return user;
+    protected async doExecute() {
+        const { name, creatorEmail, opponentEmails } = this.argument;
+
+        // Fetch users
+        const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
+            return UserModel.getByEmail(email);
         }));
 
         // Create new game
-        this.game = new GameModel({
+        const game = new GameModel({
             name,
-            creatorId: creator.getId(),
-            opponentIds: opponents.map(o => o.getId()),
+            players: this.generatePlayers({ creator, opponents }),
         });
 
         // Store it in database
-        await this.game.save({ session: this.session });
+        await game.save();
 
-        // Create players
-        await this.createPlayers([creator, ...opponents]);
-        
         // Report its creation
-        logger.info(`New game created: ${this.game.getId()}`);
+        logger.info(`New game created: ${game.getId()}`);
 
-        return this.game;
+        return game;
     }
 
-    private async createPlayers(users: IUser[]) {
-        if (!this.game) {
-            throw new Error('Cannot create players for an undefined game!');
-        }
+    private generatePlayers({ creator, opponents }: { creator: IUser, opponents: IUser[] }) {
 
         // Randomly assign colors to users
         const randomizedColors = shuffle(Object.keys(Color)) as Color[];
 
         // Create players
-        const players = await Promise.all(getRange(users.length).map(async (i: number) => {
-            const user = users[i];
+        return [creator, ...opponents].map((user: IUser, i: number) => {
             const color = randomizedColors[i];
 
-            const player = new PlayerModel({
-                gameId: this.game!.getId(),
+            return {
                 userId: user.getId(),
+                isCreator: user.getId() === creator.getId(),
                 color,
-            });
-
-            await player.save({ session: this.session });
-
-            return player;
-        }));
-
-        return players;
+            };
+        });
     }
 }
 

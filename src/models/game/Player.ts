@@ -1,11 +1,10 @@
-import { Document, model, Model, Schema } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 import { Color } from '../../types/GameTypes';
 
 export interface IPlayer extends Document {
-    gameId: string,
     userId: string,
     color: Color,
-
+    isCreator: boolean,
     nTurnsPlayed: number,
 
     // Methods
@@ -15,17 +14,10 @@ export interface IPlayer extends Document {
 
 
 
-export interface IPlayerModel extends Model<IPlayer> {
-    getById: (id: string) => Promise<IPlayer>,
-}
-
-
-
 export const PlayerSchema = new Schema<IPlayer>({
-    gameId: { type: String, required: true },
     userId: { type: String, required: true },
     color: { type: String, required: true, enum: Object.values(Color) },
-
+    isCreator: { type: Boolean, required: true },
     nTurnsPlayed: { type: Number, required: true, default: 0 },
 });
 
@@ -38,15 +30,3 @@ PlayerSchema.methods.stringify = function() {
 PlayerSchema.methods.getId = function() {
     return this._id;
 }
-
-
-
-PlayerSchema.statics.getById = async function(id: string) {
-    return this.findById(id).exec();
-}
-
-
-
-const PlayerModel = model<IPlayer, IPlayerModel>('Player', PlayerSchema);
-
-export default PlayerModel;
