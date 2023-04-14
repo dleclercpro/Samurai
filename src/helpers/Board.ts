@@ -1,5 +1,5 @@
-import { BoardTileJSON } from '../types/DataTypes';
-import Data from '../utils/Data';
+import { BOARD_JSON } from '../config/GameConfig';
+import { BoardTileJSON } from '../types/JSONTypes';
 import BoardTile from './BoardTile';
 
 enum BoardSection {
@@ -33,8 +33,7 @@ class Board {
     }
 
     public static async create(nPlayers: number) {
-        const board = Data.getBoard();
-        const boardSections = Object.keys(board) as BoardSection[];
+        const boardSections = Object.keys(BOARD_JSON) as BoardSection[];
         
         // Based on number of players, some sections of the full board are
         // left off
@@ -57,14 +56,14 @@ class Board {
         // on number of players
         const _tiles = boardSections.reduce((prevTiles: BoardTileJSON[], section: BoardSection) => {
             if (!ignoredSections.includes(section)) {
-                return [...prevTiles, ...board[section]];
+                return [...prevTiles, ...BOARD_JSON[section]];
             }
 
             return prevTiles;
         }, []);
 
         // Finish off by adding caste swapping tiles, also based on number of players
-        _tiles.push(...board[BoardSection.CasteSwapTiles].slice(0, nPlayers));
+        _tiles.push(...BOARD_JSON[BoardSection.CasteSwapTiles].slice(0, nPlayers));
 
         // Convert tiles array to map
         // FIXME

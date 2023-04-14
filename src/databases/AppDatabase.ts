@@ -1,4 +1,4 @@
-import { APP_DB_OPTIONS, DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_TIMEOUT } from '../config/AppConfig';
+import { APP_DB_OPTIONS, DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_TIMEOUT } from '../config/DatabasesConfig';
 import { createLogger } from '../utils/Logging';
 import MongoDB from './base/MongoDB';
 

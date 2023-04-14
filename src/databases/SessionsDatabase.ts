@@ -1,4 +1,4 @@
-import { SESSIONS_DB_OPTIONS } from '../config/AppConfig';
+import { SESSIONS_DB_OPTIONS } from '../config/DatabasesConfig';
 import { SESSION_OPTIONS } from '../config/AuthConfig';
 import Session from '../helpers/Session';
 import SessionSerializer from '../helpers/SessionSerializer';
