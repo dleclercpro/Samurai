@@ -5,8 +5,7 @@ import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { getRandom, shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
-import Board from '../../helpers/Board';
-import { getRange } from '../../libs/math';
+import BoardBuilder from '../../helpers/BoardBuilder';
 
 interface Argument {
     name: string,
@@ -88,10 +87,7 @@ class CreateGameCommand extends Command<Argument, Response> {
     }
 
     private async generateBoard() {
-        for (let i of [2]) {
-            const board = await Board.create(i);
-            console.log(board.getTiles());
-        }
+
     }
 }
 

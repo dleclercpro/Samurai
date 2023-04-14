@@ -31,13 +31,16 @@ class CastePiecesBag {
     }
 
     public getNext() {
-        const caste = getRandom<Caste>(Object.values(Caste));
+        while (this.hasNext()) {
+            const caste = getRandom<Caste>(Object.values(Caste));
 
-        if (this.counts[caste] > 0) {
-            this.counts[caste] -= 1;
+            if (this.counts[caste] > 0) {
+                this.counts[caste] -= 1;
 
-            return caste;
+                return caste;
+            }
         }
+        throw new Error('Bag is out of caste pieces.');
     }
 }
 

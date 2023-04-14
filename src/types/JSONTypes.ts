@@ -1,3 +1,4 @@
+import { BoardSection } from '../helpers/Board';
 import { BoardTileCoordinates, BoardTileType } from '../helpers/BoardTile';
 import { HandTileType } from '../helpers/HandTile';
 
@@ -11,10 +12,11 @@ export interface HandTileJSON {
 export interface BoardTileJSON {
     id: number,
     type: BoardTileType,
+    section: BoardSection,
     coordinates: BoardTileCoordinates,
     neighbors: number[],
     castes: number,
 }
 
 export type HandJSON = HandTileJSON[];
-export type BoardJSON = Record<string, BoardTileJSON[]>;
+export type BoardJSON = BoardTileJSON[];

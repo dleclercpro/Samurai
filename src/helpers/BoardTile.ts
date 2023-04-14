@@ -1,4 +1,5 @@
 import { Caste } from '../types/GameTypes';
+import BoardData from './BoardDataManager';
 import HandTile from './HandTile';
 
 export interface BoardTileCoordinates {
@@ -14,29 +15,22 @@ export enum BoardTileType {
 
 interface Argument {
     id: number,
-    type: BoardTileType,
-    coordinates: BoardTileCoordinates,
-    neighbors: number[],
-    castes: Caste[],
+    castes?: Caste[],
     playedTile?: HandTile,
 }
 
 class BoardTile {
     protected id: number;
     protected type: BoardTileType;
-    protected coordinates: BoardTileCoordinates;
-    protected neighbors: number[];
     protected castes: Caste[];
     protected playedTile?: HandTile;
 
     public constructor(argument: Argument) {
-        const { id, type, coordinates, neighbors, castes, playedTile } = argument;
+        const { id, castes, playedTile } = argument;
 
         this.id = id;
-        this.type = type;
-        this.coordinates = coordinates;
-        this.neighbors = neighbors;
-        this.castes = castes;
+        this.type = BoardData.getTileType(id);
+        this.castes = castes ?? [];
         this.playedTile = playedTile;
     }
 

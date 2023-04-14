@@ -33,6 +33,12 @@ export const extractFields = (fields: string[], values: { [key: string]: any }) 
     }, {});
 }
 
+export const flatten = <T> (array: T[][]) => {
+    return array.reduce((res, arr) => {
+        return [...res, ...arr];
+    }, []);
+}
+
 export const arrayEquals = <T> (a: T[], b: T[]) => {
     return a.length === b.length && a.every((value, i) => value === b[i]);
 }
