@@ -8,8 +8,8 @@ const router = Router();
 
 
 
-// API
-router.use(`/api/${API_VERSION}`, ApiRouter)
+// Routes
+router.use(`/${API_VERSION}`, ApiRouter);
 
 
 

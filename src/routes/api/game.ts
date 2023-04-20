@@ -11,9 +11,9 @@ const router = Router();
 
 
 // ROUTES
-router.post('/', [SessionMiddleware], CreateGameController)
-router.post('/:id', [SessionMiddleware], PlayGameController)
-router.get('/:id', [SessionMiddleware], GetGameController)
+router.post('/', [SessionMiddleware], CreateGameController);
+router.post('/:id', [SessionMiddleware], PlayGameController);
+router.get('/:id', [SessionMiddleware], GetGameController);
 
 
 

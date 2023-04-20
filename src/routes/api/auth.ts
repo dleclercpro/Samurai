@@ -12,10 +12,10 @@ const router = Router();
 
 
 // ROUTES
-router.post('/', [], SignUpController)
-router.get('/', [SessionMiddleware], PingController)
-router.get('/sign-in', [], SignInController)
-router.get('/sign-out', [SessionMiddleware], SignOutController)
+router.post('/', [], SignUpController);
+router.get('/', [SessionMiddleware], PingController);
+router.get('/sign-in', [], SignInController);
+router.get('/sign-out', [SessionMiddleware], SignOutController);
 
 
 

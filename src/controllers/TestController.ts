@@ -7,7 +7,7 @@ const TestController: RequestHandler = async (req, res, next) => {
     try {
 
         // Fake some processing time
-        await sleep(500 * Math.random(), TimeUnit.Millisecond);
+        await sleep({ time: 500 * Math.random(), unit: TimeUnit.Millisecond });
 
         // Success
         return res.json(successResponse());
