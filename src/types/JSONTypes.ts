@@ -6,7 +6,7 @@ export interface HandTileJSON {
     id: number,
     type: HandTileType,
     strength: number,
-    canReplay: boolean,
+    replay: boolean,
 }
 
 export interface BoardTileJSON {

@@ -2,7 +2,6 @@ import { Model, Schema, Types, model } from 'mongoose';
 import { Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { HandSchema, IHand } from './Hand';
-import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export interface IPlayer extends Types.Subdocument {
@@ -17,8 +16,6 @@ export interface IPlayer extends Types.Subdocument {
 
     score: IScore,
     hand: IHand,
-    remainingTiles: number[],
-    playedTiles: IPlayedTile[],
 
     // Methods
     stringify: () => string,
@@ -47,8 +44,6 @@ export const PlayerSchema = new Schema<IPlayer>({
     score: { type: ScoreSchema, required: true, default: {} },
     
     hand: { type: HandSchema, required: true },
-    remainingTiles: { type: [Number], required: true },
-    playedTiles: { type: [PlayedTileSchema], required: true, default: [] },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
 

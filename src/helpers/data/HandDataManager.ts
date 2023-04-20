@@ -58,8 +58,8 @@ class HandDataManager {
         return this.getTile(id).strength;
     }
 
-    public canReplay(id: number) {
-        return this.getTile(id).canReplay;
+    public getReplay(id: number) {
+        return this.getTile(id).replay;
     }
 }
 

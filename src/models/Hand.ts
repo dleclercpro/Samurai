@@ -5,7 +5,8 @@ import { IHandTile, HandTileSchema } from './HandTile';
 
 
 export interface IHand extends Types.Subdocument {
-    tiles: IHandTile[],
+    current: IHandTile[],
+    remaining: IHandTile[],
 
     // Methods
     stringify: () => string,
@@ -23,7 +24,8 @@ export interface IHandModel extends Model<IHand> {
 
 
 export const HandSchema = new Schema<IHand>({
-    tiles: { type: [HandTileSchema], required: true, min: N_HAND_TILES, max: N_HAND_TILES },
+    current: { type: [HandTileSchema], required: true, min: N_HAND_TILES, max: N_HAND_TILES },
+    remaining: { type: [HandTileSchema], required: true },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
 
@@ -35,7 +37,7 @@ HandSchema.methods.stringify = function() {
 }
 
 HandSchema.methods.hasTile = function(id: number) {
-    return this.tiles.includes(id);
+    return this.current.map((tile: IHandTile) => tile.id).includes(id);
 }
 
 HandSchema.methods.hasMoveTile = function() {

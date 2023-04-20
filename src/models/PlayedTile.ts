@@ -4,6 +4,7 @@ import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 
 export interface IPlayedTile extends Types.Subdocument {
+    playerId: string,
     handTileId: number,
     boardTileId: number,
 
@@ -20,6 +21,7 @@ export interface IPlayedTileModel extends Model<IPlayedTile> {
 
 
 export const PlayedTileSchema = new Schema<IPlayedTile>({
+    playerId: { type: String, required: true },
     handTileId: { type: Number, required: true },
     boardTileId: { type: Number, required: true },
 

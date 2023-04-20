@@ -1,6 +1,7 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { BoardTileSchema, IBoardTile } from './BoardTile';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
+import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 
 export enum BoardSection {
     North = 'North',
@@ -13,6 +14,7 @@ export enum BoardSection {
 
 export interface IBoard extends Types.Subdocument {
     tiles: IBoardTile[],
+    playedTiles: IPlayedTile[],
 
     // Methods
     stringify: () => string,
@@ -30,6 +32,7 @@ export interface IBoardModel extends Model<IBoard> {
 
 export const BoardSchema = new Schema<IBoard>({
     tiles: { type: [BoardTileSchema], required: true },
+    playedTiles: { type: [PlayedTileSchema], required: true, default: [] },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
 

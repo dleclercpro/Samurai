@@ -9,7 +9,7 @@ const router = Router();
 
 
 // Routes
-router.use(`/${API_VERSION}`, ApiRouter);
+router.use(`/api/${API_VERSION}`, ApiRouter);
 
 
 

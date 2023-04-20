@@ -19,7 +19,7 @@ export enum BoardTileType {
 export interface IBoardTile extends Types.Subdocument {
     id: number,
     castes: Caste[],
-    playedTile?: number,
+    playedTileId?: number,
 
     // Methods
     stringify: () => string,
@@ -42,7 +42,7 @@ export interface IBoardTileModel extends Model<IBoardTile> {
 export const BoardTileSchema = new Schema<IBoardTile>({
     id: { type: Number, required: true },
     castes: { type: [String], enum: Object.values(Caste), required: true, default: [] },
-    playedTile: { type: Number },
+    playedTileId: { type: Number },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
 
@@ -70,11 +70,11 @@ BoardTileSchema.methods.hasCaste = function(caste: Caste) {
 }
 
 BoardTileSchema.methods.playTile = function(handTileId: number) {
-    this.playedTile = handTileId;
+    this.playedTileId = handTileId;
 }
 
 BoardTileSchema.methods.isPlayed = function() {
-    return !!this.playedTile;
+    return !!this.playedTileId;
 }
 
 

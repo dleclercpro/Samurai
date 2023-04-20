@@ -6,12 +6,12 @@ import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export interface IHandTile extends Types.Subdocument {
     id: number,
-    type: HandTileType,
-    strength: number,
-    canReplay: boolean,
 
     // Methods
     stringify: () => string,
+    getType: () => HandTileType,
+    getStrength: () => number,
+    canReplay: () => boolean,
 }
 
 
@@ -24,9 +24,6 @@ export interface IHandTileModel extends Model<IHandTile> {
 
 export const HandTileSchema = new Schema<IHandTile>({
     id: { type: Number, required: true },
-    type: { type: String, enum: Object.values(HandTileType), required: true },
-    strength: { type: Number, required: true },
-    canReplay: { type: Boolean, required: true },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
 
@@ -35,6 +32,18 @@ export const HandTileSchema = new Schema<IHandTile>({
 // METHODS
 HandTileSchema.methods.stringify = function() {
     return `[${this.parent().getId()}]: (${this.boardTileId}, ${this.handTileId})`;
+}
+
+HandTileSchema.methods.getType = function() {
+    return this.type;
+}
+
+HandTileSchema.methods.getStrength = function() {
+    return this.strength;
+}
+
+HandTileSchema.methods.canReplay = function() {
+    return this.replay;
 }
 
 
