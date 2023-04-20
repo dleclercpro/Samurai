@@ -1,7 +1,7 @@
 import { IPlayer } from '../models/Player';
 import { Caste } from '../types/GameTypes';
-import Board from './Board';
-import { BoardTileType } from './BoardTile';
+import { BoardTileType } from '../models/BoardTile';
+import { Board } from '../models/Board';
 
 interface Play {
     handTileId: number,

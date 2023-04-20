@@ -1,10 +1,8 @@
 import { Document, model, Model, Schema } from 'mongoose';
 import { IPlayer, PlayerSchema } from './Player';
 import User, { IUser } from './User';
-import { CitySchema, ICity } from './City';
-import { isMongoError } from '../databases/base/MongoDB';
-import { ErrorUserDoesNotExist } from '../errors/UserErrors';
 import { ErrorGameDoesNotExist } from '../errors/GameErrors';
+import { BoardSchema, IBoard } from './Board';
 
 export interface IGame extends Document {
     name: string,
@@ -16,8 +14,8 @@ export interface IGame extends Document {
     lastViewedTime?: Date,
     lastPlayedTime?: Date,
 
+    board: IBoard,
     players: IPlayer[],
-    cities: ICity[],
 
     // Methods
     stringify: () => string,
@@ -44,12 +42,13 @@ export const GameSchema = new Schema<IGame>({
     lastViewedTime: { type: Date },
     lastPlayedTime: { type: Date },
 
+    board: { type: BoardSchema, required: true },
     players: { type: [PlayerSchema], required: true, min: 2, max: 4 },
-    cities: { type: [CitySchema], required: true },
 });
 
 
 
+// METHODS
 GameSchema.methods.stringify = function() {
     return `${this.getId()}, ${this.name}, ${this.creatorId}, #${this.version}`;
 }
@@ -72,6 +71,7 @@ GameSchema.methods.getCreator = async function() {
 
 
 
+// STATIC METHODS
 GameSchema.statics.getById = async function(id: string) {
     try {
         return await this.findById(id).exec();

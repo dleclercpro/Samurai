@@ -1,6 +1,6 @@
-import { BOARD_JSON } from '../config/GameConfig';
-import { CASTE_SWAP_BOARD_TILE_IDS } from '../constants';
-import { BoardJSON, BoardTileJSON } from '../types/JSONTypes';
+import { BOARD_JSON } from '../../config/GameConfig';
+import { CASTE_SWAP_BOARD_TILE_IDS } from '../../constants';
+import { BoardJSON, BoardTileJSON } from '../../types/JSONTypes';
 
 /*
     This class is responsible for handling constant details about

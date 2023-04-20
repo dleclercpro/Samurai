@@ -6,6 +6,7 @@ import { getRandom, shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
 import BoardBuilder from '../../helpers/BoardBuilder';
+import HandBuilder from '../../helpers/HandBuilder';
 
 interface Argument {
     name: string,
@@ -44,24 +45,21 @@ class CreateGameCommand extends Command<Argument, Response> {
         }));
 
         // Create new game
-        const game = new Game({
+        this.game = new Game({
             name,
             players: this.generatePlayers({ creator, opponents }),
         });
 
-        // Store it in database
-        await game.save();
+        // Generate board
+        this.generateBoard();
+
+        // Store game in database
+        await this.game.save();
 
         // Report its creation
-        logger.info(`New game created: ${game.getId()}`);
+        logger.info(`New game created: ${this.game.getId()}`);
 
-        // Store game in command
-        this.game = game;
-
-        // Generate board
-        const board = await this.generateBoard();
-
-        return game;
+        return this.game;
     }
 
     private generatePlayers({ creator, opponents }: { creator: IUser, opponents: IUser[] }) {
@@ -74,20 +72,24 @@ class CreateGameCommand extends Command<Argument, Response> {
         const starter = getRandom(users);
 
         // Create players
-        return users.map((user: IUser, i: number) => {
-            const color = randomizedColors[i];
-
-            return {
-                userId: user.getId(),
-                isPlaying: user.getId() === starter.getId(),
-                isCreator: user.getId() === creator.getId(),
-                color,
-            };
-        });
+        return users.map((user: IUser, i: number) => ({
+            userId: user.getId(),
+            isPlaying: user.getId() === starter.getId(),
+            isCreator: user.getId() === creator.getId(),
+            color: randomizedColors[i],
+            hand: new HandBuilder().build(),
+        }));
     }
 
-    private async generateBoard() {
+    private generateBoard() {
+        const {  opponentEmails } = this.argument;
 
+        if (!this.game) {
+            throw new Error('Cannot generate board for a non-existing game!');
+        }
+
+        // Use builder to generate board
+        this.game.board = new BoardBuilder(opponentEmails.length + 1).build();
     }
 }
 

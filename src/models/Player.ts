@@ -1,10 +1,10 @@
-import { Document, Schema } from 'mongoose';
+import { Model, Schema, Types, model } from 'mongoose';
 import { Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
-import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { HandSchema, IHand } from './Hand';
+import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 
-export interface IPlayer extends Document {
+export interface IPlayer extends Types.Subdocument {
     userId: string,
     color: Color,
 
@@ -27,6 +27,12 @@ export interface IPlayer extends Document {
 
 
 
+export interface IPlayerModel extends Model<IPlayer> {
+
+}
+
+
+
 export const PlayerSchema = new Schema<IPlayer>({
     userId: { type: String, required: true },
     color: { type: String, required: true, enum: Object.values(Color) },
@@ -41,11 +47,12 @@ export const PlayerSchema = new Schema<IPlayer>({
     
     hand: { type: HandSchema, required: true },
     remainingTiles: { type: [Number], required: true },
-    playedTiles: { type: [PlayedTileSchema], required: true },
+    playedTiles: { type: [PlayedTileSchema], required: true, default: [] },
 });
 
 
 
+// METHODS
 PlayerSchema.methods.stringify = function() {
     return `[Game: ${this.parent().getId()}, User: ${this.userId}]`;
 }
@@ -57,3 +64,9 @@ PlayerSchema.methods.getId = function() {
 PlayerSchema.methods.getHand = function() {
     return this.hand;
 }
+
+
+
+const Player = model<IPlayer, IPlayerModel>('Player', PlayerSchema);
+
+export default Player;

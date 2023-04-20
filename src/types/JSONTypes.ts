@@ -1,6 +1,6 @@
-import { BoardSection } from '../helpers/Board';
-import { BoardTileCoordinates, BoardTileType } from '../helpers/BoardTile';
-import { HandTileType } from '../helpers/HandTile';
+import { BoardSection } from '../models/Board';
+import { BoardTileCoordinates, BoardTileType } from '../models/BoardTile';
+import { HandTileType } from './GameTypes';
 
 export interface HandTileJSON {
     id: number,

@@ -61,6 +61,7 @@ export const UserSchema = new Schema<IUser>({
 
 
 
+// METHODS
 UserSchema.methods.stringify = function() {
     return this.email;
 }
@@ -72,8 +73,6 @@ UserSchema.methods.getId = function() {
 UserSchema.methods.getEmail = function() {
     return this.email;
 }
-
-
 
 UserSchema.methods.resetPassword = async function(password: string) {
     this.password = await User.hashPassword(password);
@@ -91,6 +90,7 @@ UserSchema.methods.authenticate = async function(password: string) {
 
 
 
+// STATIC METHODS
 UserSchema.statics.getAll = async function() {
     return this.find({ }).exec();
 }
