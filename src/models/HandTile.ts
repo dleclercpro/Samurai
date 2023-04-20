@@ -1,6 +1,6 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { HandTileType } from '../types/GameTypes';
-import { SCHEMA_WITHOUT_ID } from '../constants';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 
 
@@ -28,7 +28,7 @@ export const HandTileSchema = new Schema<IHandTile>({
     strength: { type: Number, required: true },
     canReplay: { type: Boolean, required: true },
 
-}, SCHEMA_WITHOUT_ID);
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

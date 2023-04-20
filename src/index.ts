@@ -6,7 +6,6 @@ import { ENV, PORT, ROOT } from './config/AppConfig';
 import { logger } from './utils/Logging';
 import SessionsDatabase from './databases/SessionsDatabase';
 import AppDatabase from './databases/AppDatabase';
-import BoardBuilder from './helpers/BoardBuilder';
 
 
 
@@ -42,9 +41,6 @@ const main = async () => {
     // Then start listening on given port
     server.listen(PORT, () => {
         logger.info(`Server listening in ${ENV} mode at: ${ROOT}`);
-
-        const builder = new BoardBuilder(2);
-        const board = builder.build();
     });
 }
 

@@ -5,8 +5,8 @@ import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { getRandom, shuffle } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
-import BoardBuilder from '../../helpers/BoardBuilder';
-import HandBuilder from '../../helpers/HandBuilder';
+import BoardBuilder from '../../helpers/builders/BoardBuilder';
+import HandBuilder from '../../helpers/builders/HandBuilder';
 
 interface Argument {
     name: string,

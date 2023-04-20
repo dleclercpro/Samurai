@@ -1,7 +1,7 @@
-import { N_HAND_TILES } from '../constants';
-import { getRange } from '../libs/math';
-import Hand from '../models/Hand';
-import HandDataManager from './data/HandDataManager';
+import { N_HAND_TILES } from '../../constants';
+import { getRange } from '../../libs/math';
+import Hand from '../../models/Hand';
+import HandDataManager from '../data/HandDataManager';
 
 class HandBuilder {
 

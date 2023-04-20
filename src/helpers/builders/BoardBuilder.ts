@@ -1,9 +1,9 @@
-import { getRange } from '../libs/math';
-import Board, { BoardSection } from '../models/Board';
-import BoardTile, { IBoardTile } from '../models/BoardTile';
-import { BoardTileJSON } from '../types/JSONTypes';
-import BoardData from './data/BoardDataManager';
-import CastePiecesBag from './CastePiecesBag';
+import { getRange } from '../../libs/math';
+import Board, { BoardSection } from '../../models/Board';
+import BoardTile, { IBoardTile } from '../../models/BoardTile';
+import { BoardTileJSON } from '../../types/JSONTypes';
+import BoardData from '../data/BoardDataManager';
+import CastePiecesBag from '../CastePiecesBag';
 
 class BoardBuilder {
     protected nPlayers: number;

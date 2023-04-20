@@ -1,6 +1,6 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { BoardTileSchema, IBoardTile } from './BoardTile';
-import { SCHEMA_WITHOUT_ID } from '../constants';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export enum BoardSection {
     North = 'North',
@@ -31,7 +31,7 @@ export interface IBoardModel extends Model<IBoard> {
 export const BoardSchema = new Schema<IBoard>({
     tiles: { type: [BoardTileSchema], required: true },
 
-}, SCHEMA_WITHOUT_ID);
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

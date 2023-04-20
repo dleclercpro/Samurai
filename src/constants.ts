@@ -1,5 +1,8 @@
 /* ----- MONGOOSE ----- */
-export const SCHEMA_WITHOUT_ID = { _id: false };
+export const SUBDOCUMENT_SCHEMA_OPTIONS = {
+    _id: false,
+    autoCreate: false,
+};
 
 
 

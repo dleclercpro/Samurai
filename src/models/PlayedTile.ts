@@ -1,5 +1,5 @@
 import { Model, Schema, Types, model } from 'mongoose';
-import { SCHEMA_WITHOUT_ID } from '../constants';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 
 
@@ -23,7 +23,7 @@ export const PlayedTileSchema = new Schema<IPlayedTile>({
     handTileId: { type: Number, required: true },
     boardTileId: { type: Number, required: true },
 
-}, SCHEMA_WITHOUT_ID);
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

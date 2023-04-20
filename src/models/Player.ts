@@ -3,6 +3,7 @@ import { Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { HandSchema, IHand } from './Hand';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export interface IPlayer extends Types.Subdocument {
     userId: string,
@@ -48,7 +49,8 @@ export const PlayerSchema = new Schema<IPlayer>({
     hand: { type: HandSchema, required: true },
     remainingTiles: { type: [Number], required: true },
     playedTiles: { type: [PlayedTileSchema], required: true, default: [] },
-});
+
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

@@ -1,5 +1,5 @@
 import { Model, Schema, Types, model } from 'mongoose';
-import { N_HAND_TILES, SCHEMA_WITHOUT_ID, TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
+import { N_HAND_TILES, SUBDOCUMENT_SCHEMA_OPTIONS, TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
 import { IHandTile, HandTileSchema } from './HandTile';
 
 
@@ -25,7 +25,7 @@ export interface IHandModel extends Model<IHand> {
 export const HandSchema = new Schema<IHand>({
     tiles: { type: [HandTileSchema], required: true, min: N_HAND_TILES, max: N_HAND_TILES },
 
-}, SCHEMA_WITHOUT_ID);
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

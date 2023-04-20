@@ -1,7 +1,7 @@
 import { Types, Schema, Model, model } from 'mongoose';
 import { Caste } from '../types/GameTypes';
 import BoardData from '../helpers/data/BoardDataManager';
-import { SCHEMA_WITHOUT_ID } from '../constants';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export interface BoardTileCoordinates {
     x: number,
@@ -44,7 +44,7 @@ export const BoardTileSchema = new Schema<IBoardTile>({
     castes: { type: [String], enum: Object.values(Caste), required: true, default: [] },
     playedTile: { type: Number },
 
-}, SCHEMA_WITHOUT_ID);
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

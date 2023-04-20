@@ -1,6 +1,6 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { Caste } from '../types/GameTypes';
-import { SCHEMA_WITHOUT_ID } from '../constants';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 
 
@@ -26,7 +26,7 @@ export const ScoreSchema = new Schema<IScore>({
     [Caste.Commerce]: { type: Number, required: true, default: 0, min: 0 },
     [Caste.Religion]: { type: Number, required: true, default: 0, min: 0 },
 
-}, SCHEMA_WITHOUT_ID);
+}, SUBDOCUMENT_SCHEMA_OPTIONS);
 
 
 

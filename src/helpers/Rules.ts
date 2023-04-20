@@ -1,7 +1,7 @@
 import { IPlayer } from '../models/Player';
 import { Caste } from '../types/GameTypes';
 import { BoardTileType } from '../models/BoardTile';
-import { Board } from '../models/Board';
+import { IBoard } from '../models/Board';
 
 interface Play {
     handTileId: number,
@@ -29,9 +29,9 @@ interface Swap {
 
 
 class Rules {
-    private board: Board;
+    private board: IBoard;
 
-    public constructor(board: Board) {
+    public constructor(board: IBoard) {
         this.board = board;
     }
 
