@@ -10,6 +10,7 @@ export interface IHand extends Types.Subdocument {
 
     // Methods
     stringify: () => string,
+    getTileById: (id: number) => IHandTile,
     hasTile: (id: number) => boolean,
     hasMoveTile: () => boolean,
     hasSwapTile: () => boolean,
@@ -24,7 +25,7 @@ export interface IHandModel extends Model<IHand> {
 
 
 export const HandSchema = new Schema<IHand>({
-    current: { type: [HandTileSchema], required: true, min: N_HAND_TILES, max: N_HAND_TILES },
+    current: { type: [HandTileSchema], required: true, min: 0, max: N_HAND_TILES },
     remaining: { type: [HandTileSchema], required: true },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
@@ -36,16 +37,26 @@ HandSchema.methods.stringify = function() {
     return ``;
 }
 
+HandSchema.methods.getTileById = function(id: number) {
+    const tile = (this as IHand).current.find(tile => tile.id === id);
+    
+    if (tile) {
+        return tile;
+    }
+
+    throw new Error(`Tile with ID ${id} does not exist.`);
+}
+
 HandSchema.methods.hasTile = function(id: number) {
-    return this.current.map((tile: IHandTile) => tile.id).includes(id);
+    return !!(this as IHand).getTileById(id);
 }
 
 HandSchema.methods.hasMoveTile = function() {
-    return this.hasTile(TILE_ID_MOVE);
+    return (this as IHand).hasTile(TILE_ID_MOVE);
 }
 
 HandSchema.methods.hasSwapTile = function() {
-    return this.hasTile(TILE_ID_SWAP);
+    return (this as IHand).hasTile(TILE_ID_SWAP);
 }
 
 

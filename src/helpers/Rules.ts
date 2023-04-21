@@ -1,94 +1,137 @@
 import { IPlayer } from '../models/Player';
 import { Caste } from '../types/GameTypes';
-import { BoardTileType } from '../models/BoardTile';
-import { IBoard } from '../models/Board';
+import { TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
+import { IBoardTile } from '../models/BoardTile';
+import { IHandTile } from '../models/HandTile';
+import { FromTo } from '../types';
 
-interface Play {
-    handTileId: number,
-    boardTileId: number,
+export interface Play {
+    handTile: IHandTile,
+    boardTiles: FromTo<IBoardTile | null>,
+    castes: FromTo<Caste | null>,
 }
 
-interface Move {
-    boardTileIds: {
-        from: number,
-        to: number,
-    },
+export interface Normal {
+    boardTile: IBoardTile,
+    handTile: IHandTile,
 }
 
-interface Swap {
-    boardTileIds: {
-        from: number,
-        to: number,
-    },
-    castes: {
-        from: Caste,
-        to: Caste,
-    },
+export interface Move {
+    boardTiles: FromTo<IBoardTile>,
+}
+
+export interface Swap {
+    boardTiles: FromTo<IBoardTile>,
+    castes: FromTo<Caste>,
 }
 
 
 
+/*
+   This class is responsible to check whether a given player move is
+   correctly formed AND allowed.
+*/
 class Rules {
-    private board: IBoard;
-
-    public constructor(board: IBoard) {
-        this.board = board;
-    }
 
     public async canPlay(player: IPlayer, play: Play) {
-        const { boardTileId, handTileId } = play;
-        const boardTile = this.board.getTileById(boardTileId);
+        const { handTile, boardTiles, castes } = play;
+        const someCaste = ![castes.from, castes.to].every(caste => caste === null);
 
-        if (!player.getHand().hasTile(handTileId)) {
-            throw new Error('Player does not have that tile in their hand!');
+        // Check input parameters for move
+        if (handTile.getId() === TILE_ID_MOVE) {
+            if ([boardTiles.from, boardTiles.to].includes(null) || someCaste) {
+                throw new Error('Wrong parameters.');
+            }
+            
+            return this.canMove(player, { boardTiles } as Move);
         }
 
-        if (boardTile.isPlayed()) {
-            throw new Error('This board location has already been played.');
+        // Check input parameters for swap
+        if (handTile.getId() === TILE_ID_SWAP) {
+            if ([boardTiles.from, boardTiles.to, castes.from, castes.to].includes(null)) {
+                throw new Error('Wrong parameters.');
+            }
+
+            return this.canSwap({ boardTiles, castes } as Swap);
         }
 
-        // Check if tile types match
+        // Check input parameters for normal play
+        if (boardTiles.from !== null || boardTiles.to === null || someCaste) {
+            throw new Error('Wrong parameters.');
+        }
+
+        return this.canNormal({ handTile, boardTile: boardTiles.to } as Normal);
     }
 
-    public async canMove(player: IPlayer, move: Move) {
-        const { boardTileIds } = move;
-        const [ boardTileFrom, boardTileTo ] = [boardTileIds.from, boardTileIds.to].map(id => this.board.getTileById(id));
+    private async canNormal(play: Normal) {
+        const { boardTile, handTile } = play;
 
-        if (!player.getHand().hasMoveTile()) {
-            throw new Error('Player does not have move tile in their hand.');
+        if (boardTile.isCity()) {
+            throw new Error('This board location is a city.');
         }
 
-        // throw new Error('Cannot move tile played by another played.');
+        if (!boardTile.isFree()) {
+            throw new Error('This board location is not free.');
+        }
 
-        if (!boardTileFrom.isPlayed()) {
+        if (!boardTile.isHandTileCompatible(handTile)) {
+            throw new Error(`Board and hand tiles aren't compatible: ${boardTile.getType()} vs. ${handTile.getType()}`);
+        }
+
+        return true;
+    }
+
+    private async canMove(player: IPlayer, play: Move) {
+        const { boardTiles } = play;
+        const playedTile = boardTiles.from.getPlayedTile();
+
+        if (boardTiles.from.isFree()) {
             throw new Error('This board location has no tile on it yet.');
         }
 
-        if (boardTileTo.isPlayed()) {
-            throw new Error('This board location has already been played.');
+        if (playedTile.getPlayer().getId() !== player.getId()) {
+            throw new Error(`Cannot move another player's tile.`);
         }
 
-        if ([boardTileFrom, boardTileTo].map(tile => tile.getType()).includes(BoardTileType.Water)) {
-            throw new Error('Only tiles placed on the ground can be moved to another ground location.');
+        if (boardTiles.to.isCity()) {
+            throw new Error('This board location is a city.');
         }
+
+        if (!boardTiles.to.isFree()) {
+            throw new Error('This board location is not free.');
+        }
+
+        if (boardTiles.to.isHandTileCompatible(playedTile.getHandTile())) {
+            throw new Error(`Board and hand tiles aren't compatible: ${boardTiles.to.getType()} vs. ${playedTile.getHandTile().getType()}`);
+        }
+
+        return true;
     }
 
-    public async canSwap(player: IPlayer, swap: Swap) {
-        const { boardTileIds, castes } = swap;
-        const [ boardTileFrom, boardTileTo ] = [boardTileIds.from, boardTileIds.to].map(id => this.board.getTileById(id));
+    private async canSwap(play: Swap) {
+        const { boardTiles, castes } = play;
 
-        if (!player.getHand().hasSwapTile()) {
-            throw new Error('Player does not have swap tile in their hand.');
+        if (!boardTiles.from.isCity()) {
+            throw new Error(`The starting tile is not a city.`);
         }
 
-        if (boardTileFrom.getId() === boardTileTo.getId()) {
+        if (!boardTiles.to.isCity()) {
+            throw new Error(`The ending tile is not a city.`);
+        }
+
+        if (boardTiles.from.getId() === boardTiles.to.getId()) {
             throw new Error('Cannot swap caste pieces from/to the same tile.');
         }
 
-        if (!boardTileFrom.hasCaste(castes.from) ||
-            !boardTileTo.hasCaste(castes.to)) {
-            throw new Error('The given caste pieces do not exist on the specified board tiles.');
+        if (!boardTiles.from.hasCaste(castes.from)) {
+            throw new Error(`The given caste piece is not present on the starting tile: ${castes.from}`);
         }
+
+        if (!boardTiles.to.hasCaste(castes.to)) {
+            throw new Error(`The given caste piece is not present on the ending tile: ${castes.to}`);
+        }
+
+        return true;
     }
 }
 

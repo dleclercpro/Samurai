@@ -11,12 +11,12 @@ export enum Caste {
     Commerce = 'Commerce',
 }
 
-export enum SpecialHandTileType {
+export enum HandTileType {
+    Military = 'Military',
+    Religion = 'Religion',
+    Commerce = 'Commerce',
     Samurai = 'Samurai',
     Move = 'Move',
     Swap = 'Swap',
     Ship = 'Ship',
 }
-
-export const HandTileType = { ...Caste, ...SpecialHandTileType };
-export type HandTileType = typeof HandTileType;

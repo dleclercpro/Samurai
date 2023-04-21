@@ -48,10 +48,8 @@ class CreateGameCommand extends Command<Argument, Response> {
         this.game = new Game({
             name,
             players: this.generatePlayers({ creator, opponents }),
+            board: this.generateBoard(),
         });
-
-        // Generate board
-        this.generateBoard();
 
         // Store game in database
         await this.game.save();
@@ -84,12 +82,8 @@ class CreateGameCommand extends Command<Argument, Response> {
     private generateBoard() {
         const {  opponentEmails } = this.argument;
 
-        if (!this.game) {
-            throw new Error('Cannot generate board for a non-existing game!');
-        }
-
         // Use builder to generate board
-        this.game.board = new BoardBuilder(opponentEmails.length + 1).build();
+        return new BoardBuilder(opponentEmails.length + 1).build();
     }
 }
 

@@ -42,7 +42,6 @@ export const PlayerSchema = new Schema<IPlayer>({
     isWinner: { type: Boolean, required: true, default: false },
 
     score: { type: ScoreSchema, required: true, default: {} },
-    
     hand: { type: HandSchema, required: true },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);

@@ -1,7 +1,8 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { BoardTileSchema, IBoardTile } from './BoardTile';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
-import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
+import { IPlayedTile } from './PlayedTile';
+import { IPlayer } from './Player';
 
 export enum BoardSection {
     North = 'North',
@@ -14,12 +15,12 @@ export enum BoardSection {
 
 export interface IBoard extends Types.Subdocument {
     tiles: IBoardTile[],
-    playedTiles: IPlayedTile[],
 
     // Methods
     stringify: () => string,
     getTiles: () => IBoardTile[],
     getTileById: (id: number) => IBoardTile,
+    getTilesPlayedByPlayer: (player: IPlayer) => IPlayedTile[],
 }
 
 
@@ -32,7 +33,6 @@ export interface IBoardModel extends Model<IBoard> {
 
 export const BoardSchema = new Schema<IBoard>({
     tiles: { type: [BoardTileSchema], required: true },
-    playedTiles: { type: [PlayedTileSchema], required: true, default: [] },
 
 }, SUBDOCUMENT_SCHEMA_OPTIONS);
 
@@ -55,6 +55,12 @@ BoardSchema.methods.getTileById = function(id: number) {
     }
 
     throw new Error(`Tile with ID ${id} does not exist.`);
+}
+
+BoardSchema.methods.getTilesPlayedByPlayer = function(player: IPlayer) {
+    return (this as IBoard).tiles
+        .map(tile => tile.playedTile)
+        .filter(tile => !!tile && tile.playerId === player.getId());
 }
 
 

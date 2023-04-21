@@ -1,3 +1,6 @@
+import { BoardTileType } from './models/BoardTile';
+import { Caste, HandTileType } from './types/GameTypes';
+
 /* ----- MONGOOSE ----- */
 export const SUBDOCUMENT_SCHEMA_OPTIONS = {
     _id: false,
@@ -18,3 +21,6 @@ export const N_BOARD_TILES = 174
 
 // Special tile IDs
 export const CASTE_SWAP_BOARD_TILE_IDS = [200, 201, 202, 203]
+
+// Castes
+export const CASTES = Object.values(Caste);

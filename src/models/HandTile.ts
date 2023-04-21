@@ -9,6 +9,7 @@ export interface IHandTile extends Types.Subdocument {
 
     // Methods
     stringify: () => string,
+    getId: () => number,
     getType: () => HandTileType,
     getStrength: () => number,
     canReplay: () => boolean,
@@ -32,6 +33,10 @@ export const HandTileSchema = new Schema<IHandTile>({
 // METHODS
 HandTileSchema.methods.stringify = function() {
     return `[${this.parent().getId()}]: (${this.boardTileId}, ${this.handTileId})`;
+}
+
+HandTileSchema.methods.getId = function() {
+    return this.id;
 }
 
 HandTileSchema.methods.getType = function() {

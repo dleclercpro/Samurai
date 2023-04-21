@@ -22,6 +22,9 @@ export interface IGame extends Document {
     getId: () => string,
     getVersion: () => number,
     getCreator: () => Promise<IUser>,
+    getBoard: () => IBoard,
+    getPlayers: () => IPlayer[],
+    getPlayerByUserId: (userId: string) => IPlayer,
 }
 
 
@@ -67,6 +70,14 @@ GameSchema.methods.getCreator = async function() {
             return User.getById(player.userId);
         }
     }
+}
+
+GameSchema.methods.getBoard = function() {
+    return this.board;
+}
+
+GameSchema.methods.getPlayerByUserId = function(userId: string) {
+    return (this as IGame).players.find(player => player.userId === userId);
 }
 
 

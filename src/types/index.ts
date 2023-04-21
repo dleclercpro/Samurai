@@ -10,4 +10,9 @@ export interface Auth {
     pass: string,
 }
 
-export type IdentityFunction<Arg> = (arg: Arg) => Arg
+export type IdentityFunction<Arg> = (arg: Arg) => Arg;
+
+export interface FromTo<T> {
+    from: T,
+    to: T,
+}
