@@ -5,6 +5,12 @@ import { IBoardTile } from '../models/BoardTile';
 import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
 
+export enum PlayType {
+    Normal = 'Normal',
+    Move = 'Move',
+    Swap = 'Swap',
+}
+
 export interface Play {
     handTile: IHandTile,
     boardTiles: FromTo<IBoardTile | null>,
@@ -33,7 +39,7 @@ export interface Swap {
 */
 class Rules {
 
-    public async canPlay(player: IPlayer, play: Play) {
+    public canPlay(player: IPlayer, play: Play) {
         const { handTile, boardTiles, castes } = play;
         const someCaste = ![castes.from, castes.to].every(caste => caste === null);
 
@@ -63,7 +69,7 @@ class Rules {
         return this.canNormal({ handTile, boardTile: boardTiles.to } as Normal);
     }
 
-    private async canNormal(play: Normal) {
+    public canNormal(play: Normal) {
         const { boardTile, handTile } = play;
 
         if (boardTile.isCity()) {
@@ -81,7 +87,7 @@ class Rules {
         return true;
     }
 
-    private async canMove(player: IPlayer, play: Move) {
+    public canMove(player: IPlayer, play: Move) {
         const { boardTiles } = play;
         const playedTile = boardTiles.from.getPlayedTile();
 
@@ -108,7 +114,7 @@ class Rules {
         return true;
     }
 
-    private async canSwap(play: Swap) {
+    public canSwap(play: Swap) {
         const { boardTiles, castes } = play;
 
         if (!boardTiles.from.isCity()) {

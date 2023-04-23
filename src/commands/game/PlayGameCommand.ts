@@ -4,9 +4,9 @@ import Command from '../Command';
 import { IPlayer } from '../../models/Player';
 import { IBoardTile } from '../../models/BoardTile';
 import { IHandTile } from '../../models/HandTile';
-import Rules from '../../helpers/Rules';
+import Rules, { Move, Normal, PlayType, Swap } from '../../helpers/Rules';
 import { Caste } from '../../types/GameTypes';
-import { CASTES } from '../../constants';
+import { CASTES, TILE_ID_MOVE, TILE_ID_SWAP } from '../../constants';
 import { FromTo } from '../../types';
 import Valet from '../../helpers/Valet';
 
@@ -44,17 +44,20 @@ class PlayGameCommand extends Command<Argument, Response> {
         // Ensure tile exists in player's hand (a hand tile should ALWAYS be provided!)
         this.handTile = this.player.getHand().getTileById(handTileId);
 
-        // Ensure provided (!) board tiles exist in current game
+        // Ensure provided (!) board tiles exist in current game and store them
         this.boardTiles = {
             from: boardTileIds.from ? this.game.getBoard().getTileById(boardTileIds.from) : null,
             to: boardTileIds.to ? this.game.getBoard().getTileById(boardTileIds.to) : null,
         };
 
         // Ensure provided (!) castes exist
-        if (![castes.from, castes.to].filter(Boolean).map(caste => CASTES.includes(caste)).every(Boolean)) {
-            throw new Error('Invalid caste provided.');
-        }
+        [castes.from, castes.to].filter(Boolean).map(caste => {
+            if (!CASTES.includes(caste)) {
+                throw new Error('Invalid caste provided.');
+            }
+        });
 
+        // ...and store them
         this.castes = {
             from: castes.from ?? null,
             to: castes.to ?? null,
@@ -69,13 +72,42 @@ class PlayGameCommand extends Command<Argument, Response> {
         const castes = this.castes!;
 
         // Check if player's move respects game rules
-        new Rules().canPlay(player, { handTile, boardTiles, castes });
+        const rules = new Rules().canPlay(player, { handTile, boardTiles, castes });
 
         // Execute player's move
-        await new Valet().execute(player, { handTile, boardTiles, castes });
+        await new Valet(game.getBoard()).execute(player, { handTile, boardTiles, castes });
 
         // Save game
         await game.save();
+    }
+
+    private identifyPlayType(handTile: IHandTile, boardTiles: FromTo<IBoardTile | null>, castes: FromTo<Caste | null>) {
+        const someCaste = ![castes.from, castes.to].every(caste => caste === null);
+
+        // Check input parameters for move
+        if (handTile.getId() === TILE_ID_MOVE) {
+            if ([boardTiles.from, boardTiles.to].includes(null) || someCaste) {
+                throw new Error('Wrong parameters.');
+            }
+            
+            return PlayType.Move;
+        }
+
+        // Check input parameters for swap
+        if (handTile.getId() === TILE_ID_SWAP) {
+            if ([boardTiles.from, boardTiles.to, castes.from, castes.to].includes(null)) {
+                throw new Error('Wrong parameters.');
+            }
+
+            return PlayType.Swap;
+        }
+
+        // Check input parameters for normal play
+        if (boardTiles.from !== null || boardTiles.to === null || someCaste) {
+            throw new Error('Wrong parameters.');
+        }
+
+        return PlayType.Normal;
     }
 }
 

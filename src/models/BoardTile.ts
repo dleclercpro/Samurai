@@ -30,7 +30,8 @@ export interface IBoardTile extends Types.Subdocument {
     getCastes: () => Caste[],
     getPlayedTile: () => IPlayedTile,
     hasCaste: (caste: Caste) => boolean,
-    playTile: () => void,
+    setTile: (tile: IPlayedTile) => void,
+    removeTile: () => void,
     isFree: () => boolean,
     isCity: () => boolean,
     isHandTileCompatible: (handTile: IHandTile) => boolean,
@@ -78,8 +79,12 @@ BoardTileSchema.methods.hasCaste = function(caste: Caste) {
     return this.castes.includes(caste);
 }
 
-BoardTileSchema.methods.playTile = function(playedTile: IPlayedTile) {
+BoardTileSchema.methods.setTile = function(playedTile: IPlayedTile) {
     this.playedTile = playedTile;
+}
+
+BoardTileSchema.methods.removeTile = function() {
+    this.playedTile = undefined;
 }
 
 BoardTileSchema.methods.isFree = function() {

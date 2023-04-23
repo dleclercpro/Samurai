@@ -14,6 +14,7 @@ export interface IHand extends Types.Subdocument {
     hasTile: (id: number) => boolean,
     hasMoveTile: () => boolean,
     hasSwapTile: () => boolean,
+    removeTile: (tile: IHandTile) => void,
 }
 
 
@@ -57,6 +58,10 @@ HandSchema.methods.hasMoveTile = function() {
 
 HandSchema.methods.hasSwapTile = function() {
     return (this as IHand).hasTile(TILE_ID_SWAP);
+}
+
+HandSchema.methods.removeTile = function(tileToRemove: IHandTile) {
+    this.current = (this as IHand).current.filter(tile => tile.getId() !== tileToRemove.getId());
 }
 
 
