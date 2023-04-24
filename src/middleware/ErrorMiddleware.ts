@@ -7,6 +7,8 @@ export const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     
     // Invalid parameters provided
     if (err.code === ErrorInvalidParams.code) {
+        logger.debug(err.message);
+
         return res
             .status(HttpStatusCode.BAD_REQUEST)
             .send(HttpStatusMessage.BAD_REQUEST)

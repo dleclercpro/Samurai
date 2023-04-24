@@ -1,21 +1,10 @@
 import { IPlayer } from '../models/Player';
 import { Caste } from '../types/GameTypes';
-import { TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
 import { IBoardTile } from '../models/BoardTile';
 import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
-
-export enum PlayType {
-    Normal = 'Normal',
-    Move = 'Move',
-    Swap = 'Swap',
-}
-
-export interface Play {
-    handTile: IHandTile,
-    boardTiles: FromTo<IBoardTile | null>,
-    castes: FromTo<Caste | null>,
-}
+import { GameOrder } from '../commands/game/PlayGameCommand';
+import { TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
 
 export interface Normal {
     boardTile: IBoardTile,
@@ -34,43 +23,28 @@ export interface Swap {
 
 
 /*
-   This class is responsible to check whether a given player move is
-   correctly formed AND allowed.
+   This class is responsible to check whether a given player move is allowed.
 */
 class Rules {
 
-    public canPlay(player: IPlayer, play: Play) {
-        const { handTile, boardTiles, castes } = play;
-        const someCaste = ![castes.from, castes.to].every(caste => caste === null);
+    public canPlay(player: IPlayer, order: GameOrder) {
+        const { handTile, boardTiles, castes } = order;
 
-        // Check input parameters for move
-        if (handTile.getId() === TILE_ID_MOVE) {
-            if ([boardTiles.from, boardTiles.to].includes(null) || someCaste) {
-                throw new Error('Wrong parameters.');
-            }
-            
-            return this.canMove(player, { boardTiles } as Move);
+        switch (handTile.getId()) {
+            case TILE_ID_MOVE:
+                this.canMove(player, { boardTiles } as Move);
+                break;
+            case TILE_ID_SWAP:
+                this.canSwap({ boardTiles, castes } as Swap);
+                break;
+            default:
+                this.canNormal({ handTile, boardTile: boardTiles.to } as Normal);
+                break;
         }
-
-        // Check input parameters for swap
-        if (handTile.getId() === TILE_ID_SWAP) {
-            if ([boardTiles.from, boardTiles.to, castes.from, castes.to].includes(null)) {
-                throw new Error('Wrong parameters.');
-            }
-
-            return this.canSwap({ boardTiles, castes } as Swap);
-        }
-
-        // Check input parameters for normal play
-        if (boardTiles.from !== null || boardTiles.to === null || someCaste) {
-            throw new Error('Wrong parameters.');
-        }
-
-        return this.canNormal({ handTile, boardTile: boardTiles.to } as Normal);
     }
 
-    public canNormal(play: Normal) {
-        const { boardTile, handTile } = play;
+    private canNormal(order: Normal) {
+        const { boardTile, handTile } = order;
 
         if (boardTile.isCity()) {
             throw new Error('This board location is a city.');
@@ -87,8 +61,8 @@ class Rules {
         return true;
     }
 
-    public canMove(player: IPlayer, play: Move) {
-        const { boardTiles } = play;
+    private canMove(player: IPlayer, order: Move) {
+        const { boardTiles } = order;
         const playedTile = boardTiles.from.getPlayedTile();
 
         if (boardTiles.from.isFree()) {
@@ -114,8 +88,8 @@ class Rules {
         return true;
     }
 
-    public canSwap(play: Swap) {
-        const { boardTiles, castes } = play;
+    private canSwap(order: Swap) {
+        const { boardTiles, castes } = order;
 
         if (!boardTiles.from.isCity()) {
             throw new Error(`The starting tile is not a city.`);

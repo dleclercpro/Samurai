@@ -1,7 +1,7 @@
 import { Document, model, Model, Schema } from 'mongoose';
 import { IPlayer, PlayerSchema } from './Player';
 import User, { IUser } from './User';
-import { ErrorGameDoesNotExist } from '../errors/GameErrors';
+import { ErrorGameDoesNotExist, ErrorUserNotPlayingInGame } from '../errors/GameErrors';
 import { BoardSchema, IBoard } from './Board';
 
 export interface IGame extends Document {
@@ -24,7 +24,7 @@ export interface IGame extends Document {
     getCreator: () => Promise<IUser>,
     getBoard: () => IBoard,
     getPlayers: () => IPlayer[],
-    getPlayerByUserId: (userId: string) => IPlayer,
+    getPlayerByUser: (user: IUser) => IPlayer,
 }
 
 
@@ -76,8 +76,14 @@ GameSchema.methods.getBoard = function() {
     return this.board;
 }
 
-GameSchema.methods.getPlayerByUserId = function(userId: string) {
-    return (this as IGame).players.find(player => player.userId === userId);
+GameSchema.methods.getPlayerByUser = function(user: IUser) {
+    const player = (this as IGame).players.find(player => player.userId === user.getId());
+
+    if (!player) {
+        throw new ErrorUserNotPlayingInGame(user, this as IGame);
+    }
+
+    return player;
 }
 
 

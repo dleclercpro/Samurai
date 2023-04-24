@@ -25,3 +25,11 @@ export class ErrorUserNotPlayingInGame extends ServerError {
         super(ErrorUserNotPlayingInGame.code, `User ${user.getId()} does not play in game ${game.getId()}!`);
     }
 }
+
+export class ErrorInvalidGameOrder extends ServerError {
+    public static code = -403;
+
+    constructor(order: string) {
+        super(ErrorInvalidGameOrder.code, `Invalid game order: ${order}`);
+    }
+}

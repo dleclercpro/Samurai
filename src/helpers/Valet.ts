@@ -1,35 +1,33 @@
 import { IPlayer } from '../models/Player';
 import { TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
-import { Normal, Move, Swap, Play } from './Rules';
-import { IBoard } from '../models/Board';
+import { Normal, Move, Swap } from './Rules';
 import PlayedTile from '../models/PlayedTile';
+import { GameOrder } from '../commands/game/PlayGameCommand';
 
 /* This class is responsible for executing the moves ordered by the players. */
 class Valet {
-    private board: IBoard;
 
-    public constructor(board: IBoard) {
-        this.board = board;
-    }
-
-    public async execute(player: IPlayer, play: Play) {
-        const { handTile, boardTiles, castes } = play;
+    public execute(player: IPlayer, order: GameOrder) {
+        const { handTile, boardTiles, castes } = order;
 
         switch (handTile.getId()) {
             case TILE_ID_MOVE:
-                await this.executeMove(player, { boardTiles } as Move);
+                this.executeMove(player, { boardTiles } as Move);
+                break;
             case TILE_ID_SWAP:
-                await this.executeSwap(player, { boardTiles, castes } as Swap);
+                this.executeSwap(player, { boardTiles, castes } as Swap);
+                break;
             default:
-                await this.executeNormal(player, { handTile, boardTile: boardTiles.to } as Normal);
+                this.executeNormal(player, { handTile, boardTile: boardTiles.to } as Normal);
+                break;
         }
 
         // Remove tile from player's hand
-        player.getHand().removeTile(play.handTile);
+        player.getHand().removeTile(handTile);
     }
 
-    public async executeNormal(player: IPlayer, play: Normal) {
-        const { handTile, boardTile } = play;
+    private executeNormal(player: IPlayer, order: Normal) {
+        const { handTile, boardTile } = order;
 
         // Set tile on board
         boardTile.setTile(new PlayedTile({
@@ -38,8 +36,8 @@ class Valet {
         }));
     }
 
-    public async executeMove(player: IPlayer, play: Move) {
-        const { boardTiles } = play;
+    private executeMove(player: IPlayer, order: Move) {
+        const { boardTiles } = order;
         const moveTile = player.getHand().getTileById(TILE_ID_MOVE);
 
         // Set tile on new location
@@ -58,8 +56,8 @@ class Valet {
         }));
     }
 
-    public async executeSwap(player: IPlayer, play: Swap) {
-        const { boardTiles } = play;
+    private executeSwap(player: IPlayer, order: Swap) {
+        const { boardTiles } = order;
         const swapTile = player.getHand().getTileById(TILE_ID_SWAP);
     }
 }
