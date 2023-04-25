@@ -30,7 +30,7 @@ export const PlayedTileSchema = new Schema<IPlayedTile>({
     playerId: { type: String, required: true },
     handTile: { type: HandTileSchema, required: true },
 
-}, SUBDOCUMENT_SCHEMA_OPTIONS);
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 

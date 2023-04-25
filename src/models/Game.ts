@@ -72,7 +72,7 @@ GameSchema.methods.stringify = function() {
 }
 
 GameSchema.methods.getId = function() {
-    return this._id;
+    return this._id.toString();
 }
 
 GameSchema.methods.getVersion = function() {
@@ -95,8 +95,12 @@ GameSchema.methods.getBoard = function() {
     return this.board;
 }
 
+GameSchema.methods.getPlayers = function() {
+    return this.players;
+}
+
 GameSchema.methods.getPlayerByUser = function(user: IUser) {
-    const player = (this as IGame).players.find(player => player.userId === user.getId());
+    const player = (this as IGame).getPlayers().find(player => player.getUserId() === user.getId());
 
     if (!player) {
         throw new ErrorUserNotPlayingInGame(user, this as IGame);

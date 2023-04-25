@@ -2,7 +2,6 @@ import { Caste } from './types/GameTypes';
 
 /* ----- MONGOOSE ----- */
 export const SUBDOCUMENT_SCHEMA_OPTIONS = {
-    _id: false,
     autoCreate: false, // Do not create collection automatically
 };
 

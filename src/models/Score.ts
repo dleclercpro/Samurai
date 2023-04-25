@@ -27,7 +27,7 @@ export const ScoreSchema = new Schema<IScore>({
     [Caste.Commerce]: { type: Number, required: true, default: 0, min: 0 },
     [Caste.Religion]: { type: Number, required: true, default: 0, min: 0 },
 
-}, SUBDOCUMENT_SCHEMA_OPTIONS);
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 

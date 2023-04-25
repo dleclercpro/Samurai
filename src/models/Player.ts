@@ -20,6 +20,7 @@ export interface IPlayer extends Types.Subdocument {
     // Methods
     stringify: () => string,
     getId: () => string,
+    getUserId: () => string,
     getHand: () => IHand,
     getScore: () => IScore,
     increaseScoreByCaste: (caste: Caste, points: number) => void,
@@ -56,7 +57,11 @@ PlayerSchema.methods.stringify = function() {
 }
 
 PlayerSchema.methods.getId = function() {
-    return this._id;
+    return this._id.toString();
+}
+
+PlayerSchema.methods.getUserId = function() {
+    return this.userId;
 }
 
 PlayerSchema.methods.getHand = function() {

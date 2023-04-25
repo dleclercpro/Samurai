@@ -29,7 +29,7 @@ export interface IHandTileModel extends Model<IHandTile> {
 export const HandTileSchema = new Schema<IHandTile>({
     id: { type: Number, required: true },
 
-}, SUBDOCUMENT_SCHEMA_OPTIONS);
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 

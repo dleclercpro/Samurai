@@ -29,7 +29,7 @@ export const HandSchema = new Schema<IHand>({
     current: { type: [HandTileSchema], required: true, min: 0, max: N_HAND_TILES },
     remaining: { type: [HandTileSchema], required: true },
 
-}, SUBDOCUMENT_SCHEMA_OPTIONS);
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 
@@ -45,7 +45,9 @@ HandSchema.methods.getTileById = function(id: number) {
         return tile;
     }
 
-    throw new Error(`Tile with ID ${id} does not exist.`);
+    const currentHand = (this as IHand).current.map(tile => tile.getId()).join(', ');
+
+    throw new Error(`Tile with ID ${id} is not in player's hand: [${currentHand}]`);
 }
 
 HandSchema.methods.hasTile = function(id: number) {

@@ -67,7 +67,7 @@ UserSchema.methods.stringify = function() {
 }
 
 UserSchema.methods.getId = function() {
-    return this._id;
+    return this._id.toString();
 }
 
 UserSchema.methods.getEmail = function() {

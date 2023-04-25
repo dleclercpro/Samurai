@@ -58,7 +58,7 @@ export const BoardTileSchema = new Schema<IBoardTile>({
     castes: { type: [String], enum: Object.values(Caste), required: true, default: [] },
     playedTile: { type: PlayedTileSchema },
 
-}, SUBDOCUMENT_SCHEMA_OPTIONS);
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 

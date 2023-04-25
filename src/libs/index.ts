@@ -12,7 +12,7 @@ export const getEnvironment = () => {
     return env;
 }
 
-export const exists = (x?: any) => {
+export const exists = (x: any) => {
     return x !== undefined;
 }
 

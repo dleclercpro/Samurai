@@ -38,7 +38,7 @@ export interface IBoardModel extends Model<IBoard> {
 export const BoardSchema = new Schema<IBoard>({
     tiles: { type: [BoardTileSchema], required: true },
 
-}, SUBDOCUMENT_SCHEMA_OPTIONS);
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 

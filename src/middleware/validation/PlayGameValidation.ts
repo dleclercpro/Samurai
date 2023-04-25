@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import { CASTES } from '../../constants';
 import { ErrorInvalidParams } from '../../errors/ServerError';
 import { isNumerical } from '../../libs/string';
+import { Caste } from '../../types/GameTypes';
+import { exists } from '../../libs';
 
 /*
     This validation middleware is responsible for the parameters'
@@ -13,15 +15,25 @@ export const PlayGameValidation: RequestHandler = (req, res, next) => {
     const invalidParams = [];
 
     // Validate hand tile
-    !isNumerical(handTileId) && invalidParams.push('handTileId');
+    if (!isNumerical(String(handTileId))) {
+        invalidParams.push('handTileId');
+    }
 
     // Validate board tiles
-    boardTileIds.from !== null && !isNumerical(boardTileIds.from) && invalidParams.push('boardTileIds.from');
-    boardTileIds.to !== null && !isNumerical(boardTileIds.to) && invalidParams.push('boardTileIds.to');
+    if (!exists(boardTileIds) || boardTileIds.from !== null && !isNumerical(String(boardTileIds.from))) {
+        invalidParams.push('boardTileIds.from');
+    }
+    if (!exists(boardTileIds) || boardTileIds.to !== null && !isNumerical(String(boardTileIds.to))) {
+        invalidParams.push('boardTileIds.to');
+    }
 
     // Validate castes
-    castes.from !== null && !CASTES.includes(castes.from) && invalidParams.push('castes.from')
-    castes.to !== null && !CASTES.includes(castes.to) && invalidParams.push('castes.to')
+    if (!exists(castes) || castes.from !== null && !CASTES.includes(String(castes.from) as Caste)) {
+        invalidParams.push('castes.from');
+    }
+    if (!exists(castes) || castes.to !== null && !CASTES.includes(String(castes.to) as Caste)) {
+        invalidParams.push('castes.to');
+    }
 
     if (invalidParams.length > 0) {
         throw new ErrorInvalidParams(invalidParams);

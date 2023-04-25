@@ -15,7 +15,7 @@ export class ErrorInvalidParams extends ServerError {
     public static code = -100;
     
     constructor(params?: string[]) {
-        super(ErrorInvalidParams.code, params ? `Invalid parameters: ${params}` : `Invalid parameters.`);
+        super(ErrorInvalidParams.code, params ? `Invalid parameters: ${params.join(', ')}` : `Invalid parameters.`);
     }
 }
 
