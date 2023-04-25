@@ -7,7 +7,7 @@ import HandDataManager from '../data/HandDataManager';
 class HandBuilder {
 
     public build() {
-        const tiles = shuffle(getRange(N_FULL_HAND_TILES)).map(i => HandDataManager.getTile(i));
+        const tiles = shuffle(getRange(N_FULL_HAND_TILES)).map(i => HandDataManager.getTileById(i));
 
         return new Hand({
             current: tiles.slice(0, N_HAND_TILES),

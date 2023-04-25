@@ -4,6 +4,7 @@ import PlayGameController from '../../controllers/game/PlayGameController';
 import GetGameController from '../../controllers/game/GetGameController';
 import { SessionMiddleware } from '../../middleware/SessionMiddleware';
 import { PlayGameValidation } from '../../middleware/validation/PlayGameValidation';
+import { PlayGameSanitization } from '../../middleware/sanitization/PlayGameSanitization';
 
 
 
@@ -11,10 +12,15 @@ const router = Router();
 
 
 
+// Every game route has to be authenticated
+router.use(SessionMiddleware);
+
+
+
 // ROUTES
-router.post('/', [SessionMiddleware], CreateGameController);
-router.post('/:id', [SessionMiddleware, PlayGameValidation], PlayGameController);
-router.get('/:id', [SessionMiddleware], GetGameController);
+router.post('/', CreateGameController);
+router.get('/:id', GetGameController);
+router.post('/:id', [PlayGameValidation, PlayGameSanitization], PlayGameController);
 
 
 

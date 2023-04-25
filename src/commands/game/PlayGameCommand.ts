@@ -7,8 +7,15 @@ import Rules from '../../helpers/Rules';
 import { Caste } from '../../types/GameTypes';
 import { FromTo } from '../../types';
 import Valet from '../../helpers/Valet';
-import { TILE_ID_MOVE, TILE_ID_SWAP } from '../../constants';
+import { GAME_INIT_VERSION, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../constants';
 import { ErrorInvalidGameOrder } from '../../errors/GameErrors';
+import Scorer from '../../helpers/Scorer';
+
+export enum GameOrderType {
+    Normal = 'Normal',
+    Move = 'Move',
+    Swap = 'Swap',
+}
 
 export interface GameOrder {
     handTile: IHandTile,
@@ -17,7 +24,6 @@ export interface GameOrder {
 }
 
 interface Argument {
-    game: IGame,
     player: IPlayer,
     order: GameOrder,
 }
@@ -35,13 +41,36 @@ class PlayGameCommand extends Command<Argument, Response> {
     }
 
     protected async doExecute() {
-        const { game, player, order } = this.argument;
+        const { player, order } = this.argument;
 
-        // Check if player's move respects game rules
-        new Rules().canPlay(player, order);
+        // Get current time
+        const now = new Date();
 
-        // Execute player's move
-        new Valet().execute(player, order);
+        // Get game
+        const game = player.ownerDocument() as IGame;
+
+        // Check if player's order respects game rules
+        new Rules(player).canExecute(order);
+
+        // Execute player's order
+        new Valet(player).execute(order);
+
+        // First order in game
+        if (game.getVersion() === GAME_INIT_VERSION) {
+            game.setStartTime(now);
+        }
+
+        // Increase game version
+        game.setVersion(game.getVersion() + 1);
+
+        // Game over
+        if (game.getBoard().areAllCitiesClosed()) {
+            game.setWinners(new Scorer(game).computeWinners());
+            game.setEndTime(now);
+        }
+
+        // Update last played time
+        game.setLastPlayedTime(now);
 
         // Save game
         await game.save();
@@ -54,23 +83,26 @@ class PlayGameCommand extends Command<Argument, Response> {
         const someCaste = ![castes.from, castes.to].every(caste => caste === null);
     
         // Check input parameters for move
-        if (handTile.getId() === TILE_ID_MOVE) {
+        if (handTile.getId() === HAND_TILE_ID_MOVE) {
             if ([boardTiles.from, boardTiles.to].includes(null) || someCaste) {
-                throw new ErrorInvalidGameOrder('Move');
+                throw new ErrorInvalidGameOrder(GameOrderType.Move);
             }
+            return;
         }
     
         // Check input parameters for swap
-        if (handTile.getId() === TILE_ID_SWAP) {
+        if (handTile.getId() === HAND_TILE_ID_SWAP) {
             if ([boardTiles.from, boardTiles.to, castes.from, castes.to].includes(null)) {
-                throw new ErrorInvalidGameOrder('Swap');
+                throw new ErrorInvalidGameOrder(GameOrderType.Swap);
             }
+            return;
         }
     
         // Check input parameters for normal play
         if (boardTiles.from !== null || boardTiles.to === null || someCaste) {
-            throw new ErrorInvalidGameOrder('Normal');
+            throw new ErrorInvalidGameOrder(GameOrderType.Normal);
         }
+        return;
     }
 }
 

@@ -4,7 +4,8 @@ import { IBoardTile } from '../models/BoardTile';
 import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
 import { GameOrder } from '../commands/game/PlayGameCommand';
-import { TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
+import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
+import { IBoard } from '../models/Board';
 
 export interface Normal {
     boardTile: IBoardTile,
@@ -18,23 +19,30 @@ export interface Move {
 export interface Swap {
     boardTiles: FromTo<IBoardTile>,
     castes: FromTo<Caste>,
+    board: IBoard,
 }
 
 
 
 /*
-   This class is responsible to check whether a given player move is allowed.
+   This class is responsible to check whether a given order is allowed for a
+   specific player.
 */
 class Rules {
+    player: IPlayer;
 
-    public canPlay(player: IPlayer, order: GameOrder) {
+    public constructor(player: IPlayer) {
+        this.player = player;
+    }
+
+    public canExecute(order: GameOrder) {
         const { handTile, boardTiles, castes } = order;
 
         switch (handTile.getId()) {
-            case TILE_ID_MOVE:
-                this.canMove(player, { boardTiles } as Move);
+            case HAND_TILE_ID_MOVE:
+                this.canMove({ boardTiles } as Move);
                 break;
-            case TILE_ID_SWAP:
+            case HAND_TILE_ID_SWAP:
                 this.canSwap({ boardTiles, castes } as Swap);
                 break;
             default:
@@ -61,15 +69,15 @@ class Rules {
         return true;
     }
 
-    private canMove(player: IPlayer, order: Move) {
+    private canMove(order: Move) {
         const { boardTiles } = order;
-        const playedTile = boardTiles.from.getPlayedTile();
+        const previouslyPlayedTile = boardTiles.from.getPlayedTile();
 
         if (boardTiles.from.isFree()) {
             throw new Error('This board location has no tile on it yet.');
         }
 
-        if (playedTile.getPlayer().getId() !== player.getId()) {
+        if (previouslyPlayedTile.getPlayer().getId() !== this.player.getId()) {
             throw new Error(`Cannot move another player's tile.`);
         }
 
@@ -81,8 +89,8 @@ class Rules {
             throw new Error('This board location is not free.');
         }
 
-        if (boardTiles.to.isHandTileCompatible(playedTile.getHandTile())) {
-            throw new Error(`Board and hand tiles aren't compatible: ${boardTiles.to.getType()} vs. ${playedTile.getHandTile().getType()}`);
+        if (boardTiles.to.isHandTileCompatible(previouslyPlayedTile.getHandTile())) {
+            throw new Error(`Board and hand tiles aren't compatible: ${boardTiles.to.getType()} vs. ${previouslyPlayedTile.getHandTile().getType()}`);
         }
 
         return true;
@@ -103,11 +111,11 @@ class Rules {
             throw new Error('Cannot swap caste pieces from/to the same tile.');
         }
 
-        if (!boardTiles.from.hasCaste(castes.from)) {
+        if (!boardTiles.from.hasCastePiece(castes.from)) {
             throw new Error(`The given caste piece is not present on the starting tile: ${castes.from}`);
         }
 
-        if (!boardTiles.to.hasCaste(castes.to)) {
+        if (!boardTiles.to.hasCastePiece(castes.to)) {
             throw new Error(`The given caste piece is not present on the ending tile: ${castes.to}`);
         }
 

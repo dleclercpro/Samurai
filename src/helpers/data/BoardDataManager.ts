@@ -1,5 +1,5 @@
 import { BOARD_JSON } from '../../config/GameConfig';
-import { CASTE_SWAP_BOARD_TILE_IDS } from '../../constants';
+import { BOARD_TILE_SWAP_IDS } from '../../constants';
 import { BoardJSON, BoardTileJSON } from '../../types/JSONTypes';
 
 /*
@@ -37,10 +37,14 @@ class BoardDataManager {
     }
 
     public getSwapTiles() {
-        return CASTE_SWAP_BOARD_TILE_IDS.map(id => this.getTile(id));
+        return BOARD_TILE_SWAP_IDS.map(id => this.getTileById(id));
     }
 
-    public getTile(id: number) {
+    public getCities() {
+        return this.getTiles().filter(tile => tile.castes > 0);
+    }
+
+    public getTileById(id: number) {
         const tile = this.getTiles().find(tile => tile.id === id);
 
         if (!tile) {
@@ -50,12 +54,12 @@ class BoardDataManager {
         return tile;
     }
 
-    public getTileType(id: number) {
-        return this.getTile(id).type;
+    public getTileTypeById(id: number) {
+        return this.getTileById(id).type;
     }
 
-    public getTileNeighbors(id: number) {
-        return this.getTile(id).neighbors.map(tileId => this.getTile(tileId));
+    public getTileNeighborsById(id: number) {
+        return this.getTileById(id).neighbors.map(tileId => this.getTileById(tileId));
     }
 }
 

@@ -1,5 +1,5 @@
 import { Model, Schema, Types, model } from 'mongoose';
-import { Color } from '../types/GameTypes';
+import { Caste, Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { HandSchema, IHand } from './Hand';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
@@ -21,6 +21,8 @@ export interface IPlayer extends Types.Subdocument {
     stringify: () => string,
     getId: () => string,
     getHand: () => IHand,
+    getScore: () => IScore,
+    increaseScoreByCaste: (caste: Caste, points: number) => void,
 }
 
 
@@ -59,6 +61,14 @@ PlayerSchema.methods.getId = function() {
 
 PlayerSchema.methods.getHand = function() {
     return this.hand;
+}
+
+PlayerSchema.methods.getScore = function() {
+    return this.score;
+}
+
+PlayerSchema.methods.increaseScoreByCaste = function(caste: Caste, points: number) {
+    return this.score.setByCaste(caste, this.score.getByCaste(caste) + points)
 }
 
 

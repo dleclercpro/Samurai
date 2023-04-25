@@ -1,5 +1,5 @@
 import { HAND_JSON } from '../../config/GameConfig';
-import { CASTE_SWAP_BOARD_TILE_IDS } from '../../constants';
+import { BOARD_TILE_SWAP_IDS } from '../../constants';
 import { HandJSON, HandTileJSON } from '../../types/JSONTypes';
 
 /*
@@ -37,10 +37,10 @@ class HandDataManager {
     }
 
     public getSwapTiles() {
-        return CASTE_SWAP_BOARD_TILE_IDS.map(id => this.getTile(id));
+        return BOARD_TILE_SWAP_IDS.map(id => this.getTileById(id));
     }
 
-    public getTile(id: number) {
+    public getTileById(id: number) {
         const tile = this.getTiles().find(tile => tile.id === id);
 
         if (!tile) {
@@ -50,16 +50,16 @@ class HandDataManager {
         return tile;
     }
 
-    public getTileType(id: number) {
-        return this.getTile(id).type;
+    public getTileTypeById(id: number) {
+        return this.getTileById(id).type;
     }
 
-    public getTileStrength(id: number) {
-        return this.getTile(id).strength;
+    public getTileStrengthById(id: number) {
+        return this.getTileById(id).strength;
     }
 
-    public getReplay(id: number) {
-        return this.getTile(id).replay;
+    public getTileReplayById(id: number) {
+        return this.getTileById(id).replay;
     }
 }
 

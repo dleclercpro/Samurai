@@ -1,5 +1,5 @@
 import { Model, Schema, Types, model } from 'mongoose';
-import { N_HAND_TILES, SUBDOCUMENT_SCHEMA_OPTIONS, TILE_ID_MOVE, TILE_ID_SWAP } from '../constants';
+import { N_HAND_TILES, SUBDOCUMENT_SCHEMA_OPTIONS, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IHandTile, HandTileSchema } from './HandTile';
 
 
@@ -53,11 +53,11 @@ HandSchema.methods.hasTile = function(id: number) {
 }
 
 HandSchema.methods.hasMoveTile = function() {
-    return (this as IHand).hasTile(TILE_ID_MOVE);
+    return (this as IHand).hasTile(HAND_TILE_ID_MOVE);
 }
 
 HandSchema.methods.hasSwapTile = function() {
-    return (this as IHand).hasTile(TILE_ID_SWAP);
+    return (this as IHand).hasTile(HAND_TILE_ID_SWAP);
 }
 
 HandSchema.methods.removeTile = function(tileToRemove: IHandTile) {

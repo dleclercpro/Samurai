@@ -1,26 +1,29 @@
-import { BoardTileType } from './models/BoardTile';
-import { Caste, HandTileType } from './types/GameTypes';
+import { Caste } from './types/GameTypes';
 
 /* ----- MONGOOSE ----- */
 export const SUBDOCUMENT_SCHEMA_OPTIONS = {
     _id: false,
-    autoCreate: false,
+    autoCreate: false, // Do not create collection automatically
 };
 
 
 
 /* ----- GAME ----- */
 // Tiles
-export const TILE_ID_SWAP = 18
-export const TILE_ID_MOVE = 19
+export const HAND_TILE_ID_SWAP = 18;
+export const HAND_TILE_ID_MOVE = 19;
+export const BOARD_TILE_SWAP_IDS = [200, 201, 202, 203];
 
 // Numbers
-export const N_FULL_HAND_TILES = 20
-export const N_HAND_TILES = 5
-export const N_BOARD_TILES = 174
+export const N_FULL_HAND_TILES = 20;
+export const N_HAND_TILES = 5;
 
-// Special tile IDs
-export const CASTE_SWAP_BOARD_TILE_IDS = [200, 201, 202, 203]
+// Players
+export const GAME_PLAYER_COUNT_MIN = 2;
+export const GAME_PLAYER_COUNT_MAX = 4;
+
+// Version
+export const GAME_INIT_VERSION = 0;
 
 // Castes
 export const CASTES = Object.values(Caste);

@@ -1,8 +1,9 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { BoardTileSchema, IBoardTile } from './BoardTile';
-import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
+import { BOARD_TILE_SWAP_IDS, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile } from './PlayedTile';
 import { IPlayer } from './Player';
+import BoardDataManager from '../helpers/data/BoardDataManager';
 
 export enum BoardSection {
     North = 'North',
@@ -21,6 +22,9 @@ export interface IBoard extends Types.Subdocument {
     getTiles: () => IBoardTile[],
     getTileById: (id: number) => IBoardTile,
     getTilesPlayedByPlayer: (player: IPlayer) => IPlayedTile[],
+    getCities: () => IBoardTile[],
+    getNextFreeSwapTile: () => IBoardTile,
+    areAllCitiesClosed: () => boolean,
 }
 
 
@@ -48,7 +52,9 @@ BoardSchema.methods.getTiles = function() {
 }
 
 BoardSchema.methods.getTileById = function(id: number) {
-    const tile = (this as IBoard).tiles.find(tile => tile.id === id);
+    const tile = (this as IBoard)
+        .getTiles()
+        .find(tile => tile.id === id);
     
     if (tile) {
         return tile;
@@ -58,9 +64,25 @@ BoardSchema.methods.getTileById = function(id: number) {
 }
 
 BoardSchema.methods.getTilesPlayedByPlayer = function(player: IPlayer) {
-    return (this as IBoard).tiles
+    return (this as IBoard)
+        .getTiles()
         .map(tile => tile.playedTile)
         .filter(tile => !!tile && tile.playerId === player.getId());
+}
+
+BoardSchema.methods.getCities = function() {
+    return BoardDataManager.getCities()
+        .map(city => (this as IBoard).getTileById(city.id));
+}
+
+BoardSchema.methods.getNextFreeSwapTile = function() {
+    return BOARD_TILE_SWAP_IDS
+        .map(id => (this as IBoard).getTileById(id))
+        .find(tile => tile.isFree());
+}
+
+BoardSchema.methods.areAllCitiesClosed = function() {
+    return (this as IBoard).getCities().every(city => city.isClosed());
 }
 
 

@@ -1,3 +1,4 @@
+import { GameOrderType } from '../commands/game/PlayGameCommand';
 import { IGame } from '../models/Game';
 import { IUser } from '../models/User';
 import { ServerError } from './ServerError';
@@ -29,7 +30,15 @@ export class ErrorUserNotPlayingInGame extends ServerError {
 export class ErrorInvalidGameOrder extends ServerError {
     public static code = -403;
 
-    constructor(order: string) {
+    constructor(order: GameOrderType) {
         super(ErrorInvalidGameOrder.code, `Invalid game order: ${order}`);
+    }
+}
+
+export class ErrorGameAlreadyOver extends ServerError {
+    public static code = -404;
+    
+    constructor(game: IGame) {
+        super(ErrorGameAlreadyOver.code, `Game is already over: ${game.getId()}`);
     }
 }
