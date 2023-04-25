@@ -11,7 +11,7 @@ export const isMongoError = (error: any, code: number) => {
 }
 
 abstract class MongoDB extends Database {
-    protected connection?: typeof mongoose;
+    protected client?: typeof mongoose;
 
     protected getURI() {
         const uri = this.getAnonymousURI();
@@ -33,7 +33,7 @@ abstract class MongoDB extends Database {
         this.logger.debug(`Trying to connect to: ${this.getAnonymousURI()}`);
 
         // Create connection to database
-        this.connection = await mongoose.connect(this.getURI());
+        this.client = await mongoose.connect(this.getURI());
 
         this.logger.debug('Connected.');
     }
@@ -62,12 +62,18 @@ abstract class MongoDB extends Database {
         }
     }
 
+    public async stop() {
+        await this.client?.disconnect();
+
+        this.logger.debug('Disconnected.');
+    }
+
     public async startSession() {
-        if (!this.connection) {
+        if (!this.client) {
             throw new Error('Cannot start session without connection to database.');
         }
 
-        return this.connection.startSession();
+        return this.client.startSession();
     }
 }
 

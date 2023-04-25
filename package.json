@@ -9,7 +9,7 @@
     "start": "cross-env NODE_ENV=development nodemon ./src/index.ts",
     "prod": "cross-env NODE_ENV=production node ./build/index.js",
     "build": "cross-env NODE_ENV=production tsc -p ./",
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

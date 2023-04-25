@@ -4,22 +4,38 @@ import Session from '../helpers/Session';
 import SessionSerializer from '../helpers/SessionSerializer';
 import { createLogger } from '../utils/Logging';
 import RedisDB from './base/RedisDB';
-import { schedule } from 'node-cron';
+import { ScheduledTask, schedule } from 'node-cron';
 
 class SessionsDatabase extends RedisDB {
     private static instance: SessionsDatabase; // Singleton
 
     private serializer: SessionSerializer;
+    private cleanUpTask: ScheduledTask;
     
     private constructor() {
         super(SESSIONS_DB_OPTIONS, createLogger('SessionsDatabase'));
 
         this.serializer = new SessionSerializer(SESSION_OPTIONS.secret);
+        this.cleanUpTask = schedule(
+            '0 0 */1 * * *',
+            () => this.removeExpiredSessions(),
+            { runOnInit: false },
+        );
     }
 
     public async start() {
         await super.start();
-        await this.scheduleCleanUps('0 0 */1 * * *');
+
+        // Remove expired sessions on start
+        await this.removeExpiredSessions();
+
+        this.cleanUpTask.start();
+    }
+
+    public async stop() {
+        await super.stop();
+
+        this.cleanUpTask.stop();
     }
 
     public static getInstance() {
@@ -53,12 +69,6 @@ class SessionsDatabase extends RedisDB {
     }
 
     // Clean up expired sessions
-    private async scheduleCleanUps(cronExpression: string) {
-        await this.removeExpiredSessions();
-
-        schedule(cronExpression, () => this.removeExpiredSessions());
-    }
-
     private async removeExpiredSessions() {
         this.logger.debug(`Removing expired sessions from database...`);
 

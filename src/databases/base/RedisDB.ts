@@ -59,6 +59,10 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
         await this.client.connect();
     }
 
+    public async stop() {
+        await this.client.quit();
+    }
+
     protected listen = () => {
         this.client.on('ready', () => {
             this.logger.debug('Ready.');
@@ -105,12 +109,16 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
         return wait;
     }
 
+    private getPrefixedKey(key: string) {
+        return this.name ? `${this.name}:${key}` : key;
+    }
+
     public async has(key: string) {
         return this.get(key) !== null;
     }
 
     public async get(key: string) {
-        return this.client.get(key);
+        return this.client.get(this.getPrefixedKey(key));
     }
 
     public async getAllKeys() {
@@ -119,24 +127,26 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
 
     public async getAll() {
         const keys = await this.getAllKeys();
-        const values = await Promise.all(keys.map((key) => this.get(key)));
+        const values = await Promise.all(keys.map((key) => this.client.get(key)));
 
         return values;
     }
 
     public async set(key: string, value: string) {
-        const prevValue = await this.get(key);
+        const prefixedKey = this.getPrefixedKey(key);
+        const prevValue = await this.client.get(prefixedKey);
 
-        await this.client.set(key, value);
+        await this.client.set(prefixedKey, value);
 
         this.onSetObserver.publish({ prevValue, value });
     }
 
     public async delete(key: string) {
-        const prevValue = await this.get(key);
+        const prefixedKey = this.getPrefixedKey(key);
+        const prevValue = await this.client.get(prefixedKey);
         
         if (prevValue) {
-            await this.client.del(key);
+            await this.client.del(prefixedKey);
 
             this.onDeleteObserver.publish({ prevValue });
         }

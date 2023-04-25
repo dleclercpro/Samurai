@@ -1,6 +1,7 @@
 import './RequestTypes'; // Do not remove!
 
 export enum Environment {
+    Test = 'test',
     Development = 'development',
     Production = 'production',
 }

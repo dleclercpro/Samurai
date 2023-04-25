@@ -9,37 +9,37 @@ import AppDatabase from './databases/AppDatabase';
 
 
 
-// Server
-export const server = express();
+// App
+export const app = express();
 
 
 
 /* ----------------------------------------------- MIDDLEWARE ----------------------------------------------- */
 
 // JSON
-server.use(express.urlencoded({ extended: true }));
-server.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Cookies
-server.use(cookieParser());
+app.use(cookieParser());
 
 // GZIP
-server.use(compression());
+app.use(compression());
 
 // API
-server.use('/', router);
+app.use('/', router);
 
 
 
 /* -------------------------------------------------- MAIN -------------------------------------------------- */
-const main = async () => {
+export const main = async () => {
 
     // Establish connection with databases
     await SessionsDatabase.start();
     await AppDatabase.start();
 
     // Then start listening on given port
-    server.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
         logger.info(`Server listening in ${ENV} mode at: ${ROOT}`);
     });
 }
@@ -47,6 +47,9 @@ const main = async () => {
 
 
 // Run
-main().catch((err) => {
+main().catch(async (err) => {
     logger.fatal(err);
+
+    await SessionsDatabase.stop();
+    await AppDatabase.stop();
 });
