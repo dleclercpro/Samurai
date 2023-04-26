@@ -6,6 +6,7 @@ import { DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_MAX_DELAY } from '../../config/D
 import { toMs } from '../../libs/time';
 import { TimeUnit } from '../../types/TimeTypes';
 import { Logger } from 'pino';
+import { ENV } from '../../config/AppConfig';
 
 interface SetEvent<V> {
     prevValue: V | null,
@@ -110,7 +111,7 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
     }
 
     private getPrefixedKey(key: string) {
-        return this.name ? `${this.name}:${key}` : key;
+        return this.name ? `${this.name}:${ENV}:${key}` : key;
     }
 
     public async has(key: string) {
@@ -122,7 +123,7 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
     }
 
     public async getAllKeys() {
-        return this.client.keys('*');
+        return this.client.keys(this.getPrefixedKey('*'));
     }
 
     public async getAll() {
