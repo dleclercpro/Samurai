@@ -10,7 +10,7 @@ export const isMongoError = (error: any, code: number) => {
     );
 }
 
-abstract class MongoDB extends Database {
+abstract class MongoDatabase extends Database {
     protected client?: typeof mongoose;
 
     protected getURI() {
@@ -67,14 +67,6 @@ abstract class MongoDB extends Database {
 
         this.logger.debug('Disconnected.');
     }
-
-    public async startSession() {
-        if (!this.client) {
-            throw new Error('Cannot start session without connection to database.');
-        }
-
-        return this.client.startSession();
-    }
 }
 
-export default MongoDB;
+export default MongoDatabase;

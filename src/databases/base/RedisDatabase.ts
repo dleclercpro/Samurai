@@ -17,7 +17,7 @@ interface DeleteEvent<V> {
     prevValue: V | null,
 }
 
-abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
+class RedisDatabase extends Database implements IKeyValueDatabase<string> {
     protected client: RedisClientType;
 
     protected onSetObserver = createObserver<SetEvent<string>>();
@@ -111,7 +111,7 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
     }
 
     private getPrefixedKey(key: string) {
-        return this.name ? `${this.name}:${ENV}:${key}` : key;
+        return this.name ? `${this.name}:${key}` : key;
     }
 
     public async has(key: string) {
@@ -162,4 +162,4 @@ abstract class RedisDB extends Database implements IKeyValueDatabase<string> {
     }
 }
 
-export default RedisDB;
+export default RedisDatabase;

@@ -3,10 +3,10 @@ import { SESSION_OPTIONS } from '../config/AuthConfig';
 import Session from '../helpers/Session';
 import SessionSerializer from '../helpers/SessionSerializer';
 import { createLogger } from '../utils/Logging';
-import RedisDB from './base/RedisDB';
+import RedisDatabase from './base/RedisDatabase';
 import { ScheduledTask, schedule } from 'node-cron';
 
-class SessionsDatabase extends RedisDB {
+class SessionsDatabase extends RedisDatabase {
     private static instance: SessionsDatabase; // Singleton
 
     private serializer: SessionSerializer;
@@ -16,11 +16,9 @@ class SessionsDatabase extends RedisDB {
         super(SESSIONS_DB_OPTIONS, createLogger('SessionsDatabase'));
 
         this.serializer = new SessionSerializer(SESSION_OPTIONS.secret);
-        this.cleanUpTask = schedule(
-            '0 0 */1 * * *',
-            () => this.removeExpiredSessions(),
-            { runOnInit: false },
-        );
+        this.cleanUpTask = schedule('0 0 */1 * * *', () => this.removeExpiredSessions(), {
+            runOnInit: false,
+        });
     }
 
     public async start() {

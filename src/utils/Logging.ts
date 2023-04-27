@@ -1,5 +1,6 @@
 import pino from 'pino';
-import { DEBUG } from '../config/AppConfig';
+import { ENV } from '../config/AppConfig';
+import { Environment } from '../types';
 
 const DEV_OPTIONS = {
     level: 'trace',
@@ -11,9 +12,24 @@ const DEV_OPTIONS = {
     },
 };
 
+const TEST_OPTIONS = {
+    level: 'error',
+};
+
 const PROD_OPTIONS = {
     level: 'info',
 };
 
-export const logger = pino(DEBUG ? DEV_OPTIONS : PROD_OPTIONS);
-export const createLogger = (name: string) => pino(DEBUG ? { name, ...DEV_OPTIONS} : { name, ...PROD_OPTIONS });
+const getOptions = () => {
+    switch (ENV) {
+        case Environment.Development:
+            return DEV_OPTIONS;
+        case Environment.Test:
+            return TEST_OPTIONS;
+        case Environment.Production:
+            return PROD_OPTIONS;
+    }
+}
+
+export const logger = pino(getOptions());
+export const createLogger = (name: string) => pino({ name, ...getOptions()});

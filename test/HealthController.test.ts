@@ -6,7 +6,7 @@ import { successResponse } from '../src/libs/calls';
 const HEALTH_CONTROLLER_URL = `${API_ROOT}/health`;
 
 beforeAll(async () => {
-  await start();
+    await start();
 });
 
 afterAll(async () => {

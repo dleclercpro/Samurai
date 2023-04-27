@@ -7,7 +7,14 @@ import { errorResponse, successResponse } from '../../libs/calls';
 import { HttpStatusCode } from '../../types/HTTPTypes';
 import { logger } from '../../utils/Logging';
 
-const SignUpController: RequestHandler = async (req, res, next) => {    
+export interface SignUpControllerBody {
+    email: string,
+    password: string,
+}
+
+type ISignUpController = RequestHandler<any, any, SignUpControllerBody>;
+
+const SignUpController: ISignUpController = async (req, res, next) => {    
     try {
         let { email, password } = req.body;
 

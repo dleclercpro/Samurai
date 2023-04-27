@@ -6,13 +6,16 @@ import { ENV, PORT, ROOT } from './config/AppConfig';
 import { logger } from './utils/Logging';
 import SessionsDatabase from './databases/SessionsDatabase';
 import AppDatabase from './databases/AppDatabase';
+import TestDatabase from './databases/TestDatabase';
 import http from 'http';
+import { Environment } from './types';
 
 
 
 // App
 export const App: Express = express();
 export let Server: http.Server;
+export const AppDB = ENV === Environment.Test ? TestDatabase : AppDatabase;
 
 
 
@@ -38,17 +41,21 @@ export const start = async () => {
 
     // Establish connection with databases
     await SessionsDatabase.start();
-    await AppDatabase.start();
+    await AppDB.start();
 
     // Then start listening on given port
-    Server = App.listen(PORT, () => {
-        logger.info(`Server listening in '${ENV}' mode at: ${ROOT}`);
+    return new Promise<void>((resolve, reject) => {
+        Server = App.listen(PORT, () => {
+            logger.info(`Server listening in '${ENV}' mode at: ${ROOT}`);
+            
+            resolve();
+        });
     });
 }
 
 export const stop = async () => {
     await SessionsDatabase.stop();
-    await AppDatabase.stop();
+    await AppDB.stop();
 
     Server && Server.close();
 }

@@ -1,8 +1,8 @@
 import { APP_DB_OPTIONS, DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_TIMEOUT } from '../config/DatabasesConfig';
 import { createLogger } from '../utils/Logging';
-import MongoDB from './base/MongoDB';
+import MongoDatabase from './base/MongoDatabase';
 
-class AppDatabase extends MongoDB {
+class AppDatabase extends MongoDatabase {
     private static instance: AppDatabase;
 
     private constructor() {
