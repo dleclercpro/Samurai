@@ -15,7 +15,6 @@ import { Environment } from './types';
 // App
 export const App: Express = express();
 export let Server: http.Server;
-export const AppDB = ENV === Environment.Test ? TestDatabase : AppDatabase;
 
 
 
@@ -41,7 +40,7 @@ export const start = async () => {
 
     // Establish connection with databases
     await SessionsDatabase.start();
-    await AppDB.start();
+    await (Environment.Test ? TestDatabase : AppDatabase).start();
 
     // Then start listening on given port
     return new Promise<void>((resolve, reject) => {
@@ -55,7 +54,7 @@ export const start = async () => {
 
 export const stop = async () => {
     await SessionsDatabase.stop();
-    await AppDB.stop();
+    await (Environment.Test ? TestDatabase : AppDatabase).stop();
 
     Server && Server.close();
 }

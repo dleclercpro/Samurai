@@ -3,6 +3,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
 import { logger } from '../utils/Logging';
 import { ErrorInvalidParams } from '../errors/ServerError';
 import { DEBUG } from '../config/AppConfig';
+import { errorResponse } from '../libs/calls';
 
 export const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     
@@ -12,17 +13,17 @@ export const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
 
         return res
             .status(HttpStatusCode.BAD_REQUEST)
-            .send(HttpStatusMessage.BAD_REQUEST)
+            .send(errorResponse(HttpStatusMessage.BAD_REQUEST))
     }
 
     // Unknown error
     if (DEBUG) {
-        logger.error(`\n${err}\n`);
+        console.log(err);
     } else {
         logger.error(`Unknown error: ${err.message}`);
     }
 
     return res
         .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
-        .send(HttpStatusMessage.INTERNAL_SERVER_ERROR);
-}
+        .send(errorResponse(HttpStatusMessage.INTERNAL_SERVER_ERROR))
+    }

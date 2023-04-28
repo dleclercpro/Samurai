@@ -2,6 +2,7 @@ import axios from 'axios';
 import { start, stop } from '../src/app';
 import { API_ROOT } from '../src/config/AppConfig';
 import { successResponse } from '../src/libs/calls';
+import TestDatabase from '../src/databases/TestDatabase';
 
 const HEALTH_CONTROLLER_URL = `${API_ROOT}/health`;
 
@@ -9,8 +10,18 @@ beforeAll(async () => {
     await start();
 });
 
+beforeEach(async () => {
+
+});
+
 afterAll(async () => {
+    await TestDatabase.drop();
+
     await stop();
+});
+
+afterEach(async () => {
+    await TestDatabase.dropCollections();
 });
 
 

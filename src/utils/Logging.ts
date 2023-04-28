@@ -13,7 +13,13 @@ const DEV_OPTIONS = {
 };
 
 const TEST_OPTIONS = {
-    level: 'error',
+    level: 'trace',
+    transport: {
+        target: 'pino-pretty',
+        options: {
+            colorize: true,
+        },
+    },
 };
 
 const PROD_OPTIONS = {

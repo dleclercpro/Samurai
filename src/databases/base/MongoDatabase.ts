@@ -38,6 +38,12 @@ abstract class MongoDatabase extends Database {
         this.logger.debug('Connected.');
     }
 
+    protected async disconnect() {
+        await this.client?.disconnect();
+
+        this.logger.debug('Disconnected.');
+    }
+
     public async start(wait = { time: 0, unit: TimeUnit.Millisecond }, retries = 1) {
 
         try {
@@ -63,9 +69,7 @@ abstract class MongoDatabase extends Database {
     }
 
     public async stop() {
-        await this.client?.disconnect();
-
-        this.logger.debug('Disconnected.');
+        await this.disconnect();
     }
 }
 

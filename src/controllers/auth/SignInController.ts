@@ -5,22 +5,21 @@ import SignInCommand from '../../commands/auth/SignInCommand';
 import { ErrorUserDoesNotExist, ErrorUserWrongPassword } from '../../errors/UserErrors';
 import { ClientError } from '../../errors/ClientErrors';
 import { validate } from 'email-validator';
-import { ErrorInvalidEmail, ErrorInvalidParams } from '../../errors/ServerError';
-import { logger } from '../../utils/Logging';
+import { ErrorInvalidEmail } from '../../errors/ServerError';
 import { SESSION_OPTIONS } from '../../config/AuthConfig';
 
-const SignInController: RequestHandler = async (req, res, next) => {
+export interface SignInControllerBody {
+    email: string,
+    password: string,
+    staySignedIn: boolean,
+}
+
+type ISignInController = RequestHandler<any, any, SignInControllerBody>;
+
+const SignInController: ISignInController = async (req, res, next) => {    
     try {
         const { cookie } = SESSION_OPTIONS;
         let { email, password, staySignedIn } = req.body;
-
-        // Test params
-        if (!email || !password || !staySignedIn) {
-            throw new ErrorInvalidParams();
-        }
-
-        // Sanitize input
-        email = email.trim().toLowerCase();
 
         // Validate e-mail
         if (!validate(email)) {
@@ -37,7 +36,6 @@ const SignInController: RequestHandler = async (req, res, next) => {
         return res.json(successResponse());
 
     } catch (err: any) {
-        logger.warn(err.message);
 
         // Do not tell client why user can't sign in: just say that
         // their credentials are invalid

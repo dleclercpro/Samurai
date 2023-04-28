@@ -46,6 +46,18 @@ abstract class MemoryMongoDatabase {
     public async stop() {
         await this.disconnect();
     }
+
+    public async drop() {
+        await mongoose.connection.dropDatabase();
+    }
+
+    public async dropCollections() {
+        const collections = await mongoose.connection.db.collections();
+
+        await Promise.all(collections.map(async collection => {
+            await collection.drop();
+        }));
+    }
 }
 
 export default MemoryMongoDatabase;

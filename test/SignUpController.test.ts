@@ -3,37 +3,34 @@ import { start, stop } from '../src/app';
 import { API_ROOT } from '../src/config/AppConfig';
 import { successResponse } from '../src/libs/calls';
 import { SignUpControllerBody } from '../src/controllers/auth/SignUpController';
+import TestDatabase from '../src/databases/TestDatabase';
 
 const VALID_EMAIL = 'user@test.com';
 const VALID_PASSWORD = 'q12345678!';
 const INVALID_EMAIL = 'test';
 const INVALID_PASSWORD = '123';
 
-const SIGN_UP_CONTROLLER_URL = `${API_ROOT}/auth`;
-
 beforeAll(async () => {
     await start();
-
-    // Create DB
 });
 
 beforeEach(async () => {
-    // Fill DB
+
 });
 
 afterAll(async () => {
-    await stop();
+    await TestDatabase.drop();
 
-    // Delete DB
+    await stop();
 });
 
 afterEach(async () => {
-    // Remove collections
-})
+    await TestDatabase.dropCollections();
+});
 
 
 
-const signUpAction = (user: SignUpControllerBody) => axios.post(SIGN_UP_CONTROLLER_URL, user).then(res => res.data);
+const signUpAction = (user: SignUpControllerBody) => axios.post(`${API_ROOT}/auth`, user).then(res => res.data);
 
 
 
