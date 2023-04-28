@@ -26,25 +26,25 @@ afterEach(async () => {
 
 
 
-test('Health check [using GET] should work', async () => {
+test(`Health check [using GET] should work`, async () => {
     const action = () => axios.get(HEALTH_CONTROLLER_URL).then(res => res.data);
 
     await expect(action()).resolves.toEqual(successResponse());
 });
 
-test('Invalid health check [using POST] should not work', async () => {
+test(`Invalid health check [using POST] should not work`, async () => {
     const action = () => axios.post(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();
 });
 
-test('Invalid health check [using PUT] should not work', async () => {
+test(`Invalid health check [using PUT] should not work`, async () => {
     const action = () => axios.put(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();
 });
 
-test('Invalid health check [using DELETE] should not work', async () => {
+test(`Invalid health check [using DELETE] should not work`, async () => {
     const action = () => axios.delete(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();

@@ -18,14 +18,6 @@ const SignUpController: ISignUpController = async (req, res, next) => {
     try {
         let { email, password } = req.body;
 
-        // Test params
-        if (!email || !password) {
-            throw new ErrorInvalidParams();
-        }
-
-        // Sanitize input
-        email = email.trim().toLowerCase();
-        
         // Create new user in database
         await new CreateUserCommand({ email, password }).execute();
 

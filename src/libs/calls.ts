@@ -1,6 +1,11 @@
-interface CallResponse<Data> {
+export interface SuccessResponse<Data> {
     code: number,
-    error?: string,
+    data?: Data,
+}
+
+export interface ErrorResponse<Data> {
+    code: number,
+    error: string,
     data?: Data,
 }
 
@@ -12,7 +17,7 @@ interface CallResponse<Data> {
  * @param code 
  * @returns 
  */
-export const successResponse = <Data> (data?: Data, code: number = 0): CallResponse<Data> => ({
+export const successResponse = <Data> (data?: Data, code: number = 0): SuccessResponse<Data> => ({
     code,
     data,
 });
@@ -25,7 +30,7 @@ export const successResponse = <Data> (data?: Data, code: number = 0): CallRespo
  * @param code 
  * @returns 
  */
-export const errorResponse = <Data> (error: string, data?: Data, code: number = -1): CallResponse<Data> => ({
+export const errorResponse = <Data> (error: string, data?: Data, code: number = -1): ErrorResponse<Data> => ({
     code,
     error,
     data,

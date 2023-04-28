@@ -3,7 +3,7 @@ import CreateGameCommand from '../../commands/game/CreateGameCommand';
 import { errorResponse, successResponse } from '../../libs/calls';
 import { ErrorInvalidParams } from '../../errors/ServerError';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import { HttpStatusCode } from '../../types/HTTPTypes';
+import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import { ClientError } from '../../errors/ClientErrors';
 import { logger } from '../../utils/Logging';
 
@@ -36,7 +36,7 @@ const CreateGameController: RequestHandler = async (req, res, next) => {
         ) {
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
-                .json(errorResponse(ClientError.UserDoesNotExist));
+                .json(errorResponse(HttpStatusMessage.BAD_REQUEST));
         }
 
         next(err);

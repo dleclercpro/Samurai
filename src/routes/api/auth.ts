@@ -6,6 +6,8 @@ import SignOutController from '../../controllers/auth/SignOutController';
 import { SessionMiddleware } from '../../middleware/SessionMiddleware';
 import { SignInValidation } from '../../middleware/validation/SignInValidation';
 import { SignInSanitization } from '../../middleware/sanitization/SignInSanitization';
+import { SignUpValidation } from '../../middleware/validation/SignUpValidation';
+import { SignUpSanitization } from '../../middleware/sanitization/SignUpSanitization';
 
 
 
@@ -14,8 +16,8 @@ const router = Router();
 
 
 // ROUTES
-router.post('/', [], SignUpController);
 router.get('/', [SessionMiddleware], PingController);
+router.post('/', [SignUpValidation, SignUpSanitization], SignUpController);
 router.get('/sign-in', [SignInValidation, SignInSanitization], SignInController);
 router.get('/sign-out', [SessionMiddleware], SignOutController);
 
