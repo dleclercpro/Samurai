@@ -14,7 +14,7 @@ export interface SignUpControllerBody {
 
 type ISignUpController = RequestHandler<any, any, SignUpControllerBody>;
 
-const SignUpController: ISignUpController = async (req, res, next) => {    
+const SignUpController: ISignUpController = async (req, res, next) => {
     try {
         let { email, password } = req.body;
 

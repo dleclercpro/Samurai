@@ -42,3 +42,11 @@ export class ErrorGameAlreadyOver extends ServerError {
         super(ErrorGameAlreadyOver.code, `Game is already over: ${game.getId()}`);
     }
 }
+
+export class ErrorGameDuplicateUsers extends ServerError {
+    public static code = -405;
+    
+    constructor() {
+        super(ErrorGameDuplicateUsers.code, `Game cannot be created with duplicate users.`);
+    }
+}

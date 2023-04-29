@@ -1,21 +1,22 @@
 import { RequestHandler } from 'express';
 import CreateGameCommand from '../../commands/game/CreateGameCommand';
 import { errorResponse, successResponse } from '../../libs/calls';
-import { ErrorInvalidParams } from '../../errors/ServerError';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
-import { ClientError } from '../../errors/ClientErrors';
 import { logger } from '../../utils/Logging';
+import { ErrorGameDuplicateUsers } from '../../errors/GameErrors';
 
-const CreateGameController: RequestHandler = async (req, res, next) => {
+export interface CreateGameControllerBody {
+    name: string,
+    opponentEmails: string[],
+}
+
+type ICreateGameController = RequestHandler<any, any, CreateGameControllerBody>;
+
+const CreateGameController: ICreateGameController = async (req, res, next) => {
     try {
         const { user } = req;
         const { name, opponentEmails } = req.body;
-
-        // Test params
-        if (!name || !opponentEmails) {
-            throw new ErrorInvalidParams();
-        }
 
         // Create new game
         const game = await new CreateGameCommand({
@@ -30,9 +31,9 @@ const CreateGameController: RequestHandler = async (req, res, next) => {
         }));
 
     } catch (err: any) {
-        logger.warn(err.message);
-
-        if (err.code === ErrorUserDoesNotExist.code
+        if (
+            err.code === ErrorUserDoesNotExist.code ||
+            err.code === ErrorGameDuplicateUsers.code
         ) {
             return res
                 .status(HttpStatusCode.BAD_REQUEST)

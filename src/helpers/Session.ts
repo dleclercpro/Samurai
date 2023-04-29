@@ -79,7 +79,7 @@ class Session {
     public static async create(email: string, staySignedIn: boolean = false, duration?: TimeDuration) {
         let id = '';
 
-        // Find a unique, non-existent ID for the new session 
+        // Find a unique, non-existing ID for the new session 
         while (!id || await Session.findById(id)) {
             id = Session.generateId();
         }

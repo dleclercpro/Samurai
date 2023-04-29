@@ -16,6 +16,7 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
 
         // Missing session ID
         if (!req.cookies || !req.cookies[cookie.name]) {
+            console.log(req.cookies);
             throw new ErrorMissingSessionId();
         }
 

@@ -16,6 +16,8 @@ export const exists = (x: any) => {
     return x !== undefined;
 }
 
+export const unique = (arr: any[]) => [...new Set(arr)];
+
 export const zip = (a: any[], b: any[]) => {
     return a.map((value, i) => [value, b[i]]);
 }

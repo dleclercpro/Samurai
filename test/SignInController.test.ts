@@ -8,7 +8,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../src/types/HTTPTypes';
 import { expectActionToFailWithError } from '.';
 
 const USER = { email: 'user1@test.com', password: 'q12345678!' };
-const NON_EXISTENT_USER = { email: 'user2@test.com', password: 'q87654321!' };
+const NON_EXISTING_USER = { email: 'user2@test.com', password: 'q87654321!' };
 
 beforeAll(async () => {
     await start();
@@ -69,8 +69,8 @@ test(`Signing in with missing parameters should not work`, async () => {
     });
 });
 
-test(`Signing in with non-existent user should not work`, async () => {
-    const user = { ...NON_EXISTENT_USER, staySignedIn: false };
+test(`Signing in with non-existing user should not work`, async () => {
+    const user = { ...NON_EXISTING_USER, staySignedIn: false };
 
     await expectActionToFailWithError(() => signInAction(user), {
         status: HttpStatusCode.FORBIDDEN,

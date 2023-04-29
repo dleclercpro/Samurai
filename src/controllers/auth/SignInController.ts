@@ -16,7 +16,7 @@ export interface SignInControllerBody {
 
 type ISignInController = RequestHandler<any, any, SignInControllerBody>;
 
-const SignInController: ISignInController = async (req, res, next) => {    
+const SignInController: ISignInController = async (req, res, next) => {
     try {
         const { cookie } = SESSION_OPTIONS;
         let { email, password, staySignedIn } = req.body;

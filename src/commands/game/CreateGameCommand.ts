@@ -2,11 +2,12 @@ import User, { IUser } from '../../models/User';
 import { logger } from '../../utils/Logging';
 import Game, { IGame } from '../../models/Game';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import { getRandom, shuffle } from '../../libs';
+import { getRandom, shuffle, unique } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
 import BoardBuilder from '../../helpers/builders/BoardBuilder';
 import HandBuilder from '../../helpers/builders/HandBuilder';
+import { ErrorGameDuplicateUsers } from '../../errors/GameErrors';
 
 interface Argument {
     name: string,
@@ -25,9 +26,15 @@ class CreateGameCommand extends Command<Argument, Response> {
 
     protected async doPrepare() {
         const { creatorEmail, opponentEmails } = this.argument;
+        const emails = [creatorEmail, ...opponentEmails];
+
+        // Ensure all users are different
+        if (unique(emails).length !== emails.length) {
+            throw new ErrorGameDuplicateUsers();
+        }
 
         // Ensure all users exist
-        await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
+        await Promise.all(emails.map(async (email) => {
             const user = await User.getByEmail(email);
 
             if (!user) {

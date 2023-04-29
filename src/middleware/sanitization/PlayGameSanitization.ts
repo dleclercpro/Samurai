@@ -10,6 +10,7 @@ export const PlayGameSanitization: RequestHandler = (req, res, next) => {
     
     // Sanitize body types
     req.body = {
+        ...req.body,
         handTileId: Number(handTileId),
         boardTileIds: {
             from: Number(boardTileIds.from),

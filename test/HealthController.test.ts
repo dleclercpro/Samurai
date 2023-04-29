@@ -4,8 +4,6 @@ import { API_ROOT } from '../src/config/AppConfig';
 import { successResponse } from '../src/libs/calls';
 import TestDatabase from '../src/databases/TestDatabase';
 
-const HEALTH_CONTROLLER_URL = `${API_ROOT}/health`;
-
 beforeAll(async () => {
     await start();
 });
@@ -23,6 +21,10 @@ afterAll(async () => {
 afterEach(async () => {
     await TestDatabase.dropCollections();
 });
+
+
+
+const HEALTH_CONTROLLER_URL = `${API_ROOT}/health`;
 
 
 
