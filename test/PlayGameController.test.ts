@@ -8,7 +8,7 @@ import Game from '../src/models/Game';
 import BoardBuilder from '../src/helpers/builders/BoardBuilder';
 import assert from 'assert';
 import { expectActionToFailWithError } from '.';
-import { HttpStatusCode } from '../src/types/HTTPTypes';
+import { HttpStatusCode, HttpStatusMessage } from '../src/types/HTTPTypes';
 import { ClientError } from '../src/errors/ClientErrors';
 import { errorResponse } from '../src/libs/calls';
 import { signUpAction, playGameAction } from './actions';
@@ -97,6 +97,44 @@ afterEach(async () => {
 
 test(`Playing game with valid move should work`, () => {
     assert.equal(0, 0);
+});
+
+test(`Placing game order with invalid parameters should not work`, async () => {
+    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+
+    // Create test game in database
+    const game = await Game.create({
+        name: new Date().toUTCString(),
+        players: PLAYERS,
+        board: new BoardBuilder(PLAYERS.length).build(),
+    });
+
+    // Build game orders
+    const missingHandTileOrder = {
+        boardTileIds: { from: 1, to: 2 },
+        castes: { from: null, to: null },
+    };
+    const missingBoardTilesOrder = {
+        handTileId: 1,
+        castes: { from: null, to: null },
+    };
+    const missingCastesOrder = {
+        handTileId: 1,
+        boardTileIds: { from: 1, to: 2 },
+    };
+
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingHandTileOrder, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+    });
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingBoardTilesOrder, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+    });
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingCastesOrder, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+    });
 });
 
 test(`Placing game order without having corresponding tile in hand should not work`, async () => {
