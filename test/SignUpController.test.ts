@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { start, stop } from '../src/app';
-import { API_ROOT } from '../src/config/AppConfig';
-import { errorResponse, successResponse } from '../src/libs/calls';
+import { errorResponse } from '../src/libs/calls';
 import TestDatabase from '../src/databases/TestDatabase';
 import { ClientError } from '../src/errors/ClientErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../src/types/HTTPTypes';
 import { expectActionToFailWithError } from '.';
+import { signUpAction } from './actions';
 
 const VALID_EMAIL = 'user@test.com';
 const VALID_PASSWORD = 'q12345678!';
@@ -32,16 +31,13 @@ afterEach(async () => {
 
 
 
-const signUpAction = (user: any) => axios.post(`${API_ROOT}/auth`, user);
-
-
-
 test(`Signing up with valid credentials should work`, async () => {
     const user = { email: VALID_EMAIL, password: VALID_PASSWORD };
 
-    const response = signUpAction(user).then(res => res.data);
+    const { code, data } = await signUpAction(user);
 
-    await expect(response).resolves.toEqual(successResponse());
+    expect(code).toEqual(0);
+    expect(data.id).toBeDefined();
 });
 
 test(`Signing up with existing user's e-mail should not work`, async () => {

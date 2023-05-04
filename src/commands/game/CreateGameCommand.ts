@@ -87,7 +87,7 @@ class CreateGameCommand extends Command<Argument, Response> {
     }
 
     private generateBoard() {
-        const {  opponentEmails } = this.argument;
+        const { opponentEmails } = this.argument;
 
         // Use builder to generate board
         return new BoardBuilder(opponentEmails.length + 1).build();

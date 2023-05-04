@@ -2,7 +2,7 @@ import { Model, Schema, Types, model } from 'mongoose';
 import { Caste, Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { HandSchema, IHand } from './Hand';
-import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
+import { COLORS, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export interface IPlayer extends Types.Subdocument {
     userId: string,
@@ -36,7 +36,7 @@ export interface IPlayerModel extends Model<IPlayer> {
 
 export const PlayerSchema = new Schema<IPlayer>({
     userId: { type: String, required: true },
-    color: { type: String, required: true, enum: Object.values(Color) },
+    color: { type: String, required: true, enum: COLORS },
 
     nTurnsPlayed: { type: Number, required: true, default: 0 },
 

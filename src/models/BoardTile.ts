@@ -1,7 +1,7 @@
 import { Types, Schema, Model, model } from 'mongoose';
 import { Caste, HandTileType } from '../types/GameTypes';
 import BoardData from '../helpers/data/BoardDataManager';
-import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
+import { CASTES, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { IHandTile } from './HandTile';
 import BoardDataManager from '../helpers/data/BoardDataManager';
@@ -55,7 +55,7 @@ export interface IBoardTileModel extends Model<IBoardTile> {
 
 export const BoardTileSchema = new Schema<IBoardTile>({
     id: { type: Number, required: true },
-    castes: { type: [String], enum: Object.values(Caste), required: true, default: [] },
+    castes: { type: [String], enum: CASTES, required: true, default: [] },
     playedTile: { type: PlayedTileSchema },
 
 }, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });

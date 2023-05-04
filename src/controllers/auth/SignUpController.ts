@@ -19,10 +19,10 @@ const SignUpController: ISignUpController = async (req, res, next) => {
         let { email, password } = req.body;
 
         // Create new user in database
-        await new CreateUserCommand({ email, password }).execute();
+        const user = await new CreateUserCommand({ email, password }).execute();
 
         // Success
-        return res.json(successResponse());
+        return res.json(successResponse({ id: user.getId() }));
 
     } catch (err: any) {
         logger.warn(err.message);

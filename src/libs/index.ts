@@ -45,11 +45,14 @@ export const arrayEquals = <T> (a: T[], b: T[]) => {
     return a.length === b.length && a.every((value, i) => value === b[i]);
 }
 
-export const shuffle = <T> (array: T[]) => {
+export const shuffle = <T> (arr: T[]) => {
+    const array = [...arr];
+
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+
     return array;
 }
 

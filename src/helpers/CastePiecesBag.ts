@@ -1,3 +1,4 @@
+import { CASTES } from '../constants';
 import { getRandom } from '../libs';
 import { sum } from '../libs/math';
 import { Caste } from '../types/GameTypes';
@@ -32,7 +33,7 @@ class CastePiecesBag {
 
     public getNext() {
         while (this.hasNext()) {
-            const caste = getRandom<Caste>(Object.values(Caste));
+            const caste = getRandom<Caste>(CASTES);
 
             if (this.counts[caste] > 0) {
                 this.counts[caste] -= 1;

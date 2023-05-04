@@ -1,6 +1,7 @@
 import { Model, Schema, Types, model } from 'mongoose';
 import { N_HAND_TILES, SUBDOCUMENT_SCHEMA_OPTIONS, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IHandTile, HandTileSchema } from './HandTile';
+import { ErrorGameTileNotInHand } from '../errors/GameErrors';
 
 
 
@@ -15,6 +16,8 @@ export interface IHand extends Types.Subdocument {
     hasMoveTile: () => boolean,
     hasSwapTile: () => boolean,
     removeTile: (tile: IHandTile) => void,
+    getCurrent: () => IHandTile[],
+    getRemaining: () => IHandTile[],
 }
 
 
@@ -35,7 +38,7 @@ export const HandSchema = new Schema<IHand>({
 
 // METHODS
 HandSchema.methods.stringify = function() {
-    return ``;
+    return (this as IHand).current.map(tile => tile.getId()).join(', ');
 }
 
 HandSchema.methods.getTileById = function(id: number) {
@@ -45,9 +48,7 @@ HandSchema.methods.getTileById = function(id: number) {
         return tile;
     }
 
-    const currentHand = (this as IHand).current.map(tile => tile.getId()).join(', ');
-
-    throw new Error(`Tile with ID ${id} is not in player's hand: [${currentHand}]`);
+    throw new ErrorGameTileNotInHand(id, this as IHand);
 }
 
 HandSchema.methods.hasTile = function(id: number) {
@@ -64,6 +65,14 @@ HandSchema.methods.hasSwapTile = function() {
 
 HandSchema.methods.removeTile = function(tileToRemove: IHandTile) {
     this.current = (this as IHand).current.filter(tile => tile.getId() !== tileToRemove.getId());
+}
+
+HandSchema.methods.getCurrent = function() {
+    return this.current;
+}
+
+HandSchema.methods.getRemaining = function() {
+    return this.remaining;
 }
 
 

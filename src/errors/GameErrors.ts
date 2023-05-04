@@ -1,5 +1,6 @@
 import { GameOrderType } from '../commands/game/PlayGameCommand';
 import { IGame } from '../models/Game';
+import { IHand } from '../models/Hand';
 import { IUser } from '../models/User';
 import { ServerError } from './ServerError';
 
@@ -27,11 +28,11 @@ export class ErrorUserNotPlayingInGame extends ServerError {
     }
 }
 
-export class ErrorInvalidGameOrder extends ServerError {
+export class ErrorGameInvalidOrder extends ServerError {
     public static code = -403;
 
     constructor(order: GameOrderType) {
-        super(ErrorInvalidGameOrder.code, `Invalid game order: ${order}`);
+        super(ErrorGameInvalidOrder.code, `Invalid game order: ${order}`);
     }
 }
 
@@ -48,5 +49,13 @@ export class ErrorGameDuplicateUsers extends ServerError {
     
     constructor() {
         super(ErrorGameDuplicateUsers.code, `Game cannot be created with duplicate users.`);
+    }
+}
+
+export class ErrorGameTileNotInHand extends ServerError {
+    public static code = -406;
+
+    constructor(id: number, hand: IHand) {
+        super(ErrorGameTileNotInHand.code, `Tile with ID ${id} is not in player's hand: [${hand.stringify()}]`);
     }
 }
