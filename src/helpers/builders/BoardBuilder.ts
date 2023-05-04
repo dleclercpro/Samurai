@@ -14,7 +14,7 @@ class BoardBuilder {
     
     // Based on number of players, some sections of the full board are
     // left off
-    private getExcludedSections() {
+    protected getExcludedSections() {
         let excludedSections = [BoardSection.SwapTiles];
 
         switch (this.nPlayers) {
@@ -48,7 +48,7 @@ class BoardBuilder {
                     ...prevTiles,
                     new BoardTile({
                         id: tile.id,
-                        castes: getRange(tile.castes).map(_ => castePiecesBag.getNext()),
+                        castes: getRange(tile.castes).map(() => castePiecesBag.getNext()),
                     }),
                 ];
             }, []);

@@ -1,4 +1,4 @@
 import { readJSONSync } from '../libs/file';
 
-export const BOARD_JSON = readJSONSync('./public/board.json');
-export const HAND_JSON = readJSONSync('./public/hand.json');
+export const BOARD_JSON = readJSONSync('./public/Board.json');
+export const HAND_JSON = readJSONSync('./public/Hand.json');

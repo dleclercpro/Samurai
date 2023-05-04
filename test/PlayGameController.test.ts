@@ -5,7 +5,6 @@ import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../src/constants';
 import Player from '../src/models/Player';
 import { Color } from '../src/types/GameTypes';
 import Game from '../src/models/Game';
-import BoardBuilder from '../src/helpers/builders/BoardBuilder';
 import assert from 'assert';
 import { expectActionToFailWithError } from '.';
 import { HttpStatusCode, HttpStatusMessage } from '../src/types/HTTPTypes';
@@ -13,6 +12,7 @@ import { ClientError } from '../src/errors/ClientErrors';
 import { errorResponse } from '../src/libs/calls';
 import { signUpAction, playGameAction } from './actions';
 import { getRange } from '../src/libs/math';
+import TestBoardBuilder from '../src/helpers/builders/TestBoardBuilder';
 
 const USER_WITH_MOVE = { email: 'user1@test.com', password: 'q12345678!' };
 const USER_WITH_SWAP = { email: 'user2@test.com', password: 'q12345678!' };
@@ -65,6 +65,8 @@ const PLAYERS = [
     PLAYER_WITHOUT_SPECIAL_TILES,
 ];
 
+const BOARD = new TestBoardBuilder(PLAYERS.length).build();
+
 
 
 beforeAll(async () => {
@@ -106,7 +108,7 @@ test(`Placing game order with invalid parameters should not work`, async () => {
     const game = await Game.create({
         name: new Date().toUTCString(),
         players: PLAYERS,
-        board: new BoardBuilder(PLAYERS.length).build(),
+        board: BOARD,
     });
 
     // Build game orders
@@ -144,7 +146,7 @@ test(`Placing game order without having corresponding tile in hand should not wo
     const game = await Game.create({
         name: new Date().toUTCString(),
         players: PLAYERS,
-        board: new BoardBuilder(PLAYERS.length).build(),
+        board: BOARD,
     });
 
     // Build game order

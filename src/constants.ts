@@ -18,8 +18,8 @@ export const N_FULL_HAND_TILES = 20;
 export const FULL_HAND_TILE_IDS = getRange(N_FULL_HAND_TILES);
 
 // Players
-export const GAME_PLAYER_COUNT_MIN = 2;
-export const GAME_PLAYER_COUNT_MAX = 4;
+export const PLAYER_COUNT_MIN = 2;
+export const PLAYER_COUNT_MAX = 4;
 
 // Version
 export const GAME_INIT_VERSION = 0;

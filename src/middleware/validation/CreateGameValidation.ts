@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { ErrorInvalidParams } from '../../errors/ServerError';
+import { PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../../constants';
 
 export const CreateGameValidation: RequestHandler = (req, res, next) => {
     const { name, opponentEmails } = req.body;
@@ -10,7 +11,8 @@ export const CreateGameValidation: RequestHandler = (req, res, next) => {
         invalidParams.push('name');
     }
 
-    if (!opponentEmails || opponentEmails.length === 0) {
+    const playerCount = opponentEmails.length + 1;
+    if (!opponentEmails || playerCount < PLAYER_COUNT_MIN || playerCount > PLAYER_COUNT_MAX) {
         invalidParams.push('opponentEmails');
     }
 

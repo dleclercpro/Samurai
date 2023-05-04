@@ -3,7 +3,7 @@ import { IPlayer, PlayerSchema } from './Player';
 import User, { IUser } from './User';
 import { ErrorGameDoesNotExist, ErrorUserNotPlayingInGame } from '../errors/GameErrors';
 import { BoardSchema, IBoard } from './Board';
-import { GAME_INIT_VERSION, GAME_PLAYER_COUNT_MAX, GAME_PLAYER_COUNT_MIN } from '../constants';
+import { GAME_INIT_VERSION, PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../constants';
 import { Scoreboard } from '../helpers/Scorer';
 
 export interface IGame extends Document {
@@ -61,7 +61,7 @@ export const GameSchema = new Schema<IGame>({
     lastPlayedTime: { type: Date },
 
     board: { type: BoardSchema, required: true },
-    players: { type: [PlayerSchema], required: true, min: GAME_PLAYER_COUNT_MIN, max: GAME_PLAYER_COUNT_MAX },
+    players: { type: [PlayerSchema], required: true, min: PLAYER_COUNT_MIN, max: PLAYER_COUNT_MAX },
 });
 
 
