@@ -30,16 +30,16 @@ test(`Placing game order with invalid parameters should not work`, async () => {
 
     // Build game orders
     const missingHandTileOrder = {
-        boardTileIds: { from: 1, to: 2 },
+        boardTileIds: { from: 0, to: 1 },
         castes: { from: null, to: null },
     };
     const missingBoardTilesOrder = {
-        handTileId: 1,
+        handTileId: 0,
         castes: { from: null, to: null },
     };
     const missingCastesOrder = {
-        handTileId: 1,
-        boardTileIds: { from: 1, to: 2 },
+        handTileId: 0,
+        boardTileIds: { from: 0, to: 1 },
     };
 
     await expectActionToFailWithError(() => playGameAction(game.getId(), missingHandTileOrder, user), {
@@ -67,7 +67,7 @@ test(`Placing game order without having corresponding tile in hand should not wo
     // Build game order
     const order = {
         handTileId: HAND_TILE_ID_MOVE,
-        boardTileIds: { from: 1, to: 2 },
+        boardTileIds: { from: 0, to: 1 },
         castes: { from: null, to: null },
     };
 

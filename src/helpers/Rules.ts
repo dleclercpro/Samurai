@@ -6,7 +6,7 @@ import { FromTo } from '../types';
 import { GameOrder } from '../commands/game/PlayGameCommand';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
-import { ErrorGameBoardTileNotACity, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameMissingCastePiece } from '../errors/GameErrors';
+import { ErrorGameBoardTileNotACity, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
 
 export interface Normal {
     boardTile: IBoardTile,
@@ -56,7 +56,7 @@ class Rules {
         const { boardTile, handTile } = order;
 
         if (boardTile.isCity()) {
-            throw new Error('This board location is a city.');
+            throw new ErrorGameCannotPlaceTileOntoCity(boardTile, handTile);
         }
 
         if (!boardTile.isFree()) {
@@ -64,7 +64,7 @@ class Rules {
         }
 
         if (!boardTile.isHandTileCompatible(handTile)) {
-            throw new Error(`Board and hand tiles aren't compatible: ${boardTile.getType()} vs. ${handTile.getType()}`);
+            throw new ErrorGameIncompatibleTileTypes(boardTile, handTile);
         }
 
         return true;

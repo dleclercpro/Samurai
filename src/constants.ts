@@ -9,13 +9,15 @@ export const SUBDOCUMENT_SCHEMA_OPTIONS = {
 
 
 /* ----- GAME ----- */
-// Tiles
+// Hand tiles
 export const HAND_TILE_ID_SWAP = 18;
 export const HAND_TILE_ID_MOVE = 19;
-export const BOARD_TILE_SWAP_IDS = [200, 201, 202, 203];
 export const N_HAND_TILES = 5;
 export const N_FULL_HAND_TILES = 20;
 export const FULL_HAND_TILE_IDS = getRange(N_FULL_HAND_TILES);
+
+// Board tiles
+export const BOARD_TILE_SWAP_IDS = [200, 201, 202, 203];
 
 // Players
 export const PLAYER_COUNT_MIN = 2;

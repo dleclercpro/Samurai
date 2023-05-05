@@ -2,6 +2,7 @@ import { GameOrderType } from '../commands/game/PlayGameCommand';
 import { IBoardTile } from '../models/BoardTile';
 import { IGame } from '../models/Game';
 import { IHand } from '../models/Hand';
+import { IHandTile } from '../models/HandTile';
 import { IUser } from '../models/User';
 import { Caste } from '../types/GameTypes';
 import { ServerError } from './ServerError';
@@ -83,5 +84,21 @@ export class ErrorGameBoardTileNotACity extends ServerError {
 
     constructor(boardTile: IBoardTile) {
         super(ErrorGameBoardTileNotACity.code, `Board tile is not a city: ${boardTile.getId()}`);
+    }
+}
+
+export class ErrorGameIncompatibleTileTypes extends ServerError {
+    public static code = -410;
+
+    constructor(boardTile: IBoardTile, handTile: IHandTile) {
+        super(ErrorGameIncompatibleTileTypes.code, `Board and hand tiles aren't compatible: ${boardTile.getType()} vs. ${handTile.getType()}`);
+    }
+}
+
+export class ErrorGameCannotPlaceTileOntoCity extends ServerError {
+    public static code = -411;
+
+    constructor(boardTile: IBoardTile, handTile: IHandTile) {
+        super(ErrorGameCannotPlaceTileOntoCity.code, `Cannot place hand tile (ID = ${handTile.getId()}) onto city board tile (ID = ${boardTile.getId()}).`);
     }
 }

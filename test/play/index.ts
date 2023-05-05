@@ -9,6 +9,14 @@ import { signUpAction } from '../actions';
 import { getRange } from '../../src/libs/math';
 import TestBoardBuilder from '../../src/helpers/builders/TestBoardBuilder';
 
+export const HAND_TILE_ID_MILITARY = 0;
+export const HAND_TILE_ID_RELIGION = 1;
+export const HAND_TILE_ID_COMMERCE = 2;
+export const HAND_TILE_ID_SAMURAI = 10;
+export const HAND_TILE_ID_SHIP = 15;
+
+export const BOARD_TILE_ID_CITY = 82;
+
 export const USER_WITH_MOVE = { email: 'user1@test.com', password: 'q12345678!' };
 export const USER_WITH_SWAP = { email: 'user2@test.com', password: 'q12345678!' };
 export const USER_WITH_MOVE_AND_SWAP = { email: 'user3@test.com', password: 'q12345678!' };
@@ -19,7 +27,13 @@ export const PLAYER_WITH_MOVE = new Player({
     isPlaying: true,
     isCreator: true,
     color: Color.Purple,
-    hand: new HandBuilder().build([0, 1, 2, 3, HAND_TILE_ID_MOVE]),
+    hand: new HandBuilder().build([
+        HAND_TILE_ID_MILITARY,
+        HAND_TILE_ID_RELIGION,
+        HAND_TILE_ID_COMMERCE,
+        HAND_TILE_ID_SAMURAI,
+        HAND_TILE_ID_MOVE,
+    ]),
 });
 
 export const PLAYER_WITH_SWAP = new Player({
@@ -27,7 +41,13 @@ export const PLAYER_WITH_SWAP = new Player({
     isPlaying: false,
     isCreator: false,
     color: Color.Orange,
-    hand: new HandBuilder().build([0, 1, 2, 3, HAND_TILE_ID_SWAP]),
+    hand: new HandBuilder().build([
+        HAND_TILE_ID_MILITARY,
+        HAND_TILE_ID_RELIGION,
+        HAND_TILE_ID_COMMERCE,
+        HAND_TILE_ID_SAMURAI,
+        HAND_TILE_ID_SWAP,
+    ]),
 });
 
 export const PLAYER_WITH_MOVE_AND_SWAP = new Player({
@@ -35,7 +55,13 @@ export const PLAYER_WITH_MOVE_AND_SWAP = new Player({
     isPlaying: false,
     isCreator: false,
     color: Color.Green,
-    hand: new HandBuilder().build([0, 1, 2, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP]),
+    hand: new HandBuilder().build([
+        HAND_TILE_ID_MILITARY,
+        HAND_TILE_ID_RELIGION,
+        HAND_TILE_ID_COMMERCE,
+        HAND_TILE_ID_MOVE,
+        HAND_TILE_ID_SWAP,
+    ]),
 });
 
 export const PLAYER_WITHOUT_SPECIAL_TILES = new Player({
@@ -43,7 +69,13 @@ export const PLAYER_WITHOUT_SPECIAL_TILES = new Player({
     isPlaying: false,
     isCreator: false,
     color: Color.Red,
-    hand: new HandBuilder().build([0, 1, 2, 10, 15]), // Military/Religion/Commerce/Samurai/Ship
+    hand: new HandBuilder().build([
+        HAND_TILE_ID_MILITARY,
+        HAND_TILE_ID_RELIGION,
+        HAND_TILE_ID_COMMERCE,
+        HAND_TILE_ID_SAMURAI,
+        HAND_TILE_ID_SHIP,
+    ]),
 });
 
 export const USERS = [
