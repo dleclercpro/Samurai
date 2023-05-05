@@ -48,6 +48,8 @@ test(`Creating game with existing user should work`, async () => {
     expect(data.id).toBeDefined();
 });
 
+
+
 test(`Creating game with non-existing creator should not work`, async () => {
     const game = { name: 'Game', opponentEmails: OPPONENTS.map(opponent => opponent.email) };
     const user = { ...NON_EXISTING_USER, staySignedIn: false };
@@ -58,6 +60,8 @@ test(`Creating game with non-existing creator should not work`, async () => {
     });
 });
 
+
+
 test(`Creating game with non-existing opponent should not work`, async () => {
     const game = { name: 'Game', opponentEmails: [NON_EXISTING_USER].map(opponent => opponent.email) };
     const user = { ...CREATOR, staySignedIn: false };
@@ -67,6 +71,8 @@ test(`Creating game with non-existing opponent should not work`, async () => {
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
 });
+
+
 
 test(`Creating game with duplicate opponents should not work`, async () => {
     const game = { name: 'Game', opponentEmails: [OPPONENTS[0], OPPONENTS[0]].map(opponent => opponent.email) };

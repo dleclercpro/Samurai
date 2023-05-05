@@ -40,6 +40,8 @@ test(`Signing up with valid credentials should work`, async () => {
     expect(data.id).toBeDefined();
 });
 
+
+
 test(`Signing up with existing user's e-mail should not work`, async () => {
     const user = { email: VALID_EMAIL, password: VALID_PASSWORD };
 
@@ -51,6 +53,8 @@ test(`Signing up with existing user's e-mail should not work`, async () => {
     });
 });
 
+
+
 test(`Signing up with invalid e-mail should not work`, async () => {
     const user = { email: INVALID_EMAIL, password: VALID_PASSWORD };
 
@@ -60,6 +64,8 @@ test(`Signing up with invalid e-mail should not work`, async () => {
     });
 });
 
+
+
 test(`Signing up with invalid password should not work`, async () => {
     const user = { email: VALID_EMAIL, password: INVALID_PASSWORD };
 
@@ -68,6 +74,8 @@ test(`Signing up with invalid password should not work`, async () => {
         data: errorResponse(ClientError.InvalidPassword),
     });
 });
+
+
 
 test(`Signing up with missing parameters should not work`, async () => {
     await expectActionToFailWithError(() => signUpAction({ email: VALID_EMAIL }), {

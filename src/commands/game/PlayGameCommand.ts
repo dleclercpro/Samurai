@@ -95,8 +95,8 @@ class PlayGameCommand extends Command<Argument, Response> {
         // Ensure board tiles exist in current game
         const board = this.game.getBoard();
         const boardTiles = {
-            from: boardTileIds.from ? board.getTileById(boardTileIds.from) : null,
-            to: boardTileIds.to ? board.getTileById(boardTileIds.to) : null,
+            from: boardTileIds.from !== null ? board.getTileById(boardTileIds.from) : null,
+            to: boardTileIds.to !== null ? board.getTileById(boardTileIds.to) : null,
         };
 
         // Form game order

@@ -19,7 +19,7 @@ export const PLAYER_WITH_MOVE = new Player({
     isPlaying: true,
     isCreator: true,
     color: Color.Purple,
-    hand: new HandBuilder().build([1, 2, 3, 4, HAND_TILE_ID_MOVE]),
+    hand: new HandBuilder().build([0, 1, 2, 3, HAND_TILE_ID_MOVE]),
 });
 
 export const PLAYER_WITH_SWAP = new Player({
@@ -27,7 +27,7 @@ export const PLAYER_WITH_SWAP = new Player({
     isPlaying: false,
     isCreator: false,
     color: Color.Orange,
-    hand: new HandBuilder().build([1, 2, 3, 4, HAND_TILE_ID_SWAP]),
+    hand: new HandBuilder().build([0, 1, 2, 3, HAND_TILE_ID_SWAP]),
 });
 
 export const PLAYER_WITH_MOVE_AND_SWAP = new Player({
@@ -35,7 +35,7 @@ export const PLAYER_WITH_MOVE_AND_SWAP = new Player({
     isPlaying: false,
     isCreator: false,
     color: Color.Green,
-    hand: new HandBuilder().build([1, 2, 3, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP]),
+    hand: new HandBuilder().build([0, 1, 2, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP]),
 });
 
 export const PLAYER_WITHOUT_SPECIAL_TILES = new Player({
@@ -43,7 +43,7 @@ export const PLAYER_WITHOUT_SPECIAL_TILES = new Player({
     isPlaying: false,
     isCreator: false,
     color: Color.Red,
-    hand: new HandBuilder().build([1, 2, 3, 4, 5]),
+    hand: new HandBuilder().build([0, 1, 2, 10, 15]), // Military/Religion/Commerce/Samurai/Ship
 });
 
 export const USERS = [

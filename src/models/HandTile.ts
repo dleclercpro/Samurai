@@ -35,7 +35,7 @@ export const HandTileSchema = new Schema<IHandTile>({
 
 // METHODS
 HandTileSchema.methods.stringify = function() {
-    return `[${this.parent().getId()}]: (${this.boardTileId}, ${this.handTileId})`;
+    return ``;
 }
 
 HandTileSchema.methods.getId = function() {

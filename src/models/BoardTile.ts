@@ -141,7 +141,9 @@ BoardTileSchema.methods.isClosed = function() {
 }
 
 BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {
-    switch (this.type) {
+    const type = this.getType();
+    
+    switch (type) {
         case BoardTileType.Ground:
             return [HandTileType.Military, HandTileType.Religion, HandTileType.Commerce, HandTileType.Samurai, HandTileType.Move].includes(handTile.getType());
         case BoardTileType.Water:
@@ -149,7 +151,7 @@ BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {
         case BoardTileType.Swap:
             return handTile.getType() === HandTileType.Swap;
         default:
-            throw new Error(`Unknown board tile: ${this.type}`);
+            throw new Error(`Unknown board tile: ${type}`);
     }
 }
 

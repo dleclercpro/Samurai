@@ -34,17 +34,23 @@ test(`Health check [using GET] should work`, async () => {
     await expect(action()).resolves.toEqual(successResponse());
 });
 
+
+
 test(`Invalid health check [using POST] should not work`, async () => {
     const action = () => axios.post(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();
 });
 
+
+
 test(`Invalid health check [using PUT] should not work`, async () => {
     const action = () => axios.put(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();
 });
+
+
 
 test(`Invalid health check [using DELETE] should not work`, async () => {
     const action = () => axios.delete(HEALTH_CONTROLLER_URL);

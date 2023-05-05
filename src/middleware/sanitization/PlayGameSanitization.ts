@@ -13,8 +13,8 @@ export const PlayGameSanitization: RequestHandler = (req, res, next) => {
         ...req.body,
         handTileId: Number(handTileId),
         boardTileIds: {
-            from: Number(boardTileIds.from),
-            to: Number(boardTileIds.to),
+            from: boardTileIds.from !== null ? Number(boardTileIds.from) : null,
+            to: boardTileIds.to !== null ? Number(boardTileIds.to) : null,
         },
         castes: {
             from: castes.from as Caste,

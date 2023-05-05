@@ -37,6 +37,8 @@ test(`Signing in with valid credentials should work`, async () => {
     await expect(response).resolves.toEqual(successResponse());
 });
 
+
+
 test(`Signing in with wrong password should not work`, async () => {
     const user = { ...USER, password: 'XXX', staySignedIn: false };
 
@@ -45,6 +47,8 @@ test(`Signing in with wrong password should not work`, async () => {
         data: errorResponse(ClientError.InvalidCredentials),
     });
 });
+
+
 
 test(`Signing in with missing parameters should not work`, async () => {
     await expectActionToFailWithError(() => signInAction({ password: USER.password, staySignedIn: false }), {
@@ -62,6 +66,8 @@ test(`Signing in with missing parameters should not work`, async () => {
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
 });
+
+
 
 test(`Signing in with non-existing user should not work`, async () => {
     const user = { ...NON_EXISTING_USER, staySignedIn: false };
