@@ -16,7 +16,6 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
 
         // Missing session ID
         if (!req.cookies || !req.cookies[cookie.name]) {
-            console.log(req.cookies);
             throw new ErrorMissingSessionId();
         }
 
@@ -64,7 +63,7 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
             err.code === ErrorExpiredSession.code
         ) {
             return res
-                .status(HttpStatusCode.FORBIDDEN)
+                .status(HttpStatusCode.UNAUTHORIZED)
                 .json(errorResponse(ClientError.InvalidCredentials));
         }
 

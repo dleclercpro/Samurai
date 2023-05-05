@@ -83,3 +83,23 @@ test(`Creating game with duplicate opponents should not work`, async () => {
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
 });
+
+test(`Creating game without opponents should not work`, async () => {
+    const game = { name: 'Game', opponentEmails: [] };
+    const user = { ...CREATOR, staySignedIn: false };
+    
+    await expectActionToFailWithError(() => createGameAction(game, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+    });
+});
+
+test(`Creating game without opponents parameter should not work`, async () => {
+    const game = { name: 'Game' };
+    const user = { ...CREATOR, staySignedIn: false };
+    
+    await expectActionToFailWithError(() => createGameAction(game, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+    });
+});

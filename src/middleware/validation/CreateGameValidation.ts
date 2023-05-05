@@ -11,7 +11,7 @@ export const CreateGameValidation: RequestHandler = (req, res, next) => {
         invalidParams.push('name');
     }
 
-    const playerCount = opponentEmails.length + 1;
+    const playerCount = opponentEmails ? opponentEmails.length + 1 : 0;
     if (!opponentEmails || playerCount < PLAYER_COUNT_MIN || playerCount > PLAYER_COUNT_MAX) {
         invalidParams.push('opponentEmails');
     }
