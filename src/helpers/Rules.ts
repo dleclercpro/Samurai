@@ -6,6 +6,7 @@ import { FromTo } from '../types';
 import { GameOrder } from '../commands/game/PlayGameCommand';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
+import { ErrorGameBoardTileNotACity, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameMissingCastePiece } from '../errors/GameErrors';
 
 export interface Normal {
     boardTile: IBoardTile,
@@ -100,23 +101,23 @@ class Rules {
         const { boardTiles, castes } = order;
 
         if (!boardTiles.from.isCity()) {
-            throw new Error(`The starting tile is not a city.`);
+            throw new ErrorGameBoardTileNotACity(boardTiles.from);
         }
 
         if (!boardTiles.to.isCity()) {
-            throw new Error(`The ending tile is not a city.`);
+            throw new ErrorGameBoardTileNotACity(boardTiles.to);
         }
 
         if (boardTiles.from.getId() === boardTiles.to.getId()) {
-            throw new Error('Cannot swap caste pieces from/to the same tile.');
+            throw new ErrorGameCannotSwapCastePiecesOnSameBoardTile();
         }
 
         if (!boardTiles.from.hasCastePiece(castes.from)) {
-            throw new Error(`The given caste piece is not present on the starting tile: ${castes.from}`);
+            throw new ErrorGameMissingCastePiece(castes.from, boardTiles.from);
         }
 
         if (!boardTiles.to.hasCastePiece(castes.to)) {
-            throw new Error(`The given caste piece is not present on the ending tile: ${castes.to}`);
+            throw new ErrorGameMissingCastePiece(castes.to, boardTiles.to);
         }
 
         return true;

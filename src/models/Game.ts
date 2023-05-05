@@ -137,7 +137,7 @@ GameSchema.methods.getStartTime = function() {
     return this.startTime;
 }
 
-GameSchema.methods.setStarTime = function(time: Date) {
+GameSchema.methods.setStartTime = function(time: Date) {
     this.startTime = time;
 }
 

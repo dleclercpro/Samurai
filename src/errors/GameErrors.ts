@@ -1,7 +1,9 @@
 import { GameOrderType } from '../commands/game/PlayGameCommand';
+import { IBoardTile } from '../models/BoardTile';
 import { IGame } from '../models/Game';
 import { IHand } from '../models/Hand';
 import { IUser } from '../models/User';
+import { Caste } from '../types/GameTypes';
 import { ServerError } from './ServerError';
 
 export class ErrorGameDoesNotExist extends ServerError {
@@ -57,5 +59,29 @@ export class ErrorGameTileNotInHand extends ServerError {
 
     constructor(id: number, hand: IHand) {
         super(ErrorGameTileNotInHand.code, `Tile with ID ${id} is not in player's hand: [${hand.stringify()}]`);
+    }
+}
+
+export class ErrorGameMissingCastePiece extends ServerError {
+    public static code = -407;
+
+    constructor(caste: Caste, boardTile: IBoardTile) {
+        super(ErrorGameMissingCastePiece.code, `Given caste piece '${caste}' is missing on board tile with ID '${boardTile.getId()}'.`);
+    }
+}
+
+export class ErrorGameCannotSwapCastePiecesOnSameBoardTile extends ServerError {
+    public static code = -408;
+
+    constructor() {
+        super(ErrorGameCannotSwapCastePiecesOnSameBoardTile.code, `Cannot swap caste pieces from/to the same board tile.`);
+    }
+}
+
+export class ErrorGameBoardTileNotACity extends ServerError {
+    public static code = -409;
+
+    constructor(boardTile: IBoardTile) {
+        super(ErrorGameBoardTileNotACity.code, `Board tile is not a city: ${boardTile.getId()}`);
     }
 }

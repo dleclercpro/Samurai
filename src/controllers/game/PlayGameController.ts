@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { errorResponse, successResponse } from '../../libs/calls';
 import PlayGameCommand, { RawGameOrder } from '../../commands/game/PlayGameCommand';
-import { ErrorGameAlreadyOver, ErrorGameTileNotInHand, ErrorGameInvalidOrder } from '../../errors/GameErrors';
+import { ErrorGameAlreadyOver, ErrorGameTileNotInHand, ErrorGameInvalidOrder, ErrorGameMissingCastePiece } from '../../errors/GameErrors';
 import { logger } from '../../utils/Logging';
 import { ClientError } from '../../errors/ClientErrors';
 import { HttpStatusCode } from '../../types/HTTPTypes';
@@ -37,7 +37,8 @@ const PlayGameController: IPlayGameController = async (req, res, next) => {
     } catch (err: any) {
         if (
             err.code === ErrorGameInvalidOrder.code ||
-            err.code === ErrorGameTileNotInHand.code
+            err.code === ErrorGameTileNotInHand.code ||
+            err.code === ErrorGameMissingCastePiece.code
         ) {
             logger.warn(err.message);
 

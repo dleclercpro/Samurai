@@ -27,7 +27,7 @@ export interface IBoardTile extends Types.Subdocument {
 
     // Methods
     stringify: () => string,
-    getId: () => string,
+    getId: () => number,
     getType: () => BoardTileType,
     getPlayedTile: () => IPlayedTile,
     getNeighboringTiles: () => IBoardTile[],
