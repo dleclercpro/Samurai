@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import CreateUserCommand from '../../commands/user/CreateUserCommand';
 import { ClientError } from '../../errors/ClientErrors';
-import { ErrorInvalidEmail, ErrorInvalidParams, ErrorInvalidPassword } from '../../errors/ServerError';
+import { ErrorInvalidEmail, ErrorInvalidPassword } from '../../errors/ServerError';
 import { ErrorUserAlreadyExists } from '../../errors/UserErrors';
 import { errorResponse, successResponse } from '../../libs/calls';
 import { HttpStatusCode } from '../../types/HTTPTypes';

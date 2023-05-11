@@ -44,7 +44,7 @@ const SignInController: ISignInController = async (req, res, next) => {
             err.code === ErrorUserWrongPassword.code
         ) {
             return res
-                .status(HttpStatusCode.FORBIDDEN)
+                .status(HttpStatusCode.UNAUTHORIZED)
                 .json(errorResponse(ClientError.InvalidCredentials));
         }
 

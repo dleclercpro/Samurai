@@ -44,15 +44,15 @@ test(`Placing game order with invalid parameters should not work`, async () => {
 
     await expectActionToFailWithError(() => playGameAction(game.getId(), missingHandTileOrder, user), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['handTileId']),
     });
     await expectActionToFailWithError(() => playGameAction(game.getId(), missingBoardTilesOrder, user), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['boardTileIds.from', 'boardTileIds.to']),
     });
     await expectActionToFailWithError(() => playGameAction(game.getId(), missingCastesOrder, user), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['castes.from', 'castes.to']),
     });
 });
 

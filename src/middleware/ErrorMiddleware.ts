@@ -13,7 +13,7 @@ export const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
 
         return res
             .status(HttpStatusCode.BAD_REQUEST)
-            .send(errorResponse(HttpStatusMessage.BAD_REQUEST))
+            .json(errorResponse(HttpStatusMessage.BAD_REQUEST, err.getParams()))
     }
 
     // Unknown error

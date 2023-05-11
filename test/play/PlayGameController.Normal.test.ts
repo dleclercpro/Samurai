@@ -72,6 +72,8 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
     await expect(action).resolves.toEqual(successResponse());
 });
 
+
+
 test(`Placing regular ground hand tile onto free water board tile should not work`, async () => {
     const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
 
@@ -90,6 +92,8 @@ test(`Placing regular ground hand tile onto free water board tile should not wor
         data: errorResponse(ClientError.InvalidGameOrder),
     });
 });
+
+
 
 test(`Placing samurai hand tile onto free water board tile should not work`, async () => {
     const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
@@ -110,6 +114,8 @@ test(`Placing samurai hand tile onto free water board tile should not work`, asy
     });
 });
 
+
+
 test(`Placing ship hand tile onto free ground board tile should not work`, async () => {
     const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
 
@@ -128,6 +134,8 @@ test(`Placing ship hand tile onto free ground board tile should not work`, async
         data: errorResponse(ClientError.InvalidGameOrder),
     });
 });
+
+
 
 test(`Placing regular ground hand tile onto city board tile should not work`, async () => {
     const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };

@@ -14,8 +14,18 @@ export abstract class ServerError extends Error {
 export class ErrorInvalidParams extends ServerError {
     public static code = -100;
     
-    constructor(params?: string[]) {
+    public params: string[];
+    
+    constructor(params: string[]) {
+        if (params.length === 0) throw new Error('No invalid parameters specified!');
+
         super(ErrorInvalidParams.code, params ? `Invalid parameters: ${params.join(', ')}` : `Invalid parameters.`);
+
+        this.params = params;
+    }
+
+    public getParams() {
+        return this.params;
     }
 }
 

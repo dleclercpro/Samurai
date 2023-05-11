@@ -80,11 +80,16 @@ test(`Signing up with invalid password should not work`, async () => {
 test(`Signing up with missing parameters should not work`, async () => {
     await expectActionToFailWithError(() => signUpAction({ email: VALID_EMAIL }), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['password']),
     });
 
     await expectActionToFailWithError(() => signUpAction({ password: VALID_PASSWORD }), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['email']),
+    });
+
+    await expectActionToFailWithError(() => signUpAction({}), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['email', 'password']),
     });
 });

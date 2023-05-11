@@ -43,7 +43,7 @@ test(`Signing in with wrong password should not work`, async () => {
     const user = { ...USER, password: 'XXX', staySignedIn: false };
 
     await expectActionToFailWithError(() => signInAction(user), {
-        status: HttpStatusCode.FORBIDDEN,
+        status: HttpStatusCode.UNAUTHORIZED,
         data: errorResponse(ClientError.InvalidCredentials),
     });
 });
@@ -53,17 +53,17 @@ test(`Signing in with wrong password should not work`, async () => {
 test(`Signing in with missing parameters should not work`, async () => {
     await expectActionToFailWithError(() => signInAction({ password: USER.password, staySignedIn: false }), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['email']),
     });
 
     await expectActionToFailWithError(() => signInAction({ email: USER.email, staySignedIn: false }), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['password']),
     });
 
     await expectActionToFailWithError(() => signInAction(USER), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['staySignedIn']),
     });
 });
 
@@ -73,7 +73,7 @@ test(`Signing in with non-existing user should not work`, async () => {
     const user = { ...NON_EXISTING_USER, staySignedIn: false };
 
     await expectActionToFailWithError(() => signInAction(user), {
-        status: HttpStatusCode.FORBIDDEN,
+        status: HttpStatusCode.UNAUTHORIZED,
         data: errorResponse(ClientError.InvalidCredentials),
     });
 });

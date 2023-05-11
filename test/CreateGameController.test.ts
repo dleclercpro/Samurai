@@ -4,7 +4,7 @@ import { expectActionToFailWithError } from '.';
 import { HttpStatusCode, HttpStatusMessage } from '../src/types/HTTPTypes';
 import { errorResponse } from '../src/libs/calls';
 import { ClientError } from '../src/errors/ClientErrors';
-import { signUpAction, createGameAction } from './actions';
+import { signUpAction, signInAndCreateGameAction, createGameAction } from './actions';
 
 const USER_1 = { email: 'user1@test.com', password: 'q12345678!' };
 const USER_2 = { email: 'user2@test.com', password: 'q12345678!' };
@@ -42,7 +42,7 @@ test(`Creating game with existing user should work`, async () => {
     const game = { name: 'Game', opponentEmails: OPPONENTS.map(opponent => opponent.email) };
     const user = { ...CREATOR, staySignedIn: false };
     
-    const { code, data } = await createGameAction(game, user);
+    const { code, data } = await signInAndCreateGameAction(game, user);
 
     expect(code).toEqual(0);
     expect(data.id).toBeDefined();
@@ -50,12 +50,23 @@ test(`Creating game with existing user should work`, async () => {
 
 
 
-test(`Creating game with non-existing creator should not work`, async () => {
+test(`Creating game without session cookie should not work`, async () => {
+    const game = { name: 'Game', opponentEmails: OPPONENTS.map(opponent => opponent.email) };
+    
+    await expectActionToFailWithError(() => createGameAction(game, null), {
+        status: HttpStatusCode.UNAUTHORIZED,
+        data: errorResponse(ClientError.InvalidCredentials),
+    });
+});
+
+
+
+test(`Creating game with non-existing user should not work`, async () => {
     const game = { name: 'Game', opponentEmails: OPPONENTS.map(opponent => opponent.email) };
     const user = { ...NON_EXISTING_USER, staySignedIn: false };
     
-    await expectActionToFailWithError(() => createGameAction(game, user), {
-        status: HttpStatusCode.FORBIDDEN,
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+        status: HttpStatusCode.UNAUTHORIZED,
         data: errorResponse(ClientError.InvalidCredentials),
     });
 });
@@ -66,7 +77,7 @@ test(`Creating game with non-existing opponent should not work`, async () => {
     const game = { name: 'Game', opponentEmails: [NON_EXISTING_USER].map(opponent => opponent.email) };
     const user = { ...CREATOR, staySignedIn: false };
     
-    await expectActionToFailWithError(() => createGameAction(game, user), {
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
@@ -78,28 +89,44 @@ test(`Creating game with duplicate opponents should not work`, async () => {
     const game = { name: 'Game', opponentEmails: [OPPONENTS[0], OPPONENTS[0]].map(opponent => opponent.email) };
     const user = { ...CREATOR, staySignedIn: false };
     
-    await expectActionToFailWithError(() => createGameAction(game, user), {
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
 });
+
+
 
 test(`Creating game without opponents should not work`, async () => {
     const game = { name: 'Game', opponentEmails: [] };
     const user = { ...CREATOR, staySignedIn: false };
     
-    await expectActionToFailWithError(() => createGameAction(game, user), {
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['opponentEmails']),
     });
 });
+
+
+
+test(`Creating game without name parameter should not work`, async () => {
+    const game = { opponentEmails: OPPONENTS };
+    const user = { ...CREATOR, staySignedIn: false };
+    
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['name']),
+    });
+});
+
+
 
 test(`Creating game without opponents parameter should not work`, async () => {
     const game = { name: 'Game' };
     const user = { ...CREATOR, staySignedIn: false };
     
-    await expectActionToFailWithError(() => createGameAction(game, user), {
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['opponentEmails']),
     });
 });

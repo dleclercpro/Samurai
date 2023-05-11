@@ -11,8 +11,13 @@ export const signInAndGetCookieAction = async (user: any) => {
     return getSessionCookieFromAxiosResponse(response);
 }
 
-export const createGameAction = async (game: any, user: any) => {
+export const signInAndCreateGameAction = async (game: any, user: any) => {
     const cookie = await signInAndGetCookieAction(user);
+
+    return createGameAction(game, cookie);
+}
+
+export const createGameAction = async (game: any, cookie: any) => {
     const headers = { Cookie: cookie };
 
     return axios
