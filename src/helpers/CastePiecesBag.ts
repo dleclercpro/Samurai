@@ -1,4 +1,5 @@
 import { CASTES } from '../constants';
+import { ErrorGameEmptyCastePiecesBag } from '../errors/GameErrors';
 import { getRandom } from '../libs';
 import { sum } from '../libs/math';
 import { Caste } from '../types/GameTypes';
@@ -41,7 +42,7 @@ class CastePiecesBag {
                 return caste;
             }
         }
-        throw new Error('Bag is out of caste pieces.');
+        throw new ErrorGameEmptyCastePiecesBag();
     }
 }
 

@@ -6,7 +6,7 @@ import { FromTo } from '../types';
 import { GameOrder } from '../commands/game/PlayGameCommand';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
-import { ErrorGameBoardTileNotACity, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
+import { ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
 
 export interface Normal {
     boardTile: IBoardTile,
@@ -91,7 +91,7 @@ class Rules {
         }
 
         if (boardTiles.to.isHandTileCompatible(previouslyPlayedTile.getHandTile())) {
-            throw new Error(`Board and hand tiles aren't compatible: ${boardTiles.to.getType()} vs. ${previouslyPlayedTile.getHandTile().getType()}`);
+            throw new ErrorGameIncompatibleTileTypes(boardTiles.to, previouslyPlayedTile.getHandTile());
         }
 
         return true;
@@ -101,11 +101,11 @@ class Rules {
         const { boardTiles, castes } = order;
 
         if (!boardTiles.from.isCity()) {
-            throw new ErrorGameBoardTileNotACity(boardTiles.from);
+            throw new ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile(boardTiles.from);
         }
 
         if (!boardTiles.to.isCity()) {
-            throw new ErrorGameBoardTileNotACity(boardTiles.to);
+            throw new ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile(boardTiles.to);
         }
 
         if (boardTiles.from.getId() === boardTiles.to.getId()) {

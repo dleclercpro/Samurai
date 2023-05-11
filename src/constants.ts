@@ -12,7 +12,7 @@ export const SUBDOCUMENT_SCHEMA_OPTIONS = {
 // Hand tiles
 export const HAND_TILE_ID_SWAP = 18;
 export const HAND_TILE_ID_MOVE = 19;
-export const N_HAND_TILES = 5;
+export const HAND_SIZE = 5;
 export const N_FULL_HAND_TILES = 20;
 export const FULL_HAND_TILE_IDS = getRange(N_FULL_HAND_TILES);
 

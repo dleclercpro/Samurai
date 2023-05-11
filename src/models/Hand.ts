@@ -1,5 +1,5 @@
 import { Model, Schema, Types, model } from 'mongoose';
-import { N_HAND_TILES, SUBDOCUMENT_SCHEMA_OPTIONS, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
+import { HAND_SIZE, SUBDOCUMENT_SCHEMA_OPTIONS, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IHandTile, HandTileSchema } from './HandTile';
 import { ErrorGameTileNotInHand } from '../errors/GameErrors';
 
@@ -29,7 +29,7 @@ export interface IHandModel extends Model<IHand> {
 
 
 export const HandSchema = new Schema<IHand>({
-    current: { type: [HandTileSchema], required: true, min: 0, max: N_HAND_TILES },
+    current: { type: [HandTileSchema], required: true, min: 0, max: HAND_SIZE },
     remaining: { type: [HandTileSchema], required: true },
 
 }, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });

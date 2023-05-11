@@ -1,4 +1,5 @@
 import { TEST_BOARD_2_PLAYERS_JSON, TEST_BOARD_3_PLAYERS_JSON, TEST_BOARD_4_PLAYERS_JSON } from '../../config/TestConfig';
+import { ErrorGameBoardTileDoesNotExist, ErrorGameInvalidPlayerCount } from '../../errors/GameErrors';
 import { TestBoardJSON, TestBoardTileJSON } from '../../types/JSONTypes';
 
 class TestBoardDataManager {
@@ -16,7 +17,7 @@ class TestBoardDataManager {
                 this.tiles = this.load(TEST_BOARD_4_PLAYERS_JSON);
                 break;
             default:
-                throw new Error('Invalid number of players!');
+                throw new ErrorGameInvalidPlayerCount(nPlayers);
         }
     }
 
@@ -37,7 +38,7 @@ class TestBoardDataManager {
         const tile = this.getTiles().find(tile => tile.id === id);
 
         if (!tile) {
-            throw new Error('This board tile does not exist!');
+            throw new ErrorGameBoardTileDoesNotExist(id);
         }
 
         return tile;

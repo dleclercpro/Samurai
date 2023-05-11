@@ -1,5 +1,6 @@
 import { HAND_JSON } from '../../config/GameConfig';
 import { BOARD_TILE_SWAP_IDS } from '../../constants';
+import { ErrorGameHandTileDoesNotExist } from '../../errors/GameErrors';
 import { HandJSON, HandTileJSON } from '../../types/JSONTypes';
 
 /*
@@ -44,7 +45,7 @@ class HandDataManager {
         const tile = this.getTiles().find(tile => tile.id === id);
 
         if (!tile) {
-            throw new Error('This hand tile does not exist!');
+            throw new ErrorGameHandTileDoesNotExist(id);
         }
 
         return tile;

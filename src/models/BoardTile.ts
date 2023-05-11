@@ -6,6 +6,7 @@ import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { IHandTile } from './HandTile';
 import BoardDataManager from '../helpers/data/BoardDataManager';
 import { IBoard } from './Board';
+import { ErrorGameBoardTileNotACity } from '../errors/GameErrors';
 
 export interface BoardTileCoordinates {
     x: number,
@@ -134,7 +135,7 @@ BoardTileSchema.methods.isCity = function() {
 
 BoardTileSchema.methods.isClosed = function() {
     if (!this.isCity()) {
-        throw new Error('This board tile is not a city, so it cannot be closed.');
+        throw new ErrorGameBoardTileNotACity(this as IBoardTile);
     }
 
     return (this as IBoardTile).getNeighboringTiles().every(tile => !tile.isFree());
@@ -150,8 +151,6 @@ BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {
             return handTile.getType() === HandTileType.Ship;
         case BoardTileType.Swap:
             return handTile.getType() === HandTileType.Swap;
-        default:
-            throw new Error(`Unknown board tile: ${type}`);
     }
 }
 

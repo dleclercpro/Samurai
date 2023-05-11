@@ -1,5 +1,6 @@
 import { BOARD_JSON } from '../../config/GameConfig';
 import { BOARD_TILE_SWAP_IDS } from '../../constants';
+import { ErrorGameBoardTileDoesNotExist } from '../../errors/GameErrors';
 import { BoardJSON, BoardTileJSON } from '../../types/JSONTypes';
 
 /*
@@ -48,7 +49,7 @@ class BoardDataManager {
         const tile = this.getTiles().find(tile => tile.id === id);
 
         if (!tile) {
-            throw new Error('This board tile does not exist!');
+            throw new ErrorGameBoardTileDoesNotExist(id);
         }
 
         return tile;

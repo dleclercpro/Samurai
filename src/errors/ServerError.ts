@@ -33,7 +33,7 @@ export class ErrorInvalidEmail extends ServerError {
     public static code = -101;
     
     constructor(email: string) {
-        super(ErrorInvalidEmail.code, `Invalid e-mail provided: ${email}`);
+        super(ErrorInvalidEmail.code, `Invalid e-mail provided: ${email}.`);
     }
 }
 

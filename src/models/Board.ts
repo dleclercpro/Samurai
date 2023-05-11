@@ -4,6 +4,7 @@ import { BOARD_TILE_SWAP_IDS, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile } from './PlayedTile';
 import { IPlayer } from './Player';
 import BoardDataManager from '../helpers/data/BoardDataManager';
+import { ErrorGameBoardTileDoesNotExist } from '../errors/GameErrors';
 
 export enum BoardSection {
     North = 'North',
@@ -60,7 +61,7 @@ BoardSchema.methods.getTileById = function(id: number) {
         return tile;
     }
 
-    throw new Error(`Tile with ID ${id} does not exist.`);
+    throw new ErrorGameBoardTileDoesNotExist(id);
 }
 
 BoardSchema.methods.getTilesPlayedByPlayer = function(player: IPlayer) {

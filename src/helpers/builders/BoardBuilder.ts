@@ -4,6 +4,7 @@ import BoardTile, { IBoardTile } from '../../models/BoardTile';
 import { BoardTileJSON } from '../../types/JSONTypes';
 import BoardData from '../data/BoardDataManager';
 import CastePiecesBag from '../CastePiecesBag';
+import { ErrorGameInvalidPlayerCount } from '../../errors/GameErrors';
 
 class BoardBuilder {
     protected nPlayers: number;
@@ -27,7 +28,7 @@ class BoardBuilder {
             case 4:
                 break;
             default:
-                throw new Error('Invalid number of players.');
+                throw new ErrorGameInvalidPlayerCount(this.nPlayers);
         }
 
         return excludedSections;
