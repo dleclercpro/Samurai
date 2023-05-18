@@ -42,7 +42,7 @@ class SignInCommand extends Command<Argument, Response> {
         const user = this.user!;
 
         // Create session for user
-        const session = await Session.create(user.getEmail(), staySignedIn, duration);
+        const session = await Session.create(user.getEmail(), user.getUsername(), staySignedIn, duration);
 
         logger.info(`User signed in: ${user.stringify()}`);
 

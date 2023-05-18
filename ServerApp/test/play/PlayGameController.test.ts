@@ -5,7 +5,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../../src/types/HTTPTypes';
 import { ClientError } from '../../src/errors/ClientErrors';
 import { errorResponse } from '../../src/libs/calls';
 import { playGameAction } from '../actions';
-import { USER_WITHOUT_SPECIAL_TILES, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 
 
 
@@ -23,7 +23,11 @@ test(`Playing game with valid move should work`, () => {
 
 
 test(`Placing game order with invalid parameters should not work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -59,7 +63,11 @@ test(`Placing game order with invalid parameters should not work`, async () => {
 
 
 test(`Placing game order without having corresponding tile in hand should not work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();

@@ -12,6 +12,7 @@ class SessionSerializer {
     public serialize(session: Session) {
         const id = session.getId();
         const email = session.getEmail();
+        const username = session.getUsername();
         const staySignedIn = session.hasTouch();
         const expirationDate = session.getExpirationDate();
         
@@ -19,6 +20,7 @@ class SessionSerializer {
         let string = [
             id,
             email,
+            username,
             staySignedIn,
             expirationDate ? expirationDate.getTime() : '',
         ]
@@ -44,12 +46,12 @@ class SessionSerializer {
             string = session;
         }
 
-        const [ id, email, _staySignedIn, _expirationDate ] = string.split(this.separator);
+        const [ id, email, username, _staySignedIn, _expirationDate ] = string.split(this.separator);
 
         const staySignedIn = _staySignedIn === 'true';
         const expirationDate = _expirationDate ? new Date(Number(_expirationDate)) : undefined;
 
-        return new Session(id, email, staySignedIn, expirationDate);
+        return new Session(id, email, username, staySignedIn, expirationDate);
     }
 }
 

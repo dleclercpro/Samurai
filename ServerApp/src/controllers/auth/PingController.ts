@@ -3,9 +3,13 @@ import { successResponse } from '../../libs/calls';
 
 const PingController: RequestHandler = async (req, res, next) => {
     try {
+        const { session } = req;
 
         // Success
-        return res.json(successResponse());
+        return res.json(successResponse({
+            username: session.getUsername(),
+            email: session.getEmail(),
+        }));
 
     } catch (err: any) {
         next(err);

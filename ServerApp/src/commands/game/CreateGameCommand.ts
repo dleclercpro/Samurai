@@ -11,8 +11,8 @@ import { ErrorGameDuplicateUsers } from '../../errors/GameErrors';
 
 interface Argument {
     name: string,
-    creatorIdentifier: string,
-    opponentIdentifiers: string[],
+    creatorEmail: string,
+    opponentEmails: string[],
 }
 
 type Response = IGame;
@@ -25,35 +25,35 @@ class CreateGameCommand extends Command<Argument, Response> {
     }
 
     protected async doPrepare() {
-        const { creatorIdentifier, opponentIdentifiers } = this.argument;
-        const identifiers = [creatorIdentifier, ...opponentIdentifiers];
+        const { creatorEmail, opponentEmails } = this.argument;
+        const emails = [creatorEmail, ...opponentEmails];
 
         // Ensure all users are different
-        if (unique(identifiers).length !== identifiers.length) {
+        if (unique(emails).length !== emails.length) {
             throw new ErrorGameDuplicateUsers();
         }
 
         // Ensure all users exist
-        await Promise.all(identifiers.map(async (identifier) => {
-            const user = await User.getByIdentifier(identifier);
+        await Promise.all(emails.map(async (email) => {
+            const user = await User.getByEmail(email);
 
             if (!user) {
-                throw new ErrorUserDoesNotExist(identifier);
+                throw new ErrorUserDoesNotExist(email);
             }
         }));
     }
 
     protected async doExecute() {
-        const { name, creatorIdentifier, opponentIdentifiers } = this.argument;
+        const { name, creatorEmail, opponentEmails } = this.argument;
 
         // Fetch users
-        const [creator, ...opponents] = await Promise.all([creatorIdentifier, ...opponentIdentifiers].map(async (identifier) => {
-            return User.getByIdentifier(identifier);
+        const [creator, ...opponents] = await Promise.all([creatorEmail, ...opponentEmails].map(async (email) => {
+            return User.getByEmail(email);
         }));
         const users = [creator, ...opponents];
-        const usernames = users.map(user => user.getUsername()).join(', ')
+        const emails = users.map(user => user.getEmail()).join(', ')
 
-        logger.info(`Creating game with users: ${usernames}.`);
+        logger.info(`Creating game with users: ${emails}.`);
 
         // Create new game
         this.game = new Game({
@@ -91,10 +91,10 @@ class CreateGameCommand extends Command<Argument, Response> {
     }
 
     private generateBoard() {
-        const { opponentIdentifiers } = this.argument;
+        const { opponentEmails } = this.argument;
 
         // Use builder to generate board
-        return new BoardBuilder(opponentIdentifiers.length + 1).build();
+        return new BoardBuilder(opponentEmails.length + 1).build();
     }
 }
 

@@ -15,7 +15,7 @@ import { ServerResponse } from '../types/ServerTypes';
 import { setSelf, setOpponents } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/auth/CallSignOut';
-import { CallVerifyAuthentication } from '../calls/auth/CallVerifyAuthentication';
+import { CallPing } from '../calls/auth/CallPing';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { CallGetData } from '../calls/game/CallGetData';
 import { setOwnHand } from './HandActions';
@@ -24,7 +24,7 @@ export const verifyAuthentication = (): AppThunkAction<void> => {
 
     return (dispatch: AppThunkDispatch<void>) => {
 
-        return new CallVerifyAuthentication().execute()
+        return new CallPing().execute()
             .then((response: ServerResponse<UserJSON>) => {
                 const { username, email } = response.data;
                 
@@ -44,7 +44,7 @@ export const signIn = (email: string, password: string): AppThunkAction<void> =>
         
         return new CallSignIn(email, password).execute()
             .then((response: ServerResponse<UserJSON>) => {
-                const { username } = response.data;
+                const { username, email } = response.data;
                 
                 dispatch(setUser(username, email));
 

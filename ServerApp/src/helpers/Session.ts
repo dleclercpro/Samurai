@@ -7,12 +7,14 @@ import SessionsDatabase from '../databases/SessionsDatabase';
 class Session {
     protected id: string;
     protected email: string;
+    protected username: string;
     protected expirationDate?: Date;
     protected touch: boolean;
 
-    public constructor(id: string, email: string, touch: boolean, expirationDate?: Date) {
+    public constructor(id: string, email: string, username: string, touch: boolean, expirationDate?: Date) {
         this.id = id;
         this.email = email;
+        this.username = username;
         this.touch = touch;
         this.expirationDate = expirationDate;
     }
@@ -27,6 +29,10 @@ class Session {
 
     public getEmail() {
         return this.email;
+    }
+
+    public getUsername() {
+        return this.username;
     }
 
     public hasTouch() {
@@ -76,7 +82,7 @@ class Session {
     }
 
     // TODO: clean Redis DB from time to time from older sessions of same user
-    public static async create(email: string, staySignedIn: boolean = false, duration?: TimeDuration) {
+    public static async create(email: string, username: string, staySignedIn: boolean = false, duration?: TimeDuration) {
         let id = '';
 
         // Find a unique, non-existing ID for the new session 
@@ -88,7 +94,7 @@ class Session {
         const expirationDate = duration ? new Date(new Date().getTime() + toMs(duration)) : undefined;
 
         // Create session
-        const session = new Session(id, email, staySignedIn, expirationDate);
+        const session = new Session(id, email, username, staySignedIn, expirationDate);
 
         // Store session in database
         await session.save();

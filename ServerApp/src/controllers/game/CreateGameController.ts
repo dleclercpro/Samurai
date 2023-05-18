@@ -20,8 +20,8 @@ const CreateGameController: ICreateGameController = async (req, res, next) => {
         // Create new game
         const game = await new CreateGameCommand({
             name,
-            creatorIdentifier: user.getUsername(),
-            opponentIdentifiers: opponents,
+            creatorEmail: user.getEmail(),
+            opponentEmails: opponents,
         }).execute();
 
         // Success

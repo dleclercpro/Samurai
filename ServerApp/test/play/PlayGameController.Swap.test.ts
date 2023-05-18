@@ -17,7 +17,11 @@ afterEach(afterEachPlay);
 
 
 test(`Placing swap order with valid parameters should work`, async () => {
-    const user = { ...USER_WITH_SWAP, staySignedIn: false };
+    const user = {
+        email: USER_WITH_SWAP.email,
+        password: USER_WITH_SWAP.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -37,7 +41,11 @@ test(`Placing swap order with valid parameters should work`, async () => {
 
 
 test(`Placing swap order with missing caste should not work`, async () => {
-    const user = { ...USER_WITH_SWAP, staySignedIn: false };
+    const user = {
+        email: USER_WITH_SWAP.email,
+        password: USER_WITH_SWAP.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();

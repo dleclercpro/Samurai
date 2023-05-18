@@ -17,10 +17,10 @@ export const HAND_TILE_ID_SHIP = 15;
 
 export const BOARD_TILE_ID_CITY = 82;
 
+export const USER = { email: 'user4@test.com', password: 'q12345678!', username: 'UserWithoutSpecialTiles' };
 export const USER_WITH_MOVE = { email: 'user1@test.com', password: 'q12345678!', username: 'UserWithMove' };
 export const USER_WITH_SWAP = { email: 'user2@test.com', password: 'q12345678!', username: 'UserWithSwap' };
 export const USER_WITH_MOVE_AND_SWAP = { email: 'user3@test.com', password: 'q12345678!', username: 'UserWithMoveAndSwap' };
-export const USER_WITHOUT_SPECIAL_TILES = { email: 'user4@test.com', password: 'q12345678!', username: 'UserWithoutSpecialTiles' };
 
 export const PLAYER_WITH_MOVE = new Player({
     userId: '',
@@ -82,7 +82,7 @@ export const USERS = [
     USER_WITH_MOVE,
     USER_WITH_SWAP,
     USER_WITH_MOVE_AND_SWAP,
-    USER_WITHOUT_SPECIAL_TILES,
+    USER,
 ];
 
 export const PLAYERS = [

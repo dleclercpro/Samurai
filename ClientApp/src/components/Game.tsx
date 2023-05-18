@@ -65,8 +65,6 @@ class Game extends React.Component<Props, State> {
             
             return;
         }
-        console.log(routeId);
-        console.log(id);
 
         setGameId(routeId);
         setGameVersion(-1);

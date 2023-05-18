@@ -32,8 +32,6 @@ export interface IUserModel extends Model<IUser> {
     getAll: () => Promise<IUser[]>,
     getById: (id: string) => Promise<IUser>,
     getByEmail: (email: string) => Promise<IUser>,
-    getByUsername: (username: string) => Promise<IUser>,
-    getByIdentifier: (identifier: string) => Promise<IUser>,
     hashPassword: (password: string) => Promise<string>,
     isEmailValid: (email: string) => boolean,
     isPasswordValid: (password: string) => boolean,
@@ -55,7 +53,7 @@ const UserSchemaOptions: SchemaOptions<IUser> = {
 export const UserSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true, lowercase: true, trim: true, index: true },
     password: { type: String, required: true },
-    username: { type: String, required: true, unique: true, trim: true, index: true },
+    username: { type: String, required: true, trim: true },
 
     lastLogin: { type: Date },
     lastPasswordReset: { type: Date },
@@ -114,20 +112,6 @@ UserSchema.statics.getById = async function(id: string) {
 
 UserSchema.statics.getByEmail = async function(email: string) {
     return this.findOne({ email }).exec();
-}
-
-UserSchema.statics.getByUsername = async function(username: string) {
-    return this.findOne({ username }).exec();
-}
-
-UserSchema.statics.getByIdentifier = async function(identifier: string) {
-    let user = await (this as IUserModel).getByUsername(identifier);
-    
-    if (!user) {
-        user = await (this as IUserModel).getByEmail(identifier);
-    }
-
-    return user;
 }
 
 UserSchema.statics.hashPassword = async function(password: string) {

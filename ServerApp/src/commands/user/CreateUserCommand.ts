@@ -20,7 +20,7 @@ class CreateUserCommand extends Command<Argument, Response> {
     }
 
     protected async doPrepare() {
-        const { email, password, username } = this.argument;
+        const { email, password } = this.argument;
 
         // Validate e-mail
         if (!User.isEmailValid(email)) {
@@ -33,7 +33,7 @@ class CreateUserCommand extends Command<Argument, Response> {
         }
 
         // Try and find user in database
-        const user = (await User.getByEmail(email)) || (await User.getByUsername(username));
+        const user = await User.getByEmail(email);
 
         // User should not already exist in database
         if (user) {

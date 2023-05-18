@@ -1,4 +1,4 @@
-import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER_WITHOUT_SPECIAL_TILES, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 import { playGameAction } from '../actions';
 import { errorResponse, successResponse } from '../../src/libs/calls';
 import { expectActionToFailWithError } from '..';
@@ -15,7 +15,11 @@ afterEach(afterEachPlay);
 
 
 test(`Placing regular ground hand tile onto free ground board tile should work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -35,7 +39,11 @@ test(`Placing regular ground hand tile onto free ground board tile should work`,
 
 
 test(`Placing samurai hand tile onto free ground board tile should work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -55,7 +63,11 @@ test(`Placing samurai hand tile onto free ground board tile should work`, async 
 
 
 test(`Placing ship hand tile onto free water board tile should work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -75,8 +87,12 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
 
 
 test(`Placing regular ground hand tile onto free water board tile should not work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
-
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
+    
     // Create test game in database
     const game = await createGame();
 
@@ -96,7 +112,11 @@ test(`Placing regular ground hand tile onto free water board tile should not wor
 
 
 test(`Placing samurai hand tile onto free water board tile should not work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -117,7 +137,11 @@ test(`Placing samurai hand tile onto free water board tile should not work`, asy
 
 
 test(`Placing ship hand tile onto free ground board tile should not work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();
@@ -138,7 +162,11 @@ test(`Placing ship hand tile onto free ground board tile should not work`, async
 
 
 test(`Placing regular ground hand tile onto city board tile should not work`, async () => {
-    const user = { ...USER_WITHOUT_SPECIAL_TILES, staySignedIn: false };
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
 
     // Create test game in database
     const game = await createGame();

@@ -11,7 +11,7 @@ afterEach(afterEachPlay);
 
 
 test(`Placing move order with valid parameters should work`, async () => {
-    const user = { ...USER_WITH_MOVE, staySignedIn: false };
+    const user = { email: USER_WITH_MOVE.email, password: USER_WITH_MOVE.password, staySignedIn: false };
 
     // Create test game in database
     const game = await createGame();
