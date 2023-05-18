@@ -1,0 +1,17 @@
+@import '../../styles/styles';
+
+#score-board {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 15px;
+    margin-right: auto;
+    width: 100%;
+
+    @include mq(width, tablet) {
+        width: auto;
+        padding-left: 15px;
+        padding-right: 60px;
+    }
+}

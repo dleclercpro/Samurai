@@ -1,0 +1,35 @@
+@import '../styles/styles';
+
+$height-top: 0px;
+$height-bottom: 150px;
+
+#grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    > #top {
+        display: flex;
+        width: 100%;
+        height: $height-top;
+    }
+
+    > #center {
+        @extend %center;
+        width: 100%;
+        height: calc(100% - #{$height-top} - #{$height-bottom});
+    }
+
+    > #bottom {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: $height-bottom;
+        padding: 20px 0;
+        overflow: auto;
+        border-top: 1px solid $color-light-grey;
+    }
+}

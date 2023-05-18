@@ -1,0 +1,35 @@
+@import '../styles/styles';
+
+.hand {
+    @extend %center;
+
+    #dialog--tile-choice &,
+    #dialog--tile-move-end & {
+        width: 100%;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        @include mq(width, tablet) {
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+    }
+    
+    #bottom & {
+        flex-shrink: 0;
+        margin-left: auto;
+        padding: 0 15px;
+
+        @include mq(width, tablet) {
+            margin-right: 15px;
+        }
+
+        @include mq(width, desktop) {
+            margin-right: 40px;
+        }
+
+        @include mq(width, desktopXL) {
+            margin-right: 120px;
+        }
+    }
+}

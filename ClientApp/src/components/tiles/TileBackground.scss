@@ -1,0 +1,181 @@
+@import '../../styles/styles';
+
+.tile-background {
+    fill: $color-ground;
+    stroke: $color-dark-ground;
+    @extend %no-highlight;
+
+    .is-colorblind & {
+        fill: $color-blind-ground;
+        stroke: $color-blind-dark-ground;
+    }
+
+    .is-city.is-closed & {
+        fill: url(#tile-empty-pattern);
+    }
+
+    &.is-water {
+        fill: $color-water;
+        stroke: $color-dark-water;
+
+        .is-colorblind & {
+            fill: $color-blind-water;
+            stroke: $color-blind-dark-water;
+        }
+    }
+
+    .is-playable.is-hovered & {
+        cursor: pointer;
+        fill: $color-dark-ground;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-ground;
+        }
+
+        &.is-water {
+            fill: $color-dark-water;
+
+            .is-colorblind & {
+                fill: $color-blind-dark-water;
+            }
+        }
+    }
+
+    .played-tile-component .is-selected &,
+    .board-tile-component.is-selected & {
+        animation: pulseDark 0.6s infinite;
+    }
+    
+    .was-played & {
+        animation: pulse 1.2s infinite;
+    }
+
+    .is-red & {
+        fill: $color-red;
+        stroke: $color-dark-red;
+
+        .is-colorblind & {
+            fill: $color-blind-red;
+            stroke: $color-blind-dark-red;
+        }
+    }
+
+    .is-purple & {
+        fill: $color-purple;
+        stroke: $color-dark-purple;
+
+        .is-colorblind & {
+            fill: $color-blind-purple;
+            stroke: $color-blind-dark-purple;
+        }
+    }
+
+    .is-orange & {
+        fill: $color-orange;
+        stroke: $color-dark-orange;
+
+        .is-colorblind & {
+            fill: $color-blind-orange;
+            stroke: $color-blind-dark-orange;
+        }
+    }
+
+    .is-green & {
+        fill: $color-green;
+        stroke: $color-dark-green;
+
+        .is-colorblind & {
+            fill: $color-blind-green;
+            stroke: $color-blind-dark-green;
+        }
+    }
+
+    .is-move &,
+    .is-swap & {
+        fill: $color-dark-grey !important;
+        stroke: $color-black !important;
+
+        .is-colorblind & {
+            fill: $color-white !important;
+        }
+    }
+
+    .board-tile-component.is-swap & {
+        fill: $color-white !important;
+        stroke: $color-light-grey !important;
+    }
+
+    .is-ship & {
+        fill: $color-ship;
+        stroke: $color-dark-ship;
+
+        .is-colorblind & {
+            fill: $color-blind-ship;
+            stroke: $color-blind-dark-ship;
+        }
+    }
+
+    .is-playable.is-hovered.is-red &,
+    .hand-tile-component .is-selected.is-red & {
+        fill: $color-dark-red;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-red;
+        }
+    }
+
+    .is-playable.is-hovered.is-purple &,
+    .hand-tile-component .is-selected.is-purple & {
+        fill: $color-dark-purple;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-purple;
+        }
+    }
+
+    .is-playable.is-hovered.is-orange &,
+    .hand-tile-component .is-selected.is-orange & {
+        fill: $color-dark-orange;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-orange;
+        }
+    }
+
+    .is-playable.is-hovered.is-green &,
+    .hand-tile-component .is-selected.is-green & {
+        fill: $color-dark-green;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-green;
+        }
+    }
+
+    .is-playable.is-hovered.is-move &,
+    .is-playable.is-hovered.is-swap &,
+    .hand-tile-component .is-selected.is-move &,
+    .hand-tile-component .is-selected.is-swap & {
+        fill: $color-grey !important;
+    }
+
+    .is-playable.is-hovered.is-ship &,
+    .hand-tile-component .is-selected.is-ship & {
+        fill: $color-dark-ship;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-ship;
+        }
+    }
+}
+
+@keyframes pulse {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes pulseDark {
+    50% {
+        fill: rgba(0, 0, 0, 0.5);
+    }
+}

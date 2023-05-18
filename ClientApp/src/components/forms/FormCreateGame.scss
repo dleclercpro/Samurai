@@ -1,0 +1,11 @@
+@import '../../styles/styles';
+
+#form-create-game {
+
+    > .fields {
+
+        > .form-text-field--name {
+            flex-basis: 100%;
+        }
+    }
+}

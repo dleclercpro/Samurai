@@ -1,0 +1,130 @@
+@import '../../styles/styles';
+
+.score-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: translate(0, -6px);
+
+    .n-players--4 & {
+        max-width: calc(100% / 4);        
+    }
+
+    .n-players--3 & {
+        max-width: calc(100% / 3);        
+    }
+
+    .n-players--2 & {
+        max-width: calc(100% / 2);        
+    }
+
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    &.is-playing {
+
+        &:after {
+            animation: flash 1s infinite;
+        }
+    }
+
+    &.is-red {
+
+        &:after {
+            background: $color-red;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-red;
+        }
+    }
+
+    &.is-purple {
+
+        &:after {
+            background: $color-purple;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-purple;
+        }
+    }
+
+    &.is-orange {
+
+        &:after {
+            background: $color-orange;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-orange;
+        }
+    }
+
+    &.is-green {
+
+        &:after {
+            background: $color-green;
+        }
+
+        .is-colorblind &:after {
+            background: $color-blind-green;
+        }
+    }
+
+    &:not(:last-child) {
+        @include mq(width, tablet) {
+            margin-right: 30px;
+        }
+    }
+
+    > .username {
+        width: 100%;
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 6px;
+        user-select: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        //text-decoration: underline;
+    }
+
+    > .score {
+        width: 60px;
+        table-layout: fixed;
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+
+            > .icon {
+                height: 20px;
+            }
+    
+            > .value {
+                user-select: none;
+    
+                &.is-highest {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+@keyframes flash {
+    50% {
+        background: $color-white;
+    }
+}

@@ -1,0 +1,14 @@
+@import '../../styles/styles';
+
+#dash-language {
+    position: fixed;
+    top: 30px;
+    right: 50%;
+    transform: translateX(50%);
+    display: flex;
+
+    @include mq(width, tablet) {
+        right: 30px;
+        transform: none;
+    }
+}

@@ -1,0 +1,48 @@
+@import '../../styles/styles';
+
+.language-button {
+    position: relative;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    flex-shrink: 0;
+    width: 48px;
+    height: 36px;
+    padding: 0;
+    outline: 0;
+    overflow: hidden;
+    opacity: 0.25;
+    cursor: pointer;
+
+    &.is-selected {
+        opacity: 1;
+    }
+
+    &:not(:last-of-type) {
+        margin-right: 15px;
+
+        @include mq(width, tablet) {
+            margin-right: 10px;
+        }
+    }
+
+    @include mq(width, tablet) {
+        width: 40px;
+        height: 30px;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 110%;
+        height: 110%;
+    }
+}

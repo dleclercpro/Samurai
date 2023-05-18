@@ -1,0 +1,10 @@
+@import '../../styles/styles';
+
+.tile-text {
+    font-size: 80px;
+    font-weight: bold;
+    dominant-baseline: central;
+    text-anchor: middle;
+
+    @extend %tile-content-coloring;
+}

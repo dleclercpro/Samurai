@@ -1,0 +1,17 @@
+export enum DialogType {
+    OK = 'ok',
+    Success = 'success',
+    Error = 'error',
+    SignIn = 'sign-in',
+    SignUp = 'sign-up',
+    PlayGame = 'play-game',
+    CreateGame = 'create-game',
+    GameOver = 'game-over',
+    NewTurn = 'new-turn',
+    TileChoice = 'tile-choice',
+    CasteChoice = 'caste-choice',
+    TileMoveStart = 'tile-move-start',
+    TileMoveEnd = 'tile-move-end',
+    CasteSwapStart = 'caste-swap-start',
+    CasteSwapEnd = 'caste-swap-confirm',
+}

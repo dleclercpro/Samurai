@@ -1,0 +1,82 @@
+{
+    "SUCCESS": "Erfolg",
+    "ERROR": "Fehler",
+    "CONFIRM": "Bestätigen",
+    "CREATE": "Erstellen",
+    "PLAY": "Spielen",
+    "CHOOSE": "Auswählen",
+    "OK": "OK",
+    "CANCEL": "Abbrechen",
+    "BACK": "Zurück",
+    "OPTIONAL": "Fakultativ",
+    "ID": "Identifikationsnummer: {{id}}",
+    "GAME_RULES": "Spielregeln",
+
+    "PLAYER": "Spieler",
+    "E_MAIL": "E-Mail-Adresse",
+    "FIRST_NAME": "Vorname",
+    "LAST_NAME": "Name",
+    "USERNAME": "Benutzername",
+    "PASSWORD": "Passwort",
+    "PASSWORD_AGAIN": "Passwort (bestätigen)",
+    "INVALID_FIELD": "Ungültige Eingabe.",
+    
+    "SIGN_IN": "Einloggen",
+    "SIGN_OUT": "Ausloggen",
+    "SIGN_UP": "Anmelden",
+    "SIGN_UP_MESSAGE": "Fülle dieses Formular aus, um dich als Benutzen anzumelden:",
+
+    "PLAY_GAME": "Spielen",
+    "PLAY_GAME_MESSAGE": "Gib die Identifikationsnummer des Spieles ein, das du betreten möchtest:",
+    "GAME_ID": "Spiel ID",
+
+    "CREATE_GAME": "Spiel erstellen",
+    "CREATE_GAME_MESSAGE": "Gib die Informationen der Benutzer ein, mit denen du spielen möchtest, um ein neues Spiel zu erstellen:",
+    "GAME_NAME": "Name des Spieles",
+
+    "NEW_TURN": "Neuer Spielzug",
+    "NEW_TURN_MESSAGE": "Du bist dran! Du hast noch {{nTilesLeft}} Spielsteine übrig.",
+
+    "GAME_OVER": "Spielende",
+    "NO_WINNER": "Es hat niemand gewonnen.",
+    "WINNER_IS": "Der/die Gewinner/in ist:",
+    "WINNERS_ARE": "Die Gewinner sind:",
+
+    "TILE_CHOICE": "Spielstein auswählen",
+    "TILE_CHOICE_MESSAGE": "Wähle welchen Spielstein du auf die geclickte Position setzen möchtest:",
+
+    "TILE_MOVE": "Spielstein versetzen",
+    "TILE_MOVE_MESSAGE": "Willst du einen deiner Spielsteine auf der Spielplatte versetzen? Wenn ja, wähle zuerst den gewünschten Spielstein, dann seine neue Position.",
+    "START_MOVE": "Versetzen",
+
+    "TILE_MOVE_CONFIRMATION": "Bestätigung des Versetzens",
+    "TILE_MOVE_CONFIRMATION_MESSAGE": "Bist du dir sicher, dass du folgenden Spielstein versetzen willst?",
+    "CANCEL_MOVE": "Versetzen abbrechen",
+
+    "CASTE_SWAP": "Figuren tauschen",
+    "CASTE_SWAP_MESSAGE": "Willst du zwei einzelnen Figuren aus zwei verschiedenen Städten tauschen?",
+    "START_SWAP": "Tauschen",
+
+    "CASTE_SWAP_CONFIRMATION": "Bestätigung des Tauschens",
+    "CASTE_SWAP_CONFIRMATION_MESSAGE": "Bist du dir sicher, dass du die gewählten Figuren tauschen willst?",
+    "CANCEL_SWAP": "Tauschen abbrechen",
+
+    "CASTE_CHOICE": "Figuren auswählen",
+    "CASTE_CHOICE_MESSAGE": "Wähle aus den folgenden Figuren, welche du tauschen möchtest:",
+
+    "SIGN_IN_SUCCESS": "Du hast dich erfolgreich eingeloggt.",
+    "SIGN_IN_ERROR": "Es gab einen Fehler beim Einloggen:",
+    "SIGN_OUT_SUCCESS": "Du hast dich erfolgreich ausgeloggt.",
+    "SIGN_OUT_ERROR": "Es gab einen Fehler beim Ausloggen:",
+    "SIGN_UP_SUCCESS": "Du hast dich erfolgreich angemeldet.",
+    "SIGN_UP_ERROR": "Es gab einen Fehler bei der Anmeldung:",
+    "CREATE_GAME_SUCCESS": "Du hast ein neues Spiel erstellt. Merk sie dir unbedingt, damit du mit Freunden spielen kannst!",
+    "CREATE_GAME_ERROR": "Es gab einen Fehler beim Erstellen eines neuen Spieles:",
+    "GET_DATA_ERROR": "Es gab einen Fehler beim Herunterladen der Spieldaten. [ID = {{id}}]",
+    "PLAY_TILE_ERROR": "Der Spielstein konnte nicht auf die Spielplatte gelegt werden.",
+    "MOVE_TILE_ERROR": "Das Verstezen des Spielsteines war unerfolgreich.",
+    "CASTE_SWAP_ERROR": "Das Tauschen zweier Figuren war unerfolgreich.",
+
+    "INVALID_EMAIL": "Die von dir eingegebene E-Mail-Adresse scheint ungültig zu sein.",
+    "INVALID_PASSWORD_CONFIRMATION": "Beide Passwörter müssen gleich sein!"
+}

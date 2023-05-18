@@ -1,0 +1,135 @@
+%center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%box-shadow {
+    box-shadow:
+        0px 11px 15px -7px rgba(0,0,0,0.2),
+        0px 24px 38px 3px rgba(0,0,0,0.14),
+        0px 9px 46px 8px rgba(0,0,0,0.12);
+}
+
+%no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+%no-highlight {
+    -webkit-tap-highlight-color: transparent;
+}
+
+%tile-content-coloring {
+    pointer-events: none;
+    user-select: none;
+    fill: $color-black;
+
+    .is-purple &,
+    .is-green & {
+
+        .is-colorblind & {
+            fill: $color-white;
+        }
+    }
+
+    .is-swap.is-red &,
+    .is-move.is-red & {
+        fill: $color-red;
+
+        .is-colorblind & {
+            fill: $color-blind-red;
+        }
+    }
+
+    .is-swap.is-purple &,
+    .is-move.is-purple & {
+        fill: $color-purple;
+
+        .is-colorblind & {
+            fill: $color-blind-purple;
+        }
+    }
+
+    .is-swap.is-orange &,
+    .is-move.is-orange & {
+        fill: $color-orange;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-orange;
+        }
+    }
+
+    .is-swap.is-green &,
+    .is-move.is-green & {
+        fill: $color-green;
+
+        .is-colorblind & {
+            fill: $color-blind-green;
+        }
+    }
+
+    .is-ship.is-red & {
+        fill: $color-dark-red;
+
+        .is-colorblind & {
+            fill: $color-blind-red;
+        }
+    }
+
+    .is-ship.is-purple & {
+        fill: $color-dark-purple;
+
+        .is-colorblind & {
+            fill: $color-blind-purple;
+        }
+    }
+
+    .is-ship.is-orange & {
+        fill: $color-dark-orange;
+
+        .is-colorblind & {
+            fill: $color-blind-dark-orange;
+        }
+    }
+
+    .is-ship.is-green & {
+        fill: $color-dark-green;
+
+        .is-colorblind & {
+            fill: $color-blind-green;
+        }
+    }
+
+    .is-playable.is-hovered &,
+    .hand-tile-component .is-selected & {
+
+        .is-colorblind & {
+            fill: $color-white !important;
+        }
+    }
+
+    .is-playable.is-hovered.is-red &,
+    .hand-tile-component .is-selected.is-red & {
+        fill: $color-red;
+    }
+
+    .is-playable.is-hovered.is-purple &,
+    .hand-tile-component .is-selected.is-purple & {
+        fill: $color-purple;
+    }
+
+    .is-playable.is-hovered.is-orange &,
+    .hand-tile-component .is-selected.is-orange & {
+        fill: $color-orange;
+    }
+
+    .is-playable.is-hovered.is-green &,
+    .hand-tile-component .is-selected.is-green & {
+        fill: $color-green;
+    }
+}

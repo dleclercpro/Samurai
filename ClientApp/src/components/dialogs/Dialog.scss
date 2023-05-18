@@ -1,0 +1,82 @@
+@import '../../styles/styles';
+
+$padding-vertical: 20px;
+$padding-horizontal: 24px;
+
+.dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: calc(100% - 20px);
+    min-width: 300px;
+    max-height: calc(100% - 20px);
+    overflow: auto;
+    background: $color-white;
+    border-radius: 4px;
+    @extend %box-shadow;
+
+    @include mq(width, tabletXL) {
+        width: auto;
+    }
+
+    > .wrapper {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: $padding-vertical $padding-horizontal;
+
+        > .headline {
+            font-size: 28px;
+            font-weight: bold;
+            margin-right: 30px;
+        }
+    
+        > .text {
+            margin-top: 30px;
+    
+            > p {
+                font-size: 18px;
+    
+                &:not(:last-of-type) {
+                    margin-bottom: 1em;
+                }
+            }
+        }
+    
+        > .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin-top: 30px;
+            //overflow: auto;
+        }
+    
+        > .buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+    
+            > .button:not(:first-child) {
+                margin-left: 8px;
+            }
+        }
+    
+        > .icon-close {
+            position: absolute;
+            top: $padding-vertical;
+            right: $padding-horizontal;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            fill: $color-black;
+    
+            @media (hover: hover) {
+                &:hover {
+                    fill: $color-grey;
+                }
+            }
+        }
+    }
+}

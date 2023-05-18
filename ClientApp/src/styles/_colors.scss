@@ -1,0 +1,47 @@
+$color-black: #000000;
+$color-grey: #333333;
+$color-white: #ffffff;
+$color-blue: #62d8ff;
+
+$color-dark-grey: darken($color: $color-grey, $amount: 15);
+$color-medium-grey: lighten($color: $color-grey, $amount: 45);
+$color-light-grey: lighten($color: $color-grey, $amount: 60);
+$color-black-transparent: rgba(0, 0, 0, 0.5);
+$color-white-transparent: rgba(255, 255, 255, 0.75);
+
+$color-red: #ffa1a1;
+$color-purple: #d8b2d8;
+$color-orange: #ffd17c;
+$color-green: #cdfc76;
+
+$color-blind-red: #fb930c;
+$color-blind-purple: #6f156d;
+$color-blind-orange: #f2f54e;
+$color-blind-green: #007040;
+
+$color-ground: #faf1ed;
+$color-water: #bfefff;
+
+$color-blind-ground: #f9dde2;
+$color-blind-water: #b3cfd7;
+
+$color-dark-ground: darken($color: $color-ground, $amount: 15);
+$color-dark-water: darken($color: $color-water, $amount: 15);
+
+$color-blind-dark-ground: darken($color: $color-blind-ground, $amount: 15);
+$color-blind-dark-water: darken($color: $color-blind-water, $amount: 15);
+
+$color-dark-red: darken($color: $color-red, $amount: 40);
+$color-dark-purple: darken($color: $color-purple, $amount: 40);
+$color-dark-orange: darken($color: $color-orange, $amount: 40);
+$color-dark-green: darken($color: $color-green, $amount: 40);
+
+$color-blind-dark-red: darken($color: $color-blind-red, $amount: 30);
+$color-blind-dark-purple: darken($color: $color-blind-purple, $amount: 20);
+$color-blind-dark-orange: darken($color: $color-blind-orange, $amount: 30);
+$color-blind-dark-green: darken($color: $color-blind-green, $amount: 30);
+
+$color-ship: $color-blue;
+$color-dark-ship: darken($color: $color-ship, $amount: 40);
+$color-blind-ship: $color-white;
+$color-blind-dark-ship: $color-blind-dark-water;

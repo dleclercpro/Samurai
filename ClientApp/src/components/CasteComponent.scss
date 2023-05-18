@@ -1,0 +1,30 @@
+@import '../styles/styles';
+
+.caste-component {
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.is-playable {
+        cursor: pointer;
+
+        @media (hover: hover) {
+            &:hover {
+                fill: $color-white;
+                background-color: $color-black;
+            }    
+        }
+        
+        &.is-selected {
+            fill: $color-white;
+            background-color: $color-black;
+        }
+
+        @media (hover: none) {
+            fill: inherit;
+            background-color: inherit;
+        }
+    }
+}

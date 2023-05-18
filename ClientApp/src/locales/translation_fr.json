@@ -1,0 +1,82 @@
+{
+    "SUCCESS": "Succès",
+    "ERROR": "Erreur",
+    "CONFIRM": "Confirmer",
+    "CREATE": "Créer",
+    "PLAY": "Jouer",
+    "CHOOSE": "Choisir",
+    "OK": "OK",
+    "CANCEL": "Annuler",
+    "BACK": "Revenir",
+    "OPTIONAL": "Optionnel",
+    "ID": "Numéro d'identification: {{id}}",
+    "GAME_RULES": "Règles du jeu",
+
+    "PLAYER": "Joueur",
+    "E_MAIL": "Courriel",
+    "FIRST_NAME": "Prénom",
+    "LAST_NAME": "Nom",
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "PASSWORD_AGAIN": "Mot de passe (confirmation)",
+    "INVALID_FIELD": "Entrée invalide.",
+
+    "SIGN_IN": "Se connecter",
+    "SIGN_OUT": "Se déconnecter",
+    "SIGN_UP": "S'inscrire",
+    "SIGN_UP_MESSAGE": "Remplis les champs suivants afin de t'inscrire:",
+
+    "PLAY_GAME": "Jouer une partie",
+    "PLAY_GAME_MESSAGE": "Entre le numéro d'identification de la partie à laquelle tu désires accéder:",
+    "GAME_ID": "Identifiant de la partie",
+
+    "CREATE_GAME": "Créer une partie",
+    "CREATE_GAME_MESSAGE": "Entre les informations des utilisateurs avec qui tu aimerais jouer afin de créer une nouvelle partie:",
+    "GAME_NAME": "Nom de la partie",
+
+    "NEW_TURN": "Nouveau tour",
+    "NEW_TURN_MESSAGE": "C'est à ton tour de jouer! Il te reste {{nTilesLeft}} tuiles.",
+
+    "GAME_OVER": "Fin de la partie",
+    "NO_WINNER": "Il n'y a aucun vainqueur.",
+    "WINNER_IS": "Le vainqueur est:",
+    "WINNERS_ARE": "Les vainqueurs sont:",
+
+    "TILE_CHOICE": "Choix de tuile",
+    "TILE_CHOICE_MESSAGE": "Choisis une tuile à déposer à l'endroit où tu viens de cliquer sur la plaque de jeu:",
+
+    "TILE_MOVE": "Déplacer une tuile",
+    "TILE_MOVE_MESSAGE": "Es-tu certain(e) de vouloir déplacer une tuile déjà jouée ailleurs sur la plaque de jeu? Si oui, sélectionne d'abord la tuile précédemment jouée, puis sa nouvelle position.",
+    "START_MOVE": "Débuter le déplacement",
+
+    "TILE_MOVE_CONFIRMATION": "Confirmation du déplacement de tuile",
+    "TILE_MOVE_CONFIRMATION_MESSAGE": "Es-tu certain(e) de vouloir déplacer la tuile suivante?",
+    "CANCEL_MOVE": "Annuler le déplacement",
+
+    "CASTE_SWAP": "Échange de pièces",
+    "CASTE_SWAP_MESSAGE": "Désires-tu échanger deux pièces disposées sur deux villes différentes entre elles?",
+    "START_SWAP": "Débuter l'échange",
+
+    "CASTE_SWAP_CONFIRMATION": "Confirmation de l'échange",
+    "CASTE_SWAP_CONFIRMATION_MESSAGE": "Es-tu certain(e) de vouloir échanger ces deux pièces entre elles?",
+    "CANCEL_SWAP": "Annuler l'échange",
+
+    "CASTE_CHOICE": "Choix de pièce",
+    "CASTE_CHOICE_MESSAGE": "Choisis une pièce à échanger parmi les suivantes:",
+
+    "SIGN_IN_SUCCESS": "Tu t'es connecté(e) avec succès.",
+    "SIGN_IN_ERROR": "Il y a eu un problème lors de la connexion:",
+    "SIGN_OUT_SUCCESS": "Tu t'es déconnecté(e) avec succès.",
+    "SIGN_OUT_ERROR": "Il y a eu un problème lors de la déconnexion:",
+    "SIGN_UP_SUCCESS": "Tu t'es inscrit(e) avec succès.",
+    "SIGN_UP_ERROR": "Il y eu un problème lors de l'inscription:",
+    "CREATE_GAME_SUCCESS": "Tu as créé une nouvelle partie. Assure-toi de noter son numéro d'identification afin que tu puisses inviter des ami(e)s à jouer avec toi!",
+    "CREATE_GAME_ERROR": "Il y a eu un problème lors de la création d'une nouvelle partie:",
+    "GET_DATA_ERROR": "Il y a eu un problème lors du chargement des données de la partie. [ID = {{id}}]",
+    "PLAY_TILE_ERROR": "La tuile n'a pas pu être placée sur le jeu.",
+    "MOVE_TILE_ERROR": "La tuile n'a pas pu être déplacée sur le jeu.",
+    "CASTE_SWAP_ERROR": "L'échange de pièces n'a pas fonctionné.",
+
+    "INVALID_EMAIL": "L'adresse e-mail que tu as entrée ne semble pas être valide.",
+    "INVALID_PASSWORD_CONFIRMATION": "Les mots de passe entrés ne correspondent pas!"
+}

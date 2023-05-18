@@ -1,0 +1,9 @@
+@import '../../styles/styles';
+
+.tile-icon {
+    @extend %tile-content-coloring;
+
+    .board-tile-component.is-city.is-closed & {
+        fill: $color-medium-grey;
+    }
+}

@@ -1,0 +1,28 @@
+@import '../styles/styles';
+
+#home {
+    @extend %center;
+    width: 100%;
+    height: 100%;
+
+    > .buttons {
+        display: flex;
+        flex-direction: column;
+
+        @include mq(width, tablet) {
+            flex-direction: row;
+        }
+
+        > .button {
+
+            &:not(:last-child) {
+                margin-bottom: 10px;
+
+                @include mq(width, tablet) {
+                    margin-bottom: 0;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

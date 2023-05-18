@@ -1,0 +1,10 @@
+@import '../../styles/styles';
+
+#tile-empty-pattern {
+    stroke: $color-dark-ground;
+    stroke-width: 12;
+
+    .is-colorblind & {
+        stroke: $color-blind-dark-ground;
+    }
+}

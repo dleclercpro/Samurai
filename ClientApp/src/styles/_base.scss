@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    font-family: $font-family;
+    color: $color-black;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a {
+    margin: 0;
+    text-decoration: none;
+    @extend %no-highlight;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,18 @@
+@import '../../styles/styles';
+
+#form-sign-in {
+
+    > .fields {
+
+        @include mq(width, tabletXL) {
+            width: 500px;
+        }
+
+        > .form-text-field {
+
+            @include mq(width, tablet) {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+@import '../../styles/styles';
+
+$spacing: 12px;
+
+.hand-tile-component {
+
+    #dialog--tile-choice &,
+    #dialog--tile-move-end & {
+        margin-bottom: $spacing;
+        height: 150px;
+
+        @include mq(width, tablet) {
+            margin-bottom: 0;
+        }
+
+        &:not(:last-child) {
+
+            @include mq(width, tablet) {
+                margin-right: $spacing;
+            }
+        }
+    }
+
+    #rules & {
+        height: 80px;
+    }
+
+    #bottom .hand & {
+        height: 100px;
+
+        &:not(:last-child) {
+            margin-right: $spacing;
+        }
+    }
+}

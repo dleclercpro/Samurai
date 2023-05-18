@@ -1,0 +1,60 @@
+@import '../../styles/styles';
+
+#dash {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+
+    @include mq(width, tablet) {
+        right: 30px;
+    }
+    
+    #rules & {
+        position: absolute;
+        top: 25px;
+        right: 0;
+    }
+
+    .button {
+        width: 50px;
+        height: 30px;
+        padding: 5px;
+        background: $color-black-transparent;
+
+        &:not(:last-of-type) {
+            margin-bottom: 5px;
+        }
+    
+        @media (hover: hover) {
+            &:hover {
+                background: $color-black;
+            }
+        }
+    
+        .icon {
+            width: auto;
+            height: 100%;
+            fill: $color-white;
+        }
+    }
+
+    .game-name {
+        position: absolute;
+        top: -2px;
+        left: -5px;
+        transform: translateX(-100%);
+        max-width: 250px;
+        height: 30px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        background: $color-white-transparent;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+}

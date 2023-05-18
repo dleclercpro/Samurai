@@ -1,0 +1,82 @@
+{
+    "SUCCESS": "Success",
+    "ERROR": "Error",
+    "CONFIRM": "Confirm",
+    "CREATE": "Create",
+    "PLAY": "Play",
+    "CHOOSE": "Choose",
+    "OK": "OK",
+    "CANCEL": "Cancel",
+    "BACK": "Back",
+    "OPTIONAL": "Optional",
+    "ID": "ID: {{id}}",
+    "GAME_RULES": "Rules",
+
+    "PLAYER": "Player",
+    "E_MAIL": "E-mail",
+    "FIRST_NAME": "First name",
+    "LAST_NAME": "Last name",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "PASSWORD_AGAIN": "Password (confirmation)",
+    "INVALID_FIELD": "Invalid field.",
+    
+    "SIGN_IN": "Sign in",
+    "SIGN_OUT": "Sign out",
+    "SIGN_UP": "Sign up",
+    "SIGN_UP_MESSAGE": "Provide the following information to register as a user:",
+
+    "PLAY_GAME": "Play Game",
+    "PLAY_GAME_MESSAGE": "Please enter the ID of the game you want to play:",
+    "GAME_ID": "Game ID",
+
+    "CREATE_GAME": "Create Game",
+    "CREATE_GAME_MESSAGE": "Provide the information about the users you would like to play with to create a new game:",
+    "GAME_NAME": "Game name",
+
+    "NEW_TURN": "New Turn",
+    "NEW_TURN_MESSAGE": "It's your turn to play! You have {{nTilesLeft}} tiles left.",
+
+    "GAME_OVER": "Game Over",
+    "NO_WINNER": "There is no winner.",
+    "WINNER_IS": "The winner is:",
+    "WINNERS_ARE": "The winners are:",
+    
+    "TILE_CHOICE": "Tile Choice",
+    "TILE_CHOICE_MESSAGE": "Choose which tile to place on the empty space you just clicked:",
+
+    "TILE_MOVE": "Tile Move",
+    "TILE_MOVE_MESSAGE": "Do you want to move a tile you played somewhere else on the board? If so, select first the tile, then its new location.",
+    "START_MOVE": "Start move",
+
+    "TILE_MOVE_CONFIRMATION": "Tile Move Confirmation",
+    "TILE_MOVE_CONFIRMATION_MESSAGE": "Are you sure you want to move the following tile?",
+    "CANCEL_MOVE": "Cancel move",
+
+    "CASTE_SWAP": "Caste Swap",
+    "CASTE_SWAP_MESSAGE": "Do you want to swap two caste figures from two different cities?",
+    "START_SWAP": "Start Swap",
+
+    "CASTE_SWAP_CONFIRMATION": "Caste Swap Confirmation",
+    "CASTE_SWAP_CONFIRMATION_MESSAGE": "Are you sure you want to swap those two caste figures?",
+    "CANCEL_SWAP": "Cancel Swap",
+
+    "CASTE_CHOICE": "Caste Choice",
+    "CASTE_CHOICE_MESSAGE": "Choose the caste figure you want to swap from the following:",
+
+    "SIGN_IN_SUCCESS": "You have successfully signed in.",
+    "SIGN_IN_ERROR": "There was an error while signing in:",
+    "SIGN_OUT_SUCCESS": "You have successfully signed out.",
+    "SIGN_OUT_ERROR": "There was an error while signing out:",
+    "SIGN_UP_SUCCESS": "You have successfully signed up.",
+    "SIGN_UP_ERROR": "There was an error while signing up:",
+    "CREATE_GAME_SUCCESS": "You have successfully created a game. Make sure to take note of its ID, so you can invite friends to play with you!",
+    "CREATE_GAME_ERROR": "There was an error while creating a new game:",
+    "GET_DATA_ERROR": "There was a problem loading the data of game. [ID = {{id}}]",
+    "PLAY_TILE_ERROR": "Tile placement was unsuccessful.",
+    "MOVE_TILE_ERROR": "Tile move was unsuccessful.",
+    "CASTE_SWAP_ERROR": "Caste pieces swap was unsuccessful.",
+
+    "INVALID_EMAIL": "The e-mail address you typed in does not seem to be valid.",
+    "INVALID_PASSWORD_CONFIRMATION": "Your passwords don't match!"
+}
