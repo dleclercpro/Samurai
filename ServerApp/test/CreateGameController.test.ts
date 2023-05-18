@@ -10,11 +10,13 @@ const USER_1 = { email: 'user1@test.com', password: 'q12345678!', username: 'Use
 const USER_2 = { email: 'user2@test.com', password: 'q12345678!', username: 'User2' };
 const USER_3 = { email: 'user3@test.com', password: 'q12345678!', username: 'User3' };
 const USER_4 = { email: 'user4@test.com', password: 'q12345678!', username: 'User4' };
+const USER_5 = { email: 'user5@test.com', password: 'q12345678!', username: 'User5' };
 const NON_EXISTING_USER = { email: 'user0@test.com', password: 'q87654321!', username: 'NonExistingUser' };
 
 const CREATOR = USER_1;
 const OPPONENTS = [USER_2, USER_3, USER_4];
-const USERS = [CREATOR, ...OPPONENTS];
+const EXTRA_USER = USER_5;
+const USERS = [CREATOR, ...OPPONENTS, EXTRA_USER];
 
 beforeAll(async () => {
     await start();
@@ -82,7 +84,7 @@ test(`Creating game with non-existing user should not work`, async () => {
 
 
 test(`Creating game with non-existing opponent should not work`, async () => {
-    const game = { name: 'Game', opponents: [NON_EXISTING_USER].map(opponent => opponent.email) };
+    const game = { name: 'Game', opponents: [NON_EXISTING_USER.email] };
     const user = {
         email: CREATOR.email,
         password: CREATOR.password,
@@ -113,6 +115,22 @@ test(`Creating game with duplicate opponents should not work`, async () => {
 
 
 
+test(`Creating game with too many opponents should not work`, async () => {
+    const game = { name: 'Game', opponents: [...OPPONENTS, EXTRA_USER].map(opponent => opponent.email) };
+    const user = {
+        email: CREATOR.email,
+        password: CREATOR.password,
+        staySignedIn: false,
+    };
+    
+    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
+    });
+});
+
+
+
 test(`Creating game without opponents should not work`, async () => {
     const game = { name: 'Game', opponents: [] };
     const user = {
@@ -123,7 +141,7 @@ test(`Creating game without opponents should not work`, async () => {
     
     await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
         status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['opponents']),
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
 });
 

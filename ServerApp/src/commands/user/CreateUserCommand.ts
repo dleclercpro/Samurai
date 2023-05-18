@@ -44,18 +44,18 @@ class CreateUserCommand extends Command<Argument, Response> {
     protected async doExecute() {
         const { email, password, username } = this.argument;
 
+        // Report upcoming action
+        logger.info(`Creating user: ${email}`);
+
         // Create new user
-        const user = new User({
+        const user = await User.create({
             email,
             password: await User.hashPassword(password),
             username,
         });
 
-        // Store user in database
-        await user.save();
-
         // Report its creation
-        logger.info(`New user created: ${user.getEmail()}`);
+        logger.info(`New user successfully created.`);
 
         // Store user in command
         this.user = user;

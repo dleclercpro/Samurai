@@ -7,7 +7,8 @@ import { Color } from '../../types/GameTypes';
 import Command from '../Command';
 import BoardBuilder from '../../helpers/builders/BoardBuilder';
 import HandBuilder from '../../helpers/builders/HandBuilder';
-import { ErrorGameDuplicateUsers } from '../../errors/GameErrors';
+import { ErrorGameDuplicateUsers, ErrorGameNotEnoughPlayers, ErrorGameTooManyPlayers } from '../../errors/GameErrors';
+import { PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../../constants';
 
 interface Argument {
     name: string,
@@ -27,6 +28,15 @@ class CreateGameCommand extends Command<Argument, Response> {
     protected async doPrepare() {
         const { creatorEmail, opponentEmails } = this.argument;
         const emails = [creatorEmail, ...opponentEmails];
+        const nPlayers = emails.length;
+
+        // Ensure min/max player count is respected
+        if (nPlayers < PLAYER_COUNT_MIN) {
+            throw new ErrorGameNotEnoughPlayers(nPlayers);
+        }
+        if (nPlayers > PLAYER_COUNT_MAX) {
+            throw new ErrorGameTooManyPlayers(nPlayers);
+        }
 
         // Ensure all users are different
         if (unique(emails).length !== emails.length) {
@@ -56,7 +66,7 @@ class CreateGameCommand extends Command<Argument, Response> {
         // Report upcoming action
         logger.info(`Creating game with users: ${emails}.`);
 
-        // Create new game and store it in database
+        // Create new game
         this.game = await Game.create({
             name,
             players: this.generatePlayers({ creator, opponents }),

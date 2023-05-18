@@ -3,7 +3,7 @@ import CreateGameCommand from '../../commands/game/CreateGameCommand';
 import { errorResponse, successResponse } from '../../libs/calls';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
-import { ErrorGameDuplicateUsers } from '../../errors/GameErrors';
+import { ErrorGameDuplicateUsers, ErrorGameNotEnoughPlayers, ErrorGameTooManyPlayers } from '../../errors/GameErrors';
 import { logger } from '../../utils/Logging';
 
 export interface CreateGameControllerBody {
@@ -33,7 +33,9 @@ const CreateGameController: ICreateGameController = async (req, res, next) => {
     } catch (err: any) {
         if (
             err.code === ErrorUserDoesNotExist.code ||
-            err.code === ErrorGameDuplicateUsers.code
+            err.code === ErrorGameDuplicateUsers.code ||
+            err.code === ErrorGameNotEnoughPlayers.code ||
+            err.code === ErrorGameTooManyPlayers.code
         ) {
             logger.warn(err.message);
 

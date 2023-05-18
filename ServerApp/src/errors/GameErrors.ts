@@ -151,3 +151,19 @@ export class ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile extends Server
         super(ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile.code, `Cannot swap caste pieces from/to non-city board tile (ID = ${boardTile.getId()}).`);
     }
 }
+
+export class ErrorGameNotEnoughPlayers extends ServerError {
+    public static code = -419;
+
+    constructor(nPlayers: number) {
+        super(ErrorGameNotEnoughPlayers.code, `Not enough players: ${nPlayers} < ${PLAYER_COUNT_MIN}.`);
+    }
+}
+
+export class ErrorGameTooManyPlayers extends ServerError {
+    public static code = -420;
+
+    constructor(nPlayers: number) {
+        super(ErrorGameTooManyPlayers.code, `Too many players: ${nPlayers} > ${PLAYER_COUNT_MAX}.`);
+    }
+}

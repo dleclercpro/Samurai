@@ -11,8 +11,10 @@ export const SignInValidation: RequestHandler = (req, res, next) => {
         invalidParams.push('email');
     }
 
+    // Validate password
     if (!password) {
-        invalidParams.push('password');    }
+        invalidParams.push('password');
+    }
 
     if (typeof staySignedIn !== 'boolean') {
         invalidParams.push('staySignedIn');
