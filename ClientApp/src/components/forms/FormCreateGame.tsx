@@ -118,16 +118,18 @@ class FormCreateGame extends React.Component<Props, State> {
                     />
 
                     <FormTextField
+                        type='email'
                         name='user1'
-                        label={`${language.getText('PLAYER')} 1 (${language.getText('USERNAME')} / ${language.getText('E_MAIL')})`}
+                        label={`${language.getText('PLAYER')} 1 (${language.getText('E_MAIL')})`}
                         onChange={this.handleChange}
                         value={user1.value}
                         error={user1.error}
                     />
 
                     <FormTextField
+                        type='email'
                         name='user2'
-                        label={`${language.getText('PLAYER')} 2 (${language.getText('USERNAME')} / ${language.getText('E_MAIL')})`}
+                        label={`${language.getText('PLAYER')} 2 (${language.getText('E_MAIL')})`}
                         remark={language.getText('OPTIONAL')}
                         onChange={this.handleChange}
                         value={user2.value}
@@ -136,8 +138,9 @@ class FormCreateGame extends React.Component<Props, State> {
                     />
 
                     <FormTextField
+                        type='email'
                         name='user3'
-                        label={`${language.getText('PLAYER')} 3 (${language.getText('USERNAME')} / ${language.getText('E_MAIL')})`}
+                        label={`${language.getText('PLAYER')} 3 (${language.getText('E_MAIL')})`}
                         remark={language.getText('OPTIONAL')}
                         onChange={this.handleChange}
                         value={user3.value}
