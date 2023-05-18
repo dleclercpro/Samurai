@@ -28,10 +28,11 @@ const SignUpController: ISignUpController = async (req, res, next) => {
         }));
 
     } catch (err: any) {
-        logger.warn(err.message);
 
         // User already exists
         if (err.code === ErrorUserAlreadyExists.code) {
+            logger.warn(err.message);
+
             return res
                 .status(HttpStatusCode.FORBIDDEN)
                 .json(errorResponse(ClientError.UserAlreadyExists));
@@ -39,6 +40,8 @@ const SignUpController: ISignUpController = async (req, res, next) => {
 
         // Invalid email
         if (err.code === ErrorInvalidEmail.code) {
+            logger.warn(err.message);
+
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(ClientError.InvalidEmail));
@@ -46,6 +49,8 @@ const SignUpController: ISignUpController = async (req, res, next) => {
 
         // Invalid password
         if (err.code === ErrorInvalidPassword.code) {
+            logger.warn(err.message);
+
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(ClientError.InvalidPassword));

@@ -7,6 +7,7 @@ import { ClientError } from '../../errors/ClientErrors';
 import { validate } from 'email-validator';
 import { ErrorInvalidEmail } from '../../errors/ServerError';
 import { SESSION_OPTIONS } from '../../config/AuthConfig';
+import { logger } from '../../utils/Logging';
 
 export interface SignInControllerBody {
     email: string,
@@ -46,6 +47,8 @@ const SignInController: ISignInController = async (req, res, next) => {
             err.code === ErrorInvalidEmail.code ||
             err.code === ErrorUserWrongPassword.code
         ) {
+            logger.warn(err.message);
+            
             return res
                 .status(HttpStatusCode.UNAUTHORIZED)
                 .json(errorResponse(ClientError.InvalidCredentials));

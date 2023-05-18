@@ -4,6 +4,7 @@ import { errorResponse, successResponse } from '../../libs/calls';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import { ErrorGameDuplicateUsers } from '../../errors/GameErrors';
+import { logger } from '../../utils/Logging';
 
 export interface CreateGameControllerBody {
     name: string,
@@ -34,6 +35,8 @@ const CreateGameController: ICreateGameController = async (req, res, next) => {
             err.code === ErrorUserDoesNotExist.code ||
             err.code === ErrorGameDuplicateUsers.code
         ) {
+            logger.warn(err.message);
+
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(HttpStatusMessage.BAD_REQUEST));

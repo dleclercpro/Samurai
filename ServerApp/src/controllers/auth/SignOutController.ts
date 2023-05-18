@@ -21,11 +21,12 @@ const SignOutController: RequestHandler = async (req, res, next) => {
         return res.json(successResponse());
 
     } catch (err: any) {
-        logger.warn(err.message);
 
         // Do not tell client why user can't sign out: just say they
         // are unauthorized!
         if (err.code === ErrorUserDoesNotExist.code) {
+            logger.warn(err.message);
+        
             return res
                 .status(HttpStatusCode.UNAUTHORIZED)
                 .json(errorResponse(ClientError.InvalidCredentials));

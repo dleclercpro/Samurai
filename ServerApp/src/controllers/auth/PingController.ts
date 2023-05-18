@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { successResponse } from '../../libs/calls';
+import { logger } from '../../utils/Logging';
 
 const PingController: RequestHandler = async (req, res, next) => {
     try {

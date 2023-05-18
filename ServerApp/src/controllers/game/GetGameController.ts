@@ -31,8 +31,10 @@ const GetGameController: RequestHandler = async (req, res, next) => {
         }));
 
     } catch (err: any) {
-        if (err.code === ErrorGameDoesNotExist.code ||
-            err.code === ErrorGameVersionDoesNotExist.code) {
+        if (
+            err.code === ErrorGameDoesNotExist.code ||
+            err.code === ErrorGameVersionDoesNotExist.code
+        ) {
             logger.warn(err.message);
 
             return res

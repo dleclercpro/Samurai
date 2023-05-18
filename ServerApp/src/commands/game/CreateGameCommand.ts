@@ -53,17 +53,15 @@ class CreateGameCommand extends Command<Argument, Response> {
         const users = [creator, ...opponents];
         const emails = users.map(user => user.getEmail()).join(', ')
 
+        // Report upcoming action
         logger.info(`Creating game with users: ${emails}.`);
 
-        // Create new game
-        this.game = new Game({
+        // Create new game and store it in database
+        this.game = await Game.create({
             name,
             players: this.generatePlayers({ creator, opponents }),
             board: this.generateBoard(),
         });
-
-        // Store game in database
-        await this.game.save();
 
         // Report its creation
         logger.info(`New game created: ${this.game.getId()}`);
