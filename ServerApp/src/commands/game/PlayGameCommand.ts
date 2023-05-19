@@ -8,7 +8,7 @@ import { Caste } from '../../types/GameTypes';
 import { FromTo } from '../../types';
 import Valet from '../../helpers/Valet';
 import { GAME_INIT_VERSION, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../constants';
-import { ErrorGameInvalidOrder } from '../../errors/GameErrors';
+import { ErrorGameInvalidOrder, ErrorGameNotPlayerTurn } from '../../errors/GameErrors';
 import Scorer from '../../helpers/Scorer';
 
 export enum GameOrderType {
@@ -47,27 +47,35 @@ class PlayGameCommand extends Command<Argument, Response> {
     }
 
     protected async doPrepare() {
-        this.parseGameOrder();
-        this.validateGameOrder();
-    }
-
-    protected async doExecute() {
         const { player } = this.argument;
-        const game = this.game;
 
-        // Get current time
-        const now = new Date();
+        // Ensure given player is current player in game
+        if (!player.isPlaying) {
+            throw new ErrorGameNotPlayerTurn(player);
+        }
+
+        // Prepare game order
+        this.parseGameOrder();
+        this.validateGameOrder(this.order!);
 
         // Check if player's order respects game rules
         new Rules(player).canExecute(this.order!);
+    }
 
-        // Execute player's order
-        new Valet(player).execute(this.order!);
+    protected async doExecute() {
+        const { game, order } = this;
+        const { player } = this.argument;
+
+        // Get current time
+        const now = new Date();
 
         // First order in game
         if (game.getVersion() === GAME_INIT_VERSION) {
             game.setStartTime(now);
         }
+
+        // Execute player's order
+        new Valet(player).execute(order!);
 
         // Increase game version
         game.setVersion(game.getVersion() + 1);
@@ -103,8 +111,8 @@ class PlayGameCommand extends Command<Argument, Response> {
         this.order = { handTile, boardTiles, castes };
     }
 
-    private validateGameOrder() {
-        const { handTile, boardTiles, castes } = this.order!;
+    private validateGameOrder(order: GameOrder) {
+        const { handTile, boardTiles, castes } = order;
 
         const someCaste = ![castes.from, castes.to].every(caste => caste === null);
     

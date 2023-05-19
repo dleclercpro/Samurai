@@ -30,7 +30,7 @@ test(`Placing game order with invalid parameters should not work`, async () => {
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game orders
     const missingHandTileOrder = {
@@ -70,7 +70,7 @@ test(`Placing game order without having corresponding tile in hand should not wo
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {

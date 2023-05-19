@@ -23,6 +23,7 @@ export interface IPlayer extends Types.Subdocument {
     getUserId: () => string,
     getHand: () => IHand,
     getScore: () => IScore,
+    setIsPlaying: (isPlaying: boolean) => void,
     increaseScoreByCaste: (caste: Caste, points: number) => void,
 }
 
@@ -70,6 +71,10 @@ PlayerSchema.methods.getHand = function() {
 
 PlayerSchema.methods.getScore = function() {
     return this.score;
+}
+
+PlayerSchema.methods.setIsPlaying = function(isPlaying: boolean) {
+    this.isPlaying = isPlaying;
 }
 
 PlayerSchema.methods.increaseScoreByCaste = function(caste: Caste, points: number) {

@@ -4,6 +4,7 @@ import { IBoardTile } from '../models/BoardTile';
 import { IGame } from '../models/Game';
 import { IHand } from '../models/Hand';
 import { IHandTile } from '../models/HandTile';
+import { IPlayer } from '../models/Player';
 import { IUser } from '../models/User';
 import { Caste } from '../types/GameTypes';
 import { ServerError } from './ServerError';
@@ -165,5 +166,13 @@ export class ErrorGameTooManyPlayers extends ServerError {
 
     constructor(nPlayers: number) {
         super(ErrorGameTooManyPlayers.code, `Too many players: ${nPlayers} > ${PLAYER_COUNT_MAX}.`);
+    }
+}
+
+export class ErrorGameNotPlayerTurn extends ServerError {
+    public static code = -421;
+
+    constructor(player: IPlayer) {
+        super(ErrorGameNotPlayerTurn.code, `Given player (ID = ${player.getId()}) has to wait its turn.`);
     }
 }

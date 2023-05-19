@@ -24,7 +24,7 @@ test(`Placing swap order with valid parameters should work`, async () => {
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER_WITH_SWAP');
 
     // Build game order
     const order = {
@@ -48,7 +48,7 @@ test(`Placing swap order with missing caste should not work`, async () => {
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER_WITH_SWAP');
 
     // Build game order
     const missingFromCasteOrder = {

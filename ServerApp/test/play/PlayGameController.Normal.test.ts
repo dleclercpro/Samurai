@@ -1,8 +1,8 @@
-import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, USER_WITH_MOVE_AND_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 import { playGameAction } from '../actions';
 import { errorResponse, successResponse } from '../../src/libs/calls';
 import { expectActionToFailWithError } from '..';
-import { HttpStatusCode } from '../../src/types/HTTPTypes';
+import { HttpStatusCode, HttpStatusMessage } from '../../src/types/HTTPTypes';
 import { ClientError } from '../../src/errors/ClientErrors';
 
 
@@ -22,7 +22,7 @@ test(`Placing regular ground hand tile onto free ground board tile should work`,
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -46,7 +46,7 @@ test(`Placing samurai hand tile onto free ground board tile should work`, async 
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -70,7 +70,7 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -94,7 +94,7 @@ test(`Placing regular ground hand tile onto free water board tile should not wor
     };
     
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -119,7 +119,7 @@ test(`Placing samurai hand tile onto free water board tile should not work`, asy
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -144,7 +144,7 @@ test(`Placing ship hand tile onto free ground board tile should not work`, async
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -169,7 +169,7 @@ test(`Placing regular ground hand tile onto city board tile should not work`, as
     };
 
     // Create test game in database
-    const game = await createGame();
+    const game = await createGame('PLAYER');
 
     // Build game order
     const order = {
@@ -181,5 +181,32 @@ test(`Placing regular ground hand tile onto city board tile should not work`, as
     await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
+    });
+});
+
+
+
+test(`Placing tile when it's not player's turn should not work`, async () => {
+    
+    // Not this player's turn!
+    const user = {
+        email: USER_WITH_MOVE_AND_SWAP.email,
+        password: USER_WITH_MOVE_AND_SWAP.password,
+        staySignedIn: false,
+    };
+
+    // Create test game in database
+    const game = await createGame('PLAYER');
+
+    // Build game order
+    const order = {
+        handTileId: HAND_TILE_ID_MILITARY,
+        boardTileIds: { from: null, to: 30 }, // Free ground board tile
+        castes: { from: null, to: null },
+    };
+
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+        status: HttpStatusCode.FORBIDDEN,
+        data: errorResponse(HttpStatusMessage.FORBIDDEN),
     });
 });
