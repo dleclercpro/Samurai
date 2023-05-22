@@ -34,11 +34,15 @@ class GetGameCommand extends Command<Argument, Response> {
     protected async doExecute() {
         const { version } = this.argument;
         const game = this.game!;
+        const now = new Date();
 
         // If version is higher than the current one, there's a problem
         if (version > game.getVersion()) {
             throw new ErrorGameVersionDoesNotExist(version);
         }
+
+        // Update game's last seen time
+        game.setLastViewedTime(now);
 
         // No need to send details back if client's game details
         // are already up-to-date

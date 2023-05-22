@@ -31,9 +31,9 @@ test(`Placing regular ground hand tile onto free ground board tile should work`,
         castes: { from: null, to: null },
     };
 
-    const action = playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order, user);
 
-    await expect(action).resolves.toEqual(successResponse());
+    await expect(action()).resolves.toEqual(successResponse());
 });
 
 
@@ -55,9 +55,9 @@ test(`Placing samurai hand tile onto free ground board tile should work`, async 
         castes: { from: null, to: null },
     };
 
-    const action = playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order, user);
 
-    await expect(action).resolves.toEqual(successResponse());
+    await expect(action()).resolves.toEqual(successResponse());
 });
 
 
@@ -79,9 +79,9 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
         castes: { from: null, to: null },
     };
 
-    const action = playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order, user);
 
-    await expect(action).resolves.toEqual(successResponse());
+    await expect(action()).resolves.toEqual(successResponse());
 });
 
 

@@ -43,6 +43,7 @@ class PlayGameCommand extends Command<Argument, Response> {
 
     protected async doExecute() {
         const { game } = this;
+        const { handTile } = this.order!;
         const { player, order } = this.argument;
 
         // Get current time
@@ -77,8 +78,10 @@ class PlayGameCommand extends Command<Argument, Response> {
         // Otherwise
         else {
 
-            // Move to next player
-            game.setNextPlayer(game.getNextPlayer());
+            // Move to next player, unless player can replay
+            if (!handTile.canReplay()) {
+                game.setNextPlayer(game.getNextPlayer());
+            }
 
             // Increase game version
             game.setVersion(game.getVersion() + 1);

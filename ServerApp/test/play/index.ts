@@ -12,7 +12,7 @@ import TestBoardBuilder from '../../src/helpers/builders/TestBoardBuilder';
 export const HAND_TILE_ID_MILITARY = 0;
 export const HAND_TILE_ID_RELIGION = 1;
 export const HAND_TILE_ID_COMMERCE = 2;
-export const HAND_TILE_ID_SAMURAI = 10;
+export const HAND_TILE_ID_SAMURAI = 14;
 export const HAND_TILE_ID_SHIP = 15;
 
 export const BOARD_TILE_ID_CITY = 82;

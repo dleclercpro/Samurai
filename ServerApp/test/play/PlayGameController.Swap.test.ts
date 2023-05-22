@@ -33,9 +33,9 @@ test(`Placing swap order with valid parameters should work`, async () => {
         castes: { from: Caste.Military, to: Caste.Religion },
     };
 
-    const action = playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order, user);
 
-    await expect(action).resolves.toEqual(successResponse());
+    await expect(action()).resolves.toEqual(successResponse());
 });
 
 

@@ -32,6 +32,7 @@ export interface IGame extends Document {
     getBoard: () => IBoard,
     getPlayers: () => IPlayer[],
     getPlayerByUser: (user: IUser) => IPlayer,
+    getCurrentPlayer: () => IPlayer,
     getNextPlayer: () => IPlayer,
     setNextPlayer: (player: IPlayer) => void,
     getScoreboard: () => Scoreboard,
@@ -45,6 +46,8 @@ export interface IGame extends Document {
     setStartTime: (time: Date) => void,
     getEndTime: () => Date,
     setEndTime: (time: Date) => void,
+    getLastViewedTime: () => Date,
+    setLastViewedTime: (time: Date) => void,
     getLastPlayedTime: () => Date,
     setLastPlayedTime: (time: Date) => void,
 }
@@ -125,8 +128,12 @@ GameSchema.methods.getPlayerByUser = function(user: IUser) {
     return player;
 }
 
+GameSchema.methods.getCurrentPlayer = function() {
+    return (this as IGame).players.find(player => player.isPlaying);
+}
+
 GameSchema.methods.getNextPlayer = function() {
-    const currentPlayer = (this as IGame).players.find(player => player.isPlaying);
+    const currentPlayer = this.getCurrentPlayer();
     const currentPlayerIndex = (this as IGame).players.findIndex(player => player.getId() === currentPlayer!.getId());
 
     return this.players[(currentPlayerIndex + 1) % this.players.length];
@@ -176,6 +183,14 @@ GameSchema.methods.getEndTime = function() {
 
 GameSchema.methods.setEndTime = function(time: Date) {
     this.endTime = time;
+}
+
+GameSchema.methods.getLastViewedTime = function() {
+    return this.lastViewedTime;
+}
+
+GameSchema.methods.setLastViewedTime = function(time: Date) {
+    this.lastViewedTime = time;
 }
 
 GameSchema.methods.getLastPlayedTime = function() {
