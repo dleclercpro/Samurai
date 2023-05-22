@@ -1,5 +1,5 @@
 import Call from './Call';
-import { CallType } from '../../types/ServerTypes';
+import { CallType } from '../../types/DataTypes';
 
 class CallPOST extends Call {
 

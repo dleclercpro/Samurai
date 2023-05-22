@@ -5,7 +5,7 @@ import { parsePlayer } from '../parse';
 import { PlayerColor } from '../types/GameTypes';
 
 const initPlayersState = {
-    id: -1,
+    id: '',
     username: '',
     color: PlayerColor.Unknown,
     playedTiles: new Map(),

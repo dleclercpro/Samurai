@@ -3,10 +3,10 @@ import { Caste } from '../types/GameTypes';
 import { IBoardTile } from '../models/BoardTile';
 import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
-import { GameOrder } from '../commands/game/PlayGameCommand';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
 import { ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
+import { GameOrder } from '../models/Order';
 
 export interface Normal {
     boardTile: IBoardTile,

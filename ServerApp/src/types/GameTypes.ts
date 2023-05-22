@@ -1,3 +1,8 @@
+export interface Coordinates2D {
+    x: number,
+    y: number,
+}
+
 export enum Color {
     Red = 'Red',
     Purple = 'Purple',

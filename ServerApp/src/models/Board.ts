@@ -24,6 +24,7 @@ export interface IBoard extends Types.Subdocument {
     getTileById: (id: number) => IBoardTile,
     getTilesPlayedByPlayer: (player: IPlayer) => IPlayedTile[],
     getCities: () => IBoardTile[],
+    getSwapTiles: () => IBoardTile[],
     getNextFreeSwapTile: () => IBoardTile,
     areAllCitiesClosed: () => boolean,
 }
@@ -76,9 +77,14 @@ BoardSchema.methods.getCities = function() {
         .map(city => (this as IBoard).getTileById(city.id));
 }
 
-BoardSchema.methods.getNextFreeSwapTile = function() {
+BoardSchema.methods.getSwapTiles = function() {
     return BOARD_TILE_SWAP_IDS
-        .map(id => (this as IBoard).getTileById(id))
+        .map(id => (this as IBoard).getTileById(id));
+}
+
+BoardSchema.methods.getNextFreeSwapTile = function() {
+    return (this as IBoard)
+        .getSwapTiles()
         .find(tile => tile.isFree());
 }
 

@@ -1,12 +1,12 @@
-import { BoardJSON, BoardTileJSON, HandTileJSON, PlayerJSON, PlayerScoreJSON, PlayedTilesJSON } from './types/ServerTypes';
+import { BoardData, BoardTileData, HandTileData, PlayerData, ScoreData, PlayedTilesData } from './types/DataTypes';
 import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap, PlayedTileMap } from './types/GameTypes';
 
-export const parseBoard = (data: BoardJSON): BoardTileMap => {
+export const parseBoard = (data: BoardData): BoardTileMap => {
     const rawTiles = Object.values(data).flat();
     const tiles: BoardTileMap = new Map();
 
     // Build tile map
-    rawTiles.forEach((rawTile: BoardTileJSON) => {
+    rawTiles.forEach((rawTile: BoardTileData) => {
         const { id, coordinates, castes, isClosed, isWater, isSwap } = rawTile;
         
         if (tiles.has(id)) {
@@ -96,7 +96,7 @@ export const parseColor = (color: String): PlayerColor => {
     }
 }
 
-export const parseScore = (data: PlayerScoreJSON): PlayerScore => {
+export const parseScore = (data: ScoreData): PlayerScore => {
     const score = new Map();
 
     score.set(Caste.Military, data['Military']);
@@ -106,7 +106,7 @@ export const parseScore = (data: PlayerScoreJSON): PlayerScore => {
     return score;
 }
 
-export const parsePlayer = (data: PlayerJSON): Player => {
+export const parsePlayer = (data: PlayerData): Player => {
     const { id, color, username, score, isPlaying, playedTiles, hasWon } = data;
     
     return {
@@ -120,7 +120,7 @@ export const parsePlayer = (data: PlayerJSON): Player => {
     }
 }
 
-export const parseHandTile = (data: HandTileJSON): HandTile => {
+export const parseHandTile = (data: HandTileData): HandTile => {
     const { id, type, strength, canReplay } = data;
     
     return {
@@ -131,7 +131,7 @@ export const parseHandTile = (data: HandTileJSON): HandTile => {
     };
 }
 
-export const parsePlayedTiles = (data: PlayedTilesJSON): PlayedTileMap => {
+export const parsePlayedTiles = (data: PlayedTilesData): PlayedTileMap => {
     const playedTiles = new Map();
 
     Object.entries(data).forEach(([boardTileId, handTileId]) => {
@@ -143,7 +143,7 @@ export const parsePlayedTiles = (data: PlayedTilesJSON): PlayedTileMap => {
     return playedTiles;
 }
 
-export const parseFullHand = (data: HandTileJSON[]): HandTileMap => {
+export const parseFullHand = (data: HandTileData[]): HandTileMap => {
     const hand = new Map();
 
     data.forEach(tile => {

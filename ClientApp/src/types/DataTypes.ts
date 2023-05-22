@@ -16,24 +16,30 @@ export interface ServerResponse<T> {
     data: T,
 }
 
+
+
+/*
+    Data types used to communicate with server application
+*/
 export interface GameData {
     name: string,
     version: number,
-    hand: HandJSON,
-    board: BoardJSON,
-    players: PlayersJSON,
-    lastPlayedTiles: PlayedTilesJSON,
+    hand: HandData,
+    board: BoardData,
+    players: PlayersData,
+    playedSinceLastTurn: PlayedTilesData,
 }
 
-
-
-// JSON types
-export interface UserJSON {
+export interface UserData {
     username: string,
     email: string,
 }
 
-export interface BoardTileJSON {
+export interface BoardData {
+    [section: string]: BoardTileData[],
+}
+
+export interface BoardTileData {
     id: number,
     coordinates: Coordinates2D,
     castes: string[],
@@ -42,39 +48,35 @@ export interface BoardTileJSON {
     isSwap: boolean,
 }
 
-export interface BoardJSON {
-    [section: string]: BoardTileJSON[],
-}
+export type HandData = number[];
 
-export type HandJSON = number[];
-
-export type PlayedTilesJSON = {
-    [id: string]: number,
-};
-
-export interface HandTileJSON {
+export interface HandTileData {
     id: number,
     type: string,
     strength: number,
     canReplay: boolean,
 }
 
-export interface PlayerJSON {
-    id: number,
+export type PlayedTilesData = {
+    [id: string]: number,
+};
+
+export interface PlayerData {
+    id: string,
     username: string,
     color: string,
     isPlaying: boolean,
-    playedTiles: PlayedTilesJSON,
-    score: PlayerScoreJSON,
+    playedTiles: PlayedTilesData,
+    score: ScoreData,
     hasWon: boolean,
 }
 
-export interface PlayersJSON {
-    self: PlayerJSON,
-    opponents: PlayerJSON[],
+export interface PlayersData {
+    self: PlayerData,
+    opponents: PlayerData[],
 }
 
-export interface PlayerScoreJSON {
+export interface ScoreData {
     'Military': number,
     'Religion': number,
     'Commerce': number,

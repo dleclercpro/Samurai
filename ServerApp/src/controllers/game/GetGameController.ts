@@ -5,9 +5,11 @@ import { HttpStatusCode } from '../../types/HTTPTypes';
 import { ClientError } from '../../errors/ClientErrors';
 import { logger } from '../../utils/Logging';
 import { ErrorGameDoesNotExist, ErrorGameVersionDoesNotExist } from '../../errors/GameErrors';
+import ClientDataAdapter from '../../helpers/data/ClientDataAdapter';
 
 const GetGameController: RequestHandler = async (req, res, next) => {
     try {
+        const { user } = req;
         const { id, version: _version } = req.params;
 
         // Parse version
@@ -22,13 +24,7 @@ const GetGameController: RequestHandler = async (req, res, next) => {
         }
 
         // Otherwise send up-to-date details
-        return res.json(successResponse({
-            name: game.getName(),
-            version: game.getVersion(),
-            board: game.getBoard(),
-            players: game.getPlayers(),
-            lastPlayedTiles: [],
-        }));
+        return res.json(successResponse(await ClientDataAdapter.getGameData(user, game)));
 
     } catch (err: any) {
         if (

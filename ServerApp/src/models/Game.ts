@@ -5,6 +5,7 @@ import { ErrorGameDoesNotExist, ErrorUserNotPlayingInGame } from '../errors/Game
 import { BoardSchema, IBoard } from './Board';
 import { GAME_INIT_VERSION, PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../constants';
 import { Scoreboard } from '../helpers/Scorer';
+import Order, { IOrder, OrderSchema, RawGameOrder } from './Order';
 
 export interface IGame extends Document {
     name: string,
@@ -15,7 +16,9 @@ export interface IGame extends Document {
     endTime?: Date,
     lastViewedTime?: Date,
     lastPlayedTime?: Date,
+    lastPlayerId?: string,
 
+    history: IOrder[],
     board: IBoard,
     players: IPlayer[],
 
@@ -29,7 +32,10 @@ export interface IGame extends Document {
     getBoard: () => IBoard,
     getPlayers: () => IPlayer[],
     getPlayerByUser: (user: IUser) => IPlayer,
+    getLastPlayer: () => IPlayer,
+    setLastPlayer: (player: IPlayer) => void,
     getScoreboard: () => Scoreboard,
+
     isOver: () => boolean,
     hasWinners: () => boolean,
     getWinners: () => IPlayer[],
@@ -41,6 +47,10 @@ export interface IGame extends Document {
     setEndTime: (time: Date) => void,
     getLastPlayedTime: () => Date,
     setLastPlayedTime: (time: Date) => void,
+
+    getOrder: (version: number) => RawGameOrder,
+    getOrdersSince: (version: number) => RawGameOrder[],
+    addOrder: (order: RawGameOrder) => void,
 }
 
 
@@ -61,6 +71,7 @@ export const GameSchema = new Schema<IGame>({
     lastViewedTime: { type: Date },
     lastPlayedTime: { type: Date },
 
+    history: { type: [OrderSchema], required: true, default: [] },
     board: { type: BoardSchema, required: true },
     players: { type: [PlayerSchema], required: true, min: PLAYER_COUNT_MIN, max: PLAYER_COUNT_MAX },
 });
@@ -114,6 +125,14 @@ GameSchema.methods.getPlayerByUser = function(user: IUser) {
     return player;
 }
 
+GameSchema.methods.getLastPlayer = function() {
+    return (this as IGame).players.find(player => player.getId() === this.lastPlayerId);
+}
+
+GameSchema.methods.setLastPlayer = function(player: IPlayer) {
+    this.lastPlayerId = player.getId();
+}
+
 GameSchema.methods.getScoreboard = function() {
     return this.players.reduce((scoreboard: Scoreboard, player: IPlayer) => {
         return {
@@ -160,6 +179,21 @@ GameSchema.methods.getLastPlayedTime = function() {
 
 GameSchema.methods.setLastPlayedTime = function(time: Date) {
     this.lastPlayedTime = time;
+}
+
+GameSchema.methods.getOrder = function(version: number) {
+    return (this as IGame).history.find(order => order.getVersion() === version);
+}
+
+GameSchema.methods.getOrdersSince = function(version: number) {
+    return (this as IGame).history.filter(order => order.getVersion() > version);
+}
+
+GameSchema.methods.addOrder = function(order: RawGameOrder) {
+    (this as IGame).history.push(new Order({
+        version: this.version,
+        ...order,
+    }));
 }
 
 

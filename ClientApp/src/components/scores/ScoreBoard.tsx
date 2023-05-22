@@ -18,7 +18,7 @@ type Props = StateProps;
 const ScoreBoard: React.FC<Props> = (props) => {
     const { player, opponents, highestScores, isGameOver } = props;
     const { id, username, score, color, isPlaying } = player;
-    const hasPlayer = id !== -1;
+    const hasPlayer = id !== '';
 
     return (
         <section
@@ -36,7 +36,7 @@ const ScoreBoard: React.FC<Props> = (props) => {
             }
             {opponents.map((opponent: Player, index: number) => {
                 const { id, username, score, color, isPlaying } = opponent;
-                const hasPlayer = id !== -1;
+                const hasPlayer = id !== '';
                 
                 return hasPlayer && (
                     <ScorePlayer

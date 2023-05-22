@@ -84,7 +84,6 @@ class FormPlayGame extends React.Component<Props, State> {
             >
                 <Form id='play-game'>
                     <FormTextField
-                        type='number'
                         name='id'
                         label={language.getText('GAME_ID')}
                         onChange={this.handleChange}

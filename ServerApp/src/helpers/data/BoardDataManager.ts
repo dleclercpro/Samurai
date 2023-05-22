@@ -59,6 +59,14 @@ class BoardDataManager {
         return this.getTileById(id).type;
     }
 
+    public getTileSectionById(id: number) {
+        return this.getTileById(id).section;
+    }
+
+    public getTileCoordinatesById(id: number) {
+        return this.getTileById(id).coordinates;
+    }
+
     public getTileNeighborsById(id: number) {
         return this.getTileById(id).neighbors.map(tileId => this.getTileById(tileId));
     }

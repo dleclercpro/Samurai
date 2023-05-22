@@ -2,10 +2,10 @@ import { IPlayer } from '../models/Player';
 import { CASTES, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { Normal, Move, Swap } from './Rules';
 import PlayedTile from '../models/PlayedTile';
-import { GameOrder } from '../commands/game/PlayGameCommand';
 import { IGame } from '../models/Game';
 import { IBoardTile } from '../models/BoardTile';
 import Scorer from './Scorer';
+import { GameOrder } from '../models/Order';
 
 /*
     This class is responsible for executing the moves ordered by the players

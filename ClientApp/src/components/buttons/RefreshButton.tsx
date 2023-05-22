@@ -6,7 +6,7 @@ import { ReactComponent as RefreshIcon } from '../../icons/refresh.svg';
 import Button from './Button';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../types/StateTypes';
-import { getData } from '../../actions/ServerActions';
+import { getGameData } from '../../actions/ServerActions';
 
 interface DispatchProps {
     getData: () => Promise<void>,
@@ -38,7 +38,7 @@ class RefreshButton extends React.Component<Props, {}> {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    getData: () => dispatch(getData()),
+    getData: () => dispatch(getGameData()),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(RefreshButton);

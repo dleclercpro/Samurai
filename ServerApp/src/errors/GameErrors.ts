@@ -1,9 +1,9 @@
-import { GameOrderType } from '../commands/game/PlayGameCommand';
 import { HAND_SIZE, PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../constants';
 import { IBoardTile } from '../models/BoardTile';
 import { IGame } from '../models/Game';
 import { IHand } from '../models/Hand';
 import { IHandTile } from '../models/HandTile';
+import { OrderType } from '../models/Order';
 import { IPlayer } from '../models/Player';
 import { IUser } from '../models/User';
 import { Caste } from '../types/GameTypes';
@@ -36,7 +36,7 @@ export class ErrorUserNotPlayingInGame extends ServerError {
 export class ErrorGameInvalidOrder extends ServerError {
     public static code = -403;
 
-    constructor(order: GameOrderType) {
+    constructor(order: OrderType) {
         super(ErrorGameInvalidOrder.code, `Invalid game order: ${order}.`);
     }
 }

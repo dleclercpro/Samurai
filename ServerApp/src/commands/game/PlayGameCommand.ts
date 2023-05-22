@@ -1,33 +1,12 @@
 import { IGame } from '../../models/Game';
 import Command from '../Command';
 import { IPlayer } from '../../models/Player';
-import { IBoardTile } from '../../models/BoardTile';
-import { IHandTile } from '../../models/HandTile';
 import Rules from '../../helpers/Rules';
-import { Caste } from '../../types/GameTypes';
-import { FromTo } from '../../types';
 import Valet from '../../helpers/Valet';
 import { GAME_INIT_VERSION, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../constants';
 import { ErrorGameInvalidOrder, ErrorGameNotPlayerTurn } from '../../errors/GameErrors';
 import Scorer from '../../helpers/Scorer';
-
-export enum GameOrderType {
-    Normal = 'Normal',
-    Move = 'Move',
-    Swap = 'Swap',
-}
-
-export interface RawGameOrder {
-    handTileId: number,
-    boardTileIds: FromTo<number | null>,
-    castes: FromTo<Caste | null>,
-}
-
-export interface GameOrder {
-    handTile: IHandTile,
-    boardTiles: FromTo<IBoardTile | null>,
-    castes: FromTo<Caste | null>,
-}
+import { OrderType, GameOrder, RawGameOrder } from '../../models/Order';
 
 interface Argument {
     player: IPlayer,
@@ -63,8 +42,8 @@ class PlayGameCommand extends Command<Argument, Response> {
     }
 
     protected async doExecute() {
-        const { game, order } = this;
-        const { player } = this.argument;
+        const { game } = this;
+        const { player, order } = this.argument;
 
         // Get current time
         const now = new Date();
@@ -74,11 +53,23 @@ class PlayGameCommand extends Command<Argument, Response> {
             game.setStartTime(now);
         }
 
-        // Execute player's order
-        new Valet(player).execute(order!);
+        // Execute player's order on board with help of valet
+        new Valet(player).execute(this.order!);
 
-        // Increase game version
-        game.setVersion(game.getVersion() + 1);
+        // Update number of turns played by player
+        player.incrementPlayedTurnCount();
+
+        // Set last turn played by player
+        player.setLastTurn(game.getVersion());
+
+        // Store last order
+        game.addOrder(order);
+
+        // Store current player as last player to have played game
+        game.setLastPlayer(player);
+
+        // Update last played time
+        game.setLastPlayedTime(now);
 
         // Game over
         if (game.getBoard().areAllCitiesClosed()) {
@@ -86,14 +77,15 @@ class PlayGameCommand extends Command<Argument, Response> {
             game.setEndTime(now);
         }
 
-        // Update last played time
-        game.setLastPlayedTime(now);
+        // Increase game version
+        game.setVersion(game.getVersion() + 1);
 
         // Save game
         await game.save();
     }
 
     private parseGameOrder() {
+        const { game } = this;
         const { player, order } = this.argument;
         const { handTileId, boardTileIds, castes } = order;
 
@@ -101,7 +93,7 @@ class PlayGameCommand extends Command<Argument, Response> {
         const handTile = player.getHand().getTileById(handTileId);
 
         // Ensure board tiles exist in current game
-        const board = this.game.getBoard();
+        const board = game.getBoard();
         const boardTiles = {
             from: boardTileIds.from !== null ? board.getTileById(boardTileIds.from) : null,
             to: boardTileIds.to !== null ? board.getTileById(boardTileIds.to) : null,
@@ -119,7 +111,7 @@ class PlayGameCommand extends Command<Argument, Response> {
         // Check input parameters for move
         if (handTile.getId() === HAND_TILE_ID_MOVE) {
             if ([boardTiles.from, boardTiles.to].includes(null) || someCaste) {
-                throw new ErrorGameInvalidOrder(GameOrderType.Move);
+                throw new ErrorGameInvalidOrder(OrderType.Move);
             }
             return;
         }
@@ -127,14 +119,14 @@ class PlayGameCommand extends Command<Argument, Response> {
         // Check input parameters for swap
         if (handTile.getId() === HAND_TILE_ID_SWAP) {
             if ([boardTiles.from, boardTiles.to, castes.from, castes.to].includes(null)) {
-                throw new ErrorGameInvalidOrder(GameOrderType.Swap);
+                throw new ErrorGameInvalidOrder(OrderType.Swap);
             }
             return;
         }
     
         // Check input parameters for normal play
         if (boardTiles.from !== null || boardTiles.to === null || someCaste) {
-            throw new ErrorGameInvalidOrder(GameOrderType.Normal);
+            throw new ErrorGameInvalidOrder(OrderType.Normal);
         }
         return;
     }

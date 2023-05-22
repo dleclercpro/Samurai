@@ -3,7 +3,7 @@ import './Game.scss';
 import Grid from './Grid';
 import { connect } from 'react-redux';
 import { AppState } from '../types/StateTypes';
-import { getData } from '../actions/ServerActions';
+import { getGameData } from '../actions/ServerActions';
 import { setGameId, setGameVersion } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
@@ -29,7 +29,7 @@ interface StateProps {
 interface DispatchProps {
     setGameId: (id: string) => void,
     setGameVersion: (version: number) => void,
-    getData: () => Promise<void>,
+    getGameData: () => Promise<void>,
     openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => void,
 }
 
@@ -56,7 +56,7 @@ class Game extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { id, routeId, setGameId, setGameVersion, getData } = this.props;
+        const { id, routeId, setGameId, setGameVersion, getGameData } = this.props;
 
         // No need to reload game that's already loaded
         if (routeId === id) {
@@ -69,7 +69,7 @@ class Game extends React.Component<Props, State> {
         setGameId(routeId);
         setGameVersion(-1);
 
-        getData()
+        getGameData()
             .catch((error: any) => {
 
                 // Game data loading can't fail on first time!
@@ -86,13 +86,13 @@ class Game extends React.Component<Props, State> {
     }
 
     poll = () => {
-        const { getData } = this.props;
+        const { getGameData } = this.props;
         
         this.setState({
             isPolling: true,
         });
         
-        getData()
+        getGameData()
             .then(() => {
                 this.resetPollRetryCount();
             })
@@ -219,7 +219,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     setGameId: (id: string) => dispatch(setGameId(id)),
     setGameVersion: (version: number) => dispatch(setGameVersion(version)),
-    getData: () => dispatch(getData()),
+    getGameData: () => dispatch(getGameData()),
     openErrorDialog: (message: string, explanation: string, action: () => Promise<void>) => dispatch(openErrorDialog(message, explanation, action)),
 });
 

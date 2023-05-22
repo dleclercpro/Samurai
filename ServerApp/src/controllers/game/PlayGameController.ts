@@ -1,11 +1,12 @@
 import { RequestHandler } from 'express';
 import { errorResponse, successResponse } from '../../libs/calls';
-import PlayGameCommand, { RawGameOrder } from '../../commands/game/PlayGameCommand';
+import PlayGameCommand from '../../commands/game/PlayGameCommand';
 import { ErrorGameAlreadyOver, ErrorGameTileNotInHand, ErrorGameInvalidOrder, ErrorGameMissingCastePiece, ErrorGameIncompatibleTileTypes, ErrorGameCannotPlaceTileOntoCity, ErrorGameNotPlayerTurn } from '../../errors/GameErrors';
 import { logger } from '../../utils/Logging';
 import { ClientError } from '../../errors/ClientErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import Game from '../../models/Game';
+import { RawGameOrder } from '../../models/Order';
 
 export type PlayGameControllerBody = RawGameOrder;
 

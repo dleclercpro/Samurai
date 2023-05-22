@@ -59,7 +59,7 @@ export type PlayedTileMap = Map<number, number>; // Board tile ID -> Hand tile I
 export type PlayerScore = Map<Caste, number>;
 
 export interface Player {
-    id: number,
+    id: string,
     username: string,
     color: PlayerColor,
     playedTiles: PlayedTileMap,

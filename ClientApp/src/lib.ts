@@ -1,6 +1,6 @@
 import { Size2D, Coordinates2D, BoardTile, BoardTileMap, Caste, Figure, HandTile, PlayerColor } from './types/GameTypes';
 import { FormFields, FormPayload } from './types/FormTypes';
-import { HandTileJSON } from './types/ServerTypes';
+import { HandTileData } from './types/DataTypes';
 
 export const hasMultiple = <T> (element: T, list: T[]) => {
     return (list.filter(el => el === element)).length > 1;
@@ -119,7 +119,7 @@ export const getFormPayload = (fields: FormFields): FormPayload => {
     }, {});
 }
 
-export const getRandomHand = (fullHand: HandTileJSON[]) => {
+export const getRandomHand = (fullHand: HandTileData[]) => {
     const randomIndexes = new Set<number>();
     const handSize = 5;
 

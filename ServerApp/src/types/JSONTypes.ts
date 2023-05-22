@@ -1,6 +1,6 @@
 import { BoardSection } from '../models/Board';
-import { BoardTileCoordinates, BoardTileType } from '../models/BoardTile';
-import { Caste, HandTileType } from './GameTypes';
+import { BoardTileType } from '../models/BoardTile';
+import { Caste, Coordinates2D, HandTileType } from './GameTypes';
 
 export interface HandTileJSON {
     id: number,
@@ -13,7 +13,7 @@ export interface BoardTileJSON {
     id: number,
     type: BoardTileType,
     section: BoardSection,
-    coordinates: BoardTileCoordinates,
+    coordinates: Coordinates2D,
     neighbors: number[],
     castes: number,
 }

@@ -1,7 +1,7 @@
-import { HandTileJSON } from '../types/ServerTypes';
+import { HandTileData } from '../types/DataTypes';
 import { SetFullHand, SET_FULL_HAND, SetOwnHand, SET_OWN_HAND } from '../types/ActionTypes';
 
-export const setFullHand = (data: HandTileJSON[]): SetFullHand => ({
+export const setFullHand = (data: HandTileData[]): SetFullHand => ({
     type: SET_FULL_HAND,
     data,
 });

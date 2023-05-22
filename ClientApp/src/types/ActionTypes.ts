@@ -1,4 +1,4 @@
-import { BoardJSON, HandTileJSON, PlayerJSON, PlayedTilesJSON } from './ServerTypes';
+import { BoardData, HandTileData, PlayerData, PlayedTilesData } from './DataTypes';
 import { DialogType } from './DialogTypes';
 import { Caste, Language } from './GameTypes';
 import { AppAction } from '../actions';
@@ -77,19 +77,19 @@ export interface ResetPlayers {
 export const SET_SELF = 'SET_SELF';
 export interface SetSelf {
     type: typeof SET_SELF,
-    data: PlayerJSON,
+    data: PlayerData,
 }
 
 export const SET_OPPONENTS = 'SET_OPPONENTS';
 export interface SetOpponents {
     type: typeof SET_OPPONENTS,
-    data: PlayerJSON[],
+    data: PlayerData[],
 }
 
 export const SET_PLAYED_TILES_SINCE_LAST_TURN = 'SET_PLAYED_TILES_SINCE_LAST_TURN';
 export interface SetPlayedTilesSinceLastTurn {
     type: typeof SET_PLAYED_TILES_SINCE_LAST_TURN,
-    playedTiles: PlayedTilesJSON,
+    playedTiles: PlayedTilesData,
 }
 
 
@@ -98,7 +98,7 @@ export interface SetPlayedTilesSinceLastTurn {
 export const SET_FULL_HAND = 'SET_FULL_HAND';
 export interface SetFullHand {
     type: typeof SET_FULL_HAND,
-    data: HandTileJSON[],
+    data: HandTileData[],
 }
 
 export const SET_OWN_HAND = 'SET_OWN_HAND';
@@ -118,7 +118,7 @@ export interface ResetBoard {
 export const SET_BOARD = 'SET_BOARD';
 export interface SetBoard {
     type: typeof SET_BOARD,
-    data: BoardJSON,
+    data: BoardData,
 }
 
 

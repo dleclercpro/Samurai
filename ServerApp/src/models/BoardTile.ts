@@ -1,17 +1,12 @@
 import { Types, Schema, Model, model } from 'mongoose';
-import { Caste, HandTileType } from '../types/GameTypes';
+import { Caste, Coordinates2D, HandTileType } from '../types/GameTypes';
 import BoardData from '../helpers/data/BoardDataManager';
 import { CASTES, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { IHandTile } from './HandTile';
 import BoardDataManager from '../helpers/data/BoardDataManager';
-import { IBoard } from './Board';
+import { BoardSection, IBoard } from './Board';
 import { ErrorGameBoardTileNotACity } from '../errors/GameErrors';
-
-export interface BoardTileCoordinates {
-    x: number,
-    y: number,
-}
 
 export enum BoardTileType {
     Ground = 'Ground',
@@ -30,10 +25,13 @@ export interface IBoardTile extends Types.Subdocument {
     stringify: () => string,
     getId: () => number,
     getType: () => BoardTileType,
+    getSection: () => BoardSection,
+    getCoordinates: () => Coordinates2D,
     getPlayedTile: () => IPlayedTile,
     getNeighboringTiles: () => IBoardTile[],
     getNeighboringCities: () => IBoardTile[],
     getCastePieceCountByType: (caste: Caste) => number,
+    getCastePieces: () => Caste[],
     hasCastePiece: (caste: Caste) => boolean,
     addCastePiece: (caste: Caste) => void,
     removeCastePiece: (caste: Caste) => void,
@@ -76,6 +74,14 @@ BoardTileSchema.methods.getType = function() {
     return BoardData.getTileTypeById(this.id);
 }
 
+BoardTileSchema.methods.getSection = function() {
+    return BoardData.getTileSectionById(this.id);
+}
+
+BoardTileSchema.methods.getCoordinates = function() {
+    return BoardData.getTileCoordinatesById(this.id);
+}
+
 BoardTileSchema.methods.getPlayedTile = function() {
     return this.playedTile;
 }
@@ -93,6 +99,10 @@ BoardTileSchema.methods.getNeighboringCities = function() {
 
 BoardTileSchema.methods.getCastePieceCountByType = function(caste: Caste) {
     return (this as IBoardTile).castes.filter(c => c === caste).length;
+}
+
+BoardTileSchema.methods.getCastePieces = function() {
+    return this.castes;
 }
 
 BoardTileSchema.methods.hasCastePiece = function(caste: Caste) {

@@ -1,7 +1,7 @@
 import { CallPlayGame } from '../calls/game/CallPlayGame';
 import { openDialog, setDialogText, setDialogAction } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
-import { UserJSON, GameData } from '../types/ServerTypes';
+import { UserData, GameData } from '../types/DataTypes';
 import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn, setGameName } from './GameActions';
 import { AppThunkDispatch, AppThunkAction } from '../types/ActionTypes';
 import { setBoard } from './BoardActions';
@@ -11,13 +11,13 @@ import { Caste } from '../types/GameTypes';
 import { CallSignIn } from '../calls/auth/CallSignIn';
 import { CallSignUp } from '../calls/auth/CallSignUp';
 import { CallCreateGame } from '../calls/game/CallCreateGame';
-import { ServerResponse } from '../types/ServerTypes';
+import { ServerResponse } from '../types/DataTypes';
 import { setSelf, setOpponents } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/auth/CallSignOut';
 import { CallPing } from '../calls/auth/CallPing';
 import { isGameOver, isCurrentPlayer } from '../selectors';
-import { CallGetData } from '../calls/game/CallGetData';
+import { CallGetGameData } from '../calls/game/CallGetGameData';
 import { setOwnHand } from './HandActions';
 
 export const verifyAuthentication = (): AppThunkAction<void> => {
@@ -25,7 +25,7 @@ export const verifyAuthentication = (): AppThunkAction<void> => {
     return (dispatch: AppThunkDispatch<void>) => {
 
         return new CallPing().execute()
-            .then((response: ServerResponse<UserJSON>) => {
+            .then((response: ServerResponse<UserData>) => {
                 const { username, email } = response.data;
                 
                 dispatch(setUser(username, email));
@@ -43,7 +43,7 @@ export const signIn = (email: string, password: string): AppThunkAction<void> =>
         const { language } = state.settings;
         
         return new CallSignIn(email, password).execute()
-            .then((response: ServerResponse<UserJSON>) => {
+            .then((response: ServerResponse<UserData>) => {
                 const { username, email } = response.data;
                 
                 dispatch(setUser(username, email));
@@ -130,13 +130,14 @@ export const createGame = (name: string, opponents: string[]): AppThunkAction<vo
     };
 }
 
-export const getData = (): AppThunkAction<void> => {
+export const getGameData = (): AppThunkAction<void> => {
+    console.log('Here');
 
     return (dispatch: AppThunkDispatch<void>, getState: () => AppState) => {
         let state = getState();
         const { game } = state;
 
-        return new CallGetData(game.id, game.version).execute()
+        return new CallGetGameData(game.id, game.version).execute()
             .then((response: ServerResponse<GameData>) => {
                 const { version } = response.data;
 
@@ -145,7 +146,7 @@ export const getData = (): AppThunkAction<void> => {
                     return;
                 }
 
-                const { name, hand, board, players, lastPlayedTiles } = response.data;
+                const { name, hand, board, players, playedSinceLastTurn } = response.data;
                 const wasPlaying = isCurrentPlayer(state.players);
 
                 // Load everything
@@ -155,7 +156,7 @@ export const getData = (): AppThunkAction<void> => {
                 dispatch(setBoard(board));
                 dispatch(setSelf(players.self));
                 dispatch(setOpponents(players.opponents));
-                dispatch(setPlayedTilesSinceLastTurn(lastPlayedTiles));
+                dispatch(setPlayedTilesSinceLastTurn(playedSinceLastTurn));
 
                 // Re-pull state
                 state = getState();
@@ -183,7 +184,7 @@ const play = (handTile: number, boardTileFrom: number, boardTileTo: number, cast
 
         return new CallPlayGame(game.id, handTile, boardTileFrom, boardTileTo, casteFrom, casteTo).execute()
             .then(() => {
-                return dispatch(getData());
+                return dispatch(getGameData());
             })
             .finally(() => {
                 dispatch(endTurn);
