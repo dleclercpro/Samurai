@@ -56,20 +56,17 @@ class PlayGameCommand extends Command<Argument, Response> {
         // Execute player's order on board with help of valet
         new Valet(player).execute(this.order!);
 
+        // Store last order
+        game.getHistory().pushOrder(order);
+
+        // Update last played time
+        game.setLastPlayedTime(now);
+
         // Update number of turns played by player
         player.incrementPlayedTurnCount();
 
         // Set last turn played by player
         player.setLastTurn(game.getVersion());
-
-        // Store last order
-        game.addOrder(order);
-
-        // Store current player as last player to have played game
-        game.setLastPlayer(player);
-
-        // Update last played time
-        game.setLastPlayedTime(now);
 
         // Game over
         if (game.getBoard().areAllCitiesClosed()) {
@@ -77,8 +74,15 @@ class PlayGameCommand extends Command<Argument, Response> {
             game.setEndTime(now);
         }
 
-        // Increase game version
-        game.setVersion(game.getVersion() + 1);
+        // Otherwise
+        else {
+
+            // Move to next player
+            game.setNextPlayer(game.getNextPlayer());
+
+            // Increase game version
+            game.setVersion(game.getVersion() + 1);
+        }
 
         // Save game
         await game.save();

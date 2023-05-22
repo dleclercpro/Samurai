@@ -81,17 +81,16 @@ class CreateGameCommand extends Command<Argument, Response> {
 
     private generatePlayers({ creator, opponents }: { creator: IUser, opponents: IUser[] }) {
 
-        // Randomly assign colors to users
+        // Randomize color order
         const randomizedColors = shuffle(Object.keys(Color)) as Color[];
 
-        // Randomly decide who starts
-        const users = [creator, ...opponents];
-        const starter = getRandom(users);
+        // Randomize player order
+        const randomizedUsers = shuffle([creator, ...opponents]);
 
         // Create players
-        return users.map((user: IUser, i: number) => ({
+        return randomizedUsers.map((user: IUser, i: number) => ({
             userId: user.getId(),
-            isPlaying: user.getId() === starter.getId(),
+            isPlaying: i === 0,
             isCreator: user.getId() === creator.getId(),
             color: randomizedColors[i],
             hand: new HandBuilder().build(),

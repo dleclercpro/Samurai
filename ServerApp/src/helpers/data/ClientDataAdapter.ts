@@ -133,8 +133,9 @@ class ClientDataAdapter {
     private getPlayedSinceLastTurn(player: IPlayer): PlayedTilesData {
         const game = player.ownerDocument() as IGame;
         const board = game.getBoard();
+        const orders = game.getHistory().getOrdersSince(player.getLastTurn());
 
-        return game.getOrdersSince(player.getLastTurn()).reduce((playedTiles, order) => {
+        return orders.reduce((playedTiles, order) => {
             const { handTileId,  boardTileIds, castes } = order; 
             
             // Move order

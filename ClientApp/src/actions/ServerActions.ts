@@ -174,7 +174,13 @@ export const getGameData = (): AppThunkAction<void> => {
     };
 }
 
-const play = (handTile: number, boardTileFrom: number, boardTileTo: number, casteFrom: string, casteTo: string): AppThunkAction<void> => {
+const play = (handTile: number, _boardTileFrom: number, _boardTileTo: number, _casteFrom: string, _casteTo: string): AppThunkAction<void> => {
+
+    // Format for server
+    const boardTileFrom = _boardTileFrom !== -1 ? _boardTileFrom : null;
+    const boardTileTo = _boardTileTo !== -1 ? _boardTileTo : null;
+    const casteFrom = _casteFrom !== '' ? _casteFrom : null;
+    const casteTo = _casteTo !== '' ? _casteTo : null;
 
     return (dispatch: AppThunkDispatch<void>, getState: () => AppState) => {
         const state = getState();

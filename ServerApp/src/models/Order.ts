@@ -74,11 +74,17 @@ OrderSchema.methods.getHandTileId = function() {
 }
 
 OrderSchema.methods.getBoardTileIds = function() {
-    return this.boardTileIds;
+    return {
+        from: this.boardTileIds.from ?? null,
+        to: this.boardTileIds.to ?? null,
+    };
 }
 
 OrderSchema.methods.getCastes = function() {
-    return this.castes;
+    return {
+        from: this.castes.from ?? null,
+        to: this.castes.to ?? null,
+    };
 }
 
 

@@ -5,7 +5,7 @@ import { ErrorGameDoesNotExist, ErrorUserNotPlayingInGame } from '../errors/Game
 import { BoardSchema, IBoard } from './Board';
 import { GAME_INIT_VERSION, PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../constants';
 import { Scoreboard } from '../helpers/Scorer';
-import Order, { IOrder, OrderSchema, RawGameOrder } from './Order';
+import History, { HistorySchema, IHistory } from './History';
 
 export interface IGame extends Document {
     name: string,
@@ -16,9 +16,8 @@ export interface IGame extends Document {
     endTime?: Date,
     lastViewedTime?: Date,
     lastPlayedTime?: Date,
-    lastPlayerId?: string,
 
-    history: IOrder[],
+    history: IHistory,
     board: IBoard,
     players: IPlayer[],
 
@@ -29,11 +28,12 @@ export interface IGame extends Document {
     getVersion: () => number,
     setVersion: (version: number) => void,
     getCreator: () => Promise<IUser>,
+    getHistory: () => IHistory,
     getBoard: () => IBoard,
     getPlayers: () => IPlayer[],
     getPlayerByUser: (user: IUser) => IPlayer,
-    getLastPlayer: () => IPlayer,
-    setLastPlayer: (player: IPlayer) => void,
+    getNextPlayer: () => IPlayer,
+    setNextPlayer: (player: IPlayer) => void,
     getScoreboard: () => Scoreboard,
 
     isOver: () => boolean,
@@ -47,10 +47,6 @@ export interface IGame extends Document {
     setEndTime: (time: Date) => void,
     getLastPlayedTime: () => Date,
     setLastPlayedTime: (time: Date) => void,
-
-    getOrder: (version: number) => RawGameOrder,
-    getOrdersSince: (version: number) => RawGameOrder[],
-    addOrder: (order: RawGameOrder) => void,
 }
 
 
@@ -71,7 +67,7 @@ export const GameSchema = new Schema<IGame>({
     lastViewedTime: { type: Date },
     lastPlayedTime: { type: Date },
 
-    history: { type: [OrderSchema], required: true, default: [] },
+    history: { type: HistorySchema, required: true, default: () => new History() },
     board: { type: BoardSchema, required: true },
     players: { type: [PlayerSchema], required: true, min: PLAYER_COUNT_MIN, max: PLAYER_COUNT_MAX },
 });
@@ -107,6 +103,10 @@ GameSchema.methods.getCreator = async function() {
     }
 }
 
+GameSchema.methods.getHistory = function() {
+    return this.history;
+}
+
 GameSchema.methods.getBoard = function() {
     return this.board;
 }
@@ -125,12 +125,17 @@ GameSchema.methods.getPlayerByUser = function(user: IUser) {
     return player;
 }
 
-GameSchema.methods.getLastPlayer = function() {
-    return (this as IGame).players.find(player => player.getId() === this.lastPlayerId);
+GameSchema.methods.getNextPlayer = function() {
+    const currentPlayer = (this as IGame).players.find(player => player.isPlaying);
+    const currentPlayerIndex = (this as IGame).players.findIndex(player => player.getId() === currentPlayer!.getId());
+
+    return this.players[(currentPlayerIndex + 1) % this.players.length];
 }
 
-GameSchema.methods.setLastPlayer = function(player: IPlayer) {
-    this.lastPlayerId = player.getId();
+GameSchema.methods.setNextPlayer = function(nextPlayer: IPlayer) {
+    (this as IGame).players.forEach(player => player.setIsPlaying(false));
+    
+    nextPlayer.setIsPlaying(true);
 }
 
 GameSchema.methods.getScoreboard = function() {
@@ -179,21 +184,6 @@ GameSchema.methods.getLastPlayedTime = function() {
 
 GameSchema.methods.setLastPlayedTime = function(time: Date) {
     this.lastPlayedTime = time;
-}
-
-GameSchema.methods.getOrder = function(version: number) {
-    return (this as IGame).history.find(order => order.getVersion() === version);
-}
-
-GameSchema.methods.getOrdersSince = function(version: number) {
-    return (this as IGame).history.filter(order => order.getVersion() > version);
-}
-
-GameSchema.methods.addOrder = function(order: RawGameOrder) {
-    (this as IGame).history.push(new Order({
-        version: this.version,
-        ...order,
-    }));
 }
 
 

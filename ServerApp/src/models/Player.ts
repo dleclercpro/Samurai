@@ -32,7 +32,6 @@ export interface IPlayer extends Types.Subdocument {
     incrementPlayedTurnCount: () => void,
     getIsPlaying: () => boolean,
     setIsPlaying: (isPlaying: boolean) => void,
-    wasLastPlayer: () => boolean,
     hasWon: () => boolean,
     increaseScoreByCaste: (caste: Caste, points: number) => void,
 }
@@ -110,12 +109,6 @@ PlayerSchema.methods.getIsPlaying = function() {
 
 PlayerSchema.methods.setIsPlaying = function(isPlaying: boolean) {
     this.isPlaying = isPlaying;
-}
-
-PlayerSchema.methods.wasLastPlayer = function() {
-    const game = (this as IPlayer).ownerDocument() as IGame;
-
-    return game.getLastPlayer().getId() === (this as IPlayer).id;
 }
 
 PlayerSchema.methods.hasWon = function() {
