@@ -58,7 +58,7 @@ class FormPlayGame extends React.Component<Props, State> {
 
     handleSubmit = () => {
         const { history } = this.props;
-        const id = parseInt(getFormPayload(this.state.fields).id);
+        const { id } = getFormPayload(this.state.fields);
 
         this.setState({ ...INIT_STATE });
 

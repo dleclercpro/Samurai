@@ -7,7 +7,7 @@ import { getGameData } from '../actions/ServerActions';
 import { setGameId, setGameVersion } from '../actions/GameActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppAction } from '../actions';
-import { withRouter, RouteComponentProps, useHistory } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import SpinnerOverlay from './overlays/SpinnerOverlay';
 import Dash from './buttons/Dash';
 import { POLL_RATE, MAX_POLL_RETRIES } from '../config';
@@ -116,8 +116,7 @@ class Game extends React.Component<Props, State> {
     }
 
     fail = (error: any) => {
-        const history = useHistory();
-        const { id, language, openErrorDialog } = this.props;
+        const { id, language, history, openErrorDialog } = this.props;
 
         openErrorDialog(language.getText('GET_DATA_ERROR', { id }), error.message, () => {
             history.push('/');

@@ -131,7 +131,6 @@ export const createGame = (name: string, opponents: string[]): AppThunkAction<vo
 }
 
 export const getGameData = (): AppThunkAction<void> => {
-    console.log('Here');
 
     return (dispatch: AppThunkDispatch<void>, getState: () => AppState) => {
         let state = getState();
@@ -139,14 +138,13 @@ export const getGameData = (): AppThunkAction<void> => {
 
         return new CallGetGameData(game.id, game.version).execute()
             .then((response: ServerResponse<GameData>) => {
-                const { version } = response.data;
 
                 // No new data on server
-                if (version === undefined || version <= game.version) {
+                if (response.data === undefined) {
                     return;
                 }
 
-                const { name, hand, board, players, playedSinceLastTurn } = response.data;
+                const { name, version, hand, board, players, playedSinceLastTurn } = response.data;
                 const wasPlaying = isCurrentPlayer(state.players);
 
                 // Load everything

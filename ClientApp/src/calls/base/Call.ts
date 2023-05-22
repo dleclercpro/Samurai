@@ -78,10 +78,10 @@ class Call {
 
         this.prepare();
 
-        const response: Response = await fetchWithTimeout(this.url, this.params, this.timeout);
-
         // Try reading server data, otherwise just reject with status text
         try {
+            const response: Response = await fetchWithTimeout(this.url, this.params, this.timeout);
+
             const json = await response.json();
             const { code, error } = json;
     
@@ -94,7 +94,7 @@ class Call {
             return Promise.reject(new Error(error));
 
         } catch (error: any) {
-            throw new Error(`[${response.statusText.toUpperCase()}]`);
+            throw new Error(`[${error.message.toUpperCase()}]`);
         }
     }
 }
