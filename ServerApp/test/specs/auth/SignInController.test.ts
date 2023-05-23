@@ -46,7 +46,7 @@ test(`Signing in with valid credentials should work`, async () => {
 
 
 
-test(`Signing in with wrong password should not work`, async () => {
+test(`Signing in with wrong password should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password + 'X',
@@ -61,7 +61,7 @@ test(`Signing in with wrong password should not work`, async () => {
 
 
 
-test(`Signing in with non-existing user should not work`, async () => {
+test(`Signing in with non-existing user should NOT work`, async () => {
     const user = {
         email: NON_EXISTING_USER.email,
         password: NON_EXISTING_USER.password,
@@ -76,7 +76,7 @@ test(`Signing in with non-existing user should not work`, async () => {
 
 
 
-test(`Signing in with missing parameters should not work`, async () => {
+test(`Signing in with missing parameters should NOT work`, async () => {
     await expectActionToFailWithError(() => signInAction({ password: USER.password, staySignedIn: false }), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['email']),

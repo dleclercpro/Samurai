@@ -57,7 +57,7 @@ test(`Creating game with existing user should work`, async () => {
 
 
 
-test(`Creating game without session cookie should not work`, async () => {
+test(`Creating game without session cookie should NOT work`, async () => {
     const game = { name: 'Game', opponents: OPPONENTS.map(opponent => opponent.email) };
     
     await expectActionToFailWithError(() => createGameAction(game, null), {
@@ -68,7 +68,7 @@ test(`Creating game without session cookie should not work`, async () => {
 
 
 
-test(`Creating game with non-existing user should not work`, async () => {
+test(`Creating game with non-existing user should NOT work`, async () => {
     const game = { name: 'Game', opponents: OPPONENTS.map(opponent => opponent.email) };
     const user = {
         email: NON_EXISTING_USER.email,
@@ -84,7 +84,7 @@ test(`Creating game with non-existing user should not work`, async () => {
 
 
 
-test(`Creating game with non-existing opponent should not work`, async () => {
+test(`Creating game with non-existing opponent should NOT work`, async () => {
     const game = { name: 'Game', opponents: [NON_EXISTING_USER.email] };
     const user = {
         email: CREATOR.email,
@@ -100,7 +100,7 @@ test(`Creating game with non-existing opponent should not work`, async () => {
 
 
 
-test(`Creating game with duplicate opponents should not work`, async () => {
+test(`Creating game with duplicate opponents should NOT work`, async () => {
     const game = { name: 'Game', opponents: [OPPONENTS[0], OPPONENTS[0]].map(opponent => opponent.email) };
     const user = {
         email: CREATOR.email,
@@ -116,7 +116,7 @@ test(`Creating game with duplicate opponents should not work`, async () => {
 
 
 
-test(`Creating game with too many opponents should not work`, async () => {
+test(`Creating game with too many opponents should NOT work`, async () => {
     const game = { name: 'Game', opponents: [...OPPONENTS, EXTRA_USER].map(opponent => opponent.email) };
     const user = {
         email: CREATOR.email,
@@ -132,7 +132,7 @@ test(`Creating game with too many opponents should not work`, async () => {
 
 
 
-test(`Creating game without opponents should not work`, async () => {
+test(`Creating game without opponents should NOT work`, async () => {
     const game = { name: 'Game', opponents: [] };
     const user = {
         email: CREATOR.email,
@@ -148,7 +148,7 @@ test(`Creating game without opponents should not work`, async () => {
 
 
 
-test(`Creating game without name parameter should not work`, async () => {
+test(`Creating game without name parameter should NOT work`, async () => {
     const game = { opponents: OPPONENTS };
     const user = {
         email: CREATOR.email,
@@ -164,7 +164,7 @@ test(`Creating game without name parameter should not work`, async () => {
 
 
 
-test(`Creating game without opponents parameter should not work`, async () => {
+test(`Creating game without opponents parameter should NOT work`, async () => {
     const game = { name: 'Game' };
     const user = {
         email: CREATOR.email,

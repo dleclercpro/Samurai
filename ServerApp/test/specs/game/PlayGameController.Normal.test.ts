@@ -14,31 +14,7 @@ afterEach(afterEachPlay);
 
 
 
-test(`Placing regular ground hand tile onto free ground board tile should work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
-
-    // Build game order
-    const order = {
-        handTileId: HAND_TILE_ID_MILITARY,
-        boardTileIds: { from: null, to: 30 }, // Free ground board tile
-        castes: { from: null, to: null },
-    };
-
-    const action = () => playGameAction(game.getId(), order, user);
-
-    await expect(action()).resolves.toEqual(successResponse());
-});
-
-
-
-test(`Placing regular ground hand tile onto free ground board tile in a 2-player board configuration should work`, async () => {
+test(`Placing hand tile onto free ground board tile in a 2-player game configuration should work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -62,7 +38,7 @@ test(`Placing regular ground hand tile onto free ground board tile in a 2-player
 
 
 
-test(`Placing regular ground hand tile onto a tile that does not exist in a 2-player board configuration should not work`, async () => {
+test(`Placing hand tile onto board tile that does not exist in a 2-player game configuration should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -83,6 +59,30 @@ test(`Placing regular ground hand tile onto a tile that does not exist in a 2-pl
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
+});
+
+
+
+test(`Placing regular ground hand tile onto free ground board tile should work`, async () => {
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
+
+    // Create test game in database
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+
+    // Build game order
+    const order = {
+        handTileId: HAND_TILE_ID_MILITARY,
+        boardTileIds: { from: null, to: 30 }, // Free ground board tile
+        castes: { from: null, to: null },
+    };
+
+    const action = () => playGameAction(game.getId(), order, user);
+
+    await expect(action()).resolves.toEqual(successResponse());
 });
 
 
@@ -135,7 +135,7 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
 
 
 
-test(`Placing regular ground hand tile onto free water board tile should not work`, async () => {
+test(`Placing regular ground hand tile onto free water board tile should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -160,7 +160,7 @@ test(`Placing regular ground hand tile onto free water board tile should not wor
 
 
 
-test(`Placing samurai hand tile onto free water board tile should not work`, async () => {
+test(`Placing samurai hand tile onto free water board tile should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -185,7 +185,7 @@ test(`Placing samurai hand tile onto free water board tile should not work`, asy
 
 
 
-test(`Placing ship hand tile onto free ground board tile should not work`, async () => {
+test(`Placing ship hand tile onto free ground board tile should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -210,7 +210,7 @@ test(`Placing ship hand tile onto free ground board tile should not work`, async
 
 
 
-test(`Placing regular ground hand tile onto city board tile should not work`, async () => {
+test(`Placing regular ground hand tile onto city board tile should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -235,7 +235,7 @@ test(`Placing regular ground hand tile onto city board tile should not work`, as
 
 
 
-test(`Placing tile when it's not player's turn should not work`, async () => {
+test(`Placing tile when it's not player's turn should NOT work`, async () => {
     
     // Not this player's turn!
     const user = {

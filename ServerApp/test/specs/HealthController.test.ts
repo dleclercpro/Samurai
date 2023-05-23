@@ -36,7 +36,7 @@ test(`Health check [using GET] should work`, async () => {
 
 
 
-test(`Invalid health check [using POST] should not work`, async () => {
+test(`Invalid health check [using POST] should NOT work`, async () => {
     const action = () => axios.post(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();
@@ -44,7 +44,7 @@ test(`Invalid health check [using POST] should not work`, async () => {
 
 
 
-test(`Invalid health check [using PUT] should not work`, async () => {
+test(`Invalid health check [using PUT] should NOT work`, async () => {
     const action = () => axios.put(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();
@@ -52,7 +52,7 @@ test(`Invalid health check [using PUT] should not work`, async () => {
 
 
 
-test(`Invalid health check [using DELETE] should not work`, async () => {
+test(`Invalid health check [using DELETE] should NOT work`, async () => {
     const action = () => axios.delete(HEALTH_CONTROLLER_URL);
 
     await expect(action()).rejects.toThrow();

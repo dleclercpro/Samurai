@@ -16,7 +16,7 @@ afterEach(afterEachPlay);
 
 
 
-test(`Placing swap order with valid parameters should work`, async () => {
+test(`Placing valid swap order should work`, async () => {
     const user = {
         email: USER_WITH_SWAP.email,
         password: USER_WITH_SWAP.password,
@@ -40,7 +40,32 @@ test(`Placing swap order with valid parameters should work`, async () => {
 
 
 
-test(`Placing swap order with missing caste should not work`, async () => {
+test(`Placing swap order with identical 'from' and 'to' board tiles should NOT work`, async () => {
+    const user = {
+        email: USER_WITH_SWAP.email,
+        password: USER_WITH_SWAP.password,
+        staySignedIn: false,
+    };
+
+    // Create test game in database
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
+
+    // Build game order
+    const order = {
+        handTileId: HAND_TILE_ID_SWAP,
+        boardTileIds: { from: 36, to: 36 },
+        castes: { from: Caste.Military, to: Caste.Military },
+    };
+
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(ClientError.InvalidGameOrder),
+    });
+});
+
+
+
+test(`Placing swap order with missing caste should NOT work`, async () => {
     const user = {
         email: USER_WITH_SWAP.email,
         password: USER_WITH_SWAP.password,
@@ -76,6 +101,47 @@ test(`Placing swap order with missing caste should not work`, async () => {
         data: errorResponse(ClientError.InvalidGameOrder),
     });
     await expectActionToFailWithError(() => playGameAction(game.getId(), missingBothCastesOrder, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(ClientError.InvalidGameOrder),
+    });
+});
+
+test(`Placing swap order with non-city board tiles should NOT work`, async () => {
+    const user = {
+        email: USER_WITH_SWAP.email,
+        password: USER_WITH_SWAP.password,
+        staySignedIn: false,
+    };
+
+    // Create test game in database
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
+
+    // Build game order
+    const nonCityBoardTileFromOrder = {
+        handTileId: HAND_TILE_ID_SWAP,
+        boardTileIds: { from: 35, to: 38 },
+        castes: { from: Caste.Commerce, to: Caste.Religion },
+    };
+    const nonCityBoardTileToOrder = {
+        handTileId: HAND_TILE_ID_SWAP,
+        boardTileIds: { from: 36, to: 37 },
+        castes: { from: Caste.Military, to: Caste.Commerce },
+    };
+    const nonCityBoardTileFromAndToOrder = {
+        handTileId: HAND_TILE_ID_SWAP,
+        boardTileIds: { from: 35, to: 37 },
+        castes: { from: Caste.Military, to: Caste.Religion },
+    };
+
+    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileFromOrder, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(ClientError.InvalidGameOrder),
+    });
+    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileToOrder, user), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(ClientError.InvalidGameOrder),
+    });
+    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileFromAndToOrder, user), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });

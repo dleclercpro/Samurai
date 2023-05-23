@@ -45,7 +45,7 @@ test(`Pinging with logged in user should work`, async () => {
 
 
 
-test(`Pinging with logged out user should not work`, async () => {
+test(`Pinging with logged out user should NOT work`, async () => {
     await expectActionToFailWithError(() => pingAction(), {
         status: HttpStatusCode.UNAUTHORIZED,
         data: errorResponse(ClientError.InvalidCredentials),

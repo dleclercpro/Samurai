@@ -84,7 +84,7 @@ test(`Placing tile without 'replay' feature should not allow same player to play
 
 
 
-test(`Placing game order with invalid parameters should not work`, async () => {
+test(`Placing game order with invalid parameters should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,
@@ -124,7 +124,7 @@ test(`Placing game order with invalid parameters should not work`, async () => {
 
 
 
-test(`Placing game order without having corresponding tile in hand should not work`, async () => {
+test(`Placing game order without having corresponding tile in hand should NOT work`, async () => {
     const user = {
         email: USER.email,
         password: USER.password,

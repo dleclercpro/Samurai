@@ -59,6 +59,7 @@ class Rules {
             throw new ErrorGameCannotPlaceTileOntoCity(boardTile, handTile);
         }
 
+        // TO TEST
         if (!boardTile.isFree()) {
             throw new Error('This board location is not free.');
         }
@@ -74,22 +75,27 @@ class Rules {
         const { boardTiles } = order;
         const previouslyPlayedTile = boardTiles.from.getPlayedTile();
 
+        // TO TEST
         if (boardTiles.from.isFree()) {
             throw new Error('This board location has no tile on it yet.');
         }
 
+        // TO TEST
         if (previouslyPlayedTile.getPlayer().getId() !== this.player.getId()) {
             throw new Error(`Cannot move another player's tile.`);
         }
 
+        // TO TEST
         if (boardTiles.to.isCity()) {
             throw new Error('This board location is a city.');
         }
 
+        // TO TEST
         if (!boardTiles.to.isFree()) {
             throw new Error('This board location is not free.');
         }
 
+        // TO TEST
         if (!boardTiles.to.isHandTileCompatible(previouslyPlayedTile.getHandTile())) {
             throw new ErrorGameIncompatibleTileTypes(boardTiles.to, previouslyPlayedTile.getHandTile());
         }

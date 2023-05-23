@@ -43,7 +43,7 @@ test(`Signing up with valid credentials should work`, async () => {
 
 
 
-test(`Signing up with existing user's e-mail should not work`, async () => {
+test(`Signing up with existing user's e-mail should NOT work`, async () => {
     const user = { email: VALID_EMAIL, password: VALID_PASSWORD, username: VALID_USERNAME };
 
     await signUpAction(user);
@@ -56,7 +56,7 @@ test(`Signing up with existing user's e-mail should not work`, async () => {
 
 
 
-test(`Signing up with invalid e-mail should not work`, async () => {
+test(`Signing up with invalid e-mail should NOT work`, async () => {
     const user = { email: INVALID_EMAIL, password: VALID_PASSWORD, username: VALID_USERNAME };
 
     await expectActionToFailWithError(() => signUpAction(user), {
@@ -67,7 +67,7 @@ test(`Signing up with invalid e-mail should not work`, async () => {
 
 
 
-test(`Signing up with invalid password should not work`, async () => {
+test(`Signing up with invalid password should NOT work`, async () => {
     const user = { email: VALID_EMAIL, password: INVALID_PASSWORD, username: VALID_USERNAME };
 
     await expectActionToFailWithError(() => signUpAction(user), {
@@ -78,7 +78,7 @@ test(`Signing up with invalid password should not work`, async () => {
 
 
 
-test(`Signing up with missing parameters should not work`, async () => {
+test(`Signing up with missing parameters should NOT work`, async () => {
     await expectActionToFailWithError(() => signUpAction({ email: VALID_EMAIL, username: VALID_USERNAME }), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['password']),
