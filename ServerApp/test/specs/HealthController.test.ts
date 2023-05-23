@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { start, stop } from '../src/app';
-import { API_ROOT } from '../src/config/AppConfig';
-import { successResponse } from '../src/libs/calls';
-import TestDatabase from '../src/databases/TestDatabase';
+import { start, stop } from '../../src/app';
+import { API_ROOT } from '../../src/config/AppConfig';
+import { successResponse } from '../../src/libs/calls';
+import TestDatabase from '../../src/databases/TestDatabase';
 
 beforeAll(async () => {
     await start();

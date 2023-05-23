@@ -1,10 +1,10 @@
-import { start, stop } from '../../src/app';
-import { errorResponse } from '../../src/libs/calls';
-import TestDatabase from '../../src/databases/TestDatabase';
-import { ClientError } from '../../src/errors/ClientErrors';
-import { HttpStatusCode, HttpStatusMessage } from '../../src/types/HTTPTypes';
-import { expectActionToFailWithError } from '..';
-import { signUpAction } from '../actions';
+import { start, stop } from '../../../src/app';
+import { errorResponse } from '../../../src/libs/calls';
+import TestDatabase from '../../../src/databases/TestDatabase';
+import { ClientError } from '../../../src/errors/ClientErrors';
+import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
+import { expectActionToFailWithError } from '../..';
+import { signUpAction } from '../../actions/AuthActions';
 
 const VALID_EMAIL = 'user@test.com';
 const VALID_PASSWORD = 'q12345678!';

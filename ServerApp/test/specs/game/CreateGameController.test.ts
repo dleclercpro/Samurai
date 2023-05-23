@@ -1,10 +1,11 @@
-import { start, stop } from '../src/app';
-import TestDatabase from '../src/databases/TestDatabase';
-import { expectActionToFailWithError } from '.';
-import { HttpStatusCode, HttpStatusMessage } from '../src/types/HTTPTypes';
-import { errorResponse } from '../src/libs/calls';
-import { ClientError } from '../src/errors/ClientErrors';
-import { signUpAction, signInAndCreateGameAction, createGameAction } from './actions';
+import { start, stop } from '../../../src/app';
+import TestDatabase from '../../../src/databases/TestDatabase';
+import { expectActionToFailWithError } from '../..';
+import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
+import { errorResponse } from '../../../src/libs/calls';
+import { ClientError } from '../../../src/errors/ClientErrors';
+import { signUpAction } from '../../actions/AuthActions';
+import { signInAndCreateGameAction, createGameAction } from '../../actions/GameActions';
 
 const USER_1 = { email: 'user1@test.com', password: 'q12345678!', username: 'User1' };
 const USER_2 = { email: 'user2@test.com', password: 'q12345678!', username: 'User2' };

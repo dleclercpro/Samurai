@@ -1,13 +1,13 @@
-import { start, stop } from '../../src/app';
-import TestDatabase from '../../src/databases/TestDatabase';
-import HandBuilder from '../../src/helpers/builders/HandBuilder';
-import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../src/constants';
-import Player, { IPlayer } from '../../src/models/Player';
-import { Color } from '../../src/types/GameTypes';
-import Game from '../../src/models/Game';
-import { signUpAction } from '../actions';
-import { getRange } from '../../src/libs/math';
-import TestBoardBuilder from '../../src/helpers/builders/TestBoardBuilder';
+import { start, stop } from '../../../src/app';
+import TestDatabase from '../../../src/databases/TestDatabase';
+import HandBuilder from '../../../src/helpers/builders/HandBuilder';
+import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../../src/constants';
+import Player, { IPlayer } from '../../../src/models/Player';
+import { Color } from '../../../src/types/GameTypes';
+import Game from '../../../src/models/Game';
+import { signUpAction } from '../../actions/AuthActions';
+import { getRange } from '../../../src/libs/math';
+import TestBoardBuilder from '../../../src/helpers/builders/TestBoardBuilder';
 
 export const HAND_TILE_ID_MILITARY = 0;
 export const HAND_TILE_ID_RELIGION = 1;

@@ -1,10 +1,10 @@
-import { start, stop } from '../../src/app';
-import { errorResponse, successResponse } from '../../src/libs/calls';
-import TestDatabase from '../../src/databases/TestDatabase';
-import { ClientError } from '../../src/errors/ClientErrors';
-import { HttpStatusCode } from '../../src/types/HTTPTypes';
-import { expectActionToFailWithError } from '..';
-import { signUpAction, pingAction, signInAndGetCookieAction } from '../actions';
+import { start, stop } from '../../../src/app';
+import { errorResponse, successResponse } from '../../../src/libs/calls';
+import TestDatabase from '../../../src/databases/TestDatabase';
+import { ClientError } from '../../../src/errors/ClientErrors';
+import { HttpStatusCode } from '../../../src/types/HTTPTypes';
+import { expectActionToFailWithError } from '../..';
+import { signUpAction, pingAction, signInAndGetCookieAction } from '../../actions/AuthActions';
 
 const USER = { email: 'user1@test.com', password: 'q12345678!', username: 'User' };
 
