@@ -3,7 +3,6 @@ import './App.scss';
 import DialogTileChoice from './dialogs/DialogTileChoice';
 import { AppAction } from '../actions';
 import { connect } from 'react-redux';
-import FULL_HAND from '../data/FullHand.json';
 import DialogGameOver from './dialogs/DialogGameOver';
 import DialogCasteSwapStart from './dialogs/DialogCasteSwapStart';
 import DialogCasteChoice from './dialogs/DialogCasteChoice';
@@ -18,18 +17,16 @@ import { ThunkDispatch } from 'redux-thunk';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../pages/Home';
 import Game from './Game';
-import { HandTileData } from '../types/DataTypes';
 import FormSignIn from './forms/FormSignIn';
 import FormSignUp from './forms/FormSignUp';
 import FormPlayGame from './forms/FormPlayGame';
 import FormCreateGame from './forms/FormCreateGame';
-import { verifyAuthentication } from '../actions/ServerActions';
+import { getFullHandData, verifyAuthentication } from '../actions/ServerActions';
 import DialogNewTurn from './dialogs/DialogNewTurn';
 import i18n from '../i18n';
 import RulesEN from '../pages/rules/Rules-EN';
 import RulesDE from '../pages/rules/Rules-DE';
 import RulesFR from '../pages/rules/Rules-FR';
-import { setFullHand } from '../actions/HandActions';
 
 interface StateProps {
     language: i18n,
@@ -38,7 +35,7 @@ interface StateProps {
 
 interface DispatchProps {
     verifyAuthentication: () => Promise<void>,
-    setFullHand: (data: HandTileData[]) => void,
+    getFullHandData: () => Promise<void>,
 }
 
 type Props = StateProps & DispatchProps;
@@ -46,11 +43,11 @@ type Props = StateProps & DispatchProps;
 class App extends React.Component<Props, {}> {
     
     componentDidMount() {
-        const { verifyAuthentication, setFullHand } = this.props;
+        const { verifyAuthentication, getFullHandData } = this.props;
 
         verifyAuthentication();
 
-        setFullHand(FULL_HAND);
+        getFullHandData();
     }
 
     render() {
@@ -115,7 +112,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
     verifyAuthentication: () => dispatch(verifyAuthentication()),
-    setFullHand: (data: HandTileData[]) => dispatch(setFullHand(data)),
+    getFullHandData: () => dispatch(getFullHandData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

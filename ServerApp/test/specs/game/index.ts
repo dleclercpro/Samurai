@@ -8,6 +8,7 @@ import Game from '../../../src/models/Game';
 import { signUpAction } from '../../actions/AuthActions';
 import { getRange } from '../../../src/libs/math';
 import TestBoardBuilder from '../../../src/helpers/builders/TestBoardBuilder';
+import { ErrorGameInvalidPlayerCount } from '../../../src/errors/GameErrors';
 
 export const HAND_TILE_ID_MILITARY = 0;
 export const HAND_TILE_ID_RELIGION = 1;
@@ -94,21 +95,42 @@ export const PLAYERS: Record<string, IPlayer> = {
     'PLAYER_WITH_MOVE_AND_SWAP': PLAYER_WITH_MOVE_AND_SWAP,
 };
 
-export const BOARD = new TestBoardBuilder(Object.keys(PLAYERS).length).build();
+const BOARD_2_PLAYERS = new TestBoardBuilder(2).build();
+const BOARD_3_PLAYERS = new TestBoardBuilder(3).build();
+const BOARD_4_PLAYERS = new TestBoardBuilder(4).build();
 
 
 
-export const createGame = async (currentPlayer: string) => {
-    const players = Object.values(PLAYERS).map(player => {
-        player.setIsPlaying(player === PLAYERS[currentPlayer]);
+export const createGame = async (playerNames: string[], currentPlayerName: string) => {
+    const now = new Date();
+    
+    const players = playerNames.map(name => {
+        const player = PLAYERS[name];
+        
+        player.setIsPlaying(player === PLAYERS[currentPlayerName]);
 
         return player;
     });
 
+    let board;
+    switch (playerNames.length) {
+        case 2:
+            board = BOARD_2_PLAYERS;
+            break;
+        case 3:
+            board = BOARD_3_PLAYERS;
+            break;
+        case 4:
+            board = BOARD_4_PLAYERS;
+            break;
+        default:
+            throw new ErrorGameInvalidPlayerCount(playerNames.length);
+    }
+
     return await Game.create({
-        name: new Date().toUTCString(),
+        name: now.toUTCString(),
         players,
-        board: BOARD,
+        board,
     });
 };
 

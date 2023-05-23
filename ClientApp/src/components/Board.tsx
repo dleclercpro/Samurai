@@ -82,7 +82,7 @@ class Board extends React.Component<Props, State> {
                     return null;
                 }
                 
-                const { type, strength, canReplay } = handTile;
+                const { type, strength, replay } = handTile;
                 const { coordinates } = boardTile;
                 const position = this.getTilePosition(coordinates);
 
@@ -94,7 +94,7 @@ class Board extends React.Component<Props, State> {
                         type={type}
                         color={color}
                         strength={strength}
-                        canReplay={canReplay}
+                        replay={replay}
                         position={position}
                         rotation={-BOARD_ROTATION}
                     />

@@ -11,7 +11,7 @@ interface OwnProps {
     type: TileType,
     color: PlayerColor,
     strength: number,
-    canReplay?: boolean,
+    replay?: boolean,
     isPlayable?: boolean,
     isSelected?: boolean,
     wasPlayed?: boolean,
@@ -82,7 +82,7 @@ class HandTileContent extends React.Component<Props, State> {
     }
 
     render() {
-        const { type, color, isPlayable, isSelected, wasPlayed, canReplay } = this.props;
+        const { type, color, isPlayable, isSelected, wasPlayed, replay } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
 
@@ -111,7 +111,7 @@ class HandTileContent extends React.Component<Props, State> {
                 onMouseLeave={this.handleMouseLeave}
             >
                 {isSwap ? this.getSwap() : this.getNormal()}
-                {canReplay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
+                {replay && <TileIcon position={replayIconPosition} size={replayIconSize} type={Action.Replay} />}
             </g>
         );
     }

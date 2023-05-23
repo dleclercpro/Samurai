@@ -153,7 +153,7 @@ BoardTileSchema.methods.isClosed = function() {
 
 BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {
     const type = this.getType();
-    
+
     switch (type) {
         case BoardTileType.Ground:
             return [HandTileType.Military, HandTileType.Religion, HandTileType.Commerce, HandTileType.Samurai, HandTileType.Move].includes(handTile.getType());

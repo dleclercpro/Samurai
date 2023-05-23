@@ -1,4 +1,4 @@
-import { BoardData, HandTileData, PlayerData, PlayedTilesData } from './DataTypes';
+import { BoardData, PlayerData, PlayedTilesData, FullHandData } from './DataTypes';
 import { DialogType } from './DialogTypes';
 import { Caste, Language } from './GameTypes';
 import { AppAction } from '../actions';
@@ -98,7 +98,7 @@ export interface SetPlayedTilesSinceLastTurn {
 export const SET_FULL_HAND = 'SET_FULL_HAND';
 export interface SetFullHand {
     type: typeof SET_FULL_HAND,
-    data: HandTileData[],
+    data: FullHandData,
 }
 
 export const SET_OWN_HAND = 'SET_OWN_HAND';

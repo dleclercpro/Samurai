@@ -1,7 +1,7 @@
 import Board from '../../models/Board';
 import BoardTile, { IBoardTile } from '../../models/BoardTile';
 import { BoardTileJSON } from '../../types/JSONTypes';
-import BoardData from '../data/BoardDataManager';
+import BoardDataManager from '../data/BoardDataManager';
 import TestBoardData from '../data/TestBoardDataManager';
 import BoardBuilder from './BoardBuilder';
 
@@ -12,7 +12,7 @@ class TestBoardBuilder extends BoardBuilder {
         const excludedSections = this.getExcludedSections();
 
         // Start building board with playable tiles contained in existing sections
-        const playableTiles = BoardData.getTiles()
+        const playableTiles = BoardDataManager.getTiles()
             .filter(tile => !excludedSections.includes(tile.section))
             .reduce((prevTiles: IBoardTile[], tile: BoardTileJSON) => {
                 return [
@@ -25,7 +25,7 @@ class TestBoardBuilder extends BoardBuilder {
             }, []);
 
         // Finish off by adding caste swapping tiles, also based on number of players
-        const tiles = BoardData.getSwapTiles()
+        const tiles = BoardDataManager.getSwapTiles()
             .slice(0, this.nPlayers)
             .reduce((prevTiles, tile) => {
                 return [

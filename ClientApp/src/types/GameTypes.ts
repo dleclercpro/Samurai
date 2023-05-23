@@ -50,7 +50,7 @@ export interface HandTile {
     id: number,
     type: TileType,
     strength: number,
-    canReplay: boolean,
+    replay: boolean,
 }
 
 export type BoardTileMap = Map<number, BoardTile>;

@@ -5,7 +5,7 @@ import { HttpStatusCode } from '../../../src/types/HTTPTypes';
 import { ClientError } from '../../../src/errors/ClientErrors';
 import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { playGameAction } from '../../actions/GameActions';
-import { USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { PLAYERS, USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 
 
 
@@ -24,7 +24,7 @@ test(`Placing swap order with valid parameters should work`, async () => {
     };
 
     // Create test game in database
-    const game = await createGame('PLAYER_WITH_SWAP');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order
     const order = {
@@ -48,7 +48,7 @@ test(`Placing swap order with missing caste should not work`, async () => {
     };
 
     // Create test game in database
-    const game = await createGame('PLAYER_WITH_SWAP');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order
     const missingFromCasteOrder = {

@@ -45,7 +45,7 @@ class Hand extends React.Component<Props, {}> {
         return (
             <div className='hand'>
                 {(inDialog ? this.getFilteredTilesForDialog(inDialog) : tiles).map((tile: HandTile) => {
-                    const { id, type, strength, canReplay } = tile;
+                    const { id, type, strength, replay } = tile;
 
                     return (
                         <HandTileComponent
@@ -54,7 +54,7 @@ class Hand extends React.Component<Props, {}> {
                             color={color}
                             type={type}
                             strength={strength}
-                            canReplay={canReplay}
+                            replay={replay}
                             isInDialog={inDialog !== undefined}
                         />
                     );

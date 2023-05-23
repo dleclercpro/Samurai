@@ -91,7 +91,7 @@ class DialogTileMoveEnd extends React.Component<Props, State> {
                         color={color}
                         type={tile.type}
                         strength={tile.strength}
-                        canReplay={tile.canReplay}
+                        replay={tile.replay}
                         isInDialog
                     />
                 }

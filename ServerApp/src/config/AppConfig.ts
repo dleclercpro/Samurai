@@ -12,7 +12,7 @@ export const TEST = ENV === Environment.Test;
 
 // Directories
 export const PUBLIC_DIR = path.join(__dirname, '../../public');
-export const STATIC_DIR = path.join(PUBLIC_DIR, 'static');
+export const STATIC_DIR = PUBLIC_DIR;
 
 // Server
 export const PROTOCOL = process.env.PROTOCOL!;
@@ -21,6 +21,7 @@ export const PORT = parseInt(process.env.PORT!);
 export const ROOT = `${createURL(PROTOCOL, HOST, PORT)}`;
 export const API_VERSION = 'v1';
 export const API_ROOT = `${ROOT}/api/${API_VERSION}`;
+export const STATIC_ROOT = `${ROOT}/static`;
 
 // Client
 export const CLIENT_PROTOCOL = process.env.CLIENT_PROTOCOL!;

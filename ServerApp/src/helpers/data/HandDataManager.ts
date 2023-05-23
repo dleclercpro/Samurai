@@ -1,4 +1,4 @@
-import { HAND_JSON } from '../../config/GameConfig';
+import { FULL_HAND_JSON } from '../../config/GameConfig';
 import { BOARD_TILE_SWAP_IDS } from '../../constants';
 import { ErrorGameHandTileDoesNotExist } from '../../errors/GameErrors';
 import { HandJSON, HandTileJSON } from '../../types/JSONTypes';
@@ -18,7 +18,7 @@ class HandDataManager {
 
     public static getInstance() {
         if (!this.instance) {
-            this.instance = new HandDataManager(HAND_JSON);
+            this.instance = new HandDataManager(FULL_HAND_JSON);
         }
 
         return this.instance;

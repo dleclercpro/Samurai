@@ -20,6 +20,7 @@ export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superi
 // Server
 export const BASE_URL = DEBUG ? DEV_URL : PROD_URL;
 export const API_URL = `${BASE_URL}/api/v1`;
+export const STATIC_URL = `${BASE_URL}/static`;
 export const POLL_RATE = 5 * 1000;      // ms
 export const FETCH_DEFAULT_TIMEOUT = 2000; // ms
 export const MAX_POLL_RETRIES = 5;

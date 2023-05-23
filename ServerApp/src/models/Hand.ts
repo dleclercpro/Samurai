@@ -16,8 +16,10 @@ export interface IHand extends Types.Subdocument {
     hasMoveTile: () => boolean,
     hasSwapTile: () => boolean,
     removeTile: (tile: IHandTile) => void,
+    hasNextTile: () => boolean,
     getCurrent: () => IHandTile[],
     getRemaining: () => IHandTile[],
+    renew: () => void,
 }
 
 
@@ -67,12 +69,22 @@ HandSchema.methods.removeTile = function(tileToRemove: IHandTile) {
     this.current = (this as IHand).current.filter(tile => tile.getId() !== tileToRemove.getId());
 }
 
+HandSchema.methods.hasNextTile = function() {
+    return this.remaining.length > 0;
+}
+
 HandSchema.methods.getCurrent = function() {
     return this.current;
 }
 
 HandSchema.methods.getRemaining = function() {
     return this.remaining;
+}
+
+HandSchema.methods.renew = function() {
+    const newTile = this.remaining.pop();
+
+    this.current.push(newTile);
 }
 
 

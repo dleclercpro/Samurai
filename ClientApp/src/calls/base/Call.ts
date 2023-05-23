@@ -1,4 +1,4 @@
-import { API_URL, FETCH_DEFAULT_TIMEOUT } from '../../config';
+import { FETCH_DEFAULT_TIMEOUT } from '../../config';
 import { log } from '../../logger';
 import fetchWithTimeout from './Fetch';
 import getCookie from './Cookie';
@@ -14,7 +14,7 @@ class Call {
 
     constructor(name: string, url: string, method: string, payload?: object, timeout?: number) {
         this.name = name;
-        this.url = API_URL + url;
+        this.url = url;
         this.method = method;
         this.payload = payload;
         this.timeout = timeout !== undefined ? timeout : FETCH_DEFAULT_TIMEOUT;
@@ -84,14 +84,19 @@ class Call {
 
             const json = await response.json();
             const { code, error } = json;
+
+            const isApiResponse = code !== undefined;
     
             // Everything went fine
-            if (code >= 0) {
+            if (isApiResponse && code >= 0) {
+                return json;
+            }
+            if (!isApiResponse && response.status === 200) {
                 return json;
             }
     
             // Something went wrong, but we let the processing happen further down the line
-            return Promise.reject(new Error(error));
+            return Promise.reject(error);
 
         } catch (error: any) {
             throw new Error(`[${error.message.toUpperCase()}]`);

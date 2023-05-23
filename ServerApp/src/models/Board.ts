@@ -20,6 +20,7 @@ export interface IBoard extends Types.Subdocument {
 
     // Methods
     stringify: () => string,
+    hasTile: (id: number) => boolean,
     getTiles: () => IBoardTile[],
     getTileById: (id: number) => IBoardTile,
     getTilesPlayedByPlayer: (player: IPlayer) => IPlayedTile[],
@@ -49,6 +50,10 @@ BoardSchema.methods.stringify = function() {
     return ``;
 }
 
+BoardSchema.methods.hasTile = function(id: number) {
+    return (this as IBoard).tiles.findIndex(tile => tile.getId() === id) !== -1;
+}
+
 BoardSchema.methods.getTiles = function() {
     return this.tiles;
 }
@@ -74,6 +79,7 @@ BoardSchema.methods.getTilesPlayedByPlayer = function(player: IPlayer) {
 
 BoardSchema.methods.getCities = function() {
     return BoardDataManager.getCities()
+        .filter(city => (this as IBoard).hasTile(city.id))
         .map(city => (this as IBoard).getTileById(city.id));
 }
 

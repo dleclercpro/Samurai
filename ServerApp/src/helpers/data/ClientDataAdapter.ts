@@ -2,12 +2,11 @@ import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../constants';
 import { IBoard } from '../../models/Board';
 import { BoardTileType, IBoardTile } from '../../models/BoardTile';
 import { IGame } from '../../models/Game';
-import { IHandTile } from '../../models/HandTile';
 import { IPlayedTile } from '../../models/PlayedTile';
 import { IPlayer } from '../../models/Player';
 import { IScore } from '../../models/Score';
 import User, { IUser } from '../../models/User';
-import { BoardData, BoardTileData, HandData, HandTileData, PlayedTilesData, PlayerData, PlayersData, ScoreData } from '../../types/DataTypes';
+import { BoardData, BoardTileData, HandData, PlayedTilesData, PlayerData, PlayersData, ScoreData } from '../../types/DataTypes';
 import { Caste } from '../../types/GameTypes';
 
 /*
@@ -73,15 +72,6 @@ class ClientDataAdapter {
 
     private getHandData(player: IPlayer): HandData {
         return player.getHand().getCurrent().map(handTile => handTile.getId());
-    }
-
-    private getHandTileData(handTile: IHandTile): HandTileData {
-        return {
-            id: handTile.getId(),
-            type: handTile.getType(),
-            strength: handTile.getStrength(),
-            canReplay: handTile.canReplay(),
-        };
     }
 
     private async getPlayersData(player: IPlayer, game: IGame): Promise<PlayersData> {

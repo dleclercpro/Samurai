@@ -10,10 +10,10 @@ export enum CallType {
 
 
 // Server responses
-export interface ServerResponse<T> {
-    status: number,
-    message: string,
-    data: T,
+export interface ServerResponse<Data> {
+    code: number,
+    error?: string,
+    data: Data,
 }
 
 
@@ -50,12 +50,14 @@ export interface BoardTileData {
 
 export type HandData = number[];
 
-export interface HandTileData {
+export interface FullHandTileData {
     id: number,
     type: string,
     strength: number,
-    canReplay: boolean,
+    replay: boolean,
 }
+
+export type FullHandData = FullHandTileData[];
 
 export type PlayedTilesData = {
     [id: string]: number,

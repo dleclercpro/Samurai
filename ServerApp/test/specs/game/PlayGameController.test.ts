@@ -4,7 +4,7 @@ import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes'
 import { ClientError } from '../../../src/errors/ClientErrors';
 import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { playGameAction } from '../../actions/GameActions';
-import { HAND_TILE_ID_MILITARY, HAND_TILE_ID_RELIGION, HAND_TILE_ID_SAMURAI, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { HAND_TILE_ID_MILITARY, HAND_TILE_ID_RELIGION, HAND_TILE_ID_SAMURAI, PLAYERS, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 
 
 
@@ -23,7 +23,7 @@ test(`Placing tile with 'replay' feature should allow same player to play again`
     };
 
     // Create test game in database
-    const game = await createGame('PLAYER');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game orders
     const order1 = {
@@ -54,7 +54,7 @@ test(`Placing tile without 'replay' feature should not allow same player to play
     };
 
     // Create test game in database
-    const game = await createGame('PLAYER');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game orders
     const order1 = {
@@ -92,7 +92,7 @@ test(`Placing game order with invalid parameters should not work`, async () => {
     };
 
     // Create test game in database
-    const game = await createGame('PLAYER');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game orders
     const missingHandTileOrder = {
@@ -132,7 +132,7 @@ test(`Placing game order without having corresponding tile in hand should not wo
     };
 
     // Create test game in database
-    const game = await createGame('PLAYER');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
     const order = {

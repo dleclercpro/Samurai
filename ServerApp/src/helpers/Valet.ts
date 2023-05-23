@@ -34,7 +34,13 @@ class Valet {
         }
 
         // Remove tile from player's hand
-        this.player.getHand().removeTile(handTile);
+        const hand = this.player.getHand();
+        hand.removeTile(handTile);
+
+        // Renew player's hand
+        if (hand.hasNextTile()) {
+            hand.renew();
+        }
 
         // Check if any city was closed with the last order (only swaps cannot lead to closing a city)
         if (handTile.getId() !== HAND_TILE_ID_SWAP) {

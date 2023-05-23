@@ -1,7 +1,7 @@
 import { CallPlayGame } from '../calls/game/CallPlayGame';
 import { openDialog, setDialogText, setDialogAction } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
-import { UserData, GameData } from '../types/DataTypes';
+import { UserData, GameData, FullHandData } from '../types/DataTypes';
 import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn, setGameName } from './GameActions';
 import { AppThunkDispatch, AppThunkAction } from '../types/ActionTypes';
 import { setBoard } from './BoardActions';
@@ -18,7 +18,8 @@ import { CallSignOut } from '../calls/auth/CallSignOut';
 import { CallPing } from '../calls/auth/CallPing';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { CallGetGameData } from '../calls/game/CallGetGameData';
-import { setOwnHand } from './HandActions';
+import { setFullHand, setOwnHand } from './HandActions';
+import { CallGetFullHand } from '../calls/game/CallGetFullHand';
 
 export const verifyAuthentication = (): AppThunkAction<void> => {
 
@@ -126,6 +127,17 @@ export const createGame = (name: string, opponents: string[]): AppThunkAction<vo
                 dispatch(openDialog(DialogType.Error));
 
                 return Promise.reject(error);
+            });
+    };
+}
+
+export const getFullHandData = (): AppThunkAction<void> => {
+
+    return (dispatch: AppThunkDispatch<void>) => {
+
+        return new CallGetFullHand().execute()
+            .then((response: FullHandData) => {
+                dispatch(setFullHand(response));
             });
     };
 }

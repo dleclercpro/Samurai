@@ -90,7 +90,7 @@ class Rules {
             throw new Error('This board location is not free.');
         }
 
-        if (boardTiles.to.isHandTileCompatible(previouslyPlayedTile.getHandTile())) {
+        if (!boardTiles.to.isHandTileCompatible(previouslyPlayedTile.getHandTile())) {
             throw new ErrorGameIncompatibleTileTypes(boardTiles.to, previouslyPlayedTile.getHandTile());
         }
 

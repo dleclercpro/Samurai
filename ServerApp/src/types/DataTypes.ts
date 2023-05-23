@@ -33,12 +33,14 @@ export interface BoardTileData {
 
 export type HandData = number[];
 
-export interface HandTileData {
+export interface FullHandTileData {
     id: number,
     type: string,
     strength: number,
-    canReplay: boolean,
+    replay: boolean,
 }
+
+export type FullHandData = FullHandTileData[];
 
 export type PlayedTilesData = {
     [id: string]: number,

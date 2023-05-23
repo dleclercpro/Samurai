@@ -16,7 +16,7 @@ interface OwnProps {
     color: PlayerColor,
     type: TileType,
     strength: number,
-    canReplay?: boolean,
+    replay?: boolean,
     isInDialog?: boolean,
 }
 
@@ -64,7 +64,7 @@ class HandTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { color, type, strength, isSelected, isPlayable, canReplay } = this.props;
+        const { color, type, strength, isSelected, isPlayable, replay } = this.props;
         const { width, height } = TILE_SIZE;
 
         return (
@@ -80,7 +80,7 @@ class HandTileComponent extends React.Component<Props, {}> {
                     color={color}
                     type={type}
                     strength={strength}
-                    canReplay={canReplay}
+                    replay={replay}
                     isPlayable={isPlayable}
                     isSelected={isPlayable && isSelected}
                 />

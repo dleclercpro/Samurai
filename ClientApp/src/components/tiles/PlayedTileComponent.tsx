@@ -18,7 +18,7 @@ interface OwnProps {
     color: PlayerColor,
     type: TileType,
     strength: number,
-    canReplay: boolean,
+    replay: boolean,
 }
 
 interface StateProps {
@@ -46,7 +46,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const { position, rotation, color, type, strength, canReplay, isPlayable, isSelected, wasPlayed } = this.props;
+        const { position, rotation, color, type, strength, replay, isPlayable, isSelected, wasPlayed } = this.props;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
         
@@ -63,7 +63,7 @@ class PlayedTileComponent extends React.Component<Props, {}> {
                     color={color}
                     type={type}
                     strength={strength}
-                    canReplay={canReplay}
+                    replay={replay}
                     isPlayable={isPlayable}
                     isSelected={isSelected}
                     wasPlayed={wasPlayed}

@@ -1,4 +1,4 @@
-import { BoardData, BoardTileData, HandTileData, PlayerData, ScoreData, PlayedTilesData } from './types/DataTypes';
+import { BoardData, BoardTileData, FullHandTileData, PlayerData, ScoreData, PlayedTilesData, FullHandData } from './types/DataTypes';
 import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap, PlayedTileMap } from './types/GameTypes';
 
 export const parseBoard = (data: BoardData): BoardTileMap => {
@@ -120,14 +120,14 @@ export const parsePlayer = (data: PlayerData): Player => {
     }
 }
 
-export const parseHandTile = (data: HandTileData): HandTile => {
-    const { id, type, strength, canReplay } = data;
+export const parseHandTile = (data: FullHandTileData): HandTile => {
+    const { id, type, strength, replay } = data;
     
     return {
         id,
         type: parseTileType(type),
         strength,
-        canReplay,
+        replay,
     };
 }
 
@@ -143,7 +143,7 @@ export const parsePlayedTiles = (data: PlayedTilesData): PlayedTileMap => {
     return playedTiles;
 }
 
-export const parseFullHand = (data: HandTileData[]): HandTileMap => {
+export const parseFullHand = (data: FullHandData): HandTileMap => {
     const hand = new Map();
 
     data.forEach(tile => {

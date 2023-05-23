@@ -272,7 +272,7 @@ const Rules: React.FC<Props> = (props) => {
                                                     color={PlayerColor.Orange}
                                                     type={Action.Swap}
                                                     strength={0}
-                                                    canReplay
+                                                    replay
                                                 />
                                             </div>
                                         </section>
@@ -295,7 +295,7 @@ const Rules: React.FC<Props> = (props) => {
                                         color={PlayerColor.Green}
                                         type={Figure.Samurai}
                                         strength={2}
-                                        canReplay
+                                        replay
                                     />
                                 </div>
                             </section>
