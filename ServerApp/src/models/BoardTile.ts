@@ -18,7 +18,8 @@ export enum BoardTileType {
 
 export interface IBoardTile extends Types.Subdocument {
     id: number,
-    castes: Caste[],
+    castePieces: Caste[],
+    remainingCastePieces: Caste[],
     playedTile?: IPlayedTile,
 
     // Methods
@@ -31,6 +32,7 @@ export interface IBoardTile extends Types.Subdocument {
     getNeighboringTiles: () => IBoardTile[],
     getNeighboringCities: () => IBoardTile[],
     getCastePieceCountByType: (caste: Caste) => number,
+    getStartCastePieces: () => Caste[],
     getCastePieces: () => Caste[],
     hasCastePiece: (caste: Caste) => boolean,
     addCastePiece: (caste: Caste) => void,
@@ -57,7 +59,8 @@ export interface IBoardTileModel extends Model<IBoardTile> {
 
 export const BoardTileSchema = new Schema<IBoardTile>({
     id: { type: Number, required: true },
-    castes: { type: [String], enum: CASTES, required: true, default: [] },
+    castePieces: { type: [String], enum: CASTES, required: true, default: [] },
+    remainingCastePieces: { type: [String], enum: CASTES, required: true, default: [] },
     playedTile: { type: PlayedTileSchema },
 
 }, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
@@ -101,33 +104,37 @@ BoardTileSchema.methods.getNeighboringCities = function() {
 }
 
 BoardTileSchema.methods.getCastePieceCountByType = function(caste: Caste) {
-    return (this as IBoardTile).castes.filter(c => c === caste).length;
+    return (this as IBoardTile).remainingCastePieces.filter(c => c === caste).length;
+}
+
+BoardTileSchema.methods.getStartCastePieces = function() {
+    return this.castePieces;
 }
 
 BoardTileSchema.methods.getCastePieces = function() {
-    return this.castes;
+    return this.remainingCastePieces;
 }
 
 BoardTileSchema.methods.hasCastePiece = function(caste: Caste) {
-    return this.castes.includes(caste);
+    return this.remainingCastePieces.includes(caste);
 }
 
 BoardTileSchema.methods.addCastePiece = function(caste: Caste) {
-    this.castes = [...this.castes, caste];
+    this.remainingCastePieces = [...this.remainingCastePieces, caste];
 }
 
 BoardTileSchema.methods.removeCastePiece = function(caste: Caste) {
-    const indexToRemove = this.castes.indexOf(caste);
+    const indexToRemove = this.remainingCastePieces.indexOf(caste);
 
     if (indexToRemove === -1) {
         throw new Error('Cannot remove absent caste piece from board tile!');
     }
 
-    this.castes = [...this.castes.slice(0, indexToRemove), ...this.castes.slice(indexToRemove + 1)];
+    this.remainingCastePieces = [...this.remainingCastePieces.slice(0, indexToRemove), ...this.remainingCastePieces.slice(indexToRemove + 1)];
 }
 
 BoardTileSchema.methods.removeCastePiecesByCaste = function(caste: Caste) {
-    this.castes = (this as IBoardTile).castes.filter(c => c !== caste);
+    this.remainingCastePieces = (this as IBoardTile).remainingCastePieces.filter(c => c !== caste);
 }
 
 BoardTileSchema.methods.setTile = function(playedTile: IPlayedTile) {
@@ -155,7 +162,7 @@ BoardTileSchema.methods.isSwap = function() {
 }
 
 BoardTileSchema.methods.isCity = function() {
-    return this.castes.length > 0;
+    return this.castePieces.length > 0;
 }
 
 BoardTileSchema.methods.isClosed = function() {
@@ -163,7 +170,7 @@ BoardTileSchema.methods.isClosed = function() {
         throw new ErrorGameBoardTileNotACity(this as IBoardTile);
     }
 
-    return (this as IBoardTile).getNeighboringTiles().every(tile => !tile.isFree());
+    return (this as IBoardTile).getNeighboringTiles().every(tile => !tile.isFree() || tile.isWater());
 }
 
 BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {

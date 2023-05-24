@@ -45,11 +45,14 @@ class BoardBuilder {
         const playableTiles = BoardDataManager.getTiles()
             .filter(tile => !excludedSections.includes(tile.section))
             .reduce((prevTiles: IBoardTile[], tile: BoardTileJSON) => {
+                const castePieces = getRange(tile.castes).map(() => castePiecesBag.getNext());
+
                 return [
                     ...prevTiles,
                     new BoardTile({
                         id: tile.id,
-                        castes: getRange(tile.castes).map(() => castePiecesBag.getNext()),
+                        castePieces,
+                        remainingCastePieces: castePieces,
                     }),
                 ];
             }, []);
@@ -60,7 +63,9 @@ class BoardBuilder {
             .reduce((prevTiles, tile) => {
                 return [
                     ...prevTiles,
-                    new BoardTile({ id: tile.id }),
+                    new BoardTile({
+                        id: tile.id,
+                    }),
                 ];
             }, playableTiles);
 

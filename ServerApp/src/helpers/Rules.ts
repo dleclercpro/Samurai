@@ -104,11 +104,11 @@ class Rules {
     private canSwap(order: Swap) {
         const { boardTiles, castes } = order;
 
-        if (!boardTiles.from.isCity()) {
+        if (!boardTiles.from.isCity) {
             throw new ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile(boardTiles.from);
         }
 
-        if (!boardTiles.to.isCity()) {
+        if (!boardTiles.to.isCity) {
             throw new ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile(boardTiles.to);
         }
 
