@@ -2,6 +2,7 @@ import { Document, model, Model, Schema } from 'mongoose';
 import Order, { IOrder, OrderSchema, RawGameOrder } from './Order';
 import { deepCopy } from '../libs';
 import { IGame } from './Game';
+import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 
 export interface IHistory extends Document {
     orders: IOrder[],
@@ -23,7 +24,8 @@ export interface IHistoryModel extends Model<IHistory> {
 
 export const HistorySchema = new Schema<IHistory>({
     orders: { type: [OrderSchema], required: true, default: [] },
-});
+
+}, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
 
 
 
