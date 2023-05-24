@@ -150,6 +150,7 @@ export const beforeEachPlay = async () => {
 
         const { data } = await signUpAction(user);
 
+        // Link player to user
         player.userId = data.id;
     }));
 };

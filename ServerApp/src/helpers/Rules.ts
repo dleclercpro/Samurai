@@ -5,7 +5,7 @@ import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
-import { ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
+import { ErrorGameBoardTileNotFree, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
 import { GameOrder } from '../models/Order';
 
 export interface Normal {
@@ -59,9 +59,8 @@ class Rules {
             throw new ErrorGameCannotPlaceTileOntoCity(boardTile, handTile);
         }
 
-        // TO TEST
         if (!boardTile.isFree()) {
-            throw new Error('This board location is not free.');
+            throw new ErrorGameBoardTileNotFree(boardTile);
         }
 
         if (!boardTile.isHandTileCompatible(handTile)) {

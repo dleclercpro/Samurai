@@ -73,6 +73,14 @@ export class ErrorGameMissingCastePiece extends ServerError {
     }
 }
 
+export class ErrorGameBoardTileNotFree extends ServerError {
+    public static code = -408;
+
+    constructor(boardTile: IBoardTile) {
+        super(ErrorGameBoardTileNotFree.code, `Board tile is not free: ${boardTile.getId()}.`);
+    }
+}
+
 export class ErrorGameBoardTileNotACity extends ServerError {
     public static code = -409;
 

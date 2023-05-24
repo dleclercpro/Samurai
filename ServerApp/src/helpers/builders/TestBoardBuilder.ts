@@ -8,7 +8,7 @@ import BoardBuilder from './BoardBuilder';
 class TestBoardBuilder extends BoardBuilder {
 
     public build() {
-        const TEST_BOARD_DATA = new TestBoardData(this.nPlayers);
+        const TestBoardDataManager = new TestBoardData(this.nPlayers);
         const excludedSections = this.getExcludedSections();
 
         // Start building board with playable tiles contained in existing sections
@@ -19,7 +19,7 @@ class TestBoardBuilder extends BoardBuilder {
                     ...prevTiles,
                     new BoardTile({
                         id: tile.id,
-                        castes: TEST_BOARD_DATA.getTileById(tile.id).castes,
+                        castes: TestBoardDataManager.getTileById(tile.id).castes,
                     }),
                 ];
             }, []);

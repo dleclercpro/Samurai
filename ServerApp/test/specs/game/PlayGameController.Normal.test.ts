@@ -210,6 +210,41 @@ test(`Placing ship hand tile onto free ground board tile should NOT work`, async
 
 
 
+test(`Placing hand tile onto board tile that's not free should NOT work`, async () => {
+    const user = {
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    };
+
+    // Create test game in database
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+
+    // Build game order
+    const order1 = {
+        handTileId: HAND_TILE_ID_SAMURAI, // Trick for test: player can replay after placing this tile
+        boardTileIds: { from: null, to: 30 }, // Free ground board tile
+        castes: { from: null, to: null },
+    };
+    const order2 = {
+        handTileId: HAND_TILE_ID_MILITARY,
+        boardTileIds: { from: null, to: 30 }, // Board tile is not free anymore!
+        castes: { from: null, to: null },
+    };
+
+    const action1 = () => playGameAction(game.getId(), order1, user);
+    const action2 = () => playGameAction(game.getId(), order2, user);
+
+    await expect(action1()).resolves.toEqual(successResponse());
+
+    await expectActionToFailWithError(action2, {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(ClientError.InvalidGameOrder),
+    });
+});
+
+
+
 test(`Placing regular ground hand tile onto city board tile should NOT work`, async () => {
     const user = {
         email: USER.email,

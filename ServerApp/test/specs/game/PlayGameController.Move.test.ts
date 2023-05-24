@@ -1,10 +1,17 @@
 import { PLAYERS, USER_WITH_MOVE, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 import assert from 'assert';
 
+const updatedBeforeEachPlay = async () => {
+    await beforeEachPlay();
+
+    // Place tiles on board
+    
+};
+
 
 
 beforeAll(beforeAllPlay);
-beforeEach(beforeEachPlay);
+beforeEach(updatedBeforeEachPlay);
 afterAll(afterAllPlay);
 afterEach(afterEachPlay);
 
