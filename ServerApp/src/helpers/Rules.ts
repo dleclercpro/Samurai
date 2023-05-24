@@ -84,12 +84,12 @@ class Rules {
 
         // TO TEST
         if (boardTiles.to.isCity()) {
-            throw new Error('This board location is a city.');
+            throw new ErrorGameCannotPlaceTileOntoCity(boardTiles.to, previouslyPlayedTile.getHandTile());
         }
 
         // TO TEST
         if (!boardTiles.to.isFree()) {
-            throw new Error('This board location is not free.');
+            throw new ErrorGameBoardTileNotFree(boardTiles.to);
         }
 
         // TO TEST
