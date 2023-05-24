@@ -5,7 +5,7 @@ import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
-import { ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
+import { ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameCastePieceDoesNotExist, ErrorGamePlayedTileDoesNotExist } from '../errors/GameErrors';
 import { GameOrder } from '../models/Order';
 
 export interface Normal {
@@ -74,9 +74,8 @@ class Rules {
         const { boardTiles } = order;
         const previouslyPlayedTile = boardTiles.from.getPlayedTile();
 
-        // TO TEST
         if (boardTiles.from.isFree()) {
-            throw new Error('This board location has no tile on it yet.');
+            throw new ErrorGamePlayedTileDoesNotExist(boardTiles.from);
         }
 
         if (previouslyPlayedTile.getPlayer().getId() !== this.player.getId()) {
@@ -117,11 +116,11 @@ class Rules {
         }
 
         if (!boardTiles.from.hasCastePiece(castes.from)) {
-            throw new ErrorGameMissingCastePiece(castes.from, boardTiles.from);
+            throw new ErrorGameCastePieceDoesNotExist(castes.from, boardTiles.from);
         }
 
         if (!boardTiles.to.hasCastePiece(castes.to)) {
-            throw new ErrorGameMissingCastePiece(castes.to, boardTiles.to);
+            throw new ErrorGameCastePieceDoesNotExist(castes.to, boardTiles.to);
         }
 
         return true;

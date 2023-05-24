@@ -6,7 +6,7 @@ import { ClientError } from '../../../src/errors/ClientErrors';
 import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { playGameAction } from '../../actions/GameActions';
 import { PLAYERS, USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
-import { signInAction } from '../../actions/AuthActions';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
 
 
 
@@ -23,14 +23,22 @@ const customBeforeEachPlay = async () => {
 
 
 
+const customAfterEachPlay = async () => {
+    await signOutAction();
+
+    await afterEachPlay();
+};
+
+
+
 beforeAll(beforeAllPlay);
 beforeEach(customBeforeEachPlay);
 afterAll(afterAllPlay);
-afterEach(afterEachPlay);
+afterEach(customAfterEachPlay);
 
 
 
-test(`Placing valid swap order should work`, async () => {
+test(`Valid swap order should work`, async () => {
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order

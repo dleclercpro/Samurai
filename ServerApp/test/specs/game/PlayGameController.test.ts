@@ -5,7 +5,7 @@ import { ClientError } from '../../../src/errors/ClientErrors';
 import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { playGameAction } from '../../actions/GameActions';
 import { HAND_TILE_ID_MILITARY, HAND_TILE_ID_RELIGION, HAND_TILE_ID_SAMURAI, PLAYERS, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
-import { signInAction } from '../../actions/AuthActions';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
 
 
 
@@ -22,10 +22,69 @@ const customBeforeEachPlay = async () => {
 
 
 
+const customAfterEachPlay = async () => {
+    await signOutAction();
+
+    await afterEachPlay();
+};
+
+
+
 beforeAll(beforeAllPlay);
 beforeEach(customBeforeEachPlay);
 afterAll(afterAllPlay);
-afterEach(afterEachPlay);
+afterEach(customAfterEachPlay);
+
+
+
+test(`Placing game order with invalid parameters should NOT work`, async () => {
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+
+    // Build game orders
+    const missingHandTileOrder = {
+        boardTileIds: { from: 0, to: 1 },
+        castes: { from: null, to: null },
+    };
+    const missingBoardTilesOrder = {
+        handTileId: 0,
+        castes: { from: null, to: null },
+    };
+    const missingCastesOrder = {
+        handTileId: 0,
+        boardTileIds: { from: 0, to: 1 },
+    };
+
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingHandTileOrder), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['handTileId']),
+    });
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingBoardTilesOrder), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['boardTileIds.from', 'boardTileIds.to']),
+    });
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingCastesOrder), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['castes.from', 'castes.to']),
+    });
+});
+
+
+
+test(`Placing game order without having corresponding tile in hand should NOT work`, async () => {
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+
+    // Build game order
+    const order = {
+        handTileId: HAND_TILE_ID_MOVE,
+        boardTileIds: { from: 0, to: 1 },
+        castes: { from: null, to: null },
+    };
+
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
+        status: HttpStatusCode.BAD_REQUEST,
+        data: errorResponse(ClientError.InvalidGameOrder),
+    });
+});
 
 
 
@@ -79,56 +138,5 @@ test(`Placing tile without 'replay' feature should not allow same player to play
     await expectActionToFailWithError(action2, {
         status: HttpStatusCode.FORBIDDEN,
         data: errorResponse(HttpStatusMessage.FORBIDDEN),
-    });
-});
-
-
-
-test(`Placing game order with invalid parameters should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
-
-    // Build game orders
-    const missingHandTileOrder = {
-        boardTileIds: { from: 0, to: 1 },
-        castes: { from: null, to: null },
-    };
-    const missingBoardTilesOrder = {
-        handTileId: 0,
-        castes: { from: null, to: null },
-    };
-    const missingCastesOrder = {
-        handTileId: 0,
-        boardTileIds: { from: 0, to: 1 },
-    };
-
-    await expectActionToFailWithError(() => playGameAction(game.getId(), missingHandTileOrder), {
-        status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['handTileId']),
-    });
-    await expectActionToFailWithError(() => playGameAction(game.getId(), missingBoardTilesOrder), {
-        status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['boardTileIds.from', 'boardTileIds.to']),
-    });
-    await expectActionToFailWithError(() => playGameAction(game.getId(), missingCastesOrder), {
-        status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['castes.from', 'castes.to']),
-    });
-});
-
-
-
-test(`Placing game order without having corresponding tile in hand should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
-
-    // Build game order
-    const order = {
-        handTileId: HAND_TILE_ID_MOVE,
-        boardTileIds: { from: 0, to: 1 },
-        castes: { from: null, to: null },
-    };
-
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
-        status: HttpStatusCode.BAD_REQUEST,
-        data: errorResponse(ClientError.InvalidGameOrder),
     });
 });

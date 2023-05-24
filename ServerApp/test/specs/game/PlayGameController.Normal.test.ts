@@ -4,14 +4,13 @@ import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
 import { ClientError } from '../../../src/errors/ClientErrors';
-import { signInAction } from '../../actions/AuthActions';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
 
 
 
 const customBeforeEachPlay = async () => {
     await beforeEachPlay();
 
-    // Sign in default player
     await signInAction({
         email: USER.email,
         password: USER.password,
@@ -21,10 +20,18 @@ const customBeforeEachPlay = async () => {
 
 
 
+const customAfterEachPlay = async () => {
+    await signOutAction();
+
+    await afterEachPlay();
+};
+
+
+
 beforeAll(beforeAllPlay);
 beforeEach(customBeforeEachPlay);
 afterAll(afterAllPlay);
-afterEach(afterEachPlay);
+afterEach(customAfterEachPlay);
 
 
 

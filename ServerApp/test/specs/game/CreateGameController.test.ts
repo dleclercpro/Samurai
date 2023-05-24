@@ -2,7 +2,7 @@ import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
 import { errorResponse } from '../../../src/libs/calls';
 import { ClientError } from '../../../src/errors/ClientErrors';
-import { signInAction } from '../../actions/AuthActions';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
 import { createGameAction } from '../../actions/GameActions';
 import { afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay } from '.';
 
@@ -42,6 +42,8 @@ test(`Creating game with existing user should work`, async () => {
 
     expect(code).toEqual(0);
     expect(data.id).toBeDefined();
+
+    await signOutAction();
 });
 
 
@@ -70,6 +72,8 @@ test(`Creating game with non-existing opponent should NOT work`, async () => {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
+
+    await signOutAction();
 });
 
 
@@ -87,6 +91,8 @@ test(`Creating game with duplicate opponents should NOT work`, async () => {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
+
+    await signOutAction();
 });
 
 
@@ -104,6 +110,8 @@ test(`Creating game with too many opponents should NOT work`, async () => {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
+
+    await signOutAction();
 });
 
 
@@ -121,6 +129,8 @@ test(`Creating game without opponents should NOT work`, async () => {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
+
+    await signOutAction();
 });
 
 
@@ -138,6 +148,8 @@ test(`Creating game without name parameter should NOT work`, async () => {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['name']),
     });
+
+    await signOutAction();
 });
 
 
@@ -155,4 +167,6 @@ test(`Creating game without opponents parameter should NOT work`, async () => {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['opponents']),
     });
+
+    await signOutAction();
 });

@@ -65,11 +65,11 @@ export class ErrorGameTileNotInHand extends ServerError {
     }
 }
 
-export class ErrorGameMissingCastePiece extends ServerError {
+export class ErrorGameCastePieceDoesNotExist extends ServerError {
     public static code = -407;
 
     constructor(caste: Caste, boardTile: IBoardTile) {
-        super(ErrorGameMissingCastePiece.code, `Given caste piece '${caste}' is missing on board tile with ID '${boardTile.getId()}'.`);
+        super(ErrorGameCastePieceDoesNotExist.code, `Given caste piece '${caste}' is missing on board tile with ID '${boardTile.getId()}'.`);
     }
 }
 
@@ -121,8 +121,16 @@ export class ErrorGameHandTileDoesNotExist extends ServerError {
     }
 }
 
-export class ErrorGameInvalidPlayerCount extends ServerError {
+export class ErrorGamePlayedTileDoesNotExist extends ServerError {
     public static code = -414;
+
+    constructor(boardTile: IBoardTile) {
+        super(ErrorGamePlayedTileDoesNotExist.code, `There is no hand tile placed on given board tile (ID = ${boardTile.getId()}).`);
+    }
+}
+
+export class ErrorGameInvalidPlayerCount extends ServerError {
+    public static code = -415;
 
     constructor(n: number) {
         super(ErrorGameInvalidPlayerCount.code, `Invalid number of players: ${n}. Min: ${PLAYER_COUNT_MIN}. Max: ${PLAYER_COUNT_MAX}.`);
@@ -130,7 +138,7 @@ export class ErrorGameInvalidPlayerCount extends ServerError {
 }
 
 export class ErrorGameInvalidHandSize extends ServerError {
-    public static code = -415;
+    public static code = -416;
 
     constructor(size: number) {
         super(ErrorGameInvalidHandSize.code, `Invalid hand size: ${size} (given) vs. ${HAND_SIZE} (valid).`);
@@ -138,7 +146,7 @@ export class ErrorGameInvalidHandSize extends ServerError {
 }
 
 export class ErrorGameEmptyCastePiecesBag extends ServerError {
-    public static code = -416;
+    public static code = -417;
 
     constructor() {
         super(ErrorGameEmptyCastePiecesBag.code, `Caste pieces bag is empty.`);
@@ -146,7 +154,7 @@ export class ErrorGameEmptyCastePiecesBag extends ServerError {
 }
 
 export class ErrorGameCannotSwapCastePiecesOnSameBoardTile extends ServerError {
-    public static code = -417;
+    public static code = -418;
 
     constructor() {
         super(ErrorGameCannotSwapCastePiecesOnSameBoardTile.code, `Cannot swap caste pieces from/to the same board tile.`);
@@ -154,7 +162,7 @@ export class ErrorGameCannotSwapCastePiecesOnSameBoardTile extends ServerError {
 }
 
 export class ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile extends ServerError {
-    public static code = -418;
+    public static code = -419;
 
     constructor(boardTile: IBoardTile) {
         super(ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile.code, `Cannot swap caste pieces from/to non-city board tile (ID = ${boardTile.getId()}).`);
@@ -162,7 +170,7 @@ export class ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile extends Server
 }
 
 export class ErrorGameNotEnoughPlayers extends ServerError {
-    public static code = -419;
+    public static code = -420;
 
     constructor(nPlayers: number) {
         super(ErrorGameNotEnoughPlayers.code, `Not enough players: ${nPlayers} < ${PLAYER_COUNT_MIN}.`);
@@ -170,7 +178,7 @@ export class ErrorGameNotEnoughPlayers extends ServerError {
 }
 
 export class ErrorGameTooManyPlayers extends ServerError {
-    public static code = -420;
+    public static code = -421;
 
     constructor(nPlayers: number) {
         super(ErrorGameTooManyPlayers.code, `Too many players: ${nPlayers} > ${PLAYER_COUNT_MAX}.`);
@@ -178,7 +186,7 @@ export class ErrorGameTooManyPlayers extends ServerError {
 }
 
 export class ErrorGameNotPlayerTurn extends ServerError {
-    public static code = -421;
+    public static code = -422;
 
     constructor(player: IPlayer) {
         super(ErrorGameNotPlayerTurn.code, `Given player (ID = ${player.getId()}) has to wait its turn.`);
@@ -186,7 +194,7 @@ export class ErrorGameNotPlayerTurn extends ServerError {
 }
 
 export class ErrorGameCannotMoveOtherPlayerTile extends ServerError {
-    public static code = -422;
+    public static code = -423;
 
     constructor(player: IPlayer, otherPlayer: IPlayer) {
         super(ErrorGameCannotMoveOtherPlayerTile.code, `Cannot move tile placed by other player: player (ID = ${player.getId()}) is trying to move tile placed by other player (ID = ${otherPlayer.getId()}).`);
