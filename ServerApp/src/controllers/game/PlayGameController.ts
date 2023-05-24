@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { errorResponse, successResponse } from '../../libs/calls';
 import PlayGameCommand from '../../commands/game/PlayGameCommand';
-import { ErrorGameAlreadyOver, ErrorGameTileNotInHand, ErrorGameInvalidOrder, ErrorGameMissingCastePiece, ErrorGameIncompatibleTileTypes, ErrorGameCannotPlaceTileOntoCity, ErrorGameNotPlayerTurn, ErrorGameBoardTileDoesNotExist, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameBoardTileNotFree } from '../../errors/GameErrors';
+import { ErrorGameAlreadyOver, ErrorGameTileNotInHand, ErrorGameInvalidOrder, ErrorGameMissingCastePiece, ErrorGameIncompatibleTileTypes, ErrorGameCannotPlaceTileOntoCity, ErrorGameNotPlayerTurn, ErrorGameBoardTileDoesNotExist, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile } from '../../errors/GameErrors';
 import { logger } from '../../utils/Logging';
 import { ClientError } from '../../errors/ClientErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
@@ -54,7 +54,10 @@ const PlayGameController: IPlayGameController = async (req, res, next) => {
                 .json(errorResponse(ClientError.InvalidGameOrder));
         }
 
-        if (err.code === ErrorGameNotPlayerTurn.code) {
+        if (
+            err.code === ErrorGameNotPlayerTurn.code ||
+            err.code === ErrorGameCannotMoveOtherPlayerTile.code
+        ) {
             logger.warn(err.message);
 
             return res

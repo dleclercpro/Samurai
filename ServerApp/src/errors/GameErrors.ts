@@ -184,3 +184,11 @@ export class ErrorGameNotPlayerTurn extends ServerError {
         super(ErrorGameNotPlayerTurn.code, `Given player (ID = ${player.getId()}) has to wait its turn.`);
     }
 }
+
+export class ErrorGameCannotMoveOtherPlayerTile extends ServerError {
+    public static code = -422;
+
+    constructor(player: IPlayer, otherPlayer: IPlayer) {
+        super(ErrorGameCannotMoveOtherPlayerTile.code, `Cannot move tile placed by other player: player (ID = ${player.getId()}) is trying to move tile placed by other player (ID = ${otherPlayer.getId()}).`);
+    }
+}

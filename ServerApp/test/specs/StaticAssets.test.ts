@@ -1,23 +1,14 @@
 import axios from 'axios';
-import { start, stop } from '../../src/app';
 import { STATIC_ROOT } from '../../src/config/AppConfig';
 import { FULL_HAND_JSON, FULL_HAND_JSON_FILENAME } from '../../src/config/GameConfig';
+import { defaultAfterAll, defaultAfterEach, defaultBeforeAll, defaultBeforeEach } from '..';
 
-beforeAll(async () => {
-    await start();
-});
 
-beforeEach(async () => {
 
-});
-
-afterAll(async () => {
-    await stop();
-});
-
-afterEach(async () => {
-
-});
+beforeAll(defaultBeforeAll);
+beforeEach(defaultBeforeEach);
+afterAll(defaultAfterAll);
+afterEach(defaultAfterEach);
 
 
 

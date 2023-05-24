@@ -1,10 +1,10 @@
-import { start, stop } from '../../../src/app';
 import { errorResponse } from '../../../src/libs/calls';
-import TestDatabase from '../../../src/databases/TestDatabase';
 import { ClientError } from '../../../src/errors/ClientErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
-import { expectActionToFailWithError } from '../..';
+import { defaultAfterAll, defaultAfterEach, defaultBeforeAll, defaultBeforeEach, expectActionToFailWithError } from '../..';
 import { signUpAction } from '../../actions/AuthActions';
+
+
 
 const VALID_EMAIL = 'user@test.com';
 const VALID_PASSWORD = 'q12345678!';
@@ -12,23 +12,12 @@ const VALID_USERNAME = 'User';
 const INVALID_EMAIL = 'test';
 const INVALID_PASSWORD = '123';
 
-beforeAll(async () => {
-    await start();
-});
 
-beforeEach(async () => {
 
-});
-
-afterAll(async () => {
-    await TestDatabase.drop();
-
-    await stop();
-});
-
-afterEach(async () => {
-    await TestDatabase.dropCollections();
-});
+beforeAll(defaultBeforeAll);
+beforeEach(defaultBeforeEach);
+afterAll(defaultAfterAll);
+afterEach(defaultAfterEach);
 
 
 
@@ -46,8 +35,10 @@ test(`Signing up with valid credentials should work`, async () => {
 test(`Signing up with existing user's e-mail should NOT work`, async () => {
     const user = { email: VALID_EMAIL, password: VALID_PASSWORD, username: VALID_USERNAME };
 
+    // Sign up once
     await signUpAction(user);
 
+    // Signing up with same credentials should fail
     await expectActionToFailWithError(() => signUpAction(user), {
         status: HttpStatusCode.FORBIDDEN,
         data: errorResponse(ClientError.UserAlreadyExists),

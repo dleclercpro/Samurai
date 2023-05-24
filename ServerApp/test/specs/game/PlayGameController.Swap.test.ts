@@ -6,24 +6,31 @@ import { ClientError } from '../../../src/errors/ClientErrors';
 import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { playGameAction } from '../../actions/GameActions';
 import { PLAYERS, USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { signInAction } from '../../actions/AuthActions';
+
+
+
+const customBeforeEachPlay = async () => {
+    await beforeEachPlay();
+
+    // Sign in default player (with swap)
+    await signInAction({
+        email: USER_WITH_SWAP.email,
+        password: USER_WITH_SWAP.password,
+        staySignedIn: false,
+    });
+};
 
 
 
 beforeAll(beforeAllPlay);
-beforeEach(beforeEachPlay);
+beforeEach(customBeforeEachPlay);
 afterAll(afterAllPlay);
 afterEach(afterEachPlay);
 
 
 
 test(`Placing valid swap order should work`, async () => {
-    const user = {
-        email: USER_WITH_SWAP.email,
-        password: USER_WITH_SWAP.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order
@@ -33,7 +40,7 @@ test(`Placing valid swap order should work`, async () => {
         castes: { from: Caste.Military, to: Caste.Religion },
     };
 
-    const action = () => playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order);
 
     await expect(action()).resolves.toEqual(successResponse());
 });
@@ -41,13 +48,6 @@ test(`Placing valid swap order should work`, async () => {
 
 
 test(`Placing swap order with identical 'from' and 'to' board tiles should NOT work`, async () => {
-    const user = {
-        email: USER_WITH_SWAP.email,
-        password: USER_WITH_SWAP.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order
@@ -57,7 +57,7 @@ test(`Placing swap order with identical 'from' and 'to' board tiles should NOT w
         castes: { from: Caste.Military, to: Caste.Military },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
@@ -66,13 +66,6 @@ test(`Placing swap order with identical 'from' and 'to' board tiles should NOT w
 
 
 test(`Placing swap order with missing caste should NOT work`, async () => {
-    const user = {
-        email: USER_WITH_SWAP.email,
-        password: USER_WITH_SWAP.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order
@@ -92,28 +85,21 @@ test(`Placing swap order with missing caste should NOT work`, async () => {
         castes: { from: Caste.Commerce, to: Caste.Commerce },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), missingFromCasteOrder, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingFromCasteOrder), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
-    await expectActionToFailWithError(() => playGameAction(game.getId(), missingToCasteOrder, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingToCasteOrder), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
-    await expectActionToFailWithError(() => playGameAction(game.getId(), missingBothCastesOrder, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), missingBothCastesOrder), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
 });
 
 test(`Placing swap order with non-city board tiles should NOT work`, async () => {
-    const user = {
-        email: USER_WITH_SWAP.email,
-        password: USER_WITH_SWAP.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
 
     // Build game order
@@ -133,15 +119,15 @@ test(`Placing swap order with non-city board tiles should NOT work`, async () =>
         castes: { from: Caste.Military, to: Caste.Religion },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileFromOrder, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileFromOrder), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
-    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileToOrder, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileToOrder), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
-    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileFromAndToOrder, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), nonCityBoardTileFromAndToOrder), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });

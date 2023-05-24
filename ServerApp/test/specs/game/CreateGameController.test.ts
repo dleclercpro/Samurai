@@ -1,11 +1,12 @@
-import { start, stop } from '../../../src/app';
-import TestDatabase from '../../../src/databases/TestDatabase';
 import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
 import { errorResponse } from '../../../src/libs/calls';
 import { ClientError } from '../../../src/errors/ClientErrors';
-import { signUpAction } from '../../actions/AuthActions';
-import { signInAndCreateGameAction, createGameAction } from '../../actions/GameActions';
+import { signInAction } from '../../actions/AuthActions';
+import { createGameAction } from '../../actions/GameActions';
+import { afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay } from '.';
+
+
 
 const USER_1 = { email: 'user1@test.com', password: 'q12345678!', username: 'User1' };
 const USER_2 = { email: 'user2@test.com', password: 'q12345678!', username: 'User2' };
@@ -19,37 +20,25 @@ const OPPONENTS = [USER_2, USER_3, USER_4];
 const EXTRA_USER = USER_5;
 const USERS = [CREATOR, ...OPPONENTS, EXTRA_USER];
 
-beforeAll(async () => {
-    await start();
-});
 
-beforeEach(async () => {
-    await Promise.all(USERS.map(async (user) => {
-        await signUpAction(user);
-    }));
-});
 
-afterAll(async () => {
-    await TestDatabase.drop();
-
-    await stop();
-});
-
-afterEach(async () => {
-    await TestDatabase.dropCollections();
-});
+beforeAll(beforeAllPlay);
+beforeEach(beforeEachPlay);
+afterAll(afterAllPlay);
+afterEach(afterEachPlay);
 
 
 
 test(`Creating game with existing user should work`, async () => {
     const game = { name: 'Game', opponents: OPPONENTS.map(opponent => opponent.email) };
-    const user = {
+    
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    const { code, data } = await signInAndCreateGameAction(game, user);
+    const { code, data } = await createGameAction(game);
 
     expect(code).toEqual(0);
     expect(data.id).toBeDefined();
@@ -60,23 +49,7 @@ test(`Creating game with existing user should work`, async () => {
 test(`Creating game without session cookie should NOT work`, async () => {
     const game = { name: 'Game', opponents: OPPONENTS.map(opponent => opponent.email) };
     
-    await expectActionToFailWithError(() => createGameAction(game, null), {
-        status: HttpStatusCode.UNAUTHORIZED,
-        data: errorResponse(ClientError.InvalidCredentials),
-    });
-});
-
-
-
-test(`Creating game with non-existing user should NOT work`, async () => {
-    const game = { name: 'Game', opponents: OPPONENTS.map(opponent => opponent.email) };
-    const user = {
-        email: NON_EXISTING_USER.email,
-        password: NON_EXISTING_USER.password,
-        staySignedIn: false,
-    };
-    
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.UNAUTHORIZED,
         data: errorResponse(ClientError.InvalidCredentials),
     });
@@ -86,13 +59,14 @@ test(`Creating game with non-existing user should NOT work`, async () => {
 
 test(`Creating game with non-existing opponent should NOT work`, async () => {
     const game = { name: 'Game', opponents: [NON_EXISTING_USER.email] };
-    const user = {
+
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
@@ -102,13 +76,14 @@ test(`Creating game with non-existing opponent should NOT work`, async () => {
 
 test(`Creating game with duplicate opponents should NOT work`, async () => {
     const game = { name: 'Game', opponents: [OPPONENTS[0], OPPONENTS[0]].map(opponent => opponent.email) };
-    const user = {
+
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
@@ -118,13 +93,14 @@ test(`Creating game with duplicate opponents should NOT work`, async () => {
 
 test(`Creating game with too many opponents should NOT work`, async () => {
     const game = { name: 'Game', opponents: [...OPPONENTS, EXTRA_USER].map(opponent => opponent.email) };
-    const user = {
+
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
@@ -134,13 +110,14 @@ test(`Creating game with too many opponents should NOT work`, async () => {
 
 test(`Creating game without opponents should NOT work`, async () => {
     const game = { name: 'Game', opponents: [] };
-    const user = {
+
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST),
     });
@@ -150,13 +127,14 @@ test(`Creating game without opponents should NOT work`, async () => {
 
 test(`Creating game without name parameter should NOT work`, async () => {
     const game = { opponents: OPPONENTS };
-    const user = {
+
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['name']),
     });
@@ -166,13 +144,14 @@ test(`Creating game without name parameter should NOT work`, async () => {
 
 test(`Creating game without opponents parameter should NOT work`, async () => {
     const game = { name: 'Game' };
-    const user = {
+
+    await signInAction({
         email: CREATOR.email,
         password: CREATOR.password,
         staySignedIn: false,
-    };
+    });
     
-    await expectActionToFailWithError(() => signInAndCreateGameAction(game, user), {
+    await expectActionToFailWithError(() => createGameAction(game), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(HttpStatusMessage.BAD_REQUEST, ['opponents']),
     });

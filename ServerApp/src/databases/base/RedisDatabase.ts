@@ -6,7 +6,6 @@ import { DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_MAX_DELAY } from '../../config/D
 import { toMs } from '../../libs/time';
 import { TimeUnit } from '../../types/TimeTypes';
 import { Logger } from 'pino';
-import { ENV } from '../../config/AppConfig';
 
 interface SetEvent<V> {
     prevValue: V | null,

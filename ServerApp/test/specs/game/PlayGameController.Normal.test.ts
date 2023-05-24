@@ -1,27 +1,34 @@
-import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, PLAYERS, USER, USER_WITH_MOVE_AND_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, PLAYERS, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 import { playGameAction } from '../../actions/GameActions';
 import { errorResponse, successResponse } from '../../../src/libs/calls';
 import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
 import { ClientError } from '../../../src/errors/ClientErrors';
+import { signInAction } from '../../actions/AuthActions';
+
+
+
+const customBeforeEachPlay = async () => {
+    await beforeEachPlay();
+
+    // Sign in default player
+    await signInAction({
+        email: USER.email,
+        password: USER.password,
+        staySignedIn: false,
+    });
+};
 
 
 
 beforeAll(beforeAllPlay);
-beforeEach(beforeEachPlay);
+beforeEach(customBeforeEachPlay);
 afterAll(afterAllPlay);
 afterEach(afterEachPlay);
 
 
 
 test(`Placing hand tile onto free ground board tile in a 2-player game configuration should work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
@@ -31,7 +38,7 @@ test(`Placing hand tile onto free ground board tile in a 2-player game configura
         castes: { from: null, to: null },
     };
 
-    const action = () => playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order);
 
     await expect(action()).resolves.toEqual(successResponse());
 });
@@ -39,13 +46,6 @@ test(`Placing hand tile onto free ground board tile in a 2-player game configura
 
 
 test(`Placing hand tile onto board tile that does not exist in a 2-player game configuration should NOT work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
@@ -55,7 +55,7 @@ test(`Placing hand tile onto board tile that does not exist in a 2-player game c
         castes: { from: null, to: null },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
@@ -64,13 +64,6 @@ test(`Placing hand tile onto board tile that does not exist in a 2-player game c
 
 
 test(`Placing regular ground hand tile onto free ground board tile should work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -80,7 +73,7 @@ test(`Placing regular ground hand tile onto free ground board tile should work`,
         castes: { from: null, to: null },
     };
 
-    const action = () => playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order);
 
     await expect(action()).resolves.toEqual(successResponse());
 });
@@ -88,13 +81,6 @@ test(`Placing regular ground hand tile onto free ground board tile should work`,
 
 
 test(`Placing samurai hand tile onto free ground board tile should work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -104,7 +90,7 @@ test(`Placing samurai hand tile onto free ground board tile should work`, async 
         castes: { from: null, to: null },
     };
 
-    const action = () => playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order);
 
     await expect(action()).resolves.toEqual(successResponse());
 });
@@ -112,13 +98,6 @@ test(`Placing samurai hand tile onto free ground board tile should work`, async 
 
 
 test(`Placing ship hand tile onto free water board tile should work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -128,7 +107,7 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
         castes: { from: null, to: null },
     };
 
-    const action = () => playGameAction(game.getId(), order, user);
+    const action = () => playGameAction(game.getId(), order);
 
     await expect(action()).resolves.toEqual(successResponse());
 });
@@ -136,13 +115,6 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
 
 
 test(`Placing regular ground hand tile onto free water board tile should NOT work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-    
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -152,7 +124,7 @@ test(`Placing regular ground hand tile onto free water board tile should NOT wor
         castes: { from: null, to: null },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
@@ -161,13 +133,6 @@ test(`Placing regular ground hand tile onto free water board tile should NOT wor
 
 
 test(`Placing samurai hand tile onto free water board tile should NOT work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -177,7 +142,7 @@ test(`Placing samurai hand tile onto free water board tile should NOT work`, asy
         castes: { from: null, to: null },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
@@ -186,13 +151,6 @@ test(`Placing samurai hand tile onto free water board tile should NOT work`, asy
 
 
 test(`Placing ship hand tile onto free ground board tile should NOT work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -202,7 +160,7 @@ test(`Placing ship hand tile onto free ground board tile should NOT work`, async
         castes: { from: null, to: null },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
@@ -211,13 +169,6 @@ test(`Placing ship hand tile onto free ground board tile should NOT work`, async
 
 
 test(`Placing hand tile onto board tile that's not free should NOT work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -228,12 +179,12 @@ test(`Placing hand tile onto board tile that's not free should NOT work`, async 
     };
     const order2 = {
         handTileId: HAND_TILE_ID_MILITARY,
-        boardTileIds: { from: null, to: 30 }, // Board tile is not free anymore!
+        boardTileIds: { from: null, to: 30 }, // Board tile is not free after first  anymore!
         castes: { from: null, to: null },
     };
 
-    const action1 = () => playGameAction(game.getId(), order1, user);
-    const action2 = () => playGameAction(game.getId(), order2, user);
+    const action1 = () => playGameAction(game.getId(), order1);
+    const action2 = () => playGameAction(game.getId(), order2);
 
     await expect(action1()).resolves.toEqual(successResponse());
 
@@ -246,13 +197,6 @@ test(`Placing hand tile onto board tile that's not free should NOT work`, async 
 
 
 test(`Placing regular ground hand tile onto city board tile should NOT work`, async () => {
-    const user = {
-        email: USER.email,
-        password: USER.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
     const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
 
     // Build game order
@@ -262,7 +206,7 @@ test(`Placing regular ground hand tile onto city board tile should NOT work`, as
         castes: { from: null, to: null },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.BAD_REQUEST,
         data: errorResponse(ClientError.InvalidGameOrder),
     });
@@ -271,16 +215,7 @@ test(`Placing regular ground hand tile onto city board tile should NOT work`, as
 
 
 test(`Placing tile when it's not player's turn should NOT work`, async () => {
-    
-    // Not this player's turn!
-    const user = {
-        email: USER_WITH_MOVE_AND_SWAP.email,
-        password: USER_WITH_MOVE_AND_SWAP.password,
-        staySignedIn: false,
-    };
-
-    // Create test game in database
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_MOVE_AND_SWAP');
 
     // Build game order
     const order = {
@@ -289,7 +224,7 @@ test(`Placing tile when it's not player's turn should NOT work`, async () => {
         castes: { from: null, to: null },
     };
 
-    await expectActionToFailWithError(() => playGameAction(game.getId(), order, user), {
+    await expectActionToFailWithError(() => playGameAction(game.getId(), order), {
         status: HttpStatusCode.FORBIDDEN,
         data: errorResponse(HttpStatusMessage.FORBIDDEN),
     });

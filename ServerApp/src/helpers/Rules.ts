@@ -5,7 +5,7 @@ import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
-import { ErrorGameBoardTileNotFree, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
+import { ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameMissingCastePiece } from '../errors/GameErrors';
 import { GameOrder } from '../models/Order';
 
 export interface Normal {
@@ -79,9 +79,8 @@ class Rules {
             throw new Error('This board location has no tile on it yet.');
         }
 
-        // TO TEST
         if (previouslyPlayedTile.getPlayer().getId() !== this.player.getId()) {
-            throw new Error(`Cannot move another player's tile.`);
+            throw new ErrorGameCannotMoveOtherPlayerTile(this.player, previouslyPlayedTile.getPlayer());
         }
 
         // TO TEST

@@ -4,20 +4,46 @@ import { HttpStatusCode } from '../src/types/HTTPTypes';
 import { SESSION_OPTIONS } from '../src/config/AuthConfig';
 import Cookie from 'cookie';
 import { exists } from '../src/libs';
+import TestDatabase from '../src/databases/TestDatabase';
+import { start, stop } from '../src/app';
+
+
 
 interface Error {
     status: HttpStatusCode,
     data: ErrorResponse<any>,
 }
 
-const getAxiosErrorData = (err: AxiosError) => ({
-    status: err.response?.status,
-    data: err.response?.data,
-});
+
+
+export const defaultBeforeAll = async () => {
+    await start();
+}
+
+export const defaultBeforeEach = async () => {
+
+}
+
+export const defaultAfterAll = async () => {
+    await TestDatabase.drop();
+
+    await stop();
+}
+
+export const defaultAfterEach = async () => {
+    await TestDatabase.dropCollections();
+}
+
+
 
 const getAxiosCookies = (res: AxiosResponse) => {
     return res.headers['set-cookie'];
 }
+
+const getAxiosErrorData = (err: AxiosError) => ({
+    status: err.response?.status,
+    data: err.response?.data,
+});
 
 export const getSessionCookieFromAxiosResponse = (res: AxiosResponse) => {
     const cookies = getAxiosCookies(res);
@@ -26,7 +52,7 @@ export const getSessionCookieFromAxiosResponse = (res: AxiosResponse) => {
         throw new Error('No cookies in response.');
     }
 
-    const { cookie: { name }} = SESSION_OPTIONS;
+    const { cookie: { name } } = SESSION_OPTIONS;
 
     const sessionCookie = cookies
         .map(cookie => Cookie.parse(cookie))
