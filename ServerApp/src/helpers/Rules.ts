@@ -5,7 +5,7 @@ import { IHandTile } from '../models/HandTile';
 import { FromTo } from '../types';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
-import { ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameCastePieceDoesNotExist, ErrorGamePlayedTileDoesNotExist } from '../errors/GameErrors';
+import { ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameCastePieceDoesNotExist, ErrorGamePlayedTileDoesNotExist, ErrorGameCanOnlyMoveFromGroundTiles } from '../errors/GameErrors';
 import { GameOrder } from '../models/Order';
 
 export interface Normal {
@@ -74,6 +74,10 @@ class Rules {
         const { boardTiles } = order;
         const previouslyPlayedTile = boardTiles.from.getPlayedTile();
 
+        if (!boardTiles.from.isGround()) {
+            throw new ErrorGameCanOnlyMoveFromGroundTiles(boardTiles.from);
+        }
+
         if (boardTiles.from.isFree()) {
             throw new ErrorGamePlayedTileDoesNotExist(boardTiles.from);
         }
@@ -82,17 +86,14 @@ class Rules {
             throw new ErrorGameCannotMoveOtherPlayerTile(this.player, previouslyPlayedTile.getPlayer());
         }
 
-        // TO TEST
         if (boardTiles.to.isCity()) {
             throw new ErrorGameCannotPlaceTileOntoCity(boardTiles.to, previouslyPlayedTile.getHandTile());
         }
 
-        // TO TEST
         if (!boardTiles.to.isFree()) {
             throw new ErrorGameBoardTileNotFree(boardTiles.to);
         }
 
-        // TO TEST
         if (!boardTiles.to.isHandTileCompatible(previouslyPlayedTile.getHandTile())) {
             throw new ErrorGameIncompatibleTileTypes(boardTiles.to, previouslyPlayedTile.getHandTile());
         }

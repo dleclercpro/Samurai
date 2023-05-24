@@ -200,3 +200,11 @@ export class ErrorGameCannotMoveOtherPlayerTile extends ServerError {
         super(ErrorGameCannotMoveOtherPlayerTile.code, `Cannot move tile placed by other player: player (ID = ${player.getId()}) is trying to move tile placed by other player (ID = ${otherPlayer.getId()}).`);
     }
 }
+
+export class ErrorGameCanOnlyMoveFromGroundTiles extends ServerError {
+    public static code = -424;
+
+    constructor(boardTile: IBoardTile) {
+        super(ErrorGameCanOnlyMoveFromGroundTiles.code, `Cannot move tile placed on something other than a ground board tile (ID = ${boardTile.getId()}, Type = ${boardTile.getType()}).`);
+    }
+}

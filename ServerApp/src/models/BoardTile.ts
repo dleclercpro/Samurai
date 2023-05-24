@@ -39,6 +39,9 @@ export interface IBoardTile extends Types.Subdocument {
     setTile: (tile: IPlayedTile) => void,
     removeTile: () => void,
     isFree: () => boolean,
+    isGround: () => boolean,
+    isWater: () => boolean,
+    isSwap: () => boolean,
     isCity: () => boolean,
     isClosed: () => boolean,
     isHandTileCompatible: (handTile: IHandTile) => boolean,
@@ -137,6 +140,18 @@ BoardTileSchema.methods.removeTile = function() {
 
 BoardTileSchema.methods.isFree = function() {
     return !this.playedTile;
+}
+
+BoardTileSchema.methods.isGround = function() {
+    return (this as IBoardTile).getType() === BoardTileType.Ground;
+}
+
+BoardTileSchema.methods.isWater = function() {
+    return (this as IBoardTile).getType() === BoardTileType.Water;
+}
+
+BoardTileSchema.methods.isSwap = function() {
+    return (this as IBoardTile).getType() === BoardTileType.Swap;
 }
 
 BoardTileSchema.methods.isCity = function() {

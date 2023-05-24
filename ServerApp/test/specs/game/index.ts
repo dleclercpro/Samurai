@@ -49,8 +49,8 @@ export const PLAYER_WITH_MOVE = new Player({
     hand: new HandBuilder().build([
         HAND_TILE_ID_MILITARY,
         HAND_TILE_ID_RELIGION,
-        HAND_TILE_ID_COMMERCE,
         HAND_TILE_ID_SAMURAI,
+        HAND_TILE_ID_SHIP,
         HAND_TILE_ID_MOVE,
     ]),
 });
@@ -63,7 +63,7 @@ export const PLAYER_WITH_SWAP = new Player({
     hand: new HandBuilder().build([
         HAND_TILE_ID_MILITARY,
         HAND_TILE_ID_RELIGION,
-        HAND_TILE_ID_COMMERCE,
+        HAND_TILE_ID_SHIP,
         HAND_TILE_ID_SAMURAI,
         HAND_TILE_ID_SWAP,
     ]),
@@ -105,7 +105,7 @@ const BOARD_4_PLAYERS = new TestBoardBuilder(4).build();
 
 
 
-export const createGame = async (playerNames: string[], currentPlayerName: string) => {
+export const createGame = async (playerNames: string[] = Object.keys(PLAYERS), currentPlayerName: string = 'PLAYER') => {
     const now = new Date();
     
     const players = playerNames.map(name => {
