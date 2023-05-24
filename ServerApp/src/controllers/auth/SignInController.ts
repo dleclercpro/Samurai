@@ -37,6 +37,7 @@ const SignInController: ISignInController = async (req, res, next) => {
         return res.json(successResponse({
             username: user.getUsername(),
             email: user.getEmail(),
+            isAdmin: user.isAdmin,
         }));
 
     } catch (err: any) {

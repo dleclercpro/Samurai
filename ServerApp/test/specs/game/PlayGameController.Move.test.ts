@@ -50,7 +50,7 @@ test(`Valid move order should work`, async () => {
 
 
 test(`Moving hand tile that does not belong to player should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE'], 'PLAYER');
 
     // Build game order
     const firstPlayerOrder = {
@@ -126,7 +126,7 @@ test(`Moving hand tile from a free board tile should NOT work`, async () => {
 
 
 test(`Moving hand tile onto board tile that's not free should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE'], 'PLAYER');
 
     // Build game order
     const firstPlayerOrder = {

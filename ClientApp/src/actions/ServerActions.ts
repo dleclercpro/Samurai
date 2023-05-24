@@ -27,9 +27,9 @@ export const verifyAuthentication = (): AppThunkAction<void> => {
 
         return new CallPing().execute()
             .then((response: ServerResponse<UserData>) => {
-                const { username, email } = response.data;
+                const { username, email, isAdmin } = response.data;
                 
-                dispatch(setUser(username, email));
+                dispatch(setUser(username, email, isAdmin));
             })
             .catch(() => {
                 dispatch(resetUser);
@@ -45,9 +45,9 @@ export const signIn = (email: string, password: string): AppThunkAction<void> =>
         
         return new CallSignIn(email, password).execute()
             .then((response: ServerResponse<UserData>) => {
-                const { username, email } = response.data;
+                const { username, email, isAdmin } = response.data;
                 
-                dispatch(setUser(username, email));
+                dispatch(setUser(username, email, isAdmin));
 
                 dispatch(setDialogText(DialogType.Success, language.getText('SIGN_IN_SUCCESS')));
                 dispatch(openDialog(DialogType.Success));

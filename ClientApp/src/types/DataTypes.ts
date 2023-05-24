@@ -33,6 +33,7 @@ export interface GameData {
 export interface UserData {
     username: string,
     email: string,
+    isAdmin: boolean,
 }
 
 export interface BoardData {

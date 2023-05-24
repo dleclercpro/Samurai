@@ -53,6 +53,7 @@ export interface SetUser {
     type: typeof SET_USER,
     username: string,
     email: string,
+    isAdmin: boolean,
 }
 
 export const RESET_USER = 'RESET_USER';

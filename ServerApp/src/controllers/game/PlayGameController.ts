@@ -27,7 +27,8 @@ const PlayGameController: IPlayGameController = async (req, res, next) => {
         }
 
         // Ensure tile exists in player's hand (a hand tile should ALWAYS be provided!)
-        const player = game.getPlayerByUser(user);
+        // Admin users can play for other players
+        const player = user.isAdmin ? game.getCurrentPlayer() : game.getPlayerByUser(user);
 
         // Execute 
         await new PlayGameCommand({ player, order }).execute();

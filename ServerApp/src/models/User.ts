@@ -9,6 +9,7 @@ export interface IUser extends Document {
     email: string,
     password: string,
     username: string,
+    isAdmin: boolean,
 
     lastLogin: Date,
     lastPasswordReset: Date,
@@ -54,6 +55,7 @@ export const UserSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true, lowercase: true, trim: true, index: true },
     password: { type: String, required: true },
     username: { type: String, required: true, trim: true },
+    isAdmin: { type: Boolean, required: true, default: false },
 
     lastLogin: { type: Date },
     lastPasswordReset: { type: Date },

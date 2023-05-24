@@ -6,6 +6,7 @@ const initState: UserState = {
     username: '',
     email: '',
     isAuthenticated: false,
+    isAdmin: false,
 };
 
 const UserReducer = (state: UserState = initState, action: UserAction) => {
@@ -18,6 +19,7 @@ const UserReducer = (state: UserState = initState, action: UserAction) => {
                 username: action.username,
                 email: action.email,
                 isAuthenticated: true,
+                isAdmin: action.isAdmin,
             };
         default:
             return state;

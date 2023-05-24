@@ -170,7 +170,9 @@ BoardTileSchema.methods.isClosed = function() {
         throw new ErrorGameBoardTileNotACity(this as IBoardTile);
     }
 
-    return (this as IBoardTile).getNeighboringTiles().every(tile => !tile.isFree() || tile.isWater());
+    return (this as IBoardTile).getNeighboringTiles()
+        .filter(tile => tile.isGround())
+        .every(tile => !tile.isFree());
 }
 
 BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {

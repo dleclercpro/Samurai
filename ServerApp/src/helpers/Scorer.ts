@@ -94,13 +94,18 @@ class Scorer {
             .getNeighboringTiles()
             .reduce((scoreboard: Scoreboard, neighboringTile: IBoardTile) => {
                 const previouslyPlayedTile = neighboringTile.getPlayedTile();
-                const player = previouslyPlayedTile.getPlayer();
-                const handTile = previouslyPlayedTile.getHandTile();
-    
-                return {
-                    ...scoreboard,
-                    [player.getId()]: scoreboard[player.getId()].add(handTile.computeScore()),
-                };
+
+                if (previouslyPlayedTile) {
+                    const player = previouslyPlayedTile.getPlayer();
+                    const handTile = previouslyPlayedTile.getHandTile();
+        
+                    return {
+                        ...scoreboard,
+                        [player.getId()]: scoreboard[player.getId()].add(handTile.computeScore()),
+                    };
+                }
+
+                return scoreboard;
     
             }, this.generateScoreboard());
     }

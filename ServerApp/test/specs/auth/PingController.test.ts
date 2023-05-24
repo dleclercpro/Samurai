@@ -29,6 +29,7 @@ test(`Pinging with logged in user should work`, async () => {
     await expect(pingAction()).resolves.toEqual(successResponse({
         username: USER.username,
         email: USER.email,
+        isAdmin: false,
     }));
 
     await signOutAction();

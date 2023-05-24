@@ -30,6 +30,7 @@ test(`Signing in with valid credentials should work`, async () => {
     await expect(action()).resolves.toEqual(successResponse({
         username: USER.username,
         email: USER.email,
+        isAdmin: false,
     }));
 
     await signOutAction();

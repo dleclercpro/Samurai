@@ -1,15 +1,15 @@
 import { RequestHandler } from 'express';
 import { successResponse } from '../../libs/calls';
-import { logger } from '../../utils/Logging';
 
 const PingController: RequestHandler = async (req, res, next) => {
     try {
-        const { session } = req;
+        const { user } = req;
 
         // Success
         return res.json(successResponse({
-            username: session.getUsername(),
-            email: session.getEmail(),
+            username: user.getUsername(),
+            email: user.getEmail(),
+            isAdmin: user.isAdmin,
         }));
 
     } catch (err: any) {

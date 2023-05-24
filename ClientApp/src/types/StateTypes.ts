@@ -52,6 +52,7 @@ export interface UserState {
     username: string,
     email: string,
     isAuthenticated: boolean,
+    isAdmin: boolean,
 }
 
 export interface DialogState {

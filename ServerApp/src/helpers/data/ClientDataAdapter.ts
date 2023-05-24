@@ -30,7 +30,7 @@ class ClientDataAdapter {
 
     // PUBLIC METHODS
     public async getGameData(user: IUser, game: IGame) {
-        const player = game.getPlayerByUser(user);
+        const player = user.isAdmin ? game.getCurrentPlayer() : game.getPlayerByUser(user);
         const board = game.getBoard();
 
         return {

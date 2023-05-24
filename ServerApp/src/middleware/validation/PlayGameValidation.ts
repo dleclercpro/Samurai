@@ -13,7 +13,7 @@ export const PlayGameValidation: RequestHandler = (req, res, next) => {
     const { handTileId, boardTileIds, castes } = req.body;
 
     const invalidParams = [];
-
+    
     // Validate hand tile
     if (!isNumerical(String(handTileId))) {
         invalidParams.push('handTileId');
@@ -38,6 +38,6 @@ export const PlayGameValidation: RequestHandler = (req, res, next) => {
     if (invalidParams.length > 0) {
         throw new ErrorInvalidParams(invalidParams);
     }
-    
+
     next();
 }
