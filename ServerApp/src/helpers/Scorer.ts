@@ -49,7 +49,7 @@ class Scorer {
 
             // Update caste score of strongest player wrt. this caste (it can only be ONE player)
             if (strongestPlayers.length === 1) {
-                strongestPlayers[0].increaseScoreByCaste(caste, city.getCastePieceCountByType(caste));
+                strongestPlayers[0].increaseScoreByCaste(caste, city.getRemainingCastePieceCountByType(caste));
             }
         });
     }

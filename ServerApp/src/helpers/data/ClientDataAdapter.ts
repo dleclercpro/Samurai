@@ -63,7 +63,7 @@ class ClientDataAdapter {
         return {
             id: boardTile.getId(),
             coordinates: boardTile.getCoordinates(),
-            castes: boardTile.getStartCastePieces(),
+            castes: boardTile.getCastePieces(),
             isClosed: boardTile.isCity() && boardTile.isClosed(),
             isWater: boardTile.getType() === BoardTileType.Water,
             isSwap: boardTile.getType() === BoardTileType.Swap,

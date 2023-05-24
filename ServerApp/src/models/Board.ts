@@ -85,6 +85,7 @@ BoardSchema.methods.getCities = function() {
 
 BoardSchema.methods.getSwapTiles = function() {
     return BOARD_TILE_SWAP_IDS
+        .filter(id => (this as IBoard).hasTile(id))
         .map(id => (this as IBoard).getTileById(id));
 }
 

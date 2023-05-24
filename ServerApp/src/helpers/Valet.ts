@@ -86,10 +86,14 @@ class Valet {
         const board = game.getBoard();
 
         // Delete caste pieces from old locations
+        boardTiles.from.removeRemainingCastePiece(castes.from);
+        boardTiles.to.removeRemainingCastePiece(castes.to);
         boardTiles.from.removeCastePiece(castes.from);
         boardTiles.to.removeCastePiece(castes.to);
 
         // Add caste pieces to new locations
+        boardTiles.from.addRemainingCastePiece(castes.to);
+        boardTiles.to.addRemainingCastePiece(castes.from);
         boardTiles.from.addCastePiece(castes.to);
         boardTiles.to.addCastePiece(castes.from);
 
@@ -111,7 +115,7 @@ class Valet {
 
         // Remove caste pieces from board
         CASTES.forEach(caste => {
-            city.removeCastePiecesByCaste(caste);
+            city.removeRemainingCastePiecesByCaste(caste);
         });
     }
 }

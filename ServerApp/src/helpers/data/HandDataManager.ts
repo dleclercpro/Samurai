@@ -37,10 +37,6 @@ class HandDataManager {
         return Object.values(this.tiles);
     }
 
-    public getSwapTiles() {
-        return BOARD_TILE_SWAP_IDS.map(id => this.getTileById(id));
-    }
-
     public getTileById(id: number) {
         const tile = this.getTiles().find(tile => tile.id === id);
 

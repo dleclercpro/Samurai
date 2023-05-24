@@ -116,11 +116,11 @@ class Rules {
             throw new ErrorGameCannotSwapCastePiecesOnSameBoardTile();
         }
 
-        if (!boardTiles.from.hasCastePiece(castes.from)) {
+        if (!boardTiles.from.hasRemainingCastePiece(castes.from)) {
             throw new ErrorGameCastePieceDoesNotExist(castes.from, boardTiles.from);
         }
 
-        if (!boardTiles.to.hasCastePiece(castes.to)) {
+        if (!boardTiles.to.hasRemainingCastePiece(castes.to)) {
             throw new ErrorGameCastePieceDoesNotExist(castes.to, boardTiles.to);
         }
 

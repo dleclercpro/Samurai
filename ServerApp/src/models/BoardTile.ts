@@ -31,13 +31,15 @@ export interface IBoardTile extends Types.Subdocument {
     getPlayedTile: () => IPlayedTile,
     getNeighboringTiles: () => IBoardTile[],
     getNeighboringCities: () => IBoardTile[],
-    getCastePieceCountByType: (caste: Caste) => number,
-    getStartCastePieces: () => Caste[],
     getCastePieces: () => Caste[],
-    hasCastePiece: (caste: Caste) => boolean,
     addCastePiece: (caste: Caste) => void,
     removeCastePiece: (caste: Caste) => void,
-    removeCastePiecesByCaste: (caste: Caste) => void,
+    hasRemainingCastePiece: (caste: Caste) => boolean,
+    getRemainingCastePieceCountByType: (caste: Caste) => number,
+    getRemainingCastePieces: () => Caste[],
+    addRemainingCastePiece: (caste: Caste) => void,
+    removeRemainingCastePiece: (caste: Caste) => void,
+    removeRemainingCastePiecesByCaste: (caste: Caste) => void,
     setTile: (tile: IPlayedTile) => void,
     removeTile: () => void,
     isFree: () => boolean,
@@ -68,62 +70,76 @@ export const BoardTileSchema = new Schema<IBoardTile>({
 
 
 // METHODS
-BoardTileSchema.methods.stringify = function() {
+BoardTileSchema.methods.stringify = function () {
     return ``;
 }
 
-BoardTileSchema.methods.getId = function() {
+BoardTileSchema.methods.getId = function () {
     return this.id;
 }
 
-BoardTileSchema.methods.getType = function() {
+BoardTileSchema.methods.getType = function () {
     return BoardData.getTileTypeById(this.id);
 }
 
-BoardTileSchema.methods.getSection = function() {
+BoardTileSchema.methods.getSection = function () {
     return BoardData.getTileSectionById(this.id);
 }
 
-BoardTileSchema.methods.getCoordinates = function() {
+BoardTileSchema.methods.getCoordinates = function () {
     return BoardData.getTileCoordinatesById(this.id);
 }
 
-BoardTileSchema.methods.getPlayedTile = function() {
+BoardTileSchema.methods.getPlayedTile = function () {
     return this.playedTile;
 }
 
-BoardTileSchema.methods.getNeighboringTiles = function() {
+BoardTileSchema.methods.getNeighboringTiles = function () {
     const board = this.parent() as IBoard;
 
     return BoardDataManager.getTileNeighborsById(this.id)
         .map(tile => board.getTileById(tile.id));
 }
 
-BoardTileSchema.methods.getNeighboringCities = function() {
+BoardTileSchema.methods.getNeighboringCities = function () {
     return (this as IBoardTile).getNeighboringTiles().filter(tile => tile.isCity());
 }
 
-BoardTileSchema.methods.getCastePieceCountByType = function(caste: Caste) {
-    return (this as IBoardTile).remainingCastePieces.filter(c => c === caste).length;
-}
-
-BoardTileSchema.methods.getStartCastePieces = function() {
+BoardTileSchema.methods.getCastePieces = function () {
     return this.castePieces;
 }
 
-BoardTileSchema.methods.getCastePieces = function() {
-    return this.remainingCastePieces;
+BoardTileSchema.methods.addCastePiece = function (caste: Caste) {
+    this.castePieces = [...this.castePieces, caste];
 }
 
-BoardTileSchema.methods.hasCastePiece = function(caste: Caste) {
+BoardTileSchema.methods.removeCastePiece = function (caste: Caste) {
+    const indexToRemove = this.castePieces.indexOf(caste);
+
+    if (indexToRemove === -1) {
+        throw new Error('Cannot remove absent caste piece from board tile!');
+    }
+
+    this.castePieces = [...this.castePieces.slice(0, indexToRemove), ...this.castePieces.slice(indexToRemove + 1)];
+}
+
+BoardTileSchema.methods.getRemainingCastePieceCountByType = function (caste: Caste) {
+    return (this as IBoardTile).remainingCastePieces.filter(c => c === caste).length;
+}
+
+BoardTileSchema.methods.hasRemainingCastePiece = function (caste: Caste) {
     return this.remainingCastePieces.includes(caste);
 }
 
-BoardTileSchema.methods.addCastePiece = function(caste: Caste) {
+BoardTileSchema.methods.getRemainingCastePieces = function () {
+    return this.remainingCastePieces;
+}
+
+BoardTileSchema.methods.addRemainingCastePiece = function (caste: Caste) {
     this.remainingCastePieces = [...this.remainingCastePieces, caste];
 }
 
-BoardTileSchema.methods.removeCastePiece = function(caste: Caste) {
+BoardTileSchema.methods.removeRemainingCastePiece = function (caste: Caste) {
     const indexToRemove = this.remainingCastePieces.indexOf(caste);
 
     if (indexToRemove === -1) {
@@ -133,39 +149,39 @@ BoardTileSchema.methods.removeCastePiece = function(caste: Caste) {
     this.remainingCastePieces = [...this.remainingCastePieces.slice(0, indexToRemove), ...this.remainingCastePieces.slice(indexToRemove + 1)];
 }
 
-BoardTileSchema.methods.removeCastePiecesByCaste = function(caste: Caste) {
+BoardTileSchema.methods.removeRemainingCastePiecesByCaste = function (caste: Caste) {
     this.remainingCastePieces = (this as IBoardTile).remainingCastePieces.filter(c => c !== caste);
 }
 
-BoardTileSchema.methods.setTile = function(playedTile: IPlayedTile) {
+BoardTileSchema.methods.setTile = function (playedTile: IPlayedTile) {
     this.playedTile = playedTile;
 }
 
-BoardTileSchema.methods.removeTile = function() {
+BoardTileSchema.methods.removeTile = function () {
     this.playedTile = undefined;
 }
 
-BoardTileSchema.methods.isFree = function() {
+BoardTileSchema.methods.isFree = function () {
     return !this.playedTile;
 }
 
-BoardTileSchema.methods.isGround = function() {
+BoardTileSchema.methods.isGround = function () {
     return (this as IBoardTile).getType() === BoardTileType.Ground;
 }
 
-BoardTileSchema.methods.isWater = function() {
+BoardTileSchema.methods.isWater = function () {
     return (this as IBoardTile).getType() === BoardTileType.Water;
 }
 
-BoardTileSchema.methods.isSwap = function() {
+BoardTileSchema.methods.isSwap = function () {
     return (this as IBoardTile).getType() === BoardTileType.Swap;
 }
 
-BoardTileSchema.methods.isCity = function() {
+BoardTileSchema.methods.isCity = function () {
     return this.castePieces.length > 0;
 }
 
-BoardTileSchema.methods.isClosed = function() {
+BoardTileSchema.methods.isClosed = function () {
     if (!this.isCity()) {
         throw new ErrorGameBoardTileNotACity(this as IBoardTile);
     }
@@ -175,7 +191,7 @@ BoardTileSchema.methods.isClosed = function() {
         .every(tile => !tile.isFree());
 }
 
-BoardTileSchema.methods.isHandTileCompatible = function(handTile: IHandTile) {
+BoardTileSchema.methods.isHandTileCompatible = function (handTile: IHandTile) {
     const type = this.getType();
 
     switch (type) {
