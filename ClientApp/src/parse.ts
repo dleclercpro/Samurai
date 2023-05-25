@@ -2,12 +2,11 @@ import { BoardData, BoardTileData, FullHandTileData, PlayerData, ScoreData, Play
 import { BoardTileMap, HandTile, PlayerColor, Caste, Figure, Action, TileType, Player, PlayerScore, HandTileMap, PlayedTileMap } from './types/GameTypes';
 
 export const parseBoard = (data: BoardData): BoardTileMap => {
-    const rawTiles = Object.values(data).flat();
     const tiles: BoardTileMap = new Map();
 
     // Build tile map
-    rawTiles.forEach((rawTile: BoardTileData) => {
-        const { id, coordinates, castes, isClosed, isWater, isSwap } = rawTile;
+    data.forEach((tile: BoardTileData) => {
+        const { id, coordinates, castes, isClosed, isWater, isSwap } = tile;
         
         if (tiles.has(id)) {
             throw new Error('Trying to add same tile twice.');

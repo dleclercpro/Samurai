@@ -12,7 +12,7 @@ export interface HandTileJSON {
 export interface BoardTileJSON {
     id: number,
     type: BoardTileType,
-    section: BoardSection,
+    sections: BoardSection[],
     coordinates: Coordinates2D,
     neighbors: number[],
     castes: number,

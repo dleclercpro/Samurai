@@ -26,7 +26,7 @@ export interface IBoardTile extends Types.Subdocument {
     stringify: () => string,
     getId: () => number,
     getType: () => BoardTileType,
-    getSection: () => BoardSection,
+    getSections: () => BoardSection[],
     getCoordinates: () => Coordinates2D,
     getPlayedTile: () => IPlayedTile,
     getNeighboringTiles: () => IBoardTile[],
@@ -82,8 +82,8 @@ BoardTileSchema.methods.getType = function () {
     return BoardData.getTileTypeById(this.id);
 }
 
-BoardTileSchema.methods.getSection = function () {
-    return BoardData.getTileSectionById(this.id);
+BoardTileSchema.methods.getSections = function () {
+    return BoardData.getTileSectionsById(this.id);
 }
 
 BoardTileSchema.methods.getCoordinates = function () {

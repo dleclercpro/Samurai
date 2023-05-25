@@ -12,7 +12,9 @@
       6,
       20
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -28,7 +30,9 @@
       20,
       21
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -44,7 +48,9 @@
       21,
       22
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -59,7 +65,9 @@
       22,
       41
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -74,7 +82,9 @@
       7,
       23
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -90,7 +100,9 @@
       23,
       24
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -107,7 +119,9 @@
       24,
       25
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -122,7 +136,9 @@
       8,
       23
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -138,7 +154,9 @@
       23,
       28
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -154,7 +172,9 @@
       11,
       28
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -172,7 +192,9 @@
       33,
       37
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -189,7 +211,9 @@
       37,
       39
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -204,7 +228,9 @@
       13,
       39
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -219,7 +245,9 @@
       14,
       39
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -235,7 +263,9 @@
       39,
       40
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -250,7 +280,9 @@
       16,
       40
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -266,7 +298,9 @@
       38,
       40
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -283,7 +317,9 @@
       35,
       38
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -299,7 +335,9 @@
       35,
       36
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -315,7 +353,9 @@
       47,
       48
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -333,7 +373,9 @@
       25,
       26
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -351,7 +393,9 @@
       26,
       27
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -369,7 +413,9 @@
       41,
       45
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -387,7 +433,9 @@
       24,
       28
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -405,7 +453,9 @@
       28,
       29
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -423,7 +473,9 @@
       29,
       30
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -441,7 +493,9 @@
       30,
       31
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -459,7 +513,9 @@
       32,
       45
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -477,7 +533,9 @@
       24,
       29
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -495,7 +553,9 @@
       30,
       33
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -513,7 +573,9 @@
       33,
       34
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 2,
@@ -531,7 +593,9 @@
       34,
       35
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -549,7 +613,9 @@
       45,
       46
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -567,7 +633,9 @@
       37,
       38
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -585,7 +653,9 @@
       35,
       38
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -603,7 +673,9 @@
       34,
       36
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -621,7 +693,9 @@
       46,
       47
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -639,7 +713,9 @@
       39,
       40
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -657,7 +733,9 @@
       37,
       40
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 1,
@@ -675,7 +753,9 @@
       37,
       40
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -693,7 +773,9 @@
       38,
       39
     ],
-    "section": "North"
+    "sections": [
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -710,7 +792,10 @@
       45,
       54
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -726,7 +811,9 @@
       54,
       55
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -742,7 +829,9 @@
       55,
       56
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -758,7 +847,9 @@
       57,
       66
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -776,7 +867,10 @@
       46,
       54
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -794,7 +888,10 @@
       54,
       59
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -812,7 +909,10 @@
       59,
       63
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -828,7 +928,10 @@
       49,
       63
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "North"
+    ]
   },
   {
     "castes": 0,
@@ -844,7 +947,9 @@
       63,
       64
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -860,7 +965,9 @@
       64,
       65
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -876,7 +983,9 @@
       53,
       65
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -892,7 +1001,9 @@
       70,
       87
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -910,7 +1021,9 @@
       84,
       87
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -928,7 +1041,9 @@
       55,
       59
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -946,7 +1061,9 @@
       59,
       60
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 2,
@@ -964,7 +1081,9 @@
       60,
       61
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -982,7 +1101,9 @@
       62,
       66
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1000,7 +1121,9 @@
       81,
       84
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1018,7 +1141,9 @@
       60,
       63
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1036,7 +1161,9 @@
       63,
       64
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1054,7 +1181,9 @@
       64,
       65
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1072,7 +1201,9 @@
       65,
       84
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1090,7 +1221,9 @@
       60,
       64
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1108,7 +1241,9 @@
       63,
       65
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1126,7 +1261,9 @@
       62,
       64
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1143,7 +1280,9 @@
       67,
       77
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1159,7 +1298,9 @@
       77,
       90
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1175,7 +1316,9 @@
       90,
       94
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1190,7 +1333,9 @@
       94,
       97
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1206,7 +1351,9 @@
       87,
       88
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1222,7 +1369,9 @@
       88,
       89
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1237,7 +1386,9 @@
       73,
       89
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1252,7 +1403,9 @@
       74,
       89
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1269,7 +1422,9 @@
       86,
       89
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1285,7 +1440,9 @@
       80,
       83
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1301,7 +1458,9 @@
       93,
       116
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1319,7 +1478,9 @@
       81,
       90
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1337,7 +1498,9 @@
       90,
       91
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1355,7 +1518,9 @@
       91,
       92
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1373,7 +1538,9 @@
       92,
       93
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1391,7 +1558,9 @@
       84,
       85
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 3,
@@ -1409,7 +1578,9 @@
       85,
       86
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1427,7 +1598,9 @@
       82,
       86
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1445,7 +1618,9 @@
       85,
       87
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1463,7 +1638,9 @@
       87,
       88
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1481,7 +1658,9 @@
       88,
       89
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1499,7 +1678,9 @@
       85,
       88
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1517,7 +1698,9 @@
       87,
       89
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1535,7 +1718,9 @@
       86,
       88
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1553,7 +1738,9 @@
       91,
       94
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1571,7 +1758,9 @@
       94,
       95
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1589,7 +1778,9 @@
       95,
       96
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1607,7 +1798,9 @@
       116,
       117
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1625,7 +1818,9 @@
       95,
       97
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -1643,7 +1838,9 @@
       97,
       98
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1661,7 +1858,9 @@
       117,
       119
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1678,7 +1877,9 @@
       98,
       99
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1696,7 +1897,9 @@
       119,
       122
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1712,7 +1915,9 @@
       100,
       122
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1728,7 +1933,9 @@
       122,
       124
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1744,7 +1951,9 @@
       124,
       126
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1760,7 +1969,9 @@
       126,
       128
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1776,7 +1987,9 @@
       128,
       130
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1791,7 +2004,9 @@
       105,
       130
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1808,7 +2023,10 @@
       131,
       151
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1826,7 +2044,10 @@
       162,
       166
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1844,7 +2065,10 @@
       161,
       162
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1862,7 +2086,10 @@
       157,
       161
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1880,7 +2107,10 @@
       154,
       157
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1898,7 +2128,10 @@
       127,
       154
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1916,7 +2149,10 @@
       152,
       154
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1934,7 +2170,9 @@
       123,
       125
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1951,7 +2189,10 @@
       132,
       152
     ],
-    "section": "Center"
+    "sections": [
+      "Center",
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -1967,7 +2208,9 @@
       118,
       121
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1982,7 +2225,9 @@
       116,
       118
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -1999,7 +2244,9 @@
       117,
       118
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 2,
@@ -2017,7 +2264,9 @@
       119,
       120
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2035,7 +2284,9 @@
       120,
       121
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2053,7 +2304,9 @@
       122,
       123
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2071,7 +2324,9 @@
       121,
       123
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -2089,7 +2344,9 @@
       118,
       120
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -2107,7 +2364,9 @@
       123,
       124
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2125,7 +2384,9 @@
       124,
       125
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2143,7 +2404,9 @@
       125,
       126
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -2161,7 +2424,9 @@
       126,
       127
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2179,7 +2444,9 @@
       127,
       128
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2197,7 +2464,9 @@
       128,
       129
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -2215,7 +2484,9 @@
       129,
       130
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2233,7 +2504,9 @@
       130,
       131
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2251,7 +2524,9 @@
       129,
       131
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 1,
@@ -2269,7 +2544,9 @@
       129,
       130
     ],
-    "section": "Center"
+    "sections": [
+      "Center"
+    ]
   },
   {
     "castes": 0,
@@ -2285,7 +2562,9 @@
       152,
       153
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2300,7 +2579,9 @@
       134,
       153
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2316,7 +2597,9 @@
       153,
       156
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2332,7 +2615,9 @@
       156,
       159
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2347,7 +2632,9 @@
       137,
       159
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2364,7 +2651,9 @@
       159,
       160
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2382,7 +2671,9 @@
       162,
       163
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2400,7 +2691,9 @@
       163,
       164
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2417,7 +2710,9 @@
       164,
       165
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2432,7 +2727,9 @@
       142,
       165
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2447,7 +2744,9 @@
       143,
       165
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2463,7 +2762,9 @@
       165,
       169
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2479,7 +2780,9 @@
       169,
       172
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2494,7 +2797,9 @@
       146,
       172
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2511,7 +2816,9 @@
       172,
       173
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2526,7 +2833,9 @@
       148,
       173
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2541,7 +2850,9 @@
       149,
       173
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2557,7 +2868,9 @@
       170,
       173
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2573,7 +2886,9 @@
       166,
       170
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2589,7 +2904,9 @@
       150,
       166
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2607,7 +2924,9 @@
       154,
       155
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2625,7 +2944,9 @@
       155,
       156
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2643,7 +2964,9 @@
       155,
       157
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2661,7 +2984,9 @@
       157,
       158
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2679,7 +3004,9 @@
       158,
       159
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2697,7 +3024,9 @@
       158,
       161
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2715,7 +3044,9 @@
       160,
       161
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2733,7 +3064,9 @@
       158,
       160
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2751,7 +3084,9 @@
       159,
       161
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2769,7 +3104,9 @@
       158,
       160
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2787,7 +3124,9 @@
       166,
       167
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2805,7 +3144,9 @@
       167,
       168
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2823,7 +3164,9 @@
       168,
       169
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2841,7 +3184,9 @@
       164,
       169
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2859,7 +3204,9 @@
       167,
       170
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2877,7 +3224,9 @@
       170,
       171
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2895,7 +3244,9 @@
       171,
       172
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2913,7 +3264,9 @@
       168,
       172
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2931,7 +3284,9 @@
       171,
       173
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2949,7 +3304,9 @@
       172,
       173
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2967,7 +3324,9 @@
       169,
       171
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 1,
@@ -2985,7 +3344,9 @@
       170,
       171
     ],
-    "section": "South"
+    "sections": [
+      "South"
+    ]
   },
   {
     "castes": 0,
@@ -2996,7 +3357,9 @@
     "id": 200,
     "type": "Swap",
     "neighbors": [],
-    "section": "SwapTiles"
+    "sections": [
+      "SwapTiles"
+    ]
   },
   {
     "castes": 0,
@@ -3007,7 +3370,9 @@
     "id": 201,
     "type": "Swap",
     "neighbors": [],
-    "section": "SwapTiles"
+    "sections": [
+      "SwapTiles"
+    ]
   },
   {
     "castes": 0,
@@ -3018,7 +3383,9 @@
     "id": 202,
     "type": "Swap",
     "neighbors": [],
-    "section": "SwapTiles"
+    "sections": [
+      "SwapTiles"
+    ]
   },
   {
     "castes": 0,
@@ -3029,6 +3396,8 @@
     "id": 203,
     "type": "Swap",
     "neighbors": [],
-    "section": "SwapTiles"
+    "sections": [
+      "SwapTiles"
+    ]
   }
 ]

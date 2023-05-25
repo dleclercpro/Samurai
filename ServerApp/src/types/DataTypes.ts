@@ -19,9 +19,7 @@ export interface UserData {
     isAdmin: boolean,
 }
 
-export interface BoardData {
-    [section: string]: BoardTileData[],
-}
+export type BoardData = BoardTileData[];
 
 export interface BoardTileData {
     id: number,

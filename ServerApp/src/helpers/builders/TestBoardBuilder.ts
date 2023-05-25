@@ -13,7 +13,7 @@ class TestBoardBuilder extends BoardBuilder {
 
         // Start building board with playable tiles contained in existing sections
         const playableTiles = BoardDataManager.getTiles()
-            .filter(tile => !excludedSections.includes(tile.section))
+            .filter(tile => !tile.sections.every(section => excludedSections.includes(section)))
             .reduce((prevTiles: IBoardTile[], tile: BoardTileJSON) => {
                 const castePieces = TestBoardDataManager.getTileById(tile.id).castes;
 

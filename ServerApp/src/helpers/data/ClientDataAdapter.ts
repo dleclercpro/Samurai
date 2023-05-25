@@ -47,16 +47,7 @@ class ClientDataAdapter {
     private getBoardData(board: IBoard): BoardData {
         const tiles = board.getTiles();
 
-        return tiles.reduce((sections, tile) => {
-            const section = tile.getSection();
-            const sectionTiles = sections[section] ?? [];
-
-            return {
-                ...sections,
-                [section]: [...sectionTiles, this.getBoardTileData(tile)],
-            };
-
-        }, {} as BoardData);
+        return tiles.map(tile => this.getBoardTileData(tile));
     }
 
     private getBoardTileData(boardTile: IBoardTile): BoardTileData {
@@ -120,6 +111,7 @@ class ClientDataAdapter {
         };
     }
 
+    // FIXME: doesn't seem to work?
     private getPlayedSinceLastTurn(player: IPlayer): PlayedTilesData {
         const game = player.ownerDocument() as IGame;
         const board = game.getBoard();

@@ -5,13 +5,13 @@ import './BoardTileComponent.scss';
 import { AppAction } from '../../actions';
 import { openDialog } from '../../actions/DialogActions';
 import TileBackground from './TileBackground';
-import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION, TILE_SIZE } from '../../config';
+import { TILE_PATH_BOARD, TILE_STROKE, BOARD_ROTATION, TILE_SIZE, DEBUG } from '../../config';
 import { AppState } from '../../types/StateTypes';
 import { DialogType } from '../../types/DialogTypes';
 import { selectBoardTile, selectTileFromForSwap, selectTileToForSwap, selectBoardTileToMoveTo } from '../../actions/GameActions';
 import { getHandTiles, isGameOver } from '../../selectors';
 import { getPositionInHexagon, isGroundHandTile } from '../../lib';
-import TileIcon from './TileIcon';
+import TileIcon from './CastePiece';
 
 interface OwnProps {
     id: number,
@@ -94,7 +94,7 @@ class BoardTileComponent extends React.Component<Props, State> {
     }
 
     render() {
-        const { position, castes, isClosed, isWater, isPlayable, isSelected, isSwap } = this.props;
+        const { id, position, castes, isClosed, isWater, isPlayable, isSelected, isSwap } = this.props;
         const { isHovered } = this.state;
         const { width, height } = TILE_SIZE;
         const center = { x: width / 2, y: height / 2 };
@@ -122,6 +122,13 @@ class BoardTileComponent extends React.Component<Props, State> {
                     stroke={TILE_STROKE}
                     isWater={isWater}
                 />
+                {DEBUG &&
+                    <g>
+                        <text x={100} y={75} className='tile-id'>
+                            {id}
+                        </text>
+                    </g>
+                }
                 {isCity &&
                     <g
                         className='board-tile-component-content'
@@ -132,7 +139,7 @@ class BoardTileComponent extends React.Component<Props, State> {
 
                             return (
                                 <TileIcon
-                                    key={`tile-icon-caste-${index}`}
+                                    key={`caste-piece-caste-${index}`}
                                     position={position}
                                     size={pieceSize}
                                     type={type}

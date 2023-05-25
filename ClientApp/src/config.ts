@@ -2,7 +2,8 @@ import { Size2D, Coordinates2D } from './types/GameTypes';
 import { getHexagonalPath } from './lib';
 
 // Environment
-export const DEBUG = process.env.NODE_ENV === 'development';
+export const DEV = process.env.NODE_ENV === 'development';
+export const DEBUG = process.env.REACT_APP_DEBUG === 'true';
 export const PROD_URL = 'https://samurai.api.dleclerc.me';
 export const DEV_URL = 'http://localhost:8000';
 
@@ -18,7 +19,7 @@ export const TILE_PATH: string = getHexagonalPath(TILE_SIZE, TILE_STROKE);
 export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superimposing tiles on their contours
 
 // Server
-export const BASE_URL = DEBUG ? DEV_URL : PROD_URL;
+export const BASE_URL = DEV ? DEV_URL : PROD_URL;
 export const API_URL = `${BASE_URL}/api/v1`;
 export const STATIC_URL = `${BASE_URL}/static`;
 export const POLL_RATE = 5 * 1000;      // ms

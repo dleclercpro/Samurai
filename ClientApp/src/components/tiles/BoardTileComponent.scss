@@ -1,3 +1,9 @@
 .board-tile-component {
-    
+
+    .tile-id {
+        font-size: 60px;
+        font-weight: bold;
+        z-index: 1000;
+        pointer-events: none;
+    }
 }

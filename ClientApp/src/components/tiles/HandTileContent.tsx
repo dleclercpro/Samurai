@@ -1,7 +1,7 @@
 import React from 'react';
 import { TileType, Action, Caste, PlayerColor, Figure } from '../../types/GameTypes';
 import './HandTileContent.scss';
-import TileIcon from './TileIcon';
+import TileIcon from './CastePiece';
 import { TILE_SIZE, TILE_STROKE, TILE_PATH } from '../../config';
 import { getPositionInHexagon, getColor } from '../../lib';
 import TileBackground from './TileBackground';
