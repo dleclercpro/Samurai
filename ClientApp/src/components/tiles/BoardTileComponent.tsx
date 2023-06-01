@@ -11,7 +11,7 @@ import { DialogType } from '../../types/DialogTypes';
 import { selectBoardTile, selectTileFromForSwap, selectTileToForSwap, selectBoardTileToMoveTo } from '../../actions/GameActions';
 import { getHandTiles, isGameOver } from '../../selectors';
 import { getPositionInHexagon, isGroundHandTile } from '../../lib';
-import TileIcon from './CastePiece';
+import TileIcon from './TileIcon';
 
 interface OwnProps {
     id: number,
@@ -139,7 +139,7 @@ class BoardTileComponent extends React.Component<Props, State> {
 
                             return (
                                 <TileIcon
-                                    key={`caste-piece-caste-${index}`}
+                                    key={`tile-icon-caste-${index}`}
                                     position={position}
                                     size={pieceSize}
                                     type={type}

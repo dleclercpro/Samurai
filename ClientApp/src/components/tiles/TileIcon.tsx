@@ -1,6 +1,6 @@
 import React from 'react';
 import { Size2D, Coordinates2D, TileType, Caste, Figure, Action } from '../../types/GameTypes';
-import './CastePiece.scss';
+import './TileIcon.scss';
 import { ReactComponent as HouseIcon } from '../../icons/house.svg';
 import { ReactComponent as MonkIcon } from '../../icons/monk.svg';
 import { ReactComponent as RiceIcon } from '../../icons/rice.svg';
@@ -21,7 +21,7 @@ const TileIcon: React.FC<Props> = (props) => {
     const { width, height } = size;
 
     const iconProps = {
-        className: 'caste-piece',
+        className: 'tile-icon',
         width: width,
         height: height,
         x: x - width / 2,  // Center in x

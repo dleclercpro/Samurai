@@ -1,6 +1,6 @@
 @import '../../styles/styles';
 
-.caste-piece {
+.tile-icon {
     @extend %tile-content-coloring;
 
     .board-tile-component.is-city.is-closed & {
