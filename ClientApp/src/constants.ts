@@ -9,4 +9,4 @@ export const TILE_MOVE_ID = 19;
 export const FULL_HAND_SIZE = 20;
 
 export const CASTES = [ Caste.Military, Caste.Religion, Caste.Commerce ];
-export const SWAPABLE_CASTES = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ];
+export const MOVABLE_HAND_TILE_TYPES = [ Caste.Military, Caste.Religion, Caste.Commerce, Figure.Samurai ];

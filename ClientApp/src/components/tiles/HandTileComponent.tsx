@@ -109,6 +109,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
             isPlayable = !isOver && self.isPlaying && inDialog;
             break;
         case TilePlayStep.ChooseBoardTile:
+            // FIXME: hand tile isn't playable until a movable tile is placed onto board
             isPlayable = !isOver && self.isPlaying && !inDialog && ((isMove && nPlayedTiles > 0) || isSwap);
             break;
     }
