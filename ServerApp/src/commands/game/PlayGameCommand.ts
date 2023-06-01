@@ -6,7 +6,7 @@ import Valet from '../../helpers/Valet';
 import { GAME_INIT_VERSION, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../constants';
 import { ErrorGameInvalidOrder, ErrorGameNotPlayerTurn } from '../../errors/GameErrors';
 import Scorer from '../../helpers/Scorer';
-import { OrderType, GameOrder, RawGameOrder } from '../../models/Order';
+import Order, { OrderType, GameOrder, RawGameOrder } from '../../models/Order';
 
 interface Argument {
     player: IPlayer,
@@ -58,7 +58,7 @@ class PlayGameCommand extends Command<Argument, Response> {
         new Valet(player).execute(this.order!);
 
         // Store last order
-        game.getHistory().pushOrder(order);
+        game.getHistory().pushRawOrder(order, player);
 
         // Update last played time
         game.setLastPlayedTime(now);

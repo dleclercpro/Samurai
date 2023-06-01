@@ -3,15 +3,16 @@ import Order, { IOrder, OrderSchema, RawGameOrder } from './Order';
 import { deepCopy } from '../libs';
 import { IGame } from './Game';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
+import { IPlayer } from './Player';
 
 export interface IHistory extends Document {
     orders: IOrder[],
 
     // Methods
     stringify: () => string,
-    getOrder: (version: number) => RawGameOrder,
-    getOrdersSince: (version: number) => RawGameOrder[],
-    pushOrder: (order: RawGameOrder) => void,
+    getOrder: (version: number) => IOrder,
+    getOrdersSince: (version: number) => IOrder[],
+    pushRawOrder: (rawOrder: RawGameOrder, player: IPlayer) => void,
 }
 
 
@@ -42,9 +43,9 @@ HistorySchema.methods.getOrdersSince = function(version: number) {
     return (this as IHistory).orders.filter(order => order.getVersion() > version);
 }
 
-HistorySchema.methods.pushOrder = function(_order: RawGameOrder) {
+HistorySchema.methods.pushRawOrder = function(rawOrder: RawGameOrder, player: IPlayer) {
     const game = this.ownerDocument() as IGame;
-    const order = deepCopy(_order);
+    const order = deepCopy(rawOrder);
     const { boardTileIds, castes } = order;
 
     // Format order for database
@@ -63,6 +64,7 @@ HistorySchema.methods.pushOrder = function(_order: RawGameOrder) {
 
     this.orders.push(new Order({
         version: game.getVersion(),
+        playerId: player.getId(),
         ...order,
     }));
 }

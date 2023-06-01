@@ -111,14 +111,13 @@ class ClientDataAdapter {
         };
     }
 
-    // FIXME: doesn't seem to work?
     private getPlayedSinceLastTurn(player: IPlayer): PlayedTilesData {
         const game = player.ownerDocument() as IGame;
         const board = game.getBoard();
         const orders = game.getHistory().getOrdersSince(player.getLastTurn());
 
         return orders.reduce((playedTiles, order) => {
-            const { handTileId,  boardTileIds, castes } = order; 
+            const { playerId, handTileId,  boardTileIds } = order; 
             
             // Move order
             if (handTileId === HAND_TILE_ID_MOVE) {
@@ -137,7 +136,7 @@ class ClientDataAdapter {
             if (handTileId === HAND_TILE_ID_SWAP) {
                 const swapTile = board
                     .getSwapTiles()
-                    .find(swapTile => swapTile.getPlayedTile()?.getPlayer().getId() === player.getId());
+                    .find(swapTile => swapTile.getPlayedTile()?.getPlayer().getId() === playerId);
                 
                 if (swapTile) {
                     return {

@@ -6,6 +6,8 @@ import { GAME_INIT_VERSION } from '../constants';
 import { N_FULL_HAND_TILES } from '../constants';
 import { IBoardTile } from './BoardTile';
 import { IHandTile } from './HandTile';
+import { IGame } from './Game';
+import { IPlayer } from './Player';
 
 export enum OrderType {
     Normal = 'Normal',
@@ -27,10 +29,12 @@ export interface GameOrder {
 
 export interface IOrder extends Types.Subdocument, RawGameOrder {
     version: number,
+    playerId: string,
 
     // Methods
     stringify: () => string,
     getVersion: () => number,
+    getPlayer: () => IPlayer,
     getHandTileId: () => number,
     getBoardTileIds: () => FromTo<number | null>,
     getCastes: () => FromTo<Caste | null>,
@@ -46,6 +50,7 @@ export interface IOrderModel extends Model<IOrder> {
 
 export const OrderSchema = new Schema<IOrder>({
     version: { type: Number, required: true, min: GAME_INIT_VERSION },
+    playerId: { type: String, required: true },
     handTileId: { type: Number, required: true, min: 0, max: N_FULL_HAND_TILES - 1 },
     boardTileIds: {
         from: { type: Number },
@@ -67,6 +72,10 @@ OrderSchema.methods.stringify = function() {
 
 OrderSchema.methods.getVersion = function() {
     return this.version;
+}
+
+OrderSchema.methods.getPlayer = function() {
+    return (this.ownerDocument as IGame).getPlayers().find(player => player.getId() === this.playerId);
 }
 
 OrderSchema.methods.getHandTileId = function() {
