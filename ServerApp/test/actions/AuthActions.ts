@@ -24,11 +24,12 @@ export const signOutAction = async () => {
     const sessionCookie = await CookieManager.getSessionCookie();
     const headers = { Cookie: sessionCookie ?? undefined };
     
-    await axios
+    const response = await axios
         .get(`${API_ROOT}/auth/sign-out`, { headers })
-        .then(res => res.data);
 
     await CookieManager.removeSessionCookie();
+
+    return response.data;
 }
 
 export const pingAction = async () => {
