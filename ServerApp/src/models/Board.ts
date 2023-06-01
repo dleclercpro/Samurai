@@ -73,7 +73,7 @@ BoardSchema.methods.getTileById = function(id: number) {
 BoardSchema.methods.getTilesPlayedByPlayer = function(player: IPlayer) {
     return (this as IBoard)
         .getTiles()
-        .map(tile => tile.playedTile)
+        .map(tile => tile.getPlayedTile())
         .filter(tile => !!tile && tile.playerId === player.getId());
 }
 

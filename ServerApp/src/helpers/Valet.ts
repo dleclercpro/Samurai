@@ -55,7 +55,7 @@ class Valet {
         const { handTile, boardTile } = order;
 
         // Set tile on board
-        boardTile.setTile(new PlayedTile({
+        boardTile.setPlayedTile(new PlayedTile({
             playerId: this.player.getId(),
             handTile,
         }));
@@ -65,16 +65,16 @@ class Valet {
         const { boardTiles } = order;
 
         // Set tile on new location
-        boardTiles.to.setTile(new PlayedTile({
+        boardTiles.to.setPlayedTile(new PlayedTile({
             playerId: this.player.getId(),
             handTile: boardTiles.from.getPlayedTile().getHandTile(),
         }));
 
         // Remove tile from old location
-        boardTiles.from.removeTile();
+        boardTiles.from.removePlayedTile();
 
         // Set 'move' tile on old location
-        boardTiles.from.setTile(new PlayedTile({
+        boardTiles.from.setPlayedTile(new PlayedTile({
             playerId: this.player.getId(),
             handTile: this.player.getHand().getTileById(HAND_TILE_ID_MOVE),
         }));
@@ -98,7 +98,7 @@ class Valet {
         boardTiles.to.addCastePiece(castes.from);
 
         // Set 'swap' tile on dedicated location
-        board.getNextFreeSwapTile().setTile(new PlayedTile({
+        board.getNextFreeSwapTile().setPlayedTile(new PlayedTile({
             playerId: this.player.getId(),
             handTile: this.player.getHand().getTileById(HAND_TILE_ID_SWAP),
         }));

@@ -27,7 +27,6 @@ export interface IBoardTile extends Types.Subdocument {
     getType: () => BoardTileType,
     getSections: () => BoardSection[],
     getCoordinates: () => Coordinates2D,
-    getPlayedTile: () => IPlayedTile,
     getNeighboringTiles: () => IBoardTile[],
     getNeighboringCities: () => IBoardTile[],
     getCastePieces: () => Caste[],
@@ -39,8 +38,9 @@ export interface IBoardTile extends Types.Subdocument {
     addRemainingCastePiece: (caste: Caste) => void,
     removeRemainingCastePiece: (caste: Caste) => void,
     removeRemainingCastePiecesByCaste: (caste: Caste) => void,
-    setTile: (tile: IPlayedTile) => void,
-    removeTile: () => void,
+    getPlayedTile: () => IPlayedTile,
+    setPlayedTile: (tile: IPlayedTile) => void,
+    removePlayedTile: () => void,
     isFree: () => boolean,
     isGround: () => boolean,
     isWater: () => boolean,
@@ -87,10 +87,6 @@ BoardTileSchema.methods.getSections = function () {
 
 BoardTileSchema.methods.getCoordinates = function () {
     return BoardDataManager.getTileCoordinatesById(this.id);
-}
-
-BoardTileSchema.methods.getPlayedTile = function () {
-    return this.playedTile;
 }
 
 BoardTileSchema.methods.getNeighboringTiles = function () {
@@ -152,11 +148,15 @@ BoardTileSchema.methods.removeRemainingCastePiecesByCaste = function (caste: Cas
     this.remainingCastePieces = (this as IBoardTile).remainingCastePieces.filter(c => c !== caste);
 }
 
-BoardTileSchema.methods.setTile = function (playedTile: IPlayedTile) {
+BoardTileSchema.methods.getPlayedTile = function () {
+    return this.playedTile;
+}
+
+BoardTileSchema.methods.setPlayedTile = function (playedTile: IPlayedTile) {
     this.playedTile = playedTile;
 }
 
-BoardTileSchema.methods.removeTile = function () {
+BoardTileSchema.methods.removePlayedTile = function () {
     this.playedTile = undefined;
 }
 
