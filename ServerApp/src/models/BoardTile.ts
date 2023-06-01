@@ -1,6 +1,5 @@
 import { Types, Schema, Model, model } from 'mongoose';
 import { Caste, Coordinates2D, HandTileType } from '../types/GameTypes';
-import BoardData from '../helpers/data/BoardDataManager';
 import { CASTES, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { IHandTile } from './HandTile';
@@ -79,15 +78,15 @@ BoardTileSchema.methods.getId = function () {
 }
 
 BoardTileSchema.methods.getType = function () {
-    return BoardData.getTileTypeById(this.id);
+    return BoardDataManager.getTileTypeById(this.id);
 }
 
 BoardTileSchema.methods.getSections = function () {
-    return BoardData.getTileSectionsById(this.id);
+    return BoardDataManager.getTileSectionsById(this.id);
 }
 
 BoardTileSchema.methods.getCoordinates = function () {
-    return BoardData.getTileCoordinatesById(this.id);
+    return BoardDataManager.getTileCoordinatesById(this.id);
 }
 
 BoardTileSchema.methods.getPlayedTile = function () {

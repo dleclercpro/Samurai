@@ -100,7 +100,6 @@ class PlayGameCommand extends Command<Argument, Response> {
         const handTile = player.getHand().getTileById(handTileId);
 
         // Ensure board tiles exist in current game
-        // FIXME: water tiles are sometimes part of more than one section
         const board = game.getBoard();
         const boardTiles = {
             from: boardTileIds.from !== null ? board.getTileById(boardTileIds.from) : null,

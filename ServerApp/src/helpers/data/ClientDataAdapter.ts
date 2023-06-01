@@ -76,7 +76,7 @@ class ClientDataAdapter {
     }
 
     private async getPlayerData(player: IPlayer): Promise<PlayerData> {
-        const user = await User.getById(player.getUserId()); // FIXME
+        const user = await User.getById(player.getUserId()); // FIXME: populate in player
 
         return {
             id: player.getId(),
