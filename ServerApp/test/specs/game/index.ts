@@ -91,6 +91,7 @@ export const USERS: Record<string, any> = {
     'USER_WITH_SWAP': USER_WITH_SWAP,
     'USER_WITH_MOVE_AND_SWAP': USER_WITH_MOVE_AND_SWAP,
 };
+export const USER_NAMES = ['USER', 'USER_WITH_MOVE', 'USER_WITH_SWAP', 'USER_WITH_MOVE_AND_SWAP'];
 
 export const PLAYERS: Record<string, IPlayer> = {
     'PLAYER': PLAYER,
@@ -98,6 +99,7 @@ export const PLAYERS: Record<string, IPlayer> = {
     'PLAYER_WITH_SWAP': PLAYER_WITH_SWAP,
     'PLAYER_WITH_MOVE_AND_SWAP': PLAYER_WITH_MOVE_AND_SWAP,
 };
+export const PLAYER_NAMES = ['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'];
 
 const BOARD_2_PLAYERS = new TestBoardBuilder(2).build();
 const BOARD_3_PLAYERS = new TestBoardBuilder(3).build();
@@ -141,10 +143,11 @@ export const createGame = async (playerNames: string[] = Object.keys(PLAYERS), c
 
 
 const signUpUsers = async () => {
-    await Promise.all(getRange(Object.keys(USERS).length).map(async (i) => {
+    const users = USER_NAMES.map(name => USERS[name]);
+    const players = PLAYER_NAMES.map(name => PLAYERS[name]);
 
-        // FIXME: Object.values not always give values in same order?
-        const [user, player] = [Object.values(USERS)[i], Object.values(PLAYERS)[i]];
+    await Promise.all(getRange(users.length).map(async (i) => {
+        const [user, player] = [users[i], players[i]];
 
         const { data } = await signUpAction(user);
 
