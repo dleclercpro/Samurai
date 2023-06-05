@@ -6,7 +6,7 @@ import { FromTo } from '../types';
 import { HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../constants';
 import { IBoard } from '../models/Board';
 import { ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGameCannotPlaceTileOntoCity, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameIncompatibleTileTypes, ErrorGameCastePieceDoesNotExist, ErrorGamePlayedTileDoesNotExist, ErrorGameCanOnlyMoveFromGroundTiles } from '../errors/GameErrors';
-import { GameOrder } from '../models/Order';
+import { PopulatedGameOrder } from '../models/Order';
 
 export interface Normal {
     boardTile: IBoardTile,
@@ -36,7 +36,7 @@ class Rules {
         this.player = player;
     }
 
-    public canExecute(order: GameOrder) {
+    public canExecute(order: PopulatedGameOrder) {
         const { handTile, boardTiles, castes } = order;
 
         switch (handTile.getId()) {

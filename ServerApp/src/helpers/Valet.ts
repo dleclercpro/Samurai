@@ -5,7 +5,7 @@ import PlayedTile from '../models/PlayedTile';
 import { IGame } from '../models/Game';
 import { IBoardTile } from '../models/BoardTile';
 import Scorer from './Scorer';
-import { GameOrder } from '../models/Order';
+import { PopulatedGameOrder } from '../models/Order';
 
 /*
     This class is responsible for executing the moves ordered by the players
@@ -18,7 +18,7 @@ class Valet {
         this.player = player;
     }
 
-    public execute(order: GameOrder) {
+    public execute(order: PopulatedGameOrder) {
         const { handTile, boardTiles, castes } = order;
 
         switch (handTile.getId()) {

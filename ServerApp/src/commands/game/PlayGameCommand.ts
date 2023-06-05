@@ -6,18 +6,19 @@ import Valet from '../../helpers/Valet';
 import { GAME_INIT_VERSION, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../constants';
 import { ErrorGameInvalidOrder, ErrorGameNotPlayerTurn } from '../../errors/GameErrors';
 import Scorer from '../../helpers/Scorer';
-import Order, { OrderType, GameOrder, RawGameOrder } from '../../models/Order';
+import { OrderType, PopulatedGameOrder, GameOrder } from '../../models/Order';
+import { logger } from '../../utils/Logging';
 
 interface Argument {
     player: IPlayer,
-    order: RawGameOrder,
+    order: GameOrder,
 }
 
 type Response = void;
 
 class PlayGameCommand extends Command<Argument, Response> {
     private game: IGame;
-    private order?: GameOrder;
+    private populatedOrder?: PopulatedGameOrder;
 
     public constructor(argument: Argument) {
         super('PlayGameCommand', argument);
@@ -34,17 +35,19 @@ class PlayGameCommand extends Command<Argument, Response> {
         }
 
         // Prepare game order
-        this.parseGameOrder();
-        this.validateGameOrder(this.order!);
+        this.populateGameOrder();
+        this.validateGameOrder(this.populatedOrder!);
 
         // Check if player's order respects game rules
-        new Rules(player).canExecute(this.order!);
+        new Rules(player).canExecute(this.populatedOrder!);
     }
 
     protected async doExecute() {
         const { game } = this;
-        const { handTile } = this.order!;
+        const { handTile } = this.populatedOrder!;
         const { player, order } = this.argument;
+
+        logger.info(`Executing player's (ID = ${player.getId()}) order...`);
 
         // Get current time
         const now = new Date();
@@ -55,19 +58,19 @@ class PlayGameCommand extends Command<Argument, Response> {
         }
 
         // Execute player's order on board with help of valet
-        new Valet(player).execute(this.order!);
+        new Valet(player).execute(this.populatedOrder!);
 
         // Store last order
-        game.getHistory().pushRawOrder(order, player);
+        game.getHistory().pushOrder(order, player);
 
         // Update last played time
         game.setLastPlayedTime(now);
 
-        // Update number of turns played by player
-        player.incrementPlayedTurnCount();
-
         // Set last turn played by player
         player.setLastTurn(game.getVersion());
+
+        // Update number of turns played by player
+        player.incrementPlayedTurnCount();
 
         // Game over
         if (game.getBoard().areAllCitiesClosed()) {
@@ -82,16 +85,16 @@ class PlayGameCommand extends Command<Argument, Response> {
             if (!handTile.canReplay()) {
                 game.setNextPlayer(game.getNextPlayer());
             }
-
-            // Increase game version
-            game.setVersion(game.getVersion() + 1);
         }
+
+        // Increase game version
+        game.setVersion(game.getVersion() + 1);
 
         // Save game
         await game.save();
     }
 
-    private parseGameOrder() {
+    private populateGameOrder() {
         const { game } = this;
         const { player, order } = this.argument;
         const { handTileId, boardTileIds, castes } = order;
@@ -107,10 +110,10 @@ class PlayGameCommand extends Command<Argument, Response> {
         };
 
         // Form game order
-        this.order = { handTile, boardTiles, castes };
+        this.populatedOrder = { handTile, boardTiles, castes };
     }
 
-    private validateGameOrder(order: GameOrder) {
+    private validateGameOrder(order: PopulatedGameOrder) {
         const { handTile, boardTiles, castes } = order;
 
         const someCaste = ![castes.from, castes.to].every(caste => caste === null);

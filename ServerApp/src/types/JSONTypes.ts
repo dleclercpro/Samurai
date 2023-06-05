@@ -1,5 +1,7 @@
+import { FromTo } from '.';
 import { BoardSection } from '../models/Board';
 import { BoardTileType } from '../models/BoardTile';
+import { GameOrder } from '../models/Order';
 import { Caste, Coordinates2D, HandTileType } from './GameTypes';
 
 export interface HandTileJSON {
@@ -21,6 +23,11 @@ export interface BoardTileJSON {
 export interface TestBoardTileJSON {
     id: number,
     castes: Caste[],
+}
+
+export interface TestOrderJSON {
+    playerName: string,
+    order: GameOrder,
 }
 
 export type HandJSON = HandTileJSON[];

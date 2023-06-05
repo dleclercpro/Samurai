@@ -6,9 +6,9 @@ import { logger } from '../../utils/Logging';
 import { ClientError } from '../../errors/ClientErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import Game from '../../models/Game';
-import { RawGameOrder } from '../../models/Order';
+import { GameOrder } from '../../models/Order';
 
-export type PlayGameControllerBody = RawGameOrder;
+export type PlayGameControllerBody = GameOrder;
 
 type IPlayGameController = RequestHandler<any, any, PlayGameControllerBody>;
 

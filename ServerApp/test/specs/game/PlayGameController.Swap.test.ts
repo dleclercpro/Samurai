@@ -39,7 +39,7 @@ afterEach(customAfterEachPlay);
 
 
 test(`Valid swap order should work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
+    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
 
     // Build game order
     const order = {
@@ -56,7 +56,7 @@ test(`Valid swap order should work`, async () => {
 
 
 test(`Placing swap order with identical 'from' and 'to' board tiles should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
+    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
 
     // Build game order
     const order = {
@@ -74,7 +74,7 @@ test(`Placing swap order with identical 'from' and 'to' board tiles should NOT w
 
 
 test(`Placing swap order with missing caste should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
+    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
 
     // Build game order
     const missingFromCasteOrder = {
@@ -108,7 +108,7 @@ test(`Placing swap order with missing caste should NOT work`, async () => {
 });
 
 test(`Placing swap order with non-city board tiles should NOT work`, async () => {
-    const game = await createGame(Object.keys(PLAYERS), 'PLAYER_WITH_SWAP');
+    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
 
     // Build game order
     const nonCityBoardTileFromOrder = {

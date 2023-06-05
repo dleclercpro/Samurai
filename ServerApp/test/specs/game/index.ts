@@ -107,7 +107,7 @@ const BOARD_4_PLAYERS = new TestBoardBuilder(4).build();
 
 
 
-export const createGame = async (playerNames: string[] = Object.keys(PLAYERS), currentPlayerName: string = 'PLAYER') => {
+export const createGame = async (playerNames: string[] = PLAYER_NAMES, currentPlayerName: string = 'PLAYER') => {
     const now = new Date();
     
     const players = playerNames.map(name => {

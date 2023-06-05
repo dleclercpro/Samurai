@@ -19,3 +19,12 @@ export const playGameAction = async (game: any, order: any) => {
         .post(`${API_ROOT}/game/${game}`, order, { headers })
         .then(res => res.data);
 }
+
+export const getGameDataAction = async (game: any, version: any) => {
+    const sessionCookie = await CookieManager.getSessionCookie();
+    const headers = { Cookie: sessionCookie };
+
+    return axios
+        .get(`${API_ROOT}/game/${game}/${version}`, { headers })
+        .then(res => res.data);
+}

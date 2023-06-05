@@ -15,19 +15,19 @@ export enum OrderType {
     Swap = 'Swap',
 }
 
-export interface RawGameOrder {
+export interface GameOrder {
     handTileId: number,
     boardTileIds: FromTo<number | null>,
     castes: FromTo<Caste | null>,
 }
 
-export interface GameOrder {
+export interface PopulatedGameOrder {
     handTile: IHandTile,
     boardTiles: FromTo<IBoardTile | null>,
     castes: FromTo<Caste | null>,
 }
 
-export interface IOrder extends Types.Subdocument, RawGameOrder {
+export interface IOrder extends Types.Subdocument, GameOrder {
     version: number,
     playerId: string,
 

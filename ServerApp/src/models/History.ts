@@ -1,5 +1,5 @@
 import { Document, model, Model, Schema } from 'mongoose';
-import Order, { IOrder, OrderSchema, RawGameOrder } from './Order';
+import Order, { IOrder, OrderSchema, GameOrder } from './Order';
 import { deepCopy } from '../libs';
 import { IGame } from './Game';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
@@ -12,7 +12,7 @@ export interface IHistory extends Document {
     stringify: () => string,
     getOrder: (version: number) => IOrder,
     getOrdersSince: (version: number) => IOrder[],
-    pushRawOrder: (rawOrder: RawGameOrder, player: IPlayer) => void,
+    pushOrder: (order: GameOrder, player: IPlayer) => void,
 }
 
 
@@ -43,9 +43,9 @@ HistorySchema.methods.getOrdersSince = function(version: number) {
     return (this as IHistory).orders.filter(order => order.getVersion() > version);
 }
 
-HistorySchema.methods.pushRawOrder = function(rawOrder: RawGameOrder, player: IPlayer) {
+HistorySchema.methods.pushOrder = function(_order: GameOrder, player: IPlayer) {
     const game = this.ownerDocument() as IGame;
-    const order = deepCopy(rawOrder);
+    const order = deepCopy(_order);
     const { boardTileIds, castes } = order;
 
     // Format order for database
