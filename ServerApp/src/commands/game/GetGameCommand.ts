@@ -1,10 +1,12 @@
 import { ErrorGameDoesNotExist, ErrorGameVersionDoesNotExist } from '../../errors/GameErrors';
 import Command from '../Command';
 import Game, { IGame } from '../../models/Game';
+import { IUser } from '../../models/User';
 
 interface Argument {
     id: string,
     version: number,
+    user: IUser,
 }
 
 type Response = IGame | null;
@@ -17,7 +19,7 @@ class GetGameCommand extends Command<Argument, Response> {
     }
 
     protected async doPrepare() {
-        const { id } = this.argument;
+        const { id, user } = this.argument;
 
         // Try and find user in database
         const game = await Game.getById(id);
@@ -26,6 +28,9 @@ class GetGameCommand extends Command<Argument, Response> {
         if (!game) {
             throw new ErrorGameDoesNotExist(id);
         }
+
+        // Ensure user is playing in this game
+        game.getPlayerByUser(user);
 
         // Store game in command
         this.game = game;
@@ -36,8 +41,9 @@ class GetGameCommand extends Command<Argument, Response> {
         const game = this.game!;
         const now = new Date();
 
-        // If version is higher than the current one, there's a problem
-        if (version > game.getVersion()) {
+        // If version is higher than the current one, or
+        // smaller than zero, it is invalid
+        if (version < 0 || version > game.getVersion()) {
             throw new ErrorGameVersionDoesNotExist(version);
         }
 
@@ -45,8 +51,9 @@ class GetGameCommand extends Command<Argument, Response> {
         game.setLastViewedTime(now);
 
         // No need to send details back if client's game details
-        // are already up-to-date
-        if (version === game.getVersion()) {
+        // are already up-to-date, unless game is in its initial
+        // state
+        if (version !== 0 && version === game.getVersion()) {
             return null;
         }
 

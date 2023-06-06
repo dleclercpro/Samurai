@@ -15,11 +15,8 @@ const GetGameController: RequestHandler = async (req, res, next) => {
         // Parse version
         const version = parseInt(_version, 0);
 
-        // Check if user is playing in this game
-        // TODO
-
         // Fetch game
-        const game = await new GetGameCommand({ id, version }).execute();
+        const game = await new GetGameCommand({ id, version, user }).execute();
 
         // No updates since provided version
         if (game === null) {
@@ -33,7 +30,7 @@ const GetGameController: RequestHandler = async (req, res, next) => {
         if (
             err.code === ErrorGameDoesNotExist.code ||
             err.code === ErrorGameVersionDoesNotExist.code ||
-            err.code === ErrorUserNotPlayingInGame
+            err.code === ErrorUserNotPlayingInGame.code
         ) {
             logger.warn(err.message);
 
