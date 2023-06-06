@@ -15,7 +15,6 @@ export interface IHandTile extends Types.Subdocument {
     getType: () => HandTileType,
     getStrength: () => number,
     canReplay: () => boolean,
-    computeScore: () => IScore,
 }
 
 
@@ -52,24 +51,6 @@ HandTileSchema.methods.getStrength = function() {
 
 HandTileSchema.methods.canReplay = function() {
     return HandDataManager.getTileReplayById(this.id);
-}
-
-HandTileSchema.methods.computeScore = function() {
-    return CASTES.reduce((score: IScore, caste: Caste) => {
-
-        // Add hand tile strength to score if hand tile's type is either matching the current
-        // caste, or it is a joker tile (i.e. samurai/ship tile)
-        if ([HandTileType.Samurai, HandTileType.Ship, caste].includes(this.getType())) {
-            const casteScore = new Score();
-            
-            casteScore.setByCaste(caste, this.getStrength());
-
-            return score.add(casteScore);
-        }
-        
-        return score;
-
-    }, new Score());
 }
 
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_ROOT } from '../../src/config/AppConfig';
-import CookieManager from '../helpers/CookieManager';
+import CookieManager from '../../src/helpers/CookieManager';
 
 export const createGameAction = async (game: any) => {
     const sessionCookie = await CookieManager.getSessionCookie();

@@ -1,5 +1,5 @@
-import { SESSION_OPTIONS } from '../../src/config/AuthConfig';
-import { MemoryDatabase } from '../../src/databases/base/MemoryDatabase';
+import { SESSION_OPTIONS } from '../config/AuthConfig';
+import { MemoryDatabase } from '../databases/base/MemoryDatabase';
 
 /*
     This class is responsible for handling the cookies when testing the

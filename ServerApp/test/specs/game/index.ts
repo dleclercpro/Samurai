@@ -23,6 +23,7 @@ export const HAND_TILE_ID_RELIGION_3 = 7;
 export const HAND_TILE_ID_COMMERCE_3 = 8;
 
 export const HAND_TILE_ID_SAMURAI = 14;
+export const HAND_TILE_ID_SAMURAI_2 = 9;
 export const HAND_TILE_ID_SHIP = 15;
 
 export const BOARD_TILE_ID_CITY = 82;
@@ -98,7 +99,7 @@ export const PLAYER_MILITARY = new Player({
         HAND_TILE_ID_MILITARY_2,
         HAND_TILE_ID_MILITARY_3,
         HAND_TILE_ID_SAMURAI,
-        HAND_TILE_ID_SHIP,
+        HAND_TILE_ID_SAMURAI_2,
     ]),
 });
 
@@ -111,7 +112,7 @@ export const PLAYER_RELIGION = new Player({
         HAND_TILE_ID_RELIGION_2,
         HAND_TILE_ID_RELIGION_3,
         HAND_TILE_ID_SAMURAI,
-        HAND_TILE_ID_SHIP,
+        HAND_TILE_ID_SAMURAI_2,
     ]),
 });
 
@@ -124,7 +125,7 @@ export const PLAYER_COMMERCE = new Player({
         HAND_TILE_ID_COMMERCE_2,
         HAND_TILE_ID_COMMERCE_3,
         HAND_TILE_ID_SAMURAI,
-        HAND_TILE_ID_SHIP,
+        HAND_TILE_ID_SAMURAI_2,
     ]),
 });
 

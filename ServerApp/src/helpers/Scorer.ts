@@ -2,9 +2,10 @@ import { CASTES } from '../constants';
 import { flatten } from '../libs';
 import { IBoardTile } from '../models/BoardTile';
 import { IGame } from '../models/Game';
+import { IHandTile } from '../models/HandTile';
 import { IPlayer } from '../models/Player';
 import Score, { IScore } from '../models/Score';
-import { Caste } from '../types/GameTypes';
+import { Caste, HandTileType } from '../types/GameTypes';
 
 export type Scoreboard = Record<string, IScore>;
 export type CasteWinners = Record<Caste, IPlayer[]>;
@@ -101,7 +102,7 @@ class Scorer {
         
                     return {
                         ...scoreboard,
-                        [player.getId()]: scoreboard[player.getId()].add(handTile.computeScore()),
+                        [player.getId()]: scoreboard[player.getId()].add(this.computeHandTileScore(handTile)),
                     };
                 }
 
@@ -111,7 +112,7 @@ class Scorer {
     }
 
     /*
-        Compute which player has cumulated the most strength for a given caste around a given city.
+        Compute which player(s) has cumulated the most strength for a given caste around a given city.
     */
     private computeStrongestPlayersByCaste(scoreboard: Scoreboard, caste: Caste) {
         let strongestPlayers: IPlayer[] = [];
@@ -141,6 +142,28 @@ class Scorer {
         });
 
         return strongestPlayers;
+    }
+
+    /*
+        Compute the strength (which can also be seen as a "score") for each caste associated
+        with a given hand tile
+    */
+    private computeHandTileScore(handTile: IHandTile) {
+        return CASTES.reduce((score: IScore, caste: Caste) => {
+    
+            // Add hand tile's strength to score if hand tile's type is either matching
+            // the current caste, or is a joker tile (i.e. samurai/ship tile)
+            if ([HandTileType.Samurai, HandTileType.Ship, caste].includes(handTile.getType())) {
+                const casteStrength = new Score();
+                
+                casteStrength.setByCaste(caste, handTile.getStrength());
+    
+                return score.add(casteStrength);
+            }
+            
+            return score;
+    
+        }, new Score());
     }
 }
 

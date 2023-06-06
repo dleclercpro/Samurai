@@ -4,7 +4,7 @@ import GetGameCommand from '../../commands/game/GetGameCommand';
 import { HttpStatusCode } from '../../types/HTTPTypes';
 import { ClientError } from '../../errors/ClientErrors';
 import { logger } from '../../utils/Logging';
-import { ErrorGameDoesNotExist, ErrorGameVersionDoesNotExist } from '../../errors/GameErrors';
+import { ErrorGameDoesNotExist, ErrorGameVersionDoesNotExist, ErrorUserNotPlayingInGame } from '../../errors/GameErrors';
 import ClientDataAdapter from '../../helpers/data/ClientDataAdapter';
 
 const GetGameController: RequestHandler = async (req, res, next) => {
@@ -14,6 +14,9 @@ const GetGameController: RequestHandler = async (req, res, next) => {
 
         // Parse version
         const version = parseInt(_version, 0);
+
+        // Check if user is playing in this game
+        // TODO
 
         // Fetch game
         const game = await new GetGameCommand({ id, version }).execute();
@@ -29,7 +32,8 @@ const GetGameController: RequestHandler = async (req, res, next) => {
     } catch (err: any) {
         if (
             err.code === ErrorGameDoesNotExist.code ||
-            err.code === ErrorGameVersionDoesNotExist.code
+            err.code === ErrorGameVersionDoesNotExist.code ||
+            err.code === ErrorUserNotPlayingInGame
         ) {
             logger.warn(err.message);
 

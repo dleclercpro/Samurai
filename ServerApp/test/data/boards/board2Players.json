@@ -179,8 +179,8 @@
   {
     "castes": [
       "Military",
-      "Military",
-      "Religion"
+      "Religion",
+      "Commerce"
     ],
     "id": 82
   },
@@ -212,7 +212,7 @@
   },
   {
     "castes": [
-      "Commerce"
+      "Military"
     ],
     "id": 89
   },

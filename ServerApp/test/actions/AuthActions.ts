@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSessionCookieFromAxiosResponse } from '..';
 import { API_ROOT } from '../../src/config/AppConfig';
-import CookieManager from '../helpers/CookieManager';
+import CookieManager from '../../src/helpers/CookieManager';
 
 export const signUpAction = async (user: any) => {
     return axios

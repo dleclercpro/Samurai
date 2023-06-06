@@ -1,0 +1,72 @@
+[
+    {
+      "playerName": "PLAYER",
+      "order": {
+        "handTileId": 15,
+        "boardTileIds": {
+          "from": null,
+          "to": 68
+        },
+        "castes": {
+          "from": null,
+          "to": null
+        }
+      }
+    },
+    {
+      "playerName": "PLAYER",
+      "order": {
+        "handTileId": 1,
+        "boardTileIds": {
+          "from": null,
+          "to": 94
+        },
+        "castes": {
+          "from": null,
+          "to": null
+        }
+      }
+    },
+    {
+      "playerName": "PLAYER_WITH_MOVE",
+      "order": {
+        "handTileId": 1,
+        "boardTileIds": {
+          "from": null,
+          "to": 77
+        },
+        "castes": {
+          "from": null,
+          "to": null
+        }
+      }
+    },
+    {
+      "playerName": "PLAYER_WITH_SWAP",
+      "order": {
+        "handTileId": 1,
+        "boardTileIds": {
+          "from": null,
+          "to": 78
+        },
+        "castes": {
+          "from": null,
+          "to": null
+        }
+      }
+    },
+    {
+      "playerName": "PLAYER_WITH_MOVE_AND_SWAP",
+      "order": {
+        "handTileId": 1,
+        "boardTileIds": {
+          "from": null,
+          "to": 91
+        },
+        "castes": {
+          "from": null,
+          "to": null
+        }
+      }
+    }
+  ]
