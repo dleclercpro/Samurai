@@ -1,11 +1,11 @@
-import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, USER_WITH_MOVE, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '..';
-import { errorResponse, successResponse } from '../../../../src/libs/calls';
-import { playGameAction } from '../../../actions/GameActions';
-import { signInAction, signOutAction } from '../../../actions/AuthActions';
-import { expectActionToFailWithError } from '../../..';
-import { HttpStatusCode, HttpStatusMessage } from '../../../../src/types/HTTPTypes';
-import { HAND_TILE_ID_MOVE } from '../../../../src/constants';
-import { ClientError } from '../../../../src/errors/ClientErrors';
+import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, USER_WITH_MOVE, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { errorResponse, successResponse } from '../../../src/libs/calls';
+import { playGameAction } from '../../actions/GameActions';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
+import { expectActionToFailWithError } from '../..';
+import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
+import { HAND_TILE_ID_MOVE } from '../../../src/constants';
+import { ClientError } from '../../../src/errors/ClientErrors';
 
 
 

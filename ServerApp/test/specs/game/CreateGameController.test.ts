@@ -1,10 +1,10 @@
-import { expectActionToFailWithError } from '../../..';
-import { HttpStatusCode, HttpStatusMessage } from '../../../../src/types/HTTPTypes';
-import { errorResponse } from '../../../../src/libs/calls';
-import { ClientError } from '../../../../src/errors/ClientErrors';
-import { signInAction, signOutAction } from '../../../actions/AuthActions';
-import { createGameAction } from '../../../actions/GameActions';
-import { afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay } from '..';
+import { expectActionToFailWithError } from '../..';
+import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
+import { errorResponse } from '../../../src/libs/calls';
+import { ClientError } from '../../../src/errors/ClientErrors';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
+import { createGameAction } from '../../actions/GameActions';
+import { afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay } from '.';
 
 
 

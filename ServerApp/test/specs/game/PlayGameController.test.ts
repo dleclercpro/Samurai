@@ -1,11 +1,11 @@
-import { HAND_TILE_ID_MOVE } from '../../../../src/constants';
-import { expectActionToFailWithError } from '../../..';
-import { HttpStatusCode, HttpStatusMessage } from '../../../../src/types/HTTPTypes';
-import { ClientError } from '../../../../src/errors/ClientErrors';
-import { errorResponse, successResponse } from '../../../../src/libs/calls';
-import { playGameAction } from '../../../actions/GameActions';
-import { HAND_TILE_ID_MILITARY, HAND_TILE_ID_RELIGION, HAND_TILE_ID_SAMURAI, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '..';
-import { signInAction, signOutAction } from '../../../actions/AuthActions';
+import { HAND_TILE_ID_MOVE } from '../../../src/constants';
+import { expectActionToFailWithError } from '../..';
+import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
+import { ClientError } from '../../../src/errors/ClientErrors';
+import { errorResponse, successResponse } from '../../../src/libs/calls';
+import { playGameAction } from '../../actions/GameActions';
+import { HAND_TILE_ID_MILITARY, HAND_TILE_ID_RELIGION, HAND_TILE_ID_SAMURAI, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
+import { signInAction, signOutAction } from '../../actions/AuthActions';
 
 
 
