@@ -105,9 +105,9 @@ class ClientDataAdapter {
 
     private getScoreData(score: IScore): ScoreData {
         return {
-            'Military': score.getByCaste(Caste.Military),
-            'Religion': score.getByCaste(Caste.Religion),
-            'Commerce': score.getByCaste(Caste.Commerce),
+            [Caste.Military]: score.getByCaste(Caste.Military),
+            [Caste.Religion]: score.getByCaste(Caste.Religion),
+            [Caste.Commerce]: score.getByCaste(Caste.Commerce),
         };
     }
 

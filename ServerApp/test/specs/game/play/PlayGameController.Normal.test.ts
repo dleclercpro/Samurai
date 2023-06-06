@@ -1,10 +1,10 @@
-import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, PLAYER_NAMES, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
-import { playGameAction } from '../../actions/GameActions';
-import { errorResponse, successResponse } from '../../../src/libs/calls';
-import { expectActionToFailWithError } from '../..';
-import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
-import { ClientError } from '../../../src/errors/ClientErrors';
-import { signInAction, signOutAction } from '../../actions/AuthActions';
+import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '..';
+import { playGameAction } from '../../../actions/GameActions';
+import { errorResponse, successResponse } from '../../../../src/libs/calls';
+import { expectActionToFailWithError } from '../../..';
+import { HttpStatusCode, HttpStatusMessage } from '../../../../src/types/HTTPTypes';
+import { ClientError } from '../../../../src/errors/ClientErrors';
+import { signInAction, signOutAction } from '../../../actions/AuthActions';
 
 
 
@@ -71,7 +71,7 @@ test(`Placing hand tile onto board tile that does not exist in a 2-player game c
 
 
 test(`Placing regular ground hand tile onto free ground board tile should work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -88,7 +88,7 @@ test(`Placing regular ground hand tile onto free ground board tile should work`,
 
 
 test(`Placing samurai hand tile onto free ground board tile should work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -105,7 +105,7 @@ test(`Placing samurai hand tile onto free ground board tile should work`, async 
 
 
 test(`Placing ship hand tile onto free water board tile should work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -122,7 +122,7 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
 
 
 test(`Placing regular ground hand tile onto free water board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -140,7 +140,7 @@ test(`Placing regular ground hand tile onto free water board tile should NOT wor
 
 
 test(`Placing samurai hand tile onto free water board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -158,7 +158,7 @@ test(`Placing samurai hand tile onto free water board tile should NOT work`, asy
 
 
 test(`Placing ship hand tile onto free ground board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -176,7 +176,7 @@ test(`Placing ship hand tile onto free ground board tile should NOT work`, async
 
 
 test(`Placing hand tile onto board tile that's not free should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order1 = {
@@ -204,7 +204,7 @@ test(`Placing hand tile onto board tile that's not free should NOT work`, async 
 
 
 test(`Placing regular ground hand tile onto city board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
     // Build game order
     const order = {
@@ -222,7 +222,7 @@ test(`Placing regular ground hand tile onto city board tile should NOT work`, as
 
 
 test(`Placing tile when it's not player's turn should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_MOVE_AND_SWAP');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_MOVE_AND_SWAP');
 
     // Build game order
     const order = {

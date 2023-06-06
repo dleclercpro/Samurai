@@ -1,12 +1,12 @@
-import { HAND_TILE_ID_SWAP } from '../../../src/constants';
-import { Caste } from '../../../src/types/GameTypes';
-import { expectActionToFailWithError } from '../..';
-import { HttpStatusCode } from '../../../src/types/HTTPTypes';
-import { ClientError } from '../../../src/errors/ClientErrors';
-import { errorResponse, successResponse } from '../../../src/libs/calls';
-import { playGameAction } from '../../actions/GameActions';
-import { PLAYERS, USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
-import { signInAction, signOutAction } from '../../actions/AuthActions';
+import { HAND_TILE_ID_SWAP } from '../../../../src/constants';
+import { Caste } from '../../../../src/types/GameTypes';
+import { expectActionToFailWithError } from '../../..';
+import { HttpStatusCode } from '../../../../src/types/HTTPTypes';
+import { ClientError } from '../../../../src/errors/ClientErrors';
+import { errorResponse, successResponse } from '../../../../src/libs/calls';
+import { playGameAction } from '../../../actions/GameActions';
+import { USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '..';
+import { signInAction, signOutAction } from '../../../actions/AuthActions';
 
 
 
@@ -39,7 +39,7 @@ afterEach(customAfterEachPlay);
 
 
 test(`Valid swap order should work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_SWAP');
 
     // Build game order
     const order = {
@@ -56,7 +56,7 @@ test(`Valid swap order should work`, async () => {
 
 
 test(`Placing swap order with identical 'from' and 'to' board tiles should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_SWAP');
 
     // Build game order
     const order = {
@@ -74,7 +74,7 @@ test(`Placing swap order with identical 'from' and 'to' board tiles should NOT w
 
 
 test(`Placing swap order with missing caste should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_SWAP');
 
     // Build game order
     const missingFromCasteOrder = {
@@ -108,7 +108,7 @@ test(`Placing swap order with missing caste should NOT work`, async () => {
 });
 
 test(`Placing swap order with non-city board tiles should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_SWAP');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_SWAP');
 
     // Build game order
     const nonCityBoardTileFromOrder = {

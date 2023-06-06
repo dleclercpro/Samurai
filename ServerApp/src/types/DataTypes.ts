@@ -61,7 +61,7 @@ export interface PlayersData {
 }
 
 export interface ScoreData {
-    'Military': number,
-    'Religion': number,
-    'Commerce': number,
+    Military: number,
+    Religion: number,
+    Commerce: number,
 }

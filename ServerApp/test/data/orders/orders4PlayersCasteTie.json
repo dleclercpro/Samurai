@@ -47,7 +47,7 @@
       "handTileId": 0,
       "boardTileIds": {
         "from": null,
-        "to": 83
+        "to": 60
       },
       "castes": {
         "from": null,
@@ -61,7 +61,7 @@
       "handTileId": 1,
       "boardTileIds": {
         "from": null,
-        "to": 85
+        "to": 83
       },
       "castes": {
         "from": null,
@@ -72,7 +72,21 @@
   {
     "playerName": "PLAYER_WITH_MOVE",
     "order": {
-      "handTileId": 14,
+      "handTileId": 1,
+      "boardTileIds": {
+        "from": null,
+        "to": 85
+      },
+      "castes": {
+        "from": null,
+        "to": null
+      }
+    }
+  },
+  {
+    "playerName": "PLAYER_WITH_SWAP",
+    "order": {
+      "handTileId": 1,
       "boardTileIds": {
         "from": null,
         "to": 86

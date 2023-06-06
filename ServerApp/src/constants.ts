@@ -31,3 +31,10 @@ export const COLORS = Object.values(Color);
 
 // Castes
 export const CASTES = Object.values(Caste);
+
+// Score
+export const INIT_SCORE: Record<Caste, number> = {
+    [Caste.Military]: 0,
+    [Caste.Religion]: 0,
+    [Caste.Commerce]: 0,
+};

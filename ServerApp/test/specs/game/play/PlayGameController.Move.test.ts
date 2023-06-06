@@ -1,11 +1,11 @@
-import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, PLAYERS, USER, USER_WITH_MOVE, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
-import { errorResponse, successResponse } from '../../../src/libs/calls';
-import { playGameAction } from '../../actions/GameActions';
-import { signInAction, signOutAction } from '../../actions/AuthActions';
-import { expectActionToFailWithError } from '../..';
-import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
-import { HAND_TILE_ID_MOVE } from '../../../src/constants';
-import { ClientError } from '../../../src/errors/ClientErrors';
+import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, USER_WITH_MOVE, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '..';
+import { errorResponse, successResponse } from '../../../../src/libs/calls';
+import { playGameAction } from '../../../actions/GameActions';
+import { signInAction, signOutAction } from '../../../actions/AuthActions';
+import { expectActionToFailWithError } from '../../..';
+import { HttpStatusCode, HttpStatusMessage } from '../../../../src/types/HTTPTypes';
+import { HAND_TILE_ID_MOVE } from '../../../../src/constants';
+import { ClientError } from '../../../../src/errors/ClientErrors';
 
 
 
@@ -17,7 +17,7 @@ afterEach(afterEachPlay);
 
 
 test(`Valid move order should work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_MOVE');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_MOVE');
 
     // Build game orders
     const order1 = {
@@ -97,7 +97,7 @@ test(`Moving hand tile that does not belong to player should NOT work`, async ()
 
 
 test(`Moving hand tile from a free board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_MOVE');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_MOVE');
 
     // Build game order
     const order = {
@@ -179,7 +179,7 @@ test(`Moving hand tile onto board tile that's not free should NOT work`, async (
 
 
 test(`Moving hand tile onto city board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_MOVE');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_MOVE');
 
     // Build game order
     const order1 = {
@@ -216,7 +216,7 @@ test(`Moving hand tile onto city board tile should NOT work`, async () => {
 
 
 test(`Moving hand tile from ground board tile onto water board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_MOVE');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_MOVE');
 
     // Build game order
     const order1 = {
@@ -253,7 +253,7 @@ test(`Moving hand tile from ground board tile onto water board tile should NOT w
 
 
 test(`Moving hand tile from water board tile should NOT work`, async () => {
-    const game = await createGame(PLAYER_NAMES, 'PLAYER_WITH_MOVE');
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER_WITH_MOVE');
 
     // Build game order
     const order1 = {

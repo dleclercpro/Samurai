@@ -3,7 +3,6 @@ import { Caste, Color } from '../types/GameTypes';
 import { IScore, ScoreSchema } from './Score';
 import { HandSchema, IHand } from './Hand';
 import { COLORS, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
-import { IGame } from './Game';
 
 export interface IPlayer extends Types.Subdocument {
     userId: string,
