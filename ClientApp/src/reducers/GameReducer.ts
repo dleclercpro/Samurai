@@ -33,7 +33,7 @@ const initSelectionState = {
 const initState: GameState = {
     id: '',
     name: '',
-    version: -1,
+    version: 0,
     step: TilePlayStep.ChooseBoardTile,
     selection: { ...initSelectionState },
     playedTilesSinceLastTurn: new Map(),

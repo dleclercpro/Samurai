@@ -65,7 +65,7 @@ export const pipe = <T> (...fns: IdentityFunction<T>[]) => (arg: T) => {
     return fns.reduce((chain: Promise<T>, fn: IdentityFunction<T>) => chain.then(fn), Promise.resolve(arg));
 }
 
-export const deepCopy = (o: object) => JSON.parse(JSON.stringify(o));
+export const deepCopy = (obj: any): any => JSON.parse(JSON.stringify(obj));
 
 export const printJSON = (json: object) => {
     console.log(JSON.stringify(json, null, 2));

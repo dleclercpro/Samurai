@@ -44,7 +44,6 @@ HistorySchema.methods.getOrdersSince = function(version: number) {
 }
 
 HistorySchema.methods.pushOrder = function(_order: GameOrder, player: IPlayer) {
-    const game = this.ownerDocument() as IGame;
     const order = deepCopy(_order);
     const { boardTileIds, castes } = order;
 
@@ -62,6 +61,8 @@ HistorySchema.methods.pushOrder = function(_order: GameOrder, player: IPlayer) {
         delete order.castes.to;
     }
 
+    const game = this.ownerDocument() as IGame;
+    
     this.orders.push(new Order({
         version: game.getVersion(),
         playerId: player.getId(),

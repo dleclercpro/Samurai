@@ -67,7 +67,6 @@ class Game extends React.Component<Props, State> {
         }
 
         setGameId(routeId);
-        setGameVersion(-1);
 
         getGameData()
             .catch((error: any) => {

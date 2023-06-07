@@ -1,11 +1,12 @@
 import { Types, Schema, Model, model } from 'mongoose';
-import { Caste, Coordinates2D, HandTileType } from '../types/GameTypes';
+import { BoardSection, Caste, Coordinates2D, HandTileType } from '../types/GameTypes';
 import { CASTES, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile, PlayedTileSchema } from './PlayedTile';
 import { IHandTile } from './HandTile';
-import BoardDataManager from '../helpers/data/BoardDataManager';
-import { BoardSection, IBoard } from './Board';
+import { IBoard } from './Board';
 import { ErrorGameBoardTileNotACity } from '../errors/GameErrors';
+import DataManagers from '../helpers/data/DataManagers';
+import { IGame } from './Game';
 
 export enum BoardTileType {
     Ground = 'Ground',
@@ -68,6 +69,14 @@ export const BoardTileSchema = new Schema<IBoardTile>({
 
 
 
+// HELPER FUNCTIONS
+const getBoardTileManagerForBoardTile = (boardTile: IBoardTile) => {
+    const game = boardTile.ownerDocument() as IGame;
+    return DataManagers.getBoardDataManager(game.getPlayerCount());
+}
+
+
+
 // METHODS
 BoardTileSchema.methods.stringify = function () {
     return ``;
@@ -78,21 +87,25 @@ BoardTileSchema.methods.getId = function () {
 }
 
 BoardTileSchema.methods.getType = function () {
-    return BoardDataManager.getTileTypeById(this.id);
+    return getBoardTileManagerForBoardTile(this as IBoardTile)
+        .getTileTypeById(this.id);
 }
 
 BoardTileSchema.methods.getSections = function () {
-    return BoardDataManager.getTileSectionsById(this.id);
+    return getBoardTileManagerForBoardTile(this as IBoardTile)
+        .getTileSectionsById(this.id);
 }
 
 BoardTileSchema.methods.getCoordinates = function () {
-    return BoardDataManager.getTileCoordinatesById(this.id);
+    return getBoardTileManagerForBoardTile(this as IBoardTile)
+        .getTileCoordinatesById(this.id);
 }
 
 BoardTileSchema.methods.getNeighboringTiles = function () {
     const board = this.parent() as IBoard;
 
-    return BoardDataManager.getTileNeighborsById(this.id)
+    return getBoardTileManagerForBoardTile(this as IBoardTile)
+        .getTileNeighborsById(this.id)
         .map(tile => board.getTileById(tile.id));
 }
 

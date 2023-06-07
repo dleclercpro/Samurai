@@ -31,6 +31,7 @@ export interface IGame extends Document {
     getHistory: () => IHistory,
     getBoard: () => IBoard,
     getPlayers: () => IPlayer[],
+    getPlayerCount: () => number,
     getPlayerById: (id: string) => IPlayer,
     getPlayerByUser: (user: IUser) => IPlayer,
     getCurrentPlayer: () => IPlayer,
@@ -117,6 +118,10 @@ GameSchema.methods.getBoard = function() {
 
 GameSchema.methods.getPlayers = function() {
     return this.players;
+}
+
+GameSchema.methods.getPlayerCount = function() {
+    return this.players.length;
 }
 
 GameSchema.methods.getPlayerById = function(id: string) {

@@ -13,7 +13,7 @@ const GetGameController: RequestHandler = async (req, res, next) => {
         const { id, version: _version } = req.params;
 
         // Parse version
-        const version = parseInt(_version, 0);
+        const version = Number(_version);
 
         // Fetch game
         const game = await new GetGameCommand({ id, version, user }).execute();

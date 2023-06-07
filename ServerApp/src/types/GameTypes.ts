@@ -16,6 +16,13 @@ export enum Caste {
     Commerce = 'Commerce',
 }
 
+export enum BoardSection {
+    North = 'North',
+    Center = 'Center',
+    South = 'South',
+    SwapTiles = 'SwapTiles', // Reserved spot for played hand tiles associated with caste swaps
+}
+
 export enum HandTileType {
     Military = 'Military',
     Religion = 'Religion',

@@ -3,17 +3,9 @@ import { BoardTileSchema, IBoardTile } from './BoardTile';
 import { BOARD_TILE_SWAP_IDS, SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayedTile } from './PlayedTile';
 import { IPlayer } from './Player';
-import BoardDataManager from '../helpers/data/BoardDataManager';
 import { ErrorGameBoardTileDoesNotExist } from '../errors/GameErrors';
-
-export enum BoardSection {
-    North = 'North',
-    Center = 'Center',
-    South = 'South',
-    SwapTiles = 'SwapTiles', // Reserved spot for played hand tiles associated with caste swaps
-}
-
-
+import { IGame } from './Game';
+import DataManagers from '../helpers/data/DataManagers';
 
 export interface IBoard extends Types.Subdocument {
     tiles: IBoardTile[],
@@ -42,6 +34,14 @@ export const BoardSchema = new Schema<IBoard>({
     tiles: { type: [BoardTileSchema], required: true },
 
 }, { ...SUBDOCUMENT_SCHEMA_OPTIONS, _id: false });
+
+
+
+// HELPER FUNCTIONS
+const getBoardTileManagerForBoard = (board: IBoard) => {
+    const game = board.ownerDocument() as IGame;
+    return DataManagers.getBoardDataManager(game.getPlayerCount());
+}
 
 
 
@@ -78,7 +78,8 @@ BoardSchema.methods.getTilesPlayedByPlayer = function(player: IPlayer) {
 }
 
 BoardSchema.methods.getCities = function() {
-    return BoardDataManager.getCities()
+    return getBoardTileManagerForBoard(this as IBoard)
+        .getCities()
         .filter(city => (this as IBoard).hasTile(city.id))
         .map(city => (this as IBoard).getTileById(city.id));
 }

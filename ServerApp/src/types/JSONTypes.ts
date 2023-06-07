@@ -1,8 +1,6 @@
-import { FromTo } from '.';
-import { BoardSection } from '../models/Board';
 import { BoardTileType } from '../models/BoardTile';
 import { GameOrder } from '../models/Order';
-import { Caste, Coordinates2D, HandTileType } from './GameTypes';
+import { BoardSection, Caste, Coordinates2D, HandTileType } from './GameTypes';
 
 export interface HandTileJSON {
     id: number,

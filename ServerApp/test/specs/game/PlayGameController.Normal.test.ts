@@ -121,6 +121,23 @@ test(`Placing ship hand tile onto free water board tile should work`, async () =
 
 
 
+test(`Placing ship hand tile onto free water board tile shared between different board sections when a section is missing should work`, async () => {
+    const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE'], 'PLAYER');
+
+    // Build game order
+    const order = {
+        handTileId: HAND_TILE_ID_SHIP,
+        boardTileIds: { from: null, to: 47 }, // Free water board tile shared between sections 'North' and 'Center'
+        castes: { from: null, to: null },
+    };
+
+    const action = () => playGameAction(game.getId(), order);
+
+    await expect(action()).resolves.toEqual(successResponse());
+});
+
+
+
 test(`Placing regular ground hand tile onto free water board tile should NOT work`, async () => {
     const game = await createGame(['PLAYER', 'PLAYER_WITH_MOVE', 'PLAYER_WITH_SWAP', 'PLAYER_WITH_MOVE_AND_SWAP'], 'PLAYER');
 
