@@ -1,7 +1,5 @@
-# SamuraiClient
-
-## Description
-This is the front-end to a web app, based off the board game "Samurai", by Reiner Knizia. In order for this app to work, communication with a back-end is also needed.
+# Samurai
+Implementation of the board game "Samurai" as a web application, using the MERN stack. This application is based off the board game "Samurai", by Reiner Knizia.
 
 ## Disclaimer
 Although I, David Leclerc, am the full owner and author of the source code in this repository, I do NOT own any of the rights over the game itself.
