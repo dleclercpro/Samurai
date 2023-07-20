@@ -1,6 +1,5 @@
 import express, { Express } from 'express';
 import compression from 'compression';
-import cookieParser from 'cookie-parser';
 import AppRouter from './routes';
 import { CORS_OPTIONS, ENV, PORT, ROOT, TEST } from './config/AppConfig';
 import { logger } from './utils/Logging';
@@ -23,9 +22,6 @@ export let Server: http.Server;
 // JSON
 App.use(express.urlencoded({ extended: true }));
 App.use(express.json());
-
-// Cookies
-App.use(cookieParser());
 
 // GZIP
 App.use(compression());
