@@ -3,6 +3,7 @@ import './RequestTypes'; // Do not remove!
 export enum Environment {
     Test = 'test',
     Development = 'development',
+    Local = 'local',
     Production = 'production',
 }
 
