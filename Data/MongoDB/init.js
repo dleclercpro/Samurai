@@ -21,7 +21,7 @@ db.createUser({
 // Server user for the Samurai DB
 db.createUser({
     user: 'server',
-    pwd: "qF&b.<B^5tFtNmFF|mhXq`;Mr5tL9yoejK:<Ex[#",
+    pwd: "qF&b.<B^5tFtNmFF|mhXq`;Mr5tL9yoejK:<Ex[",
     roles: [
         { role: 'readWrite', db: 'samurai' },
     ],

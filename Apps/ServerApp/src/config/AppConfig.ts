@@ -6,12 +6,14 @@ import { createURL } from '../utils/url';
 
 // Environment
 export const ENV = getEnvironment();
-export const DEBUG = ENV !== Environment.Production;
 export const DEV = ENV === Environment.Development;
+export const PROD = ENV === Environment.Production;
 export const TEST = ENV === Environment.Test;
+export const DEBUG = [Environment.Development, Environment.Test].includes(ENV as Environment);
 
 // Directories
 export const PUBLIC_DIR = path.join(__dirname, '../../public');
+export const CLIENT_DIR = path.join(__dirname, '../../client');
 export const STATIC_DIR = PUBLIC_DIR;
 
 // Server
@@ -31,7 +33,7 @@ export const CLIENT_ROOT = createURL(CLIENT_PROTOCOL, CLIENT_HOST, CLIENT_PORT);
 
 // Requests
 export const CORS_OPTIONS: CorsOptions = {
-    origin: DEV ? CLIENT_ROOT : false,
+    origin: DEV ? CLIENT_ROOT : undefined,
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['X-CSRFToken', 'Accept', 'Content-Type'],
     credentials: true,

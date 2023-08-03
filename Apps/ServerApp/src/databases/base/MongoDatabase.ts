@@ -14,19 +14,26 @@ abstract class MongoDatabase extends Database {
     protected client?: typeof mongoose;
 
     protected getURI() {
-        const uri = this.getAnonymousURI();
+        let uri = this.getAnonymousURI();
 
         if (this.auth) {
             const { user, pass } = this.auth;
 
-            return `mongodb://${user}:${pass}@${uri}`;
+            uri = uri.replace('[USER]', encodeURIComponent(user));
+            uri = uri.replace('[PASS]', encodeURIComponent(pass));
         }
 
-        return `mongodb://${uri}`;
+        return uri;
     }
 
     protected getAnonymousURI() {
-        return `${this.host}:${this.port}/${this.name}`;
+        const uri = `${this.host}:${this.port}/${this.name}`;
+
+        if (this.auth) {
+            return `mongodb://[USER]:[PASS]@${uri}`;
+        }
+
+        return `mongodb://${uri}`;
     }
 
     protected async connect() {

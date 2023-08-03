@@ -35,25 +35,34 @@ class RedisDatabase extends Database implements IKeyValueDatabase<string> {
     }
 
     protected getURI = () => {
-        const uri = this.getAnonymousURI();
+        let uri = this.getAnonymousURI();
 
         if (this.auth) {
             const { user, pass } = this.auth;
 
-            return `redis://${user}:${pass}@${uri}`;
+            uri = uri.replace('[USER]', encodeURIComponent(user));
+            uri = uri.replace('[PASS]', encodeURIComponent(pass));
         }
 
-        return `redis://${uri}`;
+        return uri;
     }
 
     protected getAnonymousURI = () => {
-        return `${this.host}:${this.port}`;
+        const uri = `${this.host}:${this.port}`;
+
+        if (this.auth) {
+            return `redis://[USER]:[PASS]@${uri}`;
+        }
+
+        return `redis://${uri}`;
     }
 
     public async start() {
 
         // Listen to events it emits
         this.listen();
+
+        this.logger.debug(`Trying to connect to: ${this.getAnonymousURI()}`);
 
         // Connect to database
         await this.client.connect();

@@ -22,11 +22,7 @@ class SessionsDatabase extends RedisDatabase {
     }
 
     public async start() {
-        this.logger.info(`Server trying to connect to sessions database...`);
-
         await super.start();
-
-        this.logger.info(`Connected.`);
 
         // Remove expired sessions on start
         await this.removeExpiredSessions();

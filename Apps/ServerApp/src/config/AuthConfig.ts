@@ -1,6 +1,6 @@
 import { CookieOptions } from 'express';
 import { TimeUnit } from '../types/TimeTypes';
-import { DEBUG } from './AppConfig';
+import { DEBUG, PROD } from './AppConfig';
 
 export const N_PASSWORD_SALT_ROUNDS = 12;
 export const PASSWORD_OPTIONS = {
@@ -11,9 +11,9 @@ export const PASSWORD_OPTIONS = {
 
 const SESSION_COOKIE_OPTIONS: CookieOptions = {
     path: '/',
-    httpOnly: !DEBUG,
-    secure: !DEBUG,
-    sameSite: !DEBUG ? 'none' : 'strict',
+    httpOnly: PROD,
+    secure: PROD,
+    sameSite: DEBUG ? 'none' : 'strict',
 }
 
 export const SESSION_OPTIONS = {

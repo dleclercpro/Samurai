@@ -18,11 +18,7 @@ class AppDatabase extends MongoDatabase {
     }
 
     public async start() {
-        this.logger.info(`Server trying to connect to app database...`);
-
         await super.start(DB_RETRY_CONNECT_TIMEOUT, DB_RETRY_CONNECT_MAX);
-
-        this.logger.info(`Connected.`);
     }
 }
 

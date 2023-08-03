@@ -1,0 +1,36 @@
+# Build client app
+FROM node:lts AS build-client-stage
+WORKDIR app
+COPY ./ClientApp/public ./public
+COPY ./ClientApp/src ./src
+COPY ./ClientApp/package*.json ./
+COPY ./ClientApp/tsconfig*.json ./
+COPY ./ClientApp/.env ./
+RUN npm i --only-prod
+RUN npm run build
+
+
+# Build server app
+FROM node:lts AS build-server-stage
+WORKDIR app
+COPY ./ServerApp/public ./public
+COPY ./ServerApp/src ./src
+COPY ./ServerApp/test ./test
+COPY ./ServerApp/package*.json ./
+COPY ./ServerApp/tsconfig*.json ./
+COPY ./ServerApp/.env.local ./
+RUN npm i --only-prod
+RUN npm run build
+
+
+# Bundle server and client apps into a stand-alone app
+FROM node:lts-alpine AS bundle-stage
+WORKDIR app
+COPY --from=build-client-stage ./app/build ./client
+COPY --from=build-server-stage ./app/build ./
+COPY ./ServerApp/public ./public
+COPY ./ServerApp/package*.json ./
+COPY ./ServerApp/.env.local ./
+RUN npm i --only-prod
+EXPOSE 80
+CMD ["npm", "run", "start:local"]
