@@ -1,1 +1,30 @@
-.vscode
+# Dependencies
+**/node_modules
+**/.pnp
+**/.pnp.js
+
+# Testing
+**/coverage
+
+# Production
+**/build
+
+# Environment
+**/.env
+**/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
+
+# Types
+**/*.d.ts
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# Misc
+**/.DS_Store
+**/.vscode
+**/.eslintcache
