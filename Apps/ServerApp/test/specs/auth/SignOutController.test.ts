@@ -1,4 +1,4 @@
-import { errorResponse, successResponse } from '../../../src/libs/calls';
+import { errorResponse, successResponse } from '../../../src/utils/calls';
 import { defaultAfterAll, defaultAfterEach, defaultBeforeAll, defaultBeforeEach, expectActionToFailWithError } from '../..';
 import { signUpAction, signInAction, signOutAction } from '../../actions/AuthActions';
 import { HttpStatusCode } from '../../../src/types/HTTPTypes';

@@ -3,7 +3,7 @@ import Session from '../../helpers/Session';
 import Command from '../Command';
 import GetUserCommand from '../user/GetUserCommand';
 import { SESSION_OPTIONS } from '../../config/AuthConfig';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 
 interface Argument {
     email: string,

@@ -1,4 +1,4 @@
-import { getRange } from '../../libs/math';
+import { getRange } from '../../utils/math';
 import Board from '../../models/Board';
 import BoardTile, { IBoardTile } from '../../models/BoardTile';
 import { BoardTileJSON } from '../../types/JSONTypes';

@@ -1,5 +1,5 @@
-import { readJSONSync } from '../../src/libs/file';
-import { TestBoardJSON, TestOrderJSON } from '../../src/types/JSONTypes';
+import { readJSONSync } from '../utils/file';
+import { TestBoardJSON, TestOrderJSON } from '../types/JSONTypes';
 
 export const TEST_BOARD_2_PLAYERS_JSON: TestBoardJSON = readJSONSync('./test/data/boards/board2Players.json');
 export const TEST_BOARD_3_PLAYERS_JSON: TestBoardJSON = readJSONSync('./test/data/boards/board3Players.json');

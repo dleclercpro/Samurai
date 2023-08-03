@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { sleep } from '../../libs/time';
+import { sleep } from '../../utils/time';
 import { TimeUnit } from '../../types/TimeTypes';
 import Database from './Database';
 

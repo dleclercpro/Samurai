@@ -1,9 +1,9 @@
 import { RedisClientType, createClient } from 'redis';
 import Database, { DatabaseOptions } from './Database';
 import { IKeyValueDatabase } from './MemoryDatabase';
-import { Listener, createObserver } from '../../utils/Observer';
+import { Listener, createObserver } from '../../utils/observer';
 import { DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_MAX_DELAY } from '../../config/DatabasesConfig';
-import { toMs } from '../../libs/time';
+import { toMs } from '../../utils/time';
 import { TimeUnit } from '../../types/TimeTypes';
 import { Logger } from 'pino';
 

@@ -2,9 +2,9 @@ import { RequestHandler } from 'express';
 import SignOutCommand from '../../commands/auth/SignOutCommand';
 import { ClientError } from '../../errors/ClientErrors';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import { errorResponse, successResponse } from '../../libs/calls';
+import { errorResponse, successResponse } from '../../utils/calls';
 import { HttpStatusCode } from '../../types/HTTPTypes';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 import { SESSION_OPTIONS } from '../../config/AuthConfig';
 
 const SignOutController: RequestHandler = async (req, res, next) => {

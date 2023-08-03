@@ -1,4 +1,4 @@
-import { getRange } from './libs/math';
+import { getRange } from './utils/math';
 import { Caste, Color } from './types/GameTypes';
 
 /* ----- MONGOOSE ----- */

@@ -1,9 +1,9 @@
 import { Document, model, Model, Schema } from 'mongoose';
 import Order, { IOrder, OrderSchema, GameOrder } from './Order';
-import { deepCopy } from '../libs';
 import { IGame } from './Game';
 import { SUBDOCUMENT_SCHEMA_OPTIONS } from '../constants';
 import { IPlayer } from './Player';
+import { deepCopy } from '../utils';
 
 export interface IHistory extends Document {
     orders: IOrder[],

@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { Document, model, Model, Schema, SchemaOptions } from 'mongoose';
 import { N_PASSWORD_SALT_ROUNDS, PASSWORD_OPTIONS } from '../config/AuthConfig';
 import { ErrorUserDoesNotExist, ErrorUserWrongPassword } from '../errors/UserErrors';
-import { isAlphanumerical, isNumerical } from '../libs/string';
+import { isAlphanumerical, isNumerical } from '../utils/string';
 import { validate } from 'email-validator';
 
 export interface IUser extends Document {

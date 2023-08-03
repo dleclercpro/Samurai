@@ -1,5 +1,5 @@
 import MemoryMongoDatabase from './base/MemoryMongoDatabase';
-import { createLogger } from '../utils/Logging';
+import { createLogger } from '../utils/logging';
 
 class TestDatabase extends MemoryMongoDatabase {
     private static instance: TestDatabase;

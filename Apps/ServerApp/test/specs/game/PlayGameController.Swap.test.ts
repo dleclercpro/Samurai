@@ -3,7 +3,7 @@ import { Caste } from '../../../src/types/GameTypes';
 import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode } from '../../../src/types/HTTPTypes';
 import { ClientError } from '../../../src/errors/ClientErrors';
-import { errorResponse, successResponse } from '../../../src/libs/calls';
+import { errorResponse, successResponse } from '../../../src/utils/calls';
 import { playGameAction } from '../../actions/GameActions';
 import { USER_WITH_SWAP, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
 import { signInAction, signOutAction } from '../../actions/AuthActions';

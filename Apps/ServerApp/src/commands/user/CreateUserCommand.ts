@@ -1,7 +1,7 @@
 import User, { IUser } from '../../models/User';
 import Command from '../Command';
 import { ErrorUserAlreadyExists } from '../../errors/UserErrors';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 import { ErrorInvalidEmail, ErrorInvalidPassword } from '../../errors/ServerError';
 
 interface Argument {

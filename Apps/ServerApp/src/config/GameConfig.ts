@@ -1,4 +1,4 @@
-import { readJSONSync } from '../libs/file';
+import { readJSONSync } from '../utils/file';
 
 export const BOARD_JSON_FILENAME = 'board.json';
 export const FULL_HAND_JSON_FILENAME = 'hand.json';

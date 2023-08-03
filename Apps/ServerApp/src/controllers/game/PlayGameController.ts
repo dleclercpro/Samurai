@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
-import { errorResponse, successResponse } from '../../libs/calls';
+import { errorResponse, successResponse } from '../../utils/calls';
 import PlayGameCommand from '../../commands/game/PlayGameCommand';
 import { ErrorGameAlreadyOver, ErrorGameTileNotInHand, ErrorGameInvalidOrder, ErrorGameCastePieceDoesNotExist, ErrorGameIncompatibleTileTypes, ErrorGameCannotPlaceTileOntoCity, ErrorGameNotPlayerTurn, ErrorGameBoardTileDoesNotExist, ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile, ErrorGameCannotSwapCastePiecesOnSameBoardTile, ErrorGameBoardTileNotFree, ErrorGameCannotMoveOtherPlayerTile, ErrorGamePlayedTileDoesNotExist, ErrorGameHandTileDoesNotExist, ErrorGameCanOnlyMoveFromGroundTiles } from '../../errors/GameErrors';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 import { ClientError } from '../../errors/ClientErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import Game from '../../models/Game';

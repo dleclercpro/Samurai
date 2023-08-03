@@ -1,14 +1,14 @@
 import User, { IUser } from '../../models/User';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 import Game, { IGame } from '../../models/Game';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
-import { getRandom, shuffle, unique } from '../../libs';
 import { Color } from '../../types/GameTypes';
 import Command from '../Command';
 import BoardBuilder from '../../helpers/builders/BoardBuilder';
 import HandBuilder from '../../helpers/builders/HandBuilder';
 import { ErrorGameDuplicateUsers, ErrorGameNotEnoughPlayers, ErrorGameTooManyPlayers } from '../../errors/GameErrors';
 import { PLAYER_COUNT_MAX, PLAYER_COUNT_MIN } from '../../constants';
+import { unique, shuffle } from '../../utils';
 
 interface Argument {
     name: string,

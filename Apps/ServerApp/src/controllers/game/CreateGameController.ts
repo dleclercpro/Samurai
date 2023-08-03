@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
 import CreateGameCommand from '../../commands/game/CreateGameCommand';
-import { errorResponse, successResponse } from '../../libs/calls';
+import { errorResponse, successResponse } from '../../utils/calls';
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import { HttpStatusCode, HttpStatusMessage } from '../../types/HTTPTypes';
 import { ErrorGameDuplicateUsers, ErrorGameNotEnoughPlayers, ErrorGameTooManyPlayers } from '../../errors/GameErrors';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 
 export interface CreateGameControllerBody {
     name: string,

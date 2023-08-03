@@ -1,5 +1,5 @@
 import { BOARD_TILE_ID_CITY, HAND_TILE_ID_MILITARY, HAND_TILE_ID_SAMURAI, HAND_TILE_ID_SHIP, USER, USER_WITH_MOVE, afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay, createGame } from '.';
-import { errorResponse, successResponse } from '../../../src/libs/calls';
+import { errorResponse, successResponse } from '../../../src/utils/calls';
 import { playGameAction } from '../../actions/GameActions';
 import { signInAction, signOutAction } from '../../actions/AuthActions';
 import { expectActionToFailWithError } from '../..';

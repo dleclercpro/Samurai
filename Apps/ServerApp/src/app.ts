@@ -3,7 +3,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import AppRouter from './routes';
 import { CORS_OPTIONS, ENV, PORT, ROOT, TEST } from './config/AppConfig';
-import { logger } from './utils/Logging';
+import { logger } from './utils/logging';
 import SessionsDatabase from './databases/SessionsDatabase';
 import AppDatabase from './databases/AppDatabase';
 import TestDatabase from './databases/TestDatabase';

@@ -1,6 +1,6 @@
 import { Logger } from 'pino';
 import { Auth } from '../../types';
-import { logger as _logger } from '../../utils/Logging';
+import { logger as _logger } from '../../utils/logging';
 
 export interface DatabaseOptions {
     host: string,

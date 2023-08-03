@@ -7,7 +7,7 @@ import { GAME_INIT_VERSION, HAND_TILE_ID_MOVE, HAND_TILE_ID_SWAP } from '../../c
 import { ErrorGameInvalidOrder, ErrorGameNotPlayerTurn } from '../../errors/GameErrors';
 import Scorer from '../../helpers/Scorer';
 import { OrderType, PopulatedGameOrder, GameOrder } from '../../models/Order';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 
 interface Argument {
     player: IPlayer,

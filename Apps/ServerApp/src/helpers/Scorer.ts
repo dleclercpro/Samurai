@@ -1,11 +1,11 @@
 import { CASTES } from '../constants';
-import { flatten } from '../libs';
 import { IBoardTile } from '../models/BoardTile';
 import { IGame } from '../models/Game';
 import { IHandTile } from '../models/HandTile';
 import { IPlayer } from '../models/Player';
 import Score, { IScore } from '../models/Score';
 import { Caste, HandTileType } from '../types/GameTypes';
+import { flatten } from '../utils';
 
 export type Scoreboard = Record<string, IScore>;
 export type CasteWinners = Record<Caste, IPlayer[]>;

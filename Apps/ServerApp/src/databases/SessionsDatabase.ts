@@ -2,7 +2,7 @@ import { SESSIONS_DB_OPTIONS } from '../config/DatabasesConfig';
 import { SESSION_OPTIONS } from '../config/AuthConfig';
 import Session from '../helpers/Session';
 import SessionSerializer from '../helpers/SessionSerializer';
-import { createLogger } from '../utils/Logging';
+import { createLogger } from '../utils/logging';
 import RedisDatabase from './base/RedisDatabase';
 import { ScheduledTask, schedule } from 'node-cron';
 
@@ -22,7 +22,11 @@ class SessionsDatabase extends RedisDatabase {
     }
 
     public async start() {
+        this.logger.info(`Server trying to connect to sessions database...`);
+
         await super.start();
+
+        this.logger.info(`Connected.`);
 
         // Remove expired sessions on start
         await this.removeExpiredSessions();

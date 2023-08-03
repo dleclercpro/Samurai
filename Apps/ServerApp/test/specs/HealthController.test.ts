@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_ROOT } from '../../src/config/AppConfig';
-import { successResponse } from '../../src/libs/calls';
+import { successResponse } from '../../src/utils/calls';
 import { defaultBeforeAll, defaultBeforeEach, defaultAfterAll, defaultAfterEach } from '..';
 
 

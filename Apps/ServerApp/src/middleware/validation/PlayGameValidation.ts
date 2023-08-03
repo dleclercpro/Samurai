@@ -1,9 +1,9 @@
 import { RequestHandler } from 'express';
 import { CASTES } from '../../constants';
 import { ErrorInvalidParams } from '../../errors/ServerError';
-import { isNumerical } from '../../libs/string';
 import { Caste } from '../../types/GameTypes';
-import { exists } from '../../libs';
+import { isNumerical } from '../../utils/string';
+import { exists } from '../../utils';
 
 /*
     This validation middleware is responsible for the parameters'

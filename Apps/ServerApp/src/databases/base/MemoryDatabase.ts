@@ -1,4 +1,4 @@
-import { createObserver, Listener } from '../../utils/Observer';
+import { createObserver, Listener } from '../../utils/observer';
 
 interface SetEvent<V> {
     prevValue: V | null,

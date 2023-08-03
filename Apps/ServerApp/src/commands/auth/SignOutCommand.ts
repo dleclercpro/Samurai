@@ -1,7 +1,7 @@
 import { ErrorUserDoesNotExist } from '../../errors/UserErrors';
 import Session from '../../helpers/Session';
 import User, { IUser } from '../../models/User';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 import Command from '../Command';
 
 interface Argument {

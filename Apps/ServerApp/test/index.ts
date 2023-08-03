@@ -1,11 +1,11 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorResponse } from '../src/libs/calls';
+import { ErrorResponse } from '../src/utils/calls';
 import { HttpStatusCode } from '../src/types/HTTPTypes';
 import { SESSION_OPTIONS } from '../src/config/AuthConfig';
 import Cookie from 'cookie';
-import { exists } from '../src/libs';
 import TestDatabase from '../src/databases/TestDatabase';
 import { start, stop } from '../src/app';
+import { exists } from '../src/utils';
 
 
 

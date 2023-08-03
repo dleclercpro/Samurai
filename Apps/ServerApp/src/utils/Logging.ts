@@ -2,7 +2,7 @@ import pino from 'pino';
 import { ENV } from '../config/AppConfig';
 import { Environment } from '../types';
 
-const DEV_OPTIONS = {
+const DEBUG_OPTIONS = {
     level: 'trace',
     transport: {
         target: 'pino-pretty',
@@ -28,12 +28,12 @@ const PROD_OPTIONS = {
 
 const getOptions = () => {
     switch (ENV) {
-        case Environment.Development:
-            return DEV_OPTIONS;
         case Environment.Test:
             return TEST_OPTIONS;
         case Environment.Production:
             return PROD_OPTIONS;
+        default:
+            return DEBUG_OPTIONS;
     }
 }
 

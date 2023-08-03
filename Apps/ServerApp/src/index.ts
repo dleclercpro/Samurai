@@ -1,5 +1,5 @@
 import { start, stop } from './app';
-import { logger } from './utils/Logging';
+import { logger } from './utils/logging';
 
 // Run
 start().catch(async (err) => {

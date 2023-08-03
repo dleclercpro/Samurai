@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
-import { sleep } from '../libs/time';
+import { sleep } from '../utils/time';
 import { TimeUnit } from '../types/TimeTypes';
-import { successResponse } from '../libs/calls';
+import { successResponse } from '../utils/calls';
 
 const TestController: RequestHandler = async (req, res, next) => {
     try {

@@ -3,9 +3,9 @@ import CreateUserCommand from '../../commands/user/CreateUserCommand';
 import { ClientError } from '../../errors/ClientErrors';
 import { ErrorInvalidEmail, ErrorInvalidPassword } from '../../errors/ServerError';
 import { ErrorUserAlreadyExists } from '../../errors/UserErrors';
-import { errorResponse, successResponse } from '../../libs/calls';
+import { errorResponse, successResponse } from '../../utils/calls';
 import { HttpStatusCode } from '../../types/HTTPTypes';
-import { logger } from '../../utils/Logging';
+import { logger } from '../../utils/logging';
 
 export interface SignUpControllerBody {
     email: string,

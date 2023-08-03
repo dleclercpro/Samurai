@@ -1,9 +1,9 @@
 import { ErrorRequestHandler } from 'express';
 import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
-import { logger } from '../utils/Logging';
+import { logger } from '../utils/logging';
 import { ErrorInvalidParams } from '../errors/ServerError';
 import { DEBUG } from '../config/AppConfig';
-import { errorResponse } from '../libs/calls';
+import { errorResponse } from '../utils/calls';
 
 export const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     

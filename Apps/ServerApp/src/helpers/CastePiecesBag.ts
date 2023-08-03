@@ -1,8 +1,8 @@
 import { CASTES } from '../constants';
 import { ErrorGameEmptyCastePiecesBag } from '../errors/GameErrors';
-import { getRandom } from '../libs';
-import { sum } from '../libs/math';
 import { Caste } from '../types/GameTypes';
+import { getRandom } from '../utils';
+import { sum } from '../utils/math';
 
 class CastePiecesBag {
     private counts: Record<Caste, number>;

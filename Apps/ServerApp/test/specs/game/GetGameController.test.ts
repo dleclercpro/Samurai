@@ -3,7 +3,7 @@ import { createGameAction, getGameDataAction } from '../../actions/GameActions';
 import { afterAllPlay, afterEachPlay, beforeAllPlay, beforeEachPlay } from '.';
 import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode } from '../../../src/types/HTTPTypes';
-import { errorResponse } from '../../../src/libs/calls';
+import { errorResponse } from '../../../src/utils/calls';
 import { ClientError } from '../../../src/errors/ClientErrors';
 
 

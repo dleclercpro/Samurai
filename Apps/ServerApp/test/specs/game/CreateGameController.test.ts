@@ -1,6 +1,6 @@
 import { expectActionToFailWithError } from '../..';
 import { HttpStatusCode, HttpStatusMessage } from '../../../src/types/HTTPTypes';
-import { errorResponse } from '../../../src/libs/calls';
+import { errorResponse } from '../../../src/utils/calls';
 import { ClientError } from '../../../src/errors/ClientErrors';
 import { signInAction, signOutAction } from '../../actions/AuthActions';
 import { createGameAction } from '../../actions/GameActions';

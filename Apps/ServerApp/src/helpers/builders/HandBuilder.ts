@@ -1,7 +1,7 @@
 import { FULL_HAND_TILE_IDS, HAND_SIZE } from '../../constants';
 import { ErrorGameInvalidHandSize } from '../../errors/GameErrors';
-import { shuffle } from '../../libs';
 import Hand from '../../models/Hand';
+import { shuffle } from '../../utils';
 import HandDataManager from '../data/HandDataManager';
 
 class HandBuilder {

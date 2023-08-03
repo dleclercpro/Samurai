@@ -1,7 +1,7 @@
 import crypto from 'crypto';
-import { toMs } from '../libs/time';
+import { toMs } from '../utils/time';
 import { TimeDuration } from '../types/TimeTypes';
-import { logger } from '../utils/Logging';
+import { logger } from '../utils/logging';
 import SessionsDatabase from '../databases/SessionsDatabase';
 
 class Session {

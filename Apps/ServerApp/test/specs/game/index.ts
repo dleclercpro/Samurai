@@ -6,7 +6,7 @@ import Player, { IPlayer } from '../../../src/models/Player';
 import { Color } from '../../../src/types/GameTypes';
 import Game from '../../../src/models/Game';
 import { signOutAction, signUpAction } from '../../actions/AuthActions';
-import { getRange } from '../../../src/libs/math';
+import { getRange } from '../../../src/utils/math';
 import TestBoardBuilder from '../../../src/helpers/builders/TestBoardBuilder';
 import { ErrorGameInvalidPlayerCount } from '../../../src/errors/GameErrors';
 

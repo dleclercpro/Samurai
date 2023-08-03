@@ -1,8 +1,8 @@
 import path from 'path';
-import { getEnvironment } from '../libs';
-import { createURL } from '../libs/url';
 import { Environment } from '../types';
 import { CorsOptions } from 'cors';
+import { getEnvironment } from '../utils';
+import { createURL } from '../utils/url';
 
 // Environment
 export const ENV = getEnvironment();
