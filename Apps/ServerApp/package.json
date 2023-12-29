@@ -10,7 +10,10 @@
     "start:local": "NODE_ENV=local node ./src/index.js",
     "start:production": "NODE_ENV=production node ./src/index.js",
     "test": "NODE_ENV=test jest --runInBand",
-    "build": "tsc -p ./tsconfig.json"
+    "build": "tsc -p ./tsconfig.json",
+    "package:main": "echo \"Main: $npm_package_main\"",
+    "package:name": "echo \"Name: $npm_package_name\"",
+    "package:version": "echo \"Version: $npm_package_version\""
   },
   "dependencies": {
     "axios": "^1.3.6",
