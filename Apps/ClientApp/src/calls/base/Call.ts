@@ -3,6 +3,9 @@ import { log } from '../../logger';
 import fetchWithTimeout from './Fetch';
 import getCookie from './Cookie';
 
+/**
+ * This is a class that models API calls.
+ */
 class Call {
     private name: string;
     private url: string;
@@ -74,33 +77,29 @@ class Call {
     }
 
     async execute() {
-        log(`Executing call: ${this.name}`);
+        log(`Executing API call: ${this.name}`);
 
+        // Set API call parameters
         this.prepare();
 
-        // Try reading server data, otherwise just reject with status text
-        try {
-            const response: Response = await fetchWithTimeout(this.url, this.params, this.timeout);
+        // Execute API call
+        const response = await fetchWithTimeout(this.url, this.params, this.timeout)
+            .then(res => res.json())
+            .catch(err => err.data);
 
-            const json = await response.json();
-            const { code, error } = json;
+        // API calls should always return the same JSON data structure:
+        // - Code
+        // - Data [optional]
+        // - Error [optional]
+        const { code, error } = response;
 
-            const isApiResponse = code !== undefined;
-    
-            // Everything went fine
-            if (isApiResponse && code >= 0) {
-                return json;
-            }
-            if (!isApiResponse && response.status === 200) {
-                return json;
-            }
-    
-            // Something went wrong, but we let the processing happen further down the line
-            return Promise.reject(error);
-
-        } catch (error: any) {
-            throw new Error(`[${error.message.toUpperCase()}]`);
+        // Everything went fine on the server
+        if (code >= 0) {
+            return response;
         }
+
+        // Something went wrong, but we let the processing happen further down the line
+        return Promise.reject(new Error(error));
     }
 }
 

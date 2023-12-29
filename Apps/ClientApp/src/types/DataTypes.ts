@@ -10,7 +10,7 @@ export enum CallType {
 
 
 // Server responses
-export interface ServerResponse<Data> {
+export interface ServerResponse<Data = void> {
     code: number,
     error?: string,
     data: Data,
