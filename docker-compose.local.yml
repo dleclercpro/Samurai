@@ -1,5 +1,6 @@
 version: '3.8'
 
+
 services:
   app:
     container_name: samurai-app
@@ -10,8 +11,6 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
-    networks:
-      - app
     depends_on:
       - mongo
       - redis
@@ -24,8 +23,6 @@ services:
     restart: always
     ports:
       - 6379:6379
-    networks:
-      - app
     volumes:
       - redis:/data
 
@@ -35,8 +32,6 @@ services:
     restart: always
     ports:
       - 27017:27017
-    networks:
-      - app
     volumes:
       - mongo:/data/db
       - ./Data/MongoDB/init.js:/docker-entrypoint-initdb.d/init.js:ro
@@ -45,9 +40,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
-networks:
-  app:
-    driver: bridge
 
 volumes:
   redis:
