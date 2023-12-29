@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { sleep } from '../../utils/time';
 import { TimeUnit } from '../../types/TimeTypes';
 import Database from './Database';
+import TimeDuration from '../../models/units/TimeDuration';
 
 export const isMongoError = (error: any, code: number) => {
     return (
@@ -51,7 +52,7 @@ abstract class MongoDatabase extends Database {
         this.logger.debug('Disconnected.');
     }
 
-    public async start(wait = { time: 0, unit: TimeUnit.Millisecond }, retries = 1) {
+    public async start(wait = new TimeDuration(0, TimeUnit.Millisecond), retries = 1) {
 
         try {
             await this.connect();            
@@ -59,7 +60,7 @@ abstract class MongoDatabase extends Database {
     
         } catch (err: any) {
             if (retries > 0) {
-                this.logger.warn(`Failed to connect. Retrying in ${wait.time} ${wait.unit}.`);
+                this.logger.warn(`Failed to connect. Retrying in ${wait.format()}.`);
     
                 await sleep(wait);
                 await this.start(wait, retries - 1);

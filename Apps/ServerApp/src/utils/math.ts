@@ -1,11 +1,21 @@
+const EPSILON: number = Math.pow(10, -9);
+
+export const equals = (x: number, y: number, epsilon: number = EPSILON) => {
+    return Math.abs(x - y) < epsilon;
+}
+
 export const sum = (array: number[]) => {
     return array.reduce((total, x) => total + x, 0);
 }
 
-export const roundDigits = (x: number, n: number) => {
-    const power = Math.pow(10, n);
+export const round = (x: number, decimals: number) => {
+    const pow = Math.pow(10, decimals)
 
-    return Math.round(x * power) / power;
+    return Math.round(x * pow) / pow;
+}
+
+export const getAverage = (arr: number[]) => {
+    return sum(arr) / arr.length;
 }
 
 export const getRange = (x: number) => {

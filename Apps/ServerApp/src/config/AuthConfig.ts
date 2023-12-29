@@ -1,6 +1,7 @@
 import { CookieOptions } from 'express';
 import { TimeUnit } from '../types/TimeTypes';
 import { DEBUG, PROD } from './AppConfig';
+import TimeDuration from '../models/units/TimeDuration';
 
 export const N_PASSWORD_SALT_ROUNDS = 12;
 export const PASSWORD_OPTIONS = {
@@ -17,7 +18,7 @@ const SESSION_COOKIE_OPTIONS: CookieOptions = {
 }
 
 export const SESSION_OPTIONS = {
-    duration: { time: 15, unit: TimeUnit.Minute },
+    duration: new TimeDuration(15, TimeUnit.Minute),
     secret: process.env.JWT_SESSION_SECRET!,
     cookie: {
         name: process.env.SESSION_COOKIE_NAME!,

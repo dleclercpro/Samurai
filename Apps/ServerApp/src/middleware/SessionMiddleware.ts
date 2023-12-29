@@ -8,6 +8,7 @@ import { TimeUnit } from '../types/TimeTypes';
 import { logger } from '../utils/logging';
 import { SESSION_OPTIONS } from '../config/AuthConfig';
 import GetUserCommand from '../commands/user/GetUserCommand';
+import TimeDuration from '../models/units/TimeDuration';
 
 export const SessionMiddleware: RequestHandler = async (req, res, next) => {
     const { cookie } = SESSION_OPTIONS;
@@ -41,7 +42,7 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
         // Extend session duration if desired on every
         // further request
         if (session.hasTouch()) {
-            await session.extend({ time: 1, unit: TimeUnit.Hour });
+            await session.extend(new TimeDuration(1, TimeUnit.Hour));
         }
 
         // Set session in request for further processing

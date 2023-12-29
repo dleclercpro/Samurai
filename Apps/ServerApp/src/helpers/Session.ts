@@ -1,8 +1,7 @@
 import crypto from 'crypto';
-import { toMs } from '../utils/time';
-import { TimeDuration } from '../types/TimeTypes';
 import { logger } from '../utils/logging';
 import SessionsDatabase from '../databases/SessionsDatabase';
+import TimeDuration from '../models/units/TimeDuration';
 
 class Session {
     protected id: string;
@@ -53,7 +52,7 @@ class Session {
         }
 
         // Update expiration date
-        this.expirationDate = new Date(this.expirationDate.getTime() + toMs(duration));
+        this.expirationDate = new Date(this.expirationDate.getTime() + duration.toMs().getAmount());
 
         await this.save();
 
@@ -91,7 +90,7 @@ class Session {
         }
 
         // Generate expiration date for session
-        const expirationDate = duration ? new Date(new Date().getTime() + toMs(duration)) : undefined;
+        const expirationDate = duration ? new Date(new Date().getTime() + duration.toMs().getAmount()) : undefined;
 
         // Create session
         const session = new Session(id, email, username, staySignedIn, expirationDate);

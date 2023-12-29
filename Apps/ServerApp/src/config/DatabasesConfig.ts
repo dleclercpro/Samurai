@@ -1,3 +1,4 @@
+import TimeDuration from '../models/units/TimeDuration';
 import { TimeUnit } from '../types/TimeTypes';
 import { DEBUG } from './AppConfig';
 
@@ -21,6 +22,6 @@ export const SESSIONS_DB_OPTIONS = {
     },
 };
 
-export const DB_RETRY_CONNECT_MAX_DELAY = { time: 3, unit: TimeUnit.Second };
-export const DB_RETRY_CONNECT_TIMEOUT = { time: 5, unit: TimeUnit.Second };
+export const DB_RETRY_CONNECT_MAX_DELAY = new TimeDuration(3, TimeUnit.Second);
+export const DB_RETRY_CONNECT_TIMEOUT = new TimeDuration(5, TimeUnit.Second);
 export const DB_RETRY_CONNECT_MAX = 5;

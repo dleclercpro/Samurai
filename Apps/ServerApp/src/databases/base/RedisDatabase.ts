@@ -3,9 +3,9 @@ import Database, { DatabaseOptions } from './Database';
 import { IKeyValueDatabase } from './MemoryDatabase';
 import { Listener, createObserver } from '../../utils/observer';
 import { DB_RETRY_CONNECT_MAX, DB_RETRY_CONNECT_MAX_DELAY } from '../../config/DatabasesConfig';
-import { toMs } from '../../utils/time';
 import { TimeUnit } from '../../types/TimeTypes';
 import { Logger } from 'pino';
+import TimeDuration from '../../models/units/TimeDuration';
 
 interface SetEvent<V> {
     prevValue: V | null,
@@ -112,7 +112,7 @@ class RedisDatabase extends Database implements IKeyValueDatabase<string> {
         }
 
         // Reconnect after ... ms
-        const wait = Math.min(toMs({ time: retries + 0.5, unit: TimeUnit.Second }), toMs(DB_RETRY_CONNECT_MAX_DELAY));
+        const wait = Math.min(new TimeDuration(retries + 0.5, TimeUnit.Second).toMs().getAmount(), DB_RETRY_CONNECT_MAX_DELAY.toMs().getAmount());
         this.logger.debug(`Waiting ${wait} ms...`);
 
         return wait;
