@@ -2,13 +2,12 @@ import express, { Express } from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import AppRouter from './routes';
-import { CORS_OPTIONS, ENV, PORT, ROOT, TEST } from './config/AppConfig';
+import { ENV, PORT, ROOT, TEST } from './config/AppConfig';
 import { logger } from './utils/logging';
 import SessionsDatabase from './databases/SessionsDatabase';
 import AppDatabase from './databases/AppDatabase';
 import TestDatabase from './databases/TestDatabase';
 import http from 'http';
-import cors from 'cors';
 
 
 
@@ -28,9 +27,6 @@ export const start = async () => {
 
     // GZIP
     App.use(compression());
-
-    // CORS
-    App.use(cors(CORS_OPTIONS));
 
     // API
     App.use(AppRouter);

@@ -1,6 +1,5 @@
 import path from 'path';
 import { Environment } from '../types';
-import { CorsOptions } from 'cors';
 import { getEnvironment } from '../utils';
 import { createURL } from '../utils/url';
 
@@ -24,17 +23,3 @@ export const ROOT = `${createURL(PROTOCOL, HOST, PORT)}`;
 export const API_VERSION = 'v1';
 export const API_ROOT = `${ROOT}/api/${API_VERSION}`;
 export const STATIC_ROOT = `${ROOT}/static`;
-
-// Client
-export const CLIENT_PROTOCOL = process.env.CLIENT_PROTOCOL!;
-export const CLIENT_HOST = process.env.CLIENT_HOST!;
-export const CLIENT_PORT = parseInt(process.env.CLIENT_PORT!);
-export const CLIENT_ROOT = createURL(CLIENT_PROTOCOL, CLIENT_HOST, CLIENT_PORT);
-
-// Requests
-export const CORS_OPTIONS: CorsOptions = {
-    origin: DEV ? CLIENT_ROOT : undefined,
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
-    allowedHeaders: ['X-CSRFToken', 'Accept', 'Content-Type'],
-    credentials: true,
-};
