@@ -2,12 +2,13 @@ import express, { Express } from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import AppRouter from './routes';
-import { ENV, PORT, ROOT, TEST } from './config/AppConfig';
+import { CLIENT_ROOT, DEV, ENV, PORT, ROOT, TEST } from './config/AppConfig';
 import { logger } from './utils/logging';
 import SessionsDatabase from './databases/SessionsDatabase';
 import AppDatabase from './databases/AppDatabase';
 import TestDatabase from './databases/TestDatabase';
 import http from 'http';
+import cors from 'cors';
 
 
 
@@ -27,6 +28,18 @@ export const start = async () => {
 
     // GZIP
     App.use(compression());
+
+    // CORS
+    // Only use CORS in development to allow communication between
+    // React dev server and Express app server
+    if (DEV) {
+        App.use(cors({
+            origin: CLIENT_ROOT,
+            methods: ['GET', 'PUT', 'POST', 'DELETE'],
+            allowedHeaders: ['X-CSRFToken', 'Accept', 'Content-Type'],
+            credentials: true,
+        }));
+    }
 
     // API
     App.use(AppRouter);
