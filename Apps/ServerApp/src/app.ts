@@ -41,7 +41,7 @@ export const start = async () => {
         }));
     }
 
-    // API
+    // Router for entire app
     App.use(AppRouter);
 
     // Establish connection with databases

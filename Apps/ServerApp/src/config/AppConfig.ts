@@ -7,13 +7,13 @@ import { createURL } from '../utils/url';
 export const ENV = getEnvironment();
 export const DEV = ENV === Environment.Development;
 export const PROD = ENV === Environment.Production;
+export const LOCAL = ENV === Environment.Local;
 export const TEST = ENV === Environment.Test;
 export const DEBUG = [Environment.Development, Environment.Test].includes(ENV as Environment);
 
 // Directories
 export const PUBLIC_DIR = path.join(__dirname, '../../public');
 export const CLIENT_DIR = path.join(__dirname, '../../client');
-export const STATIC_DIR = PUBLIC_DIR;
 
 // Server
 export const PROTOCOL = process.env.PROTOCOL!;

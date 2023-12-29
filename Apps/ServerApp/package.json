@@ -7,8 +7,6 @@
   "main": "./src/index.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon ./src/index.ts",
-    "start:local": "NODE_ENV=local node ./src/index.js",
-    "start:production": "NODE_ENV=production node ./src/index.js",
     "test": "NODE_ENV=test jest --runInBand",
     "build": "tsc -p ./tsconfig.json",
     "package:main": "echo \"Main: $npm_package_main\"",

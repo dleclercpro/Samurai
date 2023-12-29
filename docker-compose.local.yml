@@ -6,20 +6,20 @@ services:
     image: samurai/app
     build:
       context: ./Apps
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - 80:80
     networks:
       - app
     depends_on:
-      - db-mongo
-      - db-redis
+      - mongo
+      - redis
     environment:
-      NODE_ENV: development
+      NODE_ENV: local
 
-  db-redis:
-    container_name: samurai-db-redis
+  redis:
+    container_name: samurai-redis
     image: redis:6.2
     restart: always
     ports:
@@ -27,10 +27,10 @@ services:
     networks:
       - app
     volumes:
-      - db-redis:/data
+      - redis:/data
 
-  db-mongo:
-    container_name: samurai-db-mongo
+  mongo:
+    container_name: samurai-mongo
     image: mongo:4.4.4
     restart: always
     ports:
@@ -38,17 +38,17 @@ services:
     networks:
       - app
     volumes:
-      - db-mongo:/data/db
+      - mongo:/data/db
       - ./Data/MongoDB/init.js:/docker-entrypoint-initdb.d/init.js:ro
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ;H9tn-+?9~{zsx%cc7*]77*z*hHELM.^T~XbHLoE
-      MONGO_INITDB_DATABASE: samurai
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
 networks:
   app:
     driver: bridge
 
 volumes:
-  db-redis:
-  db-mongo:
+  redis:
+  mongo:
