@@ -1,6 +1,7 @@
 {
-  "name": "samurai",
-  "version": "0.1.0",
+  "name": "samurai-client",
+  "version": "2.0.0",
+  "author": "David Leclerc",
   "private": true,
   "dependencies": {
     "i18next": "^19.4.4",
