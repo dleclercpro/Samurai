@@ -65,4 +65,9 @@ export const stop = async () => {
     await (TEST ? TestDatabase : AppDatabase).stop();
 
     Server && Server.close();
+
+    // Do not exit process when stopping server/databases during tests
+    if (!TEST) {
+        process.exit(0);
+    }
 }
