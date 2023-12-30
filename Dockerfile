@@ -25,7 +25,6 @@ COPY ./Apps/ServerApp/src ./src
 COPY ./Apps/ServerApp/test ./test
 COPY ./Apps/ServerApp/package*.json ./
 COPY ./Apps/ServerApp/tsconfig*.json ./
-COPY ./Apps/ServerApp/.env.local ./
 
 # Only install production-relevant packages, then build the app
 RUN npm i --only-prod
@@ -43,6 +42,7 @@ COPY --from=build-server-stage /app/build ./
 COPY ./Apps/ServerApp/public ./public
 COPY ./Apps/ServerApp/package*.json ./
 COPY ./Apps/ServerApp/.env.local ./
+COPY ./Apps/ServerApp/.env.production ./
 
 # Only install production-relevant packages
 RUN npm i --only-prod
