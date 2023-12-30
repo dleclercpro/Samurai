@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import AppRouter from './routes';
-import { CLIENT_ROOT, DEV, ENV, PORT, ROOT, TEST } from './config/AppConfig';
+import { CLIENT_ROOT, DEV, ENV, PORT, PROD, ROOT, TEST } from './config/AppConfig';
 import { logger } from './utils/logging';
 import SessionsDatabase from './databases/SessionsDatabase';
 import AppDatabase from './databases/AppDatabase';
@@ -39,6 +39,11 @@ export const start = async () => {
             allowedHeaders: ['X-CSRFToken', 'Accept', 'Content-Type'],
             credentials: true,
         }));
+    }
+
+    // Reverse proxy on production
+    if (PROD) {
+        App.set('trust proxy', true);
     }
 
     // Router for entire app
