@@ -53,7 +53,7 @@ services:
     volumes:
       - nginx-certs:/etc/letsencrypt
       - certbot-temp:/var/www/html # Temporary directory used during issuance of certificates
-    command: certonly --webroot --webroot-path=/var/www/html -d ${DOMAIN} -d ${WWW_DOMAIN}
+    command: certonly --webroot --webroot-path=/var/www/html -d ${DOMAIN} -d ${WWW_DOMAIN} --email ${EMAIL} --agree-tos
     depends_on:
       - nginx
 
