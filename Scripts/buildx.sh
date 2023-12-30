@@ -11,8 +11,8 @@ release="latest"
 # Define image tag
 tag=$user/$app:$release
 
-# Build image
-docker build -t $tag -f Dockerfile .
+# Build a cross-platform image
+docker buildx build --platform linux/amd64,linux/arm64 -t $tag -f Dockerfile .
 
 # Push it to Dockerhub
-docker push $tag
+docker buildx push $tag
