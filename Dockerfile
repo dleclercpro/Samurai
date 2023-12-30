@@ -3,11 +3,11 @@ FROM node:lts AS build-client-stage
 WORKDIR app
 
 # Copy necessary files over to image
-COPY ./ClientApp/public ./public
-COPY ./ClientApp/src ./src
-COPY ./ClientApp/package*.json ./
-COPY ./ClientApp/tsconfig*.json ./
-COPY ./ClientApp/.env ./
+COPY ./Apps/ClientApp/public ./public
+COPY ./Apps/ClientApp/src ./src
+COPY ./Apps/ClientApp/package*.json ./
+COPY ./Apps/ClientApp/tsconfig*.json ./
+COPY ./Apps/ClientApp/.env ./
 
 # Only install production-relevant packages, then build the app
 RUN npm i --only-prod
@@ -20,12 +20,12 @@ FROM node:lts AS build-server-stage
 WORKDIR app
 
 # Copy necessary files over to image
-COPY ./ServerApp/public ./public
-COPY ./ServerApp/src ./src
-COPY ./ServerApp/test ./test
-COPY ./ServerApp/package*.json ./
-COPY ./ServerApp/tsconfig*.json ./
-COPY ./ServerApp/.env.local ./
+COPY ./Apps/ServerApp/public ./public
+COPY ./Apps/ServerApp/src ./src
+COPY ./Apps/ServerApp/test ./test
+COPY ./Apps/ServerApp/package*.json ./
+COPY ./Apps/ServerApp/tsconfig*.json ./
+COPY ./Apps/ServerApp/.env.local ./
 
 # Only install production-relevant packages, then build the app
 RUN npm i --only-prod
@@ -40,9 +40,9 @@ WORKDIR app
 # Copy necessary files over to image
 COPY --from=build-client-stage /app/build ./client
 COPY --from=build-server-stage /app/build ./
-COPY ./ServerApp/public ./public
-COPY ./ServerApp/package*.json ./
-COPY ./ServerApp/.env.local ./
+COPY ./Apps/ServerApp/public ./public
+COPY ./Apps/ServerApp/package*.json ./
+COPY ./Apps/ServerApp/.env.local ./
 
 # Only install production-relevant packages
 RUN npm i --only-prod

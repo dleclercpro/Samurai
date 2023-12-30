@@ -5,9 +5,6 @@ services:
   app:
     container_name: samurai-app
     image: samurai/app
-    build:
-      context: ./Apps
-      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - 8000:8000
