@@ -46,7 +46,7 @@ services:
       - ./Data/NGINX/nginx.conf:/etc/nginx/nginx.conf:ro
       - nginx-certs:/etc/nginx/certs:ro
     depends_on:
-      - app
+      - app  # Corrected indentation here
 
   certbot:
     image: certbot/certbot:latest
@@ -57,7 +57,7 @@ services:
       - nginx
 
 
- volumes:
+volumes:
   redis:
   mongo:
   nginx-certs:
