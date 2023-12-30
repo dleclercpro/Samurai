@@ -5,7 +5,7 @@ services:
   app:
     container_name: samurai-app
     image: dleclercpro/samurai:latest
-    restart: unless-stopped
+    restart: always
     ports:
       - 8000:8000
     depends_on:
@@ -39,6 +39,7 @@ services:
 
   nginx:
     image: nginx:latest
+    restart: always
     ports:
       - 443:443 # HTTPS
       - 80:80   # HTTP
@@ -51,6 +52,7 @@ services:
 
   certbot:
     image: certbot/certbot:latest
+    restart: no
     volumes:
       - nginx-certs:/etc/letsencrypt
       - certbot-temp:/var/www/html # Temporary directory used during issuance of certificates
