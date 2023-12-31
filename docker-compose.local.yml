@@ -4,7 +4,7 @@ version: '3.8'
 services:
   app:
     container_name: samurai-app
-    image: dleclercpro/samurai:latest
+    image: dleclercpro/samurai-app:latest
     restart: unless-stopped
     ports:
       - 80:80

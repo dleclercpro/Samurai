@@ -1,20 +1,23 @@
 # Build reverse proxy using NGINX
 FROM nginx:latest
 
-# Install OpenSSL for generation of SSL certificates
-RUN apt-get update && apt-get install -y openssl
+# Install Certbot dependencies and Certbot itself
+RUN apt-get update && \
+    apt-get install -y certbot && \
+    rm -rf /var/lib/apt/lists/*
 
-# Move to isolated directory
-WORKDIR /app
+# Import NGINX configuration
+COPY ./Apps/ReverseProxy/conf/nginx.conf /etc/nginx
 
-# Import dummy server configuration
-COPY ./Apps/ReverseProxy/default.conf /etc/nginx/conf.d
+# Entrypoint script to start NGINX and Certbot
+COPY ./Apps/ReverseProxy/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Import Bash script for certificate generation
-COPY ./Apps/ReverseProxy/start.sh .
+# Make script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Make the script executable
-RUN chmod +x start.sh
+# Expose ports
+EXPOSE 80
+EXPOSE 443
 
 # Execute it
-CMD ["sh", "./start.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -8,11 +8,10 @@ user="dleclercpro"
 app="samurai"
 release="latest"
 
-# Define image tag
-tag=$user/$app:$release
+# Build images
+docker build -t $user/$app-app:$release -f ./Apps/Dockerfile .
+docker build -t $user/$app-nginx:$release -f ./Apps/ReverseProxy/Dockerfile .
 
-# Build image
-docker build -t $tag -f Dockerfile .
-
-# Push it to Dockerhub
-docker push $tag
+# Push them to Dockerhub
+docker push $user/$app-app:$release
+docker push $user/$app-nginx:$release

@@ -4,7 +4,7 @@ version: '3.8'
 services:
   app:
     container_name: samurai-app
-    image: dleclercpro/samurai:latest
+    image: dleclercpro/samurai-app:latest
     restart: always
     ports:
       - 8000:8000
@@ -13,6 +13,21 @@ services:
       - mongo
     environment:
       NODE_ENV: production
+
+  nginx:
+    container_name: samurai-nginx
+    image: dleclercpro/samurai-nginx:latest
+    restart: always
+    ports:
+      - 443:443 # HTTPS
+      - 80:80   # HTTP
+    volumes:
+      - ./Apps/ReverseProxy/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    environment:
+      DOMAIN: ${DOMAIN}
+      EMAIL: ${EMAIL}
 
   redis:
     container_name: samurai-redis
@@ -37,34 +52,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
-  nginx:
-    image: nginx:latest
-    restart: always
-    ports:
-      - 443:443 # HTTPS
-      - 80:80   # HTTP
-    volumes:
-      - ./Data/NGINX/nginx.conf:/etc/nginx/nginx.conf:ro
-      - nginx-certs:/etc/nginx/certs:ro
-      - certbot-temp:/var/www/html:ro
-    depends_on:
-      - app
-    environment:
-      DOMAIN: ${DOMAIN}
-
-  certbot:
-    image: certbot/certbot:latest
-    restart: no
-    volumes:
-      - nginx-certs:/etc/letsencrypt
-      - certbot-temp:/var/www/html # Temporary directory used during issuance of certificates
-    command: certonly --webroot --webroot-path=/var/www/html -d ${DOMAIN} --email ${EMAIL} --agree-tos
-    depends_on:
-      - nginx
-
 
 volumes:
   redis:
   mongo:
-  nginx-certs:
-  certbot-temp:

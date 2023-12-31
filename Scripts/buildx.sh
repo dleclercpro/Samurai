@@ -8,8 +8,6 @@ user="dleclercpro"
 app="samurai"
 release="latest"
 
-# Define image tag
-tag=$user/$app:$release
-
 # Build a cross-platform image and push it to Dockerhub
-docker buildx build --platform linux/amd64,linux/arm64 -t $tag -f Dockerfile . --push
+docker buildx build --platform linux/amd64,linux/arm64 -t $user/$app-app:$release -f ./Apps/Dockerfile . --push
+docker buildx build --platform linux/amd64,linux/arm64 -t $user/$app-nginx:$release -f ./Apps/ReverseProxy/Dockerfile . --push
