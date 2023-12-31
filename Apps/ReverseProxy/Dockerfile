@@ -6,6 +6,9 @@ RUN apt-get update && \
     apt-get install -y certbot && \
     rm -rf /var/lib/apt/lists/*
 
+# Recurisvely create directories for ACME challenge
+RUN mkdir -p /var/www/html
+
 # Import NGINX configuration
 COPY ./Apps/ReverseProxy/conf/nginx.conf /etc/nginx
 
