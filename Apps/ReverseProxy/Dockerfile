@@ -9,9 +9,6 @@ RUN apt-get update && \
 # Recurisvely create directories for ACME challenge
 RUN mkdir -p /var/www/html
 
-# Import NGINX configuration
-COPY ./Apps/ReverseProxy/conf/nginx.conf /etc/nginx
-
 # Entrypoint script to start NGINX and Certbot
 COPY ./Apps/ReverseProxy/entrypoint.sh /usr/local/bin/entrypoint.sh
 
