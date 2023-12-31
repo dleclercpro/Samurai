@@ -2,12 +2,12 @@
 
 # Function to renew certificates
 renew_ssl() {
-  certbot renew
+    certbot renew
 }
 
 # Function to obtain an initial SSL certificate
 init_ssl() {
-  certonly --webroot --webroot-path=/var/www/html -d ${DOMAIN} --email ${EMAIL} --agree-tos
+    certbot certonly --webroot --webroot-path=/var/www/html -d $DOMAIN --email $EMAIL --agree-tos
 }
 
 # Get first SSL certificate
@@ -18,6 +18,6 @@ nginx -g 'daemon off;' &
 
 # Schedule SSL certificate renewal every day
 while :; do
-  sleep 1d
-  renew_ssl
+    sleep 1d
+    renew_ssl
 done
