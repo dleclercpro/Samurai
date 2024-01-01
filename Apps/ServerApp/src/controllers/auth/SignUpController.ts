@@ -27,30 +27,33 @@ const SignUpController: ISignUpController = async (req, res, next) => {
             id: user.getId(),
         }));
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
 
         // User already exists
-        if (err.code === ErrorUserAlreadyExists.code) {
-            logger.warn(err.message);
-
+        if ([ErrorUserAlreadyExists]
+            .some(error => err instanceof error)
+        ) {
             return res
                 .status(HttpStatusCode.FORBIDDEN)
                 .json(errorResponse(ClientError.UserAlreadyExists));
         }
 
         // Invalid email
-        if (err.code === ErrorInvalidEmail.code) {
-            logger.warn(err.message);
-
+        if ([ErrorInvalidEmail]
+            .some(error => err instanceof error)
+        ) {
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(ClientError.InvalidEmail));
         }
 
         // Invalid password
-        if (err.code === ErrorInvalidPassword.code) {
-            logger.warn(err.message);
-
+        if ([ErrorInvalidPassword]
+            .some(error => err instanceof error)
+        ) {
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(ClientError.InvalidPassword));

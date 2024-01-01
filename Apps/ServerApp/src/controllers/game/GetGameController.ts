@@ -26,14 +26,14 @@ const GetGameController: RequestHandler = async (req, res, next) => {
         // Otherwise send up-to-date details
         return res.json(successResponse(await ClientDataAdapter.getGameData(user, game)));
 
-    } catch (err: any) {
-        if (
-            err.code === ErrorGameDoesNotExist.code ||
-            err.code === ErrorGameVersionDoesNotExist.code ||
-            err.code === ErrorUserNotPlayingInGame.code
-        ) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
             logger.warn(err.message);
+        }
 
+        if ([ErrorGameDoesNotExist, ErrorGameVersionDoesNotExist, ErrorUserNotPlayingInGame]
+            .some(error => err instanceof error)
+        ) {
             return res
                 .status(HttpStatusCode.NOT_FOUND)
                 .json(errorResponse(ClientError.GameDoesNotExist));

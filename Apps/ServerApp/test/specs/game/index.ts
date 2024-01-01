@@ -9,6 +9,7 @@ import { signOutAction, signUpAction } from '../../actions/AuthActions';
 import { getRange } from '../../../src/utils/math';
 import TestBoardBuilder from '../../../src/helpers/builders/TestBoardBuilder';
 import { ErrorGameInvalidPlayerCount } from '../../../src/errors/GameErrors';
+import { logger } from '../../../src/utils/logging';
 
 
 
@@ -231,8 +232,10 @@ export const afterAllPlay = async () => {
 export const afterEachPlay = async () => {
     try {
         await signOutAction();
-    } catch (err: any) {
-
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
     }
 
     await TestDatabase.dropCollections();

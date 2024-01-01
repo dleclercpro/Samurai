@@ -58,7 +58,7 @@ abstract class MongoDatabase extends Database {
             await this.connect();            
             return;
     
-        } catch (err: any) {
+        } catch (err: unknown) {
             if (retries > 0) {
                 this.logger.warn(`Failed to connect. Retrying in ${wait.format()}.`);
     

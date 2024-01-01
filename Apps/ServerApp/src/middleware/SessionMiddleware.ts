@@ -53,15 +53,16 @@ export const SessionMiddleware: RequestHandler = async (req, res, next) => {
 
         return next();
 
-    } catch (err: any) {
-        logger.warn(err.message);
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
 
         // Remove session cookie in user's browser
         res.clearCookie(cookie.name);
 
-        if (err.code === ErrorMissingSessionId.code ||
-            err.code === ErrorInvalidSessionId.code ||
-            err.code === ErrorExpiredSession.code
+        if ([ErrorMissingSessionId, ErrorInvalidSessionId, ErrorExpiredSession]
+            .some(error => err instanceof error)
         ) {
             return res
                 .status(HttpStatusCode.UNAUTHORIZED)

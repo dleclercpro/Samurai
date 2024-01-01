@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { successResponse } from '../utils/calls';
+import { logger } from '../utils/logging';
 
 const HealthController: RequestHandler = async (req, res, next) => {
     try {
@@ -7,7 +8,11 @@ const HealthController: RequestHandler = async (req, res, next) => {
         // Success
         return res.json(successResponse());
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
+        
         next(err);
     }
 }

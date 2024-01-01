@@ -30,15 +30,14 @@ const CreateGameController: ICreateGameController = async (req, res, next) => {
             id: game.getId(),
         }));
 
-    } catch (err: any) {
-        if (
-            err.code === ErrorUserDoesNotExist.code ||
-            err.code === ErrorGameDuplicateUsers.code ||
-            err.code === ErrorGameNotEnoughPlayers.code ||
-            err.code === ErrorGameTooManyPlayers.code
-        ) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
             logger.warn(err.message);
+        }
 
+        if ([ErrorUserDoesNotExist, ErrorGameDuplicateUsers, ErrorGameNotEnoughPlayers, ErrorGameTooManyPlayers]
+            .some(error => err instanceof error)
+        ) {
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(HttpStatusMessage.BAD_REQUEST));

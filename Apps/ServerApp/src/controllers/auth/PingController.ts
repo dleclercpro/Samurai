@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { successResponse } from '../../utils/calls';
+import { logger } from '../../utils/logging';
 
 const PingController: RequestHandler = async (req, res, next) => {
     try {
@@ -12,7 +13,11 @@ const PingController: RequestHandler = async (req, res, next) => {
             isAdmin: user.isAdmin,
         }));
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
+        
         next(err);
     }
 }

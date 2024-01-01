@@ -3,6 +3,7 @@ import { sleep } from '../utils/time';
 import { TimeUnit } from '../types/TimeTypes';
 import { successResponse } from '../utils/calls';
 import TimeDuration from '../models/units/TimeDuration';
+import { logger } from '../utils/logging';
 
 const TestController: RequestHandler = async (req, res, next) => {
     try {
@@ -13,7 +14,11 @@ const TestController: RequestHandler = async (req, res, next) => {
         // Success
         return res.json(successResponse());
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
+        
         next(err);
     }
 }

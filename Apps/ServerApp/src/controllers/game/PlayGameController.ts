@@ -36,34 +36,33 @@ const PlayGameController: IPlayGameController = async (req, res, next) => {
         // Success
         return res.json(successResponse());
 
-    } catch (err: any) {
-        if (
-            err.code === ErrorGameInvalidOrder.code ||
-            err.code === ErrorGameTileNotInHand.code ||
-            err.code === ErrorGameCastePieceDoesNotExist.code ||
-            err.code === ErrorGameIncompatibleTileTypes.code ||
-            err.code === ErrorGameCanOnlyMoveFromGroundTiles.code ||
-            err.code === ErrorGameBoardTileNotFree.code ||
-            err.code === ErrorGameCannotPlaceTileOntoCity.code ||
-            err.code === ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile.code ||
-            err.code === ErrorGameCannotSwapCastePiecesOnSameBoardTile.code ||
-            err.code === ErrorGameBoardTileDoesNotExist.code ||
-            err.code === ErrorGameHandTileDoesNotExist.code ||
-            err.code === ErrorGamePlayedTileDoesNotExist.code
-        ) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
             logger.warn(err.message);
+        }
 
+        if ([ErrorGameInvalidOrder,
+            ErrorGameTileNotInHand,
+            ErrorGameCastePieceDoesNotExist,
+            ErrorGameIncompatibleTileTypes,
+            ErrorGameCanOnlyMoveFromGroundTiles,
+            ErrorGameBoardTileNotFree,
+            ErrorGameCannotPlaceTileOntoCity,
+            ErrorGameCannotSwapCastePiecesFromToNonCityBoardTile,
+            ErrorGameCannotSwapCastePiecesOnSameBoardTile,
+            ErrorGameBoardTileDoesNotExist,
+            ErrorGameHandTileDoesNotExist,
+            ErrorGamePlayedTileDoesNotExist]
+            .some(error => err instanceof error)
+        ) {
             return res
                 .status(HttpStatusCode.BAD_REQUEST)
                 .json(errorResponse(ClientError.InvalidGameOrder));
         }
 
-        if (
-            err.code === ErrorGameNotPlayerTurn.code ||
-            err.code === ErrorGameCannotMoveOtherPlayerTile.code
+        if ([ErrorGameNotPlayerTurn, ErrorGameCannotMoveOtherPlayerTile]
+            .some(error => err instanceof error)
         ) {
-            logger.warn(err.message);
-
             return res
                 .status(HttpStatusCode.FORBIDDEN)
                 .json(errorResponse(HttpStatusMessage.FORBIDDEN));

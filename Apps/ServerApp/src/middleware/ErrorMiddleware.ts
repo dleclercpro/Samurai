@@ -2,24 +2,22 @@ import { ErrorRequestHandler } from 'express';
 import { HttpStatusCode, HttpStatusMessage } from '../types/HTTPTypes';
 import { logger } from '../utils/logging';
 import { ErrorInvalidParams } from '../errors/ServerError';
-import { DEBUG } from '../config/AppConfig';
 import { errorResponse } from '../utils/calls';
 
 export const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
-    
-    // Invalid parameters provided
-    if (err.code === ErrorInvalidParams.code) {
+    if (err instanceof Error) {
         logger.warn(err.message);
+    }
 
+    // Invalid parameters provided
+    if (err instanceof ErrorInvalidParams) {
         return res
             .status(HttpStatusCode.BAD_REQUEST)
             .json(errorResponse(HttpStatusMessage.BAD_REQUEST, err.getParams()))
     }
 
     // Unknown error
-    if (DEBUG) {
-        console.log(err);
-    } else {
+    if (err instanceof Error) {
         logger.error(`Unknown error: ${err.message}`);
     }
 

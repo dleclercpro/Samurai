@@ -40,16 +40,16 @@ const SignInController: ISignInController = async (req, res, next) => {
             isAdmin: user.isAdmin,
         }));
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            logger.warn(err.message);
+        }
 
         // Do not tell client why user can't sign in: just say that
         // their credentials are invalid
-        if (err.code === ErrorUserDoesNotExist.code ||
-            err.code === ErrorInvalidEmail.code ||
-            err.code === ErrorUserWrongPassword.code
+        if ([ErrorUserDoesNotExist, ErrorInvalidEmail, ErrorUserWrongPassword]
+            .some(error => err instanceof error)
         ) {
-            logger.warn(err.message);
-            
             return res
                 .status(HttpStatusCode.UNAUTHORIZED)
                 .json(errorResponse(ClientError.InvalidCredentials));
