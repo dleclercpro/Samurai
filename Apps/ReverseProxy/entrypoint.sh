@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Required environment variables
 required_vars=("DOMAIN" "EMAIL")
