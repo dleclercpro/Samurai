@@ -40,8 +40,10 @@ DEPLOY_HOOK="nginx -t && nginx -s reload -c $NGINX_FINAL_CONF"
 
 # Function to generate final NGINX configuration file
 generate_final_conf() {
-    sed "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
+sed -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
+    -e "s|{{DOMAIN}}|$DOMAIN|g" \
     "$NGINX_TEMPLATE_CONF" > "$NGINX_FINAL_CONF"
+
 }
 
 # Function to renew certificates
