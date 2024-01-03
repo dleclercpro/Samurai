@@ -1,13 +1,49 @@
 #!/bin/sh
 
+# Required environment variables
+required_vars=("DOMAIN" "EMAIL")
+
+# Function to check and echo environment variables
+check_env_vars() {
+    echo "Ensuring env variables exist..."
+
+    for var in "${required_vars[@]}"; do
+        if [ -z "${!var}" ]; then
+            echo "Error: Environment variable $var is not set."
+            exit 1
+        else
+            echo "$var: ${!var}"
+        fi
+    done
+
+    echo "Done."
+}
+
+# Check if all required environment variables are set
+check_env_vars
+
+
+
 # Paths
-NGINX_INIT_CONF="/etc/nginx/init.conf"
+NGINX_INIT_CONF="/etc/nginx/nginx.init.conf"
+NGINX_TEMPLATE_CONF="/etc/nginx/nginx.template.conf"
 NGINX_FINAL_CONF="/etc/nginx/nginx.conf"
+
 CERTBOT_WEBROOT="/var/www/html"
+CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
 
 # Deploy hook used by Certbot: ensures NGINX is reloaded using
 # the final configuration (w/ HTTPS)
 DEPLOY_HOOK="nginx -s reload -c $NGINX_FINAL_CONF"
+
+
+
+# Function to generate final NGINX configuration file by filling placeholders
+# in corresponding template
+generate_final_conf() {
+    sed -i "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" "$NGINX_TEMPLATE_CONF"
+    mv "$NGINX_TEMPLATE_CONF" "$NGINX_FINAL_CONF"
+}
 
 # Function to renew certificates
 renew_ssl() {
@@ -17,6 +53,8 @@ renew_ssl() {
 
 # Function to obtain an initial SSL certificate
 init_ssl() {
+    generate_final_conf
+
     certbot certonly \
         --non-interactive --agree-tos \
         --webroot --webroot-path="$CERTBOT_WEBROOT" \
@@ -24,16 +62,16 @@ init_ssl() {
         --deploy-hook "$DEPLOY_HOOK"
 }
 
-# Print out environment variables as specified in Docker Compose
-# file (they should be accessible)
-echo "Domain: $DOMAIN"
-echo "Email: $EMAIL"
+
+
+# Start NGINX with the initial configuration
+nginx -g "daemon off;" -c "$NGINX_INIT_CONF" &
+
+# Wait for a brief moment to ensure NGINX is up
+sleep 5
 
 # Get first SSL certificate
 init_ssl
-
-# Start NGINX with the initial configuration (w/o HTTPS)
-nginx -g "daemon off;" -c "$NGINX_INIT_CONF" &
 
 # Schedule SSL certificate renewal every day
 while :; do
