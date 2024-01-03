@@ -4,6 +4,7 @@ FROM nginx:latest
 # Install Certbot dependencies and Certbot itself
 RUN apt-get update && \
     apt-get install -y certbot && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Recurisvely create directories for ACME challenge
@@ -15,7 +16,7 @@ COPY ./Apps/ReverseProxy/entrypoint.sh /usr/local/bin/entrypoint.sh
 # Make script executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Expose ports
+# Expose HTTP and HTTPS ports
 EXPOSE 80
 EXPOSE 443
 
