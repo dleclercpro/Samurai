@@ -11,7 +11,8 @@ DEPLOY_HOOK="nginx -s reload -c $NGINX_FINAL_CONF"
 
 # Function to renew certificates
 renew_ssl() {
-    certbot renew
+    certbot renew \
+        --deploy-hook "$DEPLOY_HOOK"
 }
 
 # Function to obtain an initial SSL certificate
@@ -32,7 +33,7 @@ echo "Email: $EMAIL"
 init_ssl
 
 # Start NGINX with the initial configuration (w/o HTTPS)
-nginx -g "daemon off;" -c $NGINX_INIT_CONF &
+nginx -g "daemon off;" -c "$NGINX_INIT_CONF" &
 
 # Schedule SSL certificate renewal every day
 while :; do
