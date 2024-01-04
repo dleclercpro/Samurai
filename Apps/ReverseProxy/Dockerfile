@@ -1,10 +1,17 @@
 # Build reverse proxy using NGINX
 FROM nginx:latest
 
+# Update repository list
+RUN apt-get update
+
+# Install Nano to debug
+RUN apt-get install -y nano
+
 # Install Certbot dependencies and Certbot itself
-RUN apt-get update && \
-    apt-get install -y certbot && \
-    apt-get clean && \
+RUN apt-get install -y certbot
+
+# Clean up
+RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Recurisvely create directories for ACME challenge
