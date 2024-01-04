@@ -24,48 +24,60 @@ check_env_vars
 
 
 
-# Paths
-NGINX_INIT_CONF_TEMPLATE="/usr/share/nginx/nginx.init.conf"
-NGINX_FINAL_CONF_TEMPLATE="/usr/share/nginx/nginx.conf"
 
-NGINX_INIT_CONF="/etc/nginx/nginx.init.conf"
-NGINX_FINAL_CONF="/etc/nginx/nginx.conf"
+# Paths
+NGINX_INIT_CONF_TEMPLATE="/usr/share/nginx/nginx.init.conf" # Initial NGINX config template
+NGINX_FINAL_CONF_TEMPLATE="/usr/share/nginx/nginx.conf"     # Final NGINX config template
+
+NGINX_CONF="/etc/nginx/nginx.conf" # Configuration file loaded by NGINX
 
 CERTBOT_WEBROOT="/var/www/html"
 CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
 
 
 
+
 # Function to reload final NGINX conf (w/ HTTPS), if valid
 reload_conf() {
-    local conf=$1
+    echo "Testing config..."
+    nginx -t -c "$NGINX_CONF"
 
-    echo "Testing config: $conf"
-    nginx -t -c "$conf"
-
-    echo "Re-loading config: $conf"
-    nginx -s reload -c "$conf"
+    # NGINX can only re-load the conf file it first loaded (no '-c' flag possible)
+    echo "Re-loading config..."
+    nginx -s reload
 }
 
-# Function to generate NGINX configuration files
-generate_confs() {
-    echo "Generating NGINX config files..."
+
+# Function to generate initial NGINX configuration file
+generate_init_conf() {
+    echo "Generating initial NGINX config file..."
 
     sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
-        "$NGINX_INIT_CONF_TEMPLATE" > "$NGINX_INIT_CONF"
+        "$NGINX_INIT_CONF_TEMPLATE" > "$NGINX_CONF"
+
+    echo "Initial NGINX config file generated."
+}
+
+
+# Function to generate final NGINX configuration file
+generate_final_conf() {
+    echo "Generating final NGINX config file..."
 
     sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
         -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
-        "$NGINX_FINAL_CONF_TEMPLATE" > "$NGINX_FINAL_CONF"
+        "$NGINX_FINAL_CONF_TEMPLATE" > "$NGINX_CONF"
 
-    echo "NGINX config files generated."
+    echo "Final NGINX config file generated."
 }
+
 
 # Function to renew certificates
 renew_ssl() {
     certbot renew
-    reload_conf $NGINX_FINAL_CONF
+
+    reload_conf
 }
+
 
 # Function to obtain an initial SSL certificate
 init_ssl() {
@@ -78,16 +90,18 @@ init_ssl() {
 
     echo "SSL certificates obtained."
 
-    reload_conf $NGINX_FINAL_CONF
+    generate_final_conf
+    reload_conf
 }
 
 
 
-# Generate configs using templates
-generate_confs
+
+# Generate initial configuration
+generate_init_conf
 
 # Start NGINX with the initial configuration
-nginx -g "daemon off;" -c "$NGINX_INIT_CONF" &
+nginx -g "daemon off;" -c "$NGINX_CONF" &
 
 # Wait for a brief moment to ensure NGINX is up
 sleep 5
