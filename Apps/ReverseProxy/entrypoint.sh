@@ -40,10 +40,13 @@ DEPLOY_HOOK="nginx -t -c $NGINX_FINAL_CONF && nginx -s reload -c $NGINX_FINAL_CO
 
 # Function to generate final NGINX configuration file
 generate_final_conf() {
-sed -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
-    -e "s|{{DOMAIN}}|$DOMAIN|g" \
-    "$NGINX_TEMPLATE_CONF" > "$NGINX_FINAL_CONF"
+    echo "Generating NGINX final configuration file..."
 
+    sed -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
+        -e "s|{{DOMAIN}}|$DOMAIN|g" \
+        "$NGINX_TEMPLATE_CONF" > "$NGINX_FINAL_CONF"
+
+    echo "Done."
 }
 
 # Function to renew certificates
@@ -54,6 +57,8 @@ renew_ssl() {
 
 # Function to obtain an initial SSL certificate
 init_ssl() {
+    echo "Obtaining SSL certificates..."
+
     generate_final_conf
 
     certbot certonly \
@@ -61,6 +66,8 @@ init_ssl() {
         --webroot --webroot-path="$CERTBOT_WEBROOT" \
         -d "$DOMAIN" --email "$EMAIL" \
         --deploy-hook "$DEPLOY_HOOK"
+
+    echo "Done."
 }
 
 
