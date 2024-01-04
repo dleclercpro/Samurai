@@ -30,12 +30,10 @@ services:
     ports:
       - 27017:27017
     volumes:
+      - ./Apps/DatabaseApp/conf:/docker-entrypoint-initdb.d:ro
       - mongo:/data/db
-      - ./Data/MongoDB/init.js:/docker-entrypoint-initdb.d/init.js:ro
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+    env_file:
+      - .env.local
 
 
 volumes:
