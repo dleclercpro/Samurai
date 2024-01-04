@@ -32,19 +32,16 @@ NGINX_FINAL_CONF="/etc/nginx/nginx.conf"
 CERTBOT_WEBROOT="/var/www/html"
 CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
 
-# Deploy hook used by Certbot: ensures final NGINX conf (w/ HTTPS)
-# is valid, then reloads it
-DEPLOY_HOOK="
-    echo 'Testing final config: $NGINX_FINAL_CONF' && \
-    nginx -t -c $NGINX_FINAL_CONF && \
-    echo 'Tested config.' && \
-
-    echo 'Re-loading config: $NGINX_FINAL_CONF' && \
-    nginx -s reload -c $NGINX_FINAL_CONF && \
-    echo 'Re-loaded config.'
-"
 
 
+# Function to reload final NGINX conf (w/ HTTPS), if valid
+reload_conf() {
+    echo "Testing final config: $NGINX_FINAL_CONF"
+    nginx -t -c $NGINX_FINAL_CONF
+
+    echo "Re-loading config: $NGINX_FINAL_CONF"
+    nginx -s reload -c $NGINX_FINAL_CONF
+}
 
 # Function to generate final NGINX configuration file
 generate_final_conf() {
@@ -59,8 +56,8 @@ generate_final_conf() {
 
 # Function to renew certificates
 renew_ssl() {
-    certbot renew \
-        --deploy-hook "$DEPLOY_HOOK"
+    certbot renew
+    reload_conf
 }
 
 # Function to obtain an initial SSL certificate
@@ -72,10 +69,11 @@ init_ssl() {
     certbot certonly \
         --non-interactive --agree-tos \
         --webroot --webroot-path="$CERTBOT_WEBROOT" \
-        -d "$DOMAIN" --email "$EMAIL" \
-        --deploy-hook "$DEPLOY_HOOK"
+        -d "$DOMAIN" --email "$EMAIL"
 
     echo "SSL certificates obtained."
+
+    reload_conf
 }
 
 
