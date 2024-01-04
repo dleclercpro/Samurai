@@ -24,7 +24,7 @@ services:
     volumes:
       - ./Apps/ReverseProxy/nginx.init.conf:/etc/nginx/nginx.init.conf:ro         # Dummy initial config
       - ./Apps/ReverseProxy/nginx.template.conf:/etc/nginx/nginx.template.conf:ro # Template for final config
-      - letsencrypt:/etc/letsencrypt                                                   # Keep SSL certificates
+      - letsencrypt:/etc/letsencrypt                                              # Keep SSL certificates
     depends_on:
       - app
     env_file:
