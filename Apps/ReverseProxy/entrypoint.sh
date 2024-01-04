@@ -34,7 +34,15 @@ CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
 
 # Deploy hook used by Certbot: ensures final NGINX conf (w/ HTTPS)
 # is valid, then reloads it
-DEPLOY_HOOK="nginx -t -c $NGINX_FINAL_CONF && nginx -s reload -c $NGINX_FINAL_CONF"
+DEPLOY_HOOK="
+    echo 'Testing final config: $NGINX_FINAL_CONF' && \
+    nginx -t -c $NGINX_FINAL_CONF && \
+    echo 'Tested config.' && \
+
+    echo 'Re-loading config: $NGINX_FINAL_CONF' && \
+    nginx -s reload -c $NGINX_FINAL_CONF && \
+    echo 'Re-loaded config.'
+"
 
 
 
