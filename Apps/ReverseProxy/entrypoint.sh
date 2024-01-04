@@ -25,8 +25,10 @@ check_env_vars
 
 
 # Paths
+NGINX_INIT_CONF_TEMPLATE="/usr/share/nginx/nginx.init.conf"
+NGINX_FINAL_CONF_TEMPLATE="/usr/share/nginx/nginx.conf"
+
 NGINX_INIT_CONF="/etc/nginx/nginx.init.conf"
-NGINX_TEMPLATE_CONF="/etc/nginx/nginx.template.conf"
 NGINX_FINAL_CONF="/etc/nginx/nginx.conf"
 
 CERTBOT_WEBROOT="/var/www/html"
@@ -36,28 +38,33 @@ CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
 
 # Function to reload final NGINX conf (w/ HTTPS), if valid
 reload_conf() {
-    echo "Testing config: $NGINX_FINAL_CONF"
-    nginx -t -c $NGINX_FINAL_CONF
+    local conf=$1
 
-    echo "Re-loading config: $NGINX_FINAL_CONF"
-    nginx -s reload -c $NGINX_FINAL_CONF
+    echo "Testing config: $conf"
+    nginx -t -c "$conf"
+
+    echo "Re-loading config: $conf"
+    nginx -s reload -c "$conf"
 }
 
-# Function to generate final NGINX configuration file
-generate_final_conf() {
-    echo "Generating NGINX final config file..."
+# Function to generate NGINX configuration files
+generate_confs() {
+    echo "Generating NGINX config files..."
 
-    sed -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
-        -e "s|{{DOMAIN}}|$DOMAIN|g" \
-        "$NGINX_TEMPLATE_CONF" > "$NGINX_FINAL_CONF"
+    sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
+        "$NGINX_INIT_CONF_TEMPLATE" > "$NGINX_INIT_CONF"
 
-    echo "Final NGINX config file generated."
+    sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
+        -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
+        "$NGINX_FINAL_CONF_TEMPLATE" > "$NGINX_FINAL_CONF"
+
+    echo "NGINX config files generated."
 }
 
 # Function to renew certificates
 renew_ssl() {
     certbot renew
-    reload_conf
+    reload_conf $NGINX_FINAL_CONF
 }
 
 # Function to obtain an initial SSL certificate
@@ -71,11 +78,13 @@ init_ssl() {
 
     echo "SSL certificates obtained."
 
-    generate_final_conf
-    reload_conf
+    reload_conf $NGINX_FINAL_CONF
 }
 
 
+
+# Generate configs using templates
+generate_confs
 
 # Start NGINX with the initial configuration
 nginx -g "daemon off;" -c "$NGINX_INIT_CONF" &

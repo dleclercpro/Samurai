@@ -22,9 +22,9 @@ services:
       - 443:443 # HTTPS
       - 80:80   # HTTP
     volumes:
-      - ./Apps/ReverseProxy/nginx.init.conf:/etc/nginx/nginx.init.conf:ro         # Dummy initial config
-      - ./Apps/ReverseProxy/nginx.template.conf:/etc/nginx/nginx.template.conf:ro # Template for final config
-      - letsencrypt:/etc/letsencrypt                                              # Keep SSL certificates
+      - ./Apps/ReverseProxy/conf/nginx.init.conf:/usr/share/nginx/nginx.init.conf:ro # Dummy initial config
+      - ./Apps/ReverseProxy/conf/nginx.conf:/usr/share/nginx/nginx.conf:ro           # Template for final config
+      - letsencrypt:/etc/letsencrypt                                                 # Keep SSL certificates
     depends_on:
       - app
     env_file:
