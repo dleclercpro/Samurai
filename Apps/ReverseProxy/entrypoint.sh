@@ -27,7 +27,7 @@ check_env_vars
 # Paths
 NGINX_INIT_CONF="/etc/nginx/nginx.init.conf"
 NGINX_TEMPLATE_CONF="/etc/nginx/nginx.template.conf"
-NGINX_FINAL_CONF="/etc/conf.d/default.conf"
+NGINX_FINAL_CONF="/etc/nginx/nginx.conf"
 
 CERTBOT_WEBROOT="/var/www/html"
 CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
