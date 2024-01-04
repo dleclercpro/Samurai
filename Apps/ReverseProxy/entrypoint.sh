@@ -5,7 +5,7 @@ required_vars=("DOMAIN" "EMAIL")
 
 # Function to check and echo environment variables
 check_env_vars() {
-    echo "Ensuring env variables exist..."
+    echo "Ensuring environment variables exist..."
 
     for var in "${required_vars[@]}"; do
         if [ -z "${!var}" ]; then
@@ -16,7 +16,7 @@ check_env_vars() {
         fi
     done
 
-    echo "Done."
+    echo "All necessary environment variables exist."
 }
 
 # Check if all required environment variables are set
@@ -46,7 +46,7 @@ generate_final_conf() {
         -e "s|{{DOMAIN}}|$DOMAIN|g" \
         "$NGINX_TEMPLATE_CONF" > "$NGINX_FINAL_CONF"
 
-    echo "Done."
+    echo "Final NGINX configuration file generated."
 }
 
 # Function to renew certificates
@@ -67,7 +67,7 @@ init_ssl() {
         -d "$DOMAIN" --email "$EMAIL" \
         --deploy-hook "$DEPLOY_HOOK"
 
-    echo "Done."
+    echo "SSL certificates obtained."
 }
 
 
