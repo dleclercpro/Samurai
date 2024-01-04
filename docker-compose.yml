@@ -22,8 +22,9 @@ services:
       - 443:443 # HTTPS
       - 80:80   # HTTP
     volumes:
-      - ./Apps/ReverseProxy/conf:/etc/nginx:ro # NGINX configuration files
-      - letsencrypt:/etc/letsencrypt # Keep SSL certificates
+      - ./Apps/ReverseProxy/nginx.init.conf:/etc/nginx/nginx.init.conf:ro         # Dummy initial config
+      - ./Apps/ReverseProxy/nginx.template.conf:/etc/nginx/nginx.template.conf:ro # Template for final config
+      - letsencrypt:/etc/letsencrypt                                                   # Keep SSL certificates
     depends_on:
       - app
     env_file:
@@ -45,7 +46,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./Apps/DatabaseApp/conf:/docker-entrypoint-initdb.d:ro # Database initialization script
+      - ./Apps/DatabaseApp/init.js:/docker-entrypoint-initdb.d/init.js:ro # Database initialization script
       - mongo:/data/db
     env_file:
       - .env.production
