@@ -27,7 +27,7 @@ check_env_vars
 # Paths
 NGINX_INIT_CONF="/etc/nginx/nginx.init.conf"
 NGINX_TEMPLATE_CONF="/etc/nginx/nginx.template.conf"
-NGINX_FINAL_CONF="/etc/nginx/nginx.conf"
+NGINX_FINAL_CONF="/etc/nginx/nginx.final.conf"
 
 CERTBOT_WEBROOT="/var/www/html"
 CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
@@ -36,7 +36,7 @@ CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
 
 # Function to reload final NGINX conf (w/ HTTPS), if valid
 reload_conf() {
-    echo "Testing final config: $NGINX_FINAL_CONF"
+    echo "Testing config: $NGINX_FINAL_CONF"
     nginx -t -c $NGINX_FINAL_CONF
 
     echo "Re-loading config: $NGINX_FINAL_CONF"
@@ -45,13 +45,13 @@ reload_conf() {
 
 # Function to generate final NGINX configuration file
 generate_final_conf() {
-    echo "Generating NGINX final configuration file..."
+    echo "Generating NGINX final config file..."
 
     sed -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
         -e "s|{{DOMAIN}}|$DOMAIN|g" \
         "$NGINX_TEMPLATE_CONF" > "$NGINX_FINAL_CONF"
 
-    echo "Final NGINX configuration file generated."
+    echo "Final NGINX config file generated."
 }
 
 # Function to renew certificates
@@ -64,8 +64,6 @@ renew_ssl() {
 init_ssl() {
     echo "Obtaining SSL certificates..."
 
-    generate_final_conf
-
     certbot certonly \
         --non-interactive --agree-tos \
         --webroot --webroot-path="$CERTBOT_WEBROOT" \
@@ -73,6 +71,7 @@ init_ssl() {
 
     echo "SSL certificates obtained."
 
+    generate_final_conf
     reload_conf
 }
 
