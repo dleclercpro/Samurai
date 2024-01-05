@@ -26,21 +26,21 @@ check_env_vars
 
 
 # Paths
-NGINX_INIT_CONF_TEMPLATE="/usr/share/nginx/nginx.init.conf" # Initial NGINX config template
-NGINX_FINAL_CONF_TEMPLATE="/usr/share/nginx/nginx.conf"     # Final NGINX config template
-
-NGINX_CONF="/etc/nginx/nginx.conf" # Configuration file loaded by NGINX
-
-CERTBOT_WEBROOT="/var/www/html"
-CERTBOT_LIVE_PATH="/etc/letsencrypt/live/$DOMAIN"
-
+NGINX_INIT_CONF_TEMPLATE_FILE="/usr/share/nginx/nginx.init.conf" # Initial NGINX config template
+NGINX_FINAL_CONF_TEMPLATE_FILE="/usr/share/nginx/nginx.conf"     # Final NGINX config template
+NGINX_CONF_FILE="/etc/nginx/nginx.conf"                          # Configuration file loaded by NGINX
+SSL_WEBROOT_DIR="/var/www/html"                                  # ACME challenge directory
+SSL_CERTS_DIR="/etc/letsencrypt/live/$DOMAIN"                    # Live location of SSL certificates
+DH_PARAMS_DIR="/etc/nginx"
+DH_PARAMS_FILE="$DH_PARAMS_DIR/dhparam.pem"
+DH_PARAMS_SIZE=2048                                              # Key size (# of bits)
 
 
 
 # Function to reload final NGINX conf (w/ HTTPS), if valid
 reload_conf() {
     echo "Testing config..."
-    nginx -t -c "$NGINX_CONF"
+    nginx -t -c "$NGINX_CONF_FILE"
 
     # NGINX can only re-load the conf file it first loaded (no '-c' flag possible)
     echo "Re-loading config..."
@@ -53,7 +53,7 @@ generate_init_conf() {
     echo "Generating initial NGINX config file..."
 
     sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
-        "$NGINX_INIT_CONF_TEMPLATE" > "$NGINX_CONF"
+        "$NGINX_INIT_CONF_TEMPLATE_FILE" > "$NGINX_CONF_FILE"
 
     echo "Initial NGINX config file generated."
 }
@@ -64,34 +64,40 @@ generate_final_conf() {
     echo "Generating final NGINX config file..."
 
     sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
-        -e "s|{{CERTBOT_LIVE_PATH}}|$CERTBOT_LIVE_PATH|g" \
-        "$NGINX_FINAL_CONF_TEMPLATE" > "$NGINX_CONF"
+        -e "s|{{SSL_CERTS_DIR}}|$SSL_CERTS_DIR|g" \
+        -e "s|{{DH_PARAMS_DIR}}|$DH_PARAMS_DIR|g" \
+        "$NGINX_FINAL_CONF_TEMPLATE_FILE" > "$NGINX_CONF_FILE"
 
     echo "Final NGINX config file generated."
 }
 
 
 # Function to renew certificates
-renew_ssl() {
+renew_ssl_certs() {
+    echo "Renewing SSL certificates..."
+
     certbot renew
 
-    reload_conf
+    echo "SSL certificates renewed."
 }
 
 
 # Function to obtain an initial SSL certificate
-init_ssl() {
+generate_ssl_certs() {
     echo "Obtaining SSL certificates..."
 
     certbot certonly \
         --non-interactive --agree-tos \
-        --webroot --webroot-path="$CERTBOT_WEBROOT" \
+        --webroot --webroot-path="$SSL_WEBROOT_DIR" \
         -d "$DOMAIN" --email "$EMAIL"
 
     echo "SSL certificates obtained."
+}
 
-    generate_final_conf
-    reload_conf
+
+# Function to generate a Diffie-Hellman parameter file
+generate_dh_params() {
+    openssl dhparam -out "$DH_PARAMS_FILE" $DH_PARAMS_SIZE
 }
 
 
@@ -101,16 +107,24 @@ init_ssl() {
 generate_init_conf
 
 # Start NGINX with the initial configuration
-nginx -g "daemon off;" -c "$NGINX_CONF" &
+nginx -g "daemon off;" -c "$NGINX_CONF_FILE" &
 
 # Wait for a brief moment to ensure NGINX is up
 sleep 5
 
-# Get first SSL certificate
-init_ssl
+# Generate new Diffie-Hellman parameters file
+generate_dh_params
+
+# Obtain SSL certificate
+generate_ssl_certs
+
+# Generate final NGINX configuration file and load it
+generate_final_conf
+reload_conf
 
 # Schedule SSL certificate renewal every day
 while :; do
     sleep 1d
-    renew_ssl
+    renew_ssl_certs
+    reload_conf
 done
