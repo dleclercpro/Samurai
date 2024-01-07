@@ -352,12 +352,12 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 action tile of type <strong>"tile move"</strong> (no influence value)
+                                1 action tile <strong>"Move Tile"</strong> (no influence value)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 action tile of type <strong>"caste figure swap"</strong> (no influence value), which
+                                1 action tile <strong>"Swap Tile"</strong> (no influence value), which
                                 allows the player to <strong>replay</strong>
                             </p>
                         </li>

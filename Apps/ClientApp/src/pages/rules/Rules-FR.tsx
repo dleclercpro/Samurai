@@ -366,12 +366,12 @@ const Rules: React.FC<Props> = (props) => {
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile d'action de type <strong>« déplacement de tuile »</strong> (sans valeur d'influence)
+                                1 tuile d'action <strong>« Tuile de déplacement »</strong> (sans valeur d'influence)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 tuile d'action de type <strong>« échange de pions de caste »</strong> (sans valeur d'influence) permettant au joueur
+                                1 tuile d'action <strong>« Tuile d'échange »</strong> (sans valeur d'influence) permettant au joueur
                                 de <strong>rejouer</strong>
                             </p>
                         </li>
