@@ -16,15 +16,13 @@ services:
 
   nginx:
     container_name: samurai-nginx
-    image: dleclercpro/samurai-nginx:latest
+    image: dleclercpro/ssl-reverse-proxy
     restart: always
     ports:
       - 443:443 # HTTPS
       - 80:80   # HTTP
     volumes:
-      - ./Apps/ReverseProxy/conf/nginx.init.conf:/usr/share/nginx/nginx.init.conf:ro # Dummy initial config
-      - ./Apps/ReverseProxy/conf/nginx.conf:/usr/share/nginx/nginx.conf:ro           # Template for final config
-      - letsencrypt:/etc/letsencrypt                                                 # Keep SSL certificates
+      - letsencrypt:/etc/letsencrypt # Keep SSL certificates
     depends_on:
       - app
     env_file:

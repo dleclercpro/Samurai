@@ -10,4 +10,3 @@ release="latest"
 
 # Build a cross-platform image and push it to Dockerhub
 docker buildx build --platform linux/amd64,linux/arm64 -t $user/$app-app:$release -f ./Dockerfile . --push
-docker buildx build --platform linux/amd64,linux/arm64 -t $user/$app-nginx:$release -f ./Apps/ReverseProxy/Dockerfile . --push
