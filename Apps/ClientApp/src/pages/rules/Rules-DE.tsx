@@ -200,8 +200,8 @@ const Rules: React.FC<Props> = (props) => {
                             <section className='sub-section'>
                                 <h3 className='title title--sub-section'>Jokerplättchen</h3>
                                 <p className='text'>
-                                    Jokerplättchen sind besonders, da ihr Einflusswert für <strong>jede</strong> 
-                                    Kaste zur <strong>gleichen</strong> Zeit zählt. Sie werden durch ein Bild 
+                                    Jokerplättchen sind besonders, da ihr Einflusswert für <strong>jede</strong> Kaste 
+                                    zur <strong>gleichen</strong> Zeit zählt. Sie werden durch ein Bild 
                                     eines <strong>Pferdes</strong> oder eines <strong>Schiffes</strong> dargestellt. 
                                     Hier ist ein Beispiel für die beiden Arten von Jokerplättchen:
                                 </p>
