@@ -410,8 +410,8 @@ const Rules: React.FC<Props> = (props) => {
                     </p>
                     <p className='text'>
                         <strong>Achtung:</strong> Wenn mehrere Spieler die gleiche höchste Anzahl 
-                        von Figuren für eine bestimmte Kaste gesammelt haben, wird <strong>keiner</strong> 
-                        von ihnen zum Anführer dieser Kaste!
+                        von Figuren für eine bestimmte Kaste gesammelt haben, wird <strong>keiner</strong> von 
+                        ihnen zum Anführer dieser Kaste!
                     </p>
                 </section>
             </div>
