@@ -4,10 +4,8 @@ version: '3.8'
 services:
   app:
     container_name: samurai-app
-    image: dleclercpro/samurai-app:latest
+    image: dleclercpro/samurai:latest
     restart: always
-    ports:
-      - 8000:8000
     depends_on:
       - redis
       - mongo
@@ -16,7 +14,7 @@ services:
 
   nginx:
     container_name: samurai-nginx
-    image: dleclercpro/ssl-reverse-proxy
+    image: dleclercpro/ssl-reverse-proxy:latest
     restart: always
     ports:
       - 443:443 # HTTPS
@@ -32,8 +30,6 @@ services:
     container_name: samurai-redis
     image: redis:6.2
     restart: always
-    ports:
-      - 6379:6379
     volumes:
       - redis:/data
 
@@ -41,8 +37,6 @@ services:
     container_name: samurai-mongo
     image: mongo:4.4.4
     restart: always
-    ports:
-      - 27017:27017
     volumes:
       - ./Apps/DatabaseApp/init.js:/docker-entrypoint-initdb.d/init.js:ro # Database initialization script
       - mongo:/data/db
