@@ -54,14 +54,14 @@ const Rules: React.FC<Props> = (props) => {
                     <h2 className='title title--section'>Übersicht</h2>
                     <p className='text'>
                         Während eines Spiels <i>Samurai</i> konkurrieren die Spieler um die drei 
-                        gesellschaftlichen Kasten Japans: Religion (dargestellt durch einen 
-                        <strong>Buddha</strong>), Handel (dargestellt durch <strong>Reis</strong>) und Militär 
+                        gesellschaftlichen Kasten Japans: Religion (dargestellt durch einen  <strong>Buddha</strong>), 
+                        Handel (dargestellt durch <strong>Reis</strong>) und Militär 
                         (dargestellt durch ein <strong>Haus</strong>). Spieler setzen Plättchen auf das 
                         Spielbrett, um Siedlungen (auch Städte genannt) zu beeinflussen und die 
                         verschiedenen Kastenfiguren auf diesen Räumen zu erobern. Der Spieler, der die 
                         meisten Figuren einer bestimmten Kaste erobert, wird der Anführer dieser Kaste. 
-                        Am Ende des Spiels gewinnt der Spieler, der der Anführer der 
-                        <strong>meisten</strong> Kasten ist.
+                        Am Ende des Spiels gewinnt der Spieler, der der Anführer der <strong>meisten</strong> Kasten 
+                        ist.
                     </p>
                 </section>
 
@@ -92,8 +92,8 @@ const Rules: React.FC<Props> = (props) => {
                                     Zwei spezielle Plättchen bilden eine Ausnahme:
                                     die <strong>Bewegungs-</strong> und <strong>Tauschplättchen</strong>. Diese werden gespielt,
                                     indem direkt auf sie in der Hand des Spielers geklickt wird. Diese
-                                    beiden speziellen Plättchen werden weiter unten im Abschnitt 
-                                    <strong>Aktionsplättchen</strong> genauer besprochen.
+                                    beiden speziellen Plättchen werden weiter unten im Abschnitt <strong>Aktionsplättchen</strong> genauer 
+                                    besprochen.
                                 </p>
                             </section>
                         </li>
@@ -103,22 +103,22 @@ const Rules: React.FC<Props> = (props) => {
                                 <p className='text'>
                                     Wenn alle <strong>Land</strong>felder, die an eine Stadt angrenzen, mit Plättchen
                                     belegt sind, wird die Stadt umzingelt und ihre Kastenfiguren erobert.
-                                    Angrenzende Seefelder <strong>können</strong> mit Plättchen belegt sein, müssen aber 
-                                    <strong>nicht</strong>, damit eine benachbarte Stadt als umzingelt gilt.
+                                    Angrenzende Seefelder <strong>können</strong> mit Plättchen belegt sein, müssen 
+                                    aber <strong>nicht</strong>, damit eine benachbarte Stadt als umzingelt gilt.
                                 </p>                                
                                 <p className='text'>
                                     Sobald eine Stadt umzingelt ist, werden ihre Kastenfiguren unter den 
                                     Spielern verteilt, und ihre Punktzahlen entsprechend aktualisiert. 
-                                    Um zu bestimmen, wer welche Kastenfiguren erobert, wird der 
-                                    <strong>Kasteneinfluss</strong>wert der Plättchen, die neben der Stadt gesetzt 
-                                    wurden, für jeden Spieler addiert. Der Spieler mit dem 
-                                    <strong>höchsten</strong> Einfluss in einer gegebenen Kaste gewinnt alle Figuren 
-                                    dieser Kaste.
+                                    Um zu bestimmen, wer welche Kastenfiguren erobert, wird 
+                                    der <strong>Kasteneinfluss</strong>wert der Plättchen, die neben 
+                                    der Stadt gesetzt wurden, für jeden Spieler addiert. Der Spieler mit 
+                                    dem <strong>höchsten</strong> Einfluss in einer gegebenen Kaste gewinnt 
+                                    alle Figuren dieser Kaste.
                                 </p>
                                 <p className='text'>
-                                    <strong>Hinweis:</strong> Der Einflusswert von <strong>Joker</strong>plättchen zählt für 
-                                    <strong>jede</strong> Kaste! Weitere Details über die Jokerplättchen findest du in ihrem 
-                                    entsprechenden Unterabschnitt weiter unten auf dieser Seite.
+                                    <strong>Hinweis:</strong> Der Einflusswert von <strong>Joker</strong>plättchen zählt 
+                                    für <strong>jede</strong> Kaste! Weitere Details über die Jokerplättchen findest du 
+                                    in ihrem entsprechenden Unterabschnitt weiter unten auf dieser Seite.
                                 </p>
                                 <p className='text'>
                                     <strong>Achtung:</strong> Wenn zwei oder mehr Spieler den gleichen 
@@ -164,9 +164,8 @@ const Rules: React.FC<Props> = (props) => {
                                 <p className='text'>
                                     Diese Plättchen haben einen Einflusswert, der nur für die auf ihnen 
                                     dargestellte Kaste gilt. Die möglichen Kasten für diese Plättchen 
-                                    sind die drei sozialen Kasten im Spiel: <strong>Militär</strong>, 
-                                    <strong>Religion</strong> und <strong>Handel</strong>. Hier ist ein Beispiel 
-                                    für diese Art von Plättchen für jede Kaste:
+                                    sind die drei sozialen Kasten im Spiel: <strong>Militär</strong>, <strong>Religion</strong> und <strong>Handel</strong>. 
+                                    Hier ist ein Beispiel für diese Art von Plättchen für jede Kaste:
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
@@ -190,10 +189,10 @@ const Rules: React.FC<Props> = (props) => {
                                 </div>
                                 <p className='text'>
                                     Das erste Plättchen stellt die Kaste <strong>Militär</strong> dar und hat einen 
-                                    Einflusswert von 4. Das zweite repräsentiert die Kaste <strong>Religion</strong> 
-                                    mit einem Einflusswert von 3. Das dritte steht für die Kaste 
-                                    <strong>Handel</strong> mit einem Einflusswert von 1. Sie sind alle lila, weil 
-                                    sie dem Spieler gehören, dem beim Spielstart die Farbe Lila zugewiesen wurde.
+                                    Einflusswert von 4. Das zweite repräsentiert die Kaste <strong>Religion</strong> mit 
+                                    einem Einflusswert von 3. Das dritte steht für die Kaste <strong>Handel</strong> mit 
+                                    einem Einflusswert von 1. Sie sind alle lila, weil sie dem Spieler gehören, dem beim 
+                                    Spielstart die Farbe Lila zugewiesen wurde.
                                 </p>
                             </section>
                         </li>
@@ -202,9 +201,9 @@ const Rules: React.FC<Props> = (props) => {
                                 <h3 className='title title--sub-section'>Jokerplättchen</h3>
                                 <p className='text'>
                                     Jokerplättchen sind besonders, da ihr Einflusswert für <strong>jede</strong> 
-                                    Kaste zur <strong>gleichen</strong> Zeit zählt. Sie werden durch ein Bild eines 
-                                    <strong>Pferdes</strong> oder eines <strong>Schiffes</strong> dargestellt. Hier ist 
-                                    ein Beispiel für die beiden Arten von Jokerplättchen:
+                                    Kaste zur <strong>gleichen</strong> Zeit zählt. Sie werden durch ein Bild 
+                                    eines <strong>Pferdes</strong> oder eines <strong>Schiffes</strong> dargestellt. 
+                                    Hier ist ein Beispiel für die beiden Arten von Jokerplättchen:
                                 </p>
                                 <div className='images'>
                                     <HandTileComponent
@@ -221,11 +220,10 @@ const Rules: React.FC<Props> = (props) => {
                                     />
                                 </div>
                                 <p className='text'>
-                                    Das erste Plättchen hat einen Einflusswert von 1 und zählt für 
-                                    <strong>jede</strong> Kaste: Militär, Religion und/oder Handel. Das zweite hat 
-                                    einen Einflusswert von 2 und zählt ebenfalls für alle möglichen Kasten. Beide 
-                                    Plättchen gehören dem Spieler, dem die Farbe Rot zugewiesen wurde. Beachte, dass 
-                                    nur das Schiff in Plättchen vom Wassertyp gefärbt ist: der Rest besagtes Plättchens ist
+                                    Das erste Plättchen hat einen Einflusswert von 1 und zählt für <strong>jede</strong> Kaste: 
+                                    Militär, Religion und/oder Handel. Das zweite hat einen Einflusswert von 2 und zählt ebenfalls 
+                                    für alle möglichen Kasten. Beide Plättchen gehören dem Spieler, dem die Farbe Rot zugewiesen wurde. 
+                                    Beachte, dass nur das Schiff in Plättchen vom Wassertyp gefärbt ist: der Rest besagtes Plättchens ist
                                     blau, um den Spieler daran zu erinnern, dass diese Plättchen nur auf Seefelder gesetzt
                                     werden dürfen.
                                 </p>
@@ -237,9 +235,9 @@ const Rules: React.FC<Props> = (props) => {
                                 <p className='text'>
                                     Einige Plättchen haben keinen Einflusswert, ermöglichen es dem Spieler jedoch, 
                                     bestimmte <strong>Aktionen</strong> durchzuführen, die von strategischem Wert 
-                                    sein können. Das sind die Aktionsplättchen. Davon gibt es nur 
-                                    <strong>zwei</strong> in jedem Stapel eines Spielers, und beide sind 
-                                    <strong>schwarz</strong>. Hier ist eine Beschreibung dieser Aktionsplättchen:
+                                    sein können. Das sind die Aktionsplättchen. Davon gibt es nur <strong>zwei</strong> in 
+                                    jedem Stapel eines Spielers, und beide sind <strong>schwarz</strong>. Hier ist eine 
+                                    Beschreibung dieser Aktionsplättchen:
                                 </p>
                                 <ul className='list'>
                                     <li className='item'>
@@ -247,8 +245,8 @@ const Rules: React.FC<Props> = (props) => {
                                             <h4 className='title title--sub-sub-section'>Bewegungsplättchen</h4>
                                             <p className='text'>
                                                 Das erste Aktionsplättchen ist das <strong>Bewegungs</strong>plättchen. Es ist schwarz und 
-                                                hat eine Null darauf. Es erlaubt dem Spieler, eines der Plättchen, die 
-                                                <strong>er</strong> (und nur er) <strong>zuvor</strong> auf dem Brett gesetzt hat, auf ein 
+                                                hat eine Null darauf. Es erlaubt dem Spieler, eines der Plättchen, die <strong>er</strong> (und nur 
+                                                er) <strong>zuvor</strong> auf dem Brett gesetzt hat, auf ein 
                                                 anderes <strong>noch freies</strong> Feld zu versetzen. Hier ist ein Beispiel für das 
                                                 Bewegungsplättchen (das in diesem Fall dem orangen Spieler gehören würde):
                                             </p>
@@ -268,8 +266,8 @@ const Rules: React.FC<Props> = (props) => {
                                             <p className='text'>
                                                 Das zweite Aktionsplättchen ist das <strong>Tausch</strong>plättchen. Es ist schwarz und zeigt alle 3 
                                                 verschiedenen Kasten darauf. Es erlaubt dem Spieler, zwei Kastenfiguren von 
-                                                zwei <strong>verschiedenen</strong> Städten miteinander zu tauschen. Es handelt sich um einen 
-                                                <strong>Eins-zu-eins</strong>-Austausch. Das bedeutet, ein Spieler <strong>kann</strong> nicht den 
+                                                zwei <strong>verschiedenen</strong> Städten miteinander zu tauschen. Es handelt sich um 
+                                                einen <strong>Eins-zu-eins</strong>-Austausch. Das bedeutet, ein Spieler <strong>kann</strong> nicht den 
                                                 gesamten Inhalt einer Stadt gegen einen anderen austauschen: dieses Plättchen 
                                                 erlaubt nur den Austausch von <strong>einzelnen</strong> Kastenfiguren.
                                             </p>
@@ -327,56 +325,56 @@ const Rules: React.FC<Props> = (props) => {
                     <ul className='list'>
                         <li className='item'>
                             <p className='text'>
-                                1 kastenspezifisches Plättchen mit einem Einflusswert von <strong>4</strong> 
-                                für <strong>jede</strong> Kaste (Militär, Religion, Handel)
+                                1 kastenspezifisches Plättchen mit einem Einflusswert 
+                                von <strong>4</strong> für <strong>jede</strong> Kaste (Militär, Religion, Handel)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 kastenspezifisches Plättchen mit einem Einflusswert von <strong>3</strong> 
-                                für <strong>jede</strong> Kaste (Militär, Religion, Handel)
+                                1 kastenspezifisches Plättchen mit einem Einflusswert 
+                                von <strong>3</strong> für <strong>jede</strong> Kaste (Militär, Religion, Handel)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 kastenspezifisches Plättchen mit einem Einflusswert von <strong>2</strong> 
-                                für <strong>jede</strong> Kaste (Militär, Religion, Handel)
+                                1 kastenspezifisches Plättchen mit einem Einflusswert 
+                                von <strong>2</strong> für <strong>jede</strong> Kaste (Militär, Religion, Handel)
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert von 
-                                <strong>3</strong>
+                                1 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert 
+                                von <strong>3</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert von 
-                                <strong>2</strong>
+                                2 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert 
+                                von <strong>2</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert von 
-                                <strong>1</strong>
+                                2 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert 
+                                von <strong>1</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert von 
-                                <strong>1</strong>, welches dem Spieler erlaubt, <strong>erneut zu spielen</strong>
+                                1 Jokerplättchen vom Typ <strong>Pferd</strong> mit einem Einflusswert 
+                                von <strong>1</strong>, welches dem Spieler erlaubt, <strong>erneut zu spielen</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                1 Jokerplättchen vom Typ <strong>Schiff</strong> mit einem Einflusswert von 
-                                <strong>2</strong>, welches dem Spieler erlaubt, <strong>erneut zu spielen</strong>
+                                1 Jokerplättchen vom Typ <strong>Schiff</strong> mit einem Einflusswert 
+                                von <strong>2</strong>, welches dem Spieler erlaubt, <strong>erneut zu spielen</strong>
                             </p>
                         </li>
                         <li className='item'>
                             <p className='text'>
-                                2 Jokerplättchen vom Typ <strong>Schiff</strong> mit einem Einflusswert von 
-                                <strong>1</strong>, die dem Spieler erlauben, <strong>erneut zu spielen</strong>
+                                2 Jokerplättchen vom Typ <strong>Schiff</strong> mit einem Einflusswert 
+                                von <strong>1</strong>, die dem Spieler erlauben, <strong>erneut zu spielen</strong>
                             </p>
                         </li>
                         <li className='item'>
