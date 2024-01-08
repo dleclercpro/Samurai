@@ -7,6 +7,7 @@ import { PlayGameValidation } from '../../middleware/validation/PlayGameValidati
 import { PlayGameSanitization } from '../../middleware/sanitization/PlayGameSanitization';
 import { CreateGameValidation } from '../../middleware/validation/CreateGameValidation';
 import { CreateGameSanitization } from '../../middleware/sanitization/CreateGameSanitization';
+import GetFullHandController from '../../controllers/game/GetFullHandController';
 
 
 
@@ -23,6 +24,7 @@ router.use(SessionMiddleware);
 router.post('/', [CreateGameValidation, CreateGameSanitization], CreateGameController);
 router.post('/:id', [PlayGameValidation, PlayGameSanitization], PlayGameController);
 router.get('/:id/:version', [], GetGameController);
+router.get('/hand', [], GetFullHandController);
 
 
 

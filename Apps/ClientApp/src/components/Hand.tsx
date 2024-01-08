@@ -23,6 +23,8 @@ class Hand extends React.Component<Props, {}> {
     getFilteredTilesForDialog = (dialog : DialogType): HandTile[] => {
         const { tiles, isWaterTileSelected } = this.props;
 
+        console.log(tiles);
+
         return tiles.filter((tile: HandTile) => {
             const { type } = tile;
 

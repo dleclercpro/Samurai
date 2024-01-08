@@ -136,8 +136,8 @@ export const getFullHandData = (): AppThunkAction<void> => {
     return (dispatch: AppThunkDispatch<void>) => {
 
         return new CallGetFullHand().execute()
-            .then((response: FullHandData) => {
-                dispatch(setFullHand(response));
+            .then((response: ServerResponse<FullHandData>) => {
+                dispatch(setFullHand(response.data));
             });
     };
 }

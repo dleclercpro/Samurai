@@ -99,7 +99,8 @@ class Call {
         }
 
         // Something went wrong, but we let the processing happen further down the line
-        return Promise.reject(new Error(error));
+        console.warn(`Error in call: ${this.name}`);
+        return Promise.reject(error ?? 'UNKNOWN_ERROR');
     }
 }
 

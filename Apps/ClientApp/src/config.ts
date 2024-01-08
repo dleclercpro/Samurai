@@ -17,12 +17,11 @@ export const TILE_PATH: string = getHexagonalPath(TILE_SIZE, TILE_STROKE);
 export const TILE_PATH_BOARD: string = getHexagonalPath(TILE_SIZE, 0); // Superimposing tiles on their contours
 
 // Server
-export const SERVER_URL = DEV ? 'http://localhost:8000' : '';
-export const API_URL = `${SERVER_URL}/api/v1`;
-export const POLL_RATE = 5 * 1000;      // ms
-export const FETCH_DEFAULT_TIMEOUT = 2000; // ms
+export const API_URL = `/api/v1`;
+export const POLL_RATE = 5 * 1_000;         // ms
+export const FETCH_DEFAULT_TIMEOUT = 2_000; // ms
 export const MAX_POLL_RETRIES = 5;
 
 // FX
-export const FX_SOUND_NEW_TURN = `${SERVER_URL}/static/new-turn.wav`;
-export const FX_SOUND_GAME_OVER = `${SERVER_URL}/static/game-over.wav`;
+export const FX_SOUND_NEW_TURN = `/static/new-turn.wav`;
+export const FX_SOUND_GAME_OVER = `/static/game-over.wav`;
