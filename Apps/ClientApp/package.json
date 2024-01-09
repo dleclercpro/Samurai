@@ -1,6 +1,6 @@
 {
   "name": "samurai-client",
-  "version": "2.4.3",
+  "version": "latest",
   "author": "David Leclerc",
   "private": true,
   "dependencies": {
