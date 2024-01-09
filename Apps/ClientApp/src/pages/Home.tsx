@@ -18,7 +18,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    resetUser: () => Promise<void>,
+    logout: () => Promise<void>,
     openSignUpDialog: () => void,
     openSignInDialog: () => void,
     openPlayGameDialog: () => void,
@@ -29,7 +29,7 @@ type Props = StateProps & DispatchProps;
 
 const Home: React.FC<Props> = (props) => {
     const history = useHistory();
-    const { isAuthenticated, language, resetUser, openSignInDialog, openSignUpDialog, openPlayGameDialog, openCreateGameDialog } = props;
+    const { isAuthenticated, language, logout, openSignInDialog, openSignUpDialog, openPlayGameDialog, openCreateGameDialog } = props;
 
     const redirectToRules = () => {
         history.push('/rules');
@@ -64,7 +64,7 @@ const Home: React.FC<Props> = (props) => {
                     <React.Fragment>
                         <Button
                             id='button-home-sign-out'
-                            action={resetUser}
+                            action={logout}
                             isActive
                         >
                             {language.getText('SIGN_OUT')}
@@ -108,7 +108,7 @@ const mapStateToProps = (state: AppState) => {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, Promise<void>, AppAction>) => ({
-    resetUser: () => dispatch(signOut()),
+    logout: () => dispatch(signOut()),
     openSignUpDialog: () => dispatch(openDialog(DialogType.SignUp)),
     openSignInDialog: () => dispatch(openDialog(DialogType.SignIn)),
     openPlayGameDialog: () => dispatch(openDialog(DialogType.PlayGame)),

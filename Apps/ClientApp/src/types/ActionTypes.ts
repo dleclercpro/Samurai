@@ -108,6 +108,11 @@ export interface SetOwnHand {
     data: number[],
 }
 
+export const RESET_OWN_HAND = 'RESET_OWN_HAND';
+export interface ResetOwnHand {
+    type: typeof RESET_OWN_HAND,
+}
+
 
 
 // Board actions
