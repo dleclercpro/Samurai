@@ -11,6 +11,7 @@ import Button from '../components/buttons/Button';
 import i18n from '../i18n';
 import DashLanguage from '../components/buttons/DashLanguage';
 import { useHistory } from 'react-router-dom';
+import PACKAGE_JSON from '../../package.json';
 
 interface StateProps {
     isAuthenticated: boolean,
@@ -92,6 +93,10 @@ const Home: React.FC<Props> = (props) => {
                 >
                     {language.getText('GAME_RULES')}
                 </Button>
+            </div>
+
+            <div className='version'>
+                {PACKAGE_JSON.version}
             </div>
         </div>
     );
