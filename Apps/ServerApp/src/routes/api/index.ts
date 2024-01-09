@@ -3,6 +3,7 @@ import { ErrorMiddleware } from '../../middleware/ErrorMiddleware';
 import HealthRouter from './health';
 import AuthRouter from './auth';
 import GameRouter from './game';
+import DataRouter from './data';
 
 
 
@@ -14,6 +15,7 @@ const router = Router();
 router.use(`/health`, HealthRouter);
 router.use(`/auth`, AuthRouter);
 router.use(`/game`, GameRouter);
+router.use(`/data`, DataRouter);
 
 
 
