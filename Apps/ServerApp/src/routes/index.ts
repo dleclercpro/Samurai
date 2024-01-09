@@ -4,6 +4,7 @@ import ApiRouter from './api';
 import { RequestMiddleware } from '../middleware/RequestMiddleware';
 import { logger } from '../utils/logging';
 import path from 'path';
+import StaticFilesController from '../controllers/StaticFilesController';
 
 
 
@@ -21,13 +22,13 @@ AppRouter.use(RequestMiddleware);
 AppRouter.use(`/api/${API_VERSION}`, ApiRouter);
 
 // Static assets
-AppRouter.use(`/static`, express.static(PUBLIC_DIR));
+AppRouter.use(`/static`, StaticFilesController);
 
 // Client app
 if (PROD || LOCAL) {
 
     // Serve React app's static files
-    AppRouter.use(express.static(CLIENT_DIR));
+    AppRouter.use(`/`, express.static(CLIENT_DIR));
 
     // Define a route that serves the React app
     AppRouter.get('*', (req, res) => {
