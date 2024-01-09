@@ -2,9 +2,9 @@ import { CallPlayGame } from '../calls/game/CallPlayGame';
 import { openDialog, setDialogText, setDialogAction } from './DialogActions';
 import { DialogType } from '../types/DialogTypes';
 import { UserData, GameData, FullHandData } from '../types/DataTypes';
-import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn, setGameName } from './GameActions';
+import { endTurn, setGameVersion, setPlayedTilesSinceLastTurn, setGameName, resetGame } from './GameActions';
 import { AppThunkDispatch, AppThunkAction } from '../types/ActionTypes';
-import { setBoard } from './BoardActions';
+import { resetBoard, setBoard } from './BoardActions';
 import { AppState } from '../types/StateTypes';
 import { TILE_MOVE_ID, TILE_SWAP_ID } from '../constants';
 import { Caste } from '../types/GameTypes';
@@ -12,13 +12,13 @@ import { CallSignIn } from '../calls/auth/CallSignIn';
 import { CallSignUp } from '../calls/auth/CallSignUp';
 import { CallCreateGame } from '../calls/game/CallCreateGame';
 import { ServerResponse } from '../types/DataTypes';
-import { setSelf, setOpponents } from './PlayerActions';
+import { setSelf, setOpponents, resetPlayers } from './PlayerActions';
 import { resetUser, setUser } from './UserActions';
 import { CallSignOut } from '../calls/auth/CallSignOut';
 import { CallPing } from '../calls/auth/CallPing';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { CallGetGameData } from '../calls/game/CallGetGameData';
-import { setFullHand, setOwnHand } from './HandActions';
+import { resetOwnHand, setFullHand, setOwnHand } from './HandActions';
 import { CallGetFullHand } from '../calls/data/CallGetFullHand';
 
 export const verifyAuthentication = (): AppThunkAction<void> => {
@@ -78,6 +78,10 @@ export const signOut = (): AppThunkAction<void> => {
             })
             .finally(() => {
                 dispatch(resetUser);
+                dispatch(resetGame);
+                dispatch(resetBoard);
+                dispatch(resetPlayers);
+                dispatch(resetOwnHand);
             });
     };
 }
