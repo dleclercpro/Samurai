@@ -19,7 +19,7 @@ import { CallPing } from '../calls/auth/CallPing';
 import { isGameOver, isCurrentPlayer } from '../selectors';
 import { CallGetGameData } from '../calls/game/CallGetGameData';
 import { setFullHand, setOwnHand } from './HandActions';
-import { CallGetFullHand } from '../calls/game/CallGetFullHand';
+import { CallGetFullHand } from '../calls/data/CallGetFullHand';
 
 export const verifyAuthentication = (): AppThunkAction<void> => {
 
