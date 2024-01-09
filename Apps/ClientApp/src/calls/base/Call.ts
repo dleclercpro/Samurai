@@ -98,9 +98,12 @@ class Call {
             return response;
         }
 
+        // Either the error happened on the server, or there was issues communicating with the latter
+        const err = error ?? 'FETCH_ERROR';
+        console.warn(`Error in call [${this.name}]: ${err}`);
+
         // Something went wrong, but we let the processing happen further down the line
-        console.warn(`Error in call: ${this.name}`);
-        return Promise.reject(error ?? 'UNKNOWN_ERROR');
+        return Promise.reject(new Error(err));
     }
 }
 
