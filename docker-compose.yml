@@ -2,38 +2,38 @@ version: '3.8'
 
 
 services:
-  app:
+  samurai-app:
     container_name: samurai-app
     image: dleclercpro/samurai:latest
     restart: always
     depends_on:
-      - redis
-      - mongo
+      - samurai-redis
+      - samurai-mongo
     environment:
       NODE_ENV: production
 
-  nginx:
+  samurai-nginx:
     container_name: samurai-nginx
     image: dleclercpro/ssl-reverse-proxy:latest
     restart: always
-    ports:
-      - 443:443 # HTTPS
-      - 80:80   # HTTP
+    # ports:
+      # - 443:443 # HTTPS
+      # - 80:80   # HTTP
     volumes:
       - letsencrypt:/etc/letsencrypt # Keep SSL certificates
     depends_on:
-      - app
+      - samurai-app
     env_file:
       - .env.production
 
-  redis:
+  samurai-redis:
     container_name: samurai-redis
     image: redis:6.2
     restart: always
     volumes:
       - redis:/data
 
-  mongo:
+  samurai-mongo:
     container_name: samurai-mongo
     image: mongo:4.4.4
     restart: always
@@ -48,3 +48,9 @@ volumes:
   redis:
   mongo:
   letsencrypt:
+
+
+networks:
+  default:
+    external:
+      name: router-network
