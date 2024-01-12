@@ -9,6 +9,8 @@ services:
     depends_on:
       - samurai-redis
       - samurai-mongo
+    networks:
+      - custom
     environment:
       NODE_ENV: production
 
@@ -32,6 +34,8 @@ services:
     container_name: samurai-redis
     image: redis:6.2
     restart: always
+    networks:
+      - custom
     volumes:
       - redis:/data
 
@@ -39,6 +43,8 @@ services:
     container_name: samurai-mongo
     image: mongo:4.4.4
     restart: always
+    networks:
+      - custom
     volumes:
       - ./Apps/DatabaseApp/init.js:/docker-entrypoint-initdb.d/init.js:ro # Database initialization script
       - mongo:/data/db
