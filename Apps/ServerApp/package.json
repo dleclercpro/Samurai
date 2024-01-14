@@ -1,6 +1,6 @@
 {
   "name": "samurai-server",
-  "version": "latest",
+  "version": "feat-admin",
   "author": "David Leclerc",
   "license": "MIT",
   "private": true,

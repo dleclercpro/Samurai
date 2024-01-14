@@ -24,6 +24,8 @@ export const API_VERSION = 'v1';
 export const API_ROOT = `${ROOT}/api/${API_VERSION}`;
 export const STATIC_ROOT = `${ROOT}/static`;
 
+export const ADMIN = process.env.ADMIN;
+
 // Client
 export const CLIENT_PROTOCOL = process.env.CLIENT_PROTOCOL!;
 export const CLIENT_HOST = process.env.CLIENT_HOST!;
