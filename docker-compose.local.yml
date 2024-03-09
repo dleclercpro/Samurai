@@ -2,19 +2,19 @@ version: '3.8'
 
 
 services:
-  app:
+  samurai-app:
     container_name: samurai-app
-    image: dleclercpro/samurai:latest
+    image: dleclercpro/samurai:external-network
     restart: always
     ports:
       - 80:80
     depends_on:
-      - mongo
-      - redis
+      - samurai-mongo
+      - samurai-redis
     environment:
       NODE_ENV: local
 
-  redis:
+  samurai-redis:
     container_name: samurai-redis
     image: redis:6.2
     restart: always
@@ -23,7 +23,7 @@ services:
     volumes:
       - redis:/data
 
-  mongo:
+  samurai-mongo:
     container_name: samurai-mongo
     image: mongo:4.4.4
     restart: always

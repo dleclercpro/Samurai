@@ -2,45 +2,50 @@ version: '3.8'
 
 
 services:
-  app:
+  samurai-app:
     container_name: samurai-app
-    image: dleclercpro/samurai:latest
+    image: dleclercpro/samurai:external-network
     restart: always
     depends_on:
-      - redis
-      - mongo
+      - samurai-redis
+      - samurai-mongo
+    networks:
+      - custom
     environment:
       NODE_ENV: production
 
-  nginx:
+  samurai-nginx:
     container_name: samurai-nginx
-    image: dleclercpro/ssl-reverse-proxy:latest
+    image: dleclercpro/reverse-proxy:latest
     restart: always
-    ports:
+    ports:      # Comment out when putting behind load balancer
       - 443:443 # HTTPS
       - 80:80   # HTTP
+    networks:
+      - custom
     volumes:
       - letsencrypt:/etc/letsencrypt # Keep SSL certificates
+      - dhparams:/usr/dhparams       # Keep Dh params file
     depends_on:
-      - app
+      - samurai-app
     env_file:
       - .env.production
 
-  redis:
+  samurai-redis:
     container_name: samurai-redis
     image: redis:6.2
     restart: always
-    # ports:
-    #   - 6379:6379
+    networks:
+      - custom
     volumes:
       - redis:/data
 
-  mongo:
+  samurai-mongo:
     container_name: samurai-mongo
     image: mongo:4.4.4
     restart: always
-    ports:
-      - 27017:27017
+    networks:
+      - custom
     volumes:
       - ./Apps/DatabaseApp/init.js:/docker-entrypoint-initdb.d/init.js:ro # Database initialization script
       - mongo:/data/db
@@ -52,3 +57,10 @@ volumes:
   redis:
   mongo:
   letsencrypt:
+  dhparams:
+
+
+networks:
+  # Custom network to communicate with external services/containers
+  custom:
+    external: true
