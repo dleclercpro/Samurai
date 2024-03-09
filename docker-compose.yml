@@ -16,7 +16,7 @@ services:
 
   samurai-nginx:
     container_name: samurai-nginx
-    image: dleclercpro/ssl-reverse-proxy:latest
+    image: dleclercpro/reverse-proxy:latest
     restart: always
     # ports:
       # - 443:443 # HTTPS
