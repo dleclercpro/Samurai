@@ -1,6 +1,6 @@
 {
   "name": "samurai-server",
-  "version": "external-network",
+  "version": "latest",
   "author": "David Leclerc",
   "license": "MIT",
   "private": true,

@@ -4,7 +4,7 @@ version: '3.8'
 services:
   samurai-app:
     container_name: samurai-app
-    image: dleclercpro/samurai:external-network
+    image: dleclercpro/samurai:latest
     restart: always
     depends_on:
       - samurai-redis
